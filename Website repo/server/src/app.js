@@ -28,7 +28,20 @@ connectDB();
 
 // Security & middleware
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
+const allowedOrigins = process.env.NODE_ENV === 'production'
+  ? [process.env.CLIENT_URL].filter(Boolean)
+  : [
+      'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175',
+      'http://127.0.0.1:5173', 'http://127.0.0.1:5174',
+      process.env.CLIENT_URL,
+    ].filter(Boolean);
+app.use(cors({
+  origin: (origin, cb) => (!origin || allowedOrigins.includes(origin) ? cb(null, true) : cb(new Error('CORS blocked'))),
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+}));
+app.options('*', cors()); // pre-flight for all routes
 app.use(cookieParser());
 app.use(express.json({ limit: '10kb' }));
 
@@ -42,6 +55,7 @@ app.use('/api/v1/case-studies', require('./routes/caseStudies'));
 app.use('/api/v1/careers', require('./routes/careers'));
 app.use('/api/v1/contact', require('./routes/contact'));
 app.use('/api/v1/partners', require('./routes/partners'));
+app.use('/api/v1/chat', require('./routes/chat'));
 
 // Sitemap XML (SEO)
 app.get('/sitemap.xml', (req, res) => {

@@ -1,45 +1,53 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
 
 const SI = 'https://cdn.simpleicons.org';
 const WX = 'https://static.wixstatic.com/media';
+const CL = 'https://logo.clearbit.com';
 
-// filter:true  → icon is colored/dark, invert to white
-// filter:false → logo is already white/light (from Arinox CDN)
+// lc = CSS class from index.css for cross-theme logo visibility
+const WL = 'logo-white';    // white/light logos (WX CDN)
+const CS = 'logo-colored';  // colored simpleicons — inverted to white in dark, original in light
+const FC = 'logo-fullcolor'; // full-color Clearbit logos — no filter needed
+
 const techPartners = [
-  { name: 'NVIDIA', desc: 'AI accelerator for inference and training workloads — powering the most demanding enterprise AI deployments.', tag: 'Hardware', logo: `${SI}/nvidia/76b900`, filter: true },
-  { name: 'Kogo.ai', desc: 'AI agent platform enabling enterprises to build, deploy, and manage custom autonomous agents at scale.', tag: 'Agentic Mesh', logo: `${WX}/dd0ee7_dc6ef29b792a48718737ce48d7903a93~mv2.png`, filter: false },
-  { name: 'Lucidity', desc: 'Autonomous cloud storage management — optimizes multi-cloud performance and costs with intelligent automation.', tag: 'FinOps', logo: `${WX}/dd0ee7_88dcda527bfe4ecb805cae161cf529b5~mv2.png`, filter: false },
-  { name: 'Qualcomm', desc: 'Edge AI silicon powering on-device inference across mobile, IoT, and industrial deployments.', tag: 'Edge AI', logo: `${SI}/qualcomm/3253DC`, filter: true },
-  { name: 'LDRX', desc: 'AI-powered personal brand management for leaders, offering narrative control and automated content workflows.', tag: 'Brand AI', logo: null },
-  { name: 'iMemory', desc: 'Specialized memory modules designed to support long-context AI agent operations.', tag: 'AI Memory', logo: null },
+  { name: 'NVIDIA',   desc: 'AI accelerator for inference and training workloads — powering the most demanding enterprise AI deployments.', tag: 'Hardware',      logo: `${SI}/nvidia/76b900`,                                           lc: CS },
+  { name: 'Kogo.ai',  desc: 'AI agent platform enabling enterprises to build, deploy, and manage custom autonomous agents at scale.',       tag: 'Agentic Mesh', logo: `${WX}/dd0ee7_dc6ef29b792a48718737ce48d7903a93~mv2.png`,       lc: WL },
+  { name: 'Qualcomm', desc: 'Edge AI silicon powering on-device inference across mobile, IoT, and industrial deployments.',                 tag: 'Edge AI',      logo: `${SI}/qualcomm/3253DC`,                                         lc: CS },
 ];
 
 const siPartners = [
-  { name: 'Accenture', logo: `${SI}/accenture/a100ff`, filter: true },
-  { name: 'IBM', logo: `${SI}/ibm/ffffff`, filter: true },
-  { name: 'HPE', logo: `${WX}/ef7a11_64f239e2528b43c2ac75fcc1524bf499~mv2.png`, filter: false },
-  { name: 'Wipro', logo: `${SI}/wipro/341c6a`, filter: true },
-  { name: 'Coforge', logo: `${WX}/ef7a11_a28551da4b854e8e90260bcd82deb727~mv2.png`, filter: false },
-  { name: 'Tech Mahindra', logo: `${SI}/techmahindra/dd1700`, filter: true },
-  { name: 'EY', logo: null },
-  { name: 'Google Cloud', logo: `${SI}/googlecloud/4285f4`, filter: true },
-  { name: 'Microsoft Azure', logo: `${SI}/microsoftazure/0078d4`, filter: true },
-  { name: 'AWS', logo: `${SI}/amazonaws/ff9900`, filter: true },
+  { name: 'IBM',             logo: `${SI}/ibm/1f70c1`,                                                   lc: CS },
+  { name: 'HPE',             logo: `${WX}/ef7a11_64f239e2528b43c2ac75fcc1524bf499~mv2.png`,              lc: WL },
+  { name: 'Coforge',         logo: `${WX}/ef7a11_a28551da4b854e8e90260bcd82deb727~mv2.png`,              lc: WL },
+  { name: 'NetWeb',          logo: `${CL}/netweb.in`,                                                    lc: FC },
+  { name: 'EY',              logo: `${CL}/ey.com`,                                                       lc: FC },
+  { name: 'Google Cloud',    logo: `${SI}/googlecloud/4285f4`,                                           lc: CS },
+  { name: 'Microsoft Azure', logo: `${SI}/microsoftazure/0078d4`,                                        lc: CS },
+  { name: 'AWS',             logo: `${SI}/amazonaws/ff9900`,                                             lc: CS },
 ];
 
 const enterpriseClients = [
-  { name: 'Indian Army', industry: 'Defense', impact: '−82% alert-triage time', logo: `${WX}/ef7a11_58cfd59433de4b5eafbf2f4c5834f321~mv2.png`, filter: false },
-  { name: 'American Airlines', industry: 'Aviation', impact: 'Intelligent operations', logo: `${SI}/americanairlines/0078d2`, filter: true },
-  { name: 'Sun Mobility', industry: 'Mobility', impact: 'Intelligent logistics & fleet', logo: null },
-  { name: 'Sunlife Insurance', industry: 'Insurance', impact: 'Policy & claims AI agents', logo: null },
-  { name: 'Michelin', industry: 'Manufacturing', impact: '−31% AWS bill saved', logo: `${SI}/michelin/f60000`, filter: true },
-  { name: 'Caryn Health', industry: 'Healthcare', impact: '2× claims processed / FTE', logo: null },
-  { name: 'Saudi Expo 2030', industry: 'Government', impact: 'Smart operations', logo: null },
-  { name: 'Diageo', industry: 'FMCG', impact: 'Supply chain AI', logo: `${SI}/diageo/c5922e`, filter: true },
-  { name: 'Manipal Group', industry: 'Healthcare', impact: 'Patient management AI', logo: null },
-  { name: 'Conduent', industry: 'BPO', impact: 'Automation at scale', logo: null },
+  { name: 'Indian Army',      industry: 'Defense',   impact: '−82% alert-triage time',        logo: `${WX}/ef7a11_58cfd59433de4b5eafbf2f4c5834f321~mv2.png`, lc: WL },
+  { name: 'Hitachi',          industry: 'Technology',impact: 'Enterprise AI transformation',  logo: `${CL}/hitachi.com`,                                     lc: FC },
+  { name: 'Sun Mobility',     industry: 'Mobility',  impact: 'Intelligent logistics & fleet', logo: `${CL}/sunmobility.co.in`,                               lc: FC },
+  { name: 'Sunlife Insurance',industry: 'Insurance', impact: 'Policy & claims AI agents',     logo: `${CL}/sunlife.com`,                                     lc: FC },
 ];
+
+/* Falls back to a letter avatar if the CDN logo fails to load */
+const PartnerLogo = ({ src, alt, lc, imgClass, children }) => {
+  const [failed, setFailed] = useState(false);
+  if (!src || failed) return children;
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className={`${imgClass} ${lc || ''}`}
+      onError={() => setFailed(true)}
+    />
+  );
+};
 
 const Partners = () => (
   <>
@@ -95,20 +103,13 @@ const Partners = () => (
           <p className="text-brand-muted mt-4 text-sm">Production-ready. Scalable. Agentic.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {techPartners.map(({ name, desc, tag, logo, filter }, i) => (
+          {techPartners.map(({ name, desc, tag, logo, lc }, i) => (
             <motion.div key={name} initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="glass-card rounded-2xl p-6">
               <div className="flex items-start justify-between mb-4">
                 <div className="w-14 h-14 rounded-xl bg-brand-card border border-brand-border flex items-center justify-center overflow-hidden p-2">
-                  {logo ? (
-                    <img
-                      src={logo}
-                      alt={name}
-                      className="w-full h-full object-contain"
-                      style={filter ? { filter: 'brightness(0) invert(1)', opacity: 0.9 } : { opacity: 0.92 }}
-                    />
-                  ) : (
-                    <span className="text-lg font-bold text-white">{name[0]}</span>
-                  )}
+                  <PartnerLogo src={logo} alt={name} lc={lc} imgClass="w-full h-full object-contain">
+                    <span className="text-lg font-bold text-brand-text">{name[0]}</span>
+                  </PartnerLogo>
                 </div>
                 <span className="text-xs px-2 py-1 rounded-full bg-brand-primary/10 text-brand-primary">{tag}</span>
               </div>
@@ -127,24 +128,17 @@ const Partners = () => (
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">System Integrators</p>
           <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Delivering Through <span className="text-gradient">Global Leaders</span></h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {siPartners.map(({ name, logo, filter }, i) => (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          {siPartners.map(({ name, logo, lc }, i) => (
             <motion.div key={name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="glass-card rounded-xl p-5 flex flex-col items-center gap-3 group hover:border-brand-primary/30 transition-colors">
-              <div className="w-20 h-10 flex items-center justify-center">
-                {logo ? (
-                  <img
-                    src={logo}
-                    alt={name}
-                    className="max-w-full max-h-full object-contain"
-                    style={filter ? { filter: 'brightness(0) invert(1)', opacity: 0.75 } : { opacity: 0.85 }}
-                  />
-                ) : (
-                  <div className="w-10 h-10 rounded-xl bg-brand-card border border-brand-border flex items-center justify-center font-bold text-white text-sm">
+              <div className="w-24 h-10 flex items-center justify-center">
+                <PartnerLogo src={logo} alt={name} lc={lc} imgClass="max-w-full max-h-full object-contain">
+                  <div className="w-10 h-10 rounded-xl bg-brand-card border border-brand-border flex items-center justify-center font-bold text-brand-text text-sm">
                     {name[0]}
                   </div>
-                )}
+                </PartnerLogo>
               </div>
-              <p className="text-white text-xs font-semibold text-center leading-tight">{name}</p>
+              <p className="text-brand-text text-xs font-semibold text-center leading-tight">{name}</p>
             </motion.div>
           ))}
         </div>
@@ -158,25 +152,18 @@ const Partners = () => (
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Enterprise Clients</p>
           <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Transforming the World's <span className="text-gradient">Leading Enterprises</span></h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-          {enterpriseClients.map(({ name, industry, impact, logo, filter }, i) => (
-            <motion.div key={name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="glass-card rounded-xl p-5 flex flex-col items-center gap-3 group cursor-default hover:border-brand-primary/30 transition-colors">
-              <div className="w-16 h-12 flex items-center justify-center">
-                {logo ? (
-                  <img
-                    src={logo}
-                    alt={name}
-                    className="max-w-full max-h-full object-contain"
-                    style={filter ? { filter: 'brightness(0) invert(1)', opacity: 0.75 } : { opacity: 0.88 }}
-                  />
-                ) : (
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 border border-brand-border flex items-center justify-center font-bold text-white text-sm">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+          {enterpriseClients.map(({ name, industry, impact, logo, lc }, i) => (
+            <motion.div key={name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="glass-card rounded-xl p-6 flex flex-col items-center gap-3 group cursor-default hover:border-brand-primary/30 transition-colors">
+              <div className="w-20 h-14 flex items-center justify-center">
+                <PartnerLogo src={logo} alt={name} lc={lc} imgClass="max-w-full max-h-full object-contain">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 border border-brand-border flex items-center justify-center font-bold text-brand-text text-sm">
                     {name[0]}
                   </div>
-                )}
+                </PartnerLogo>
               </div>
               <div className="text-center">
-                <p className="text-white text-xs font-semibold leading-tight">{name}</p>
+                <p className="text-brand-text text-xs font-semibold leading-tight">{name}</p>
                 <p className="text-brand-primary text-[10px] mt-0.5">{industry}</p>
                 <p className="text-brand-muted text-[10px] mt-1 opacity-0 group-hover:opacity-100 transition-opacity">{impact}</p>
               </div>
@@ -193,12 +180,9 @@ const Partners = () => (
         <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6">
           Changing the AI world through <span className="text-gradient">innovative technology?</span>
         </h2>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex justify-center">
           <a href="/contact" className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold text-sm hover:opacity-90 transition-opacity">
             Become a Partner
-          </a>
-          <a href="/solutions" className="px-7 py-3.5 rounded-xl glass border border-brand-border text-white font-semibold text-sm hover:text-brand-primary transition-colors">
-            Explore Solutions
           </a>
         </div>
       </div>

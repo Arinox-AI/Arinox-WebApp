@@ -31,7 +31,7 @@ const team = [
     tags: [],
   },
   {
-    name: 'Chytra',
+    name: 'Dr Chytra V Anand',
     role: 'Co-Founder',
     superpower: 'Enterprise transformation catalyst',
     track: 'Champions client partnerships and enterprise AI adoption across global markets, turning complex deployments into measurable outcomes.',
@@ -42,7 +42,7 @@ const team = [
     role: 'Strategic Advisor',
     superpower: 'Enterprise systems architect',
     track: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
-    tags: ['Adobe Certified Developer', 'CSM', 'PMP'],
+    tags: [],
   },
   {
     name: 'Angad Singh',
@@ -62,15 +62,14 @@ const values = [
 ];
 
 const offices = [
-  { region: 'North America', locations: ['Princeton, New Jersey'] },
-  { region: 'Middle East (HQ)', locations: ['Dubai, UAE', 'Abu Dhabi, UAE', 'Riyadh, Saudi Arabia'] },
-  { region: 'South Asia', locations: ['New Delhi, India', 'Bangalore, India'] },
+  { region: 'North India', locations: ['New Delhi'] },
+  { region: 'South India', locations: ['Bangalore'] },
 ];
 
 const history = [
-  { year: '2022', title: 'Foundation', desc: 'Founded with a singular mission: democratize enterprise AI access. Established UAE HQ.' },
-  { year: '2023', title: 'First Partnerships', desc: 'Strategic alliance with Lucidity. First Fortune 500 implementation — 60% cloud cost reduction.' },
-  { year: '2024', title: 'Rapid Expansion', desc: 'Kogo.ai partnership. Indian Army, American Airlines, Saudi Expo 2030. Offices in 6 cities.' },
+  { year: '2022', title: 'Foundation', desc: 'Founded with a singular mission: democratize enterprise AI access. Established headquarters in India.' },
+  { year: '2023', title: 'First Partnerships', desc: 'First Fortune 500 implementation — 60% cloud cost reduction. Expanded enterprise AI deployments globally.' },
+  { year: '2024', title: 'Rapid Expansion', desc: 'Kogo.ai partnership. Indian Army and global enterprise deployments across Defence, Healthcare, Manufacturing & Finance. Offices across India.' },
 ];
 
 const About = () => {
@@ -106,7 +105,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             style={{ perspective: 1000 }}
-            className="text-6xl md:text-8xl font-display font-bold text-white"
+            className="text-4xl sm:text-5xl md:text-8xl font-display font-bold text-white"
           >
             Built to<br /><span className="text-gradient">Transform.</span>
           </motion.h1>
@@ -161,7 +160,7 @@ const About = () => {
               We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We don't improve efficiency — we multiply it.
             </p>
             <p className="text-brand-muted leading-relaxed">
-              Headquartered in UAE and USA, we operate across Princeton, Dubai, Abu Dhabi, Riyadh, New Delhi, and Bangalore — connecting innovation to implementation without borders.
+              Headquartered in India with offices in New Delhi and Bangalore — connecting innovation to implementation and delivering enterprise AI transformation globally.
             </p>
           </motion.div>
 
@@ -180,7 +179,7 @@ const About = () => {
               We don't build everything. We curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context — without the complexity.
             </p>
             <div className="grid grid-cols-2 gap-3 text-sm">
-              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo, Lucidity', '240+ AI Models Ready'].map(item => (
+              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', '240+ AI Models Ready'].map(item => (
                 <div key={item} className="flex items-start gap-2 text-brand-muted">
                   <span className="text-brand-primary mt-0.5">▸</span> {item}
                 </div>

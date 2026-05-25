@@ -10,26 +10,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const offices = [
   {
-    region: 'UAE (HQ)',
-    detail: 'Dubai, UAE',
-    flags: [{ src: 'https://flagcdn.com/ae.svg', alt: 'UAE' }],
-  },
-  {
-    region: 'USA',
-    detail: 'Princeton, NJ',
-    flags: [{ src: 'https://flagcdn.com/us.svg', alt: 'USA' }],
-  },
-  {
-    region: 'Middle East',
-    detail: 'Abu Dhabi · Riyadh',
-    flags: [
-      { src: 'https://flagcdn.com/ae.svg', alt: 'UAE' },
-      { src: 'https://flagcdn.com/sa.svg', alt: 'Saudi Arabia' },
-    ],
+    region: 'India',
+    detail: 'New Delhi',
+    flags: [{ src: 'https://flagcdn.com/in.svg', alt: 'India' }],
   },
   {
     region: 'India',
-    detail: 'Delhi · Bangalore',
+    detail: 'Bangalore',
     flags: [{ src: 'https://flagcdn.com/in.svg', alt: 'India' }],
   },
 ];

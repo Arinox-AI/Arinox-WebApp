@@ -1,9 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
 import DemoLink from '../components/ui/DemoLink';
 import MouseTilt from '../components/ui/MouseTilt';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
+import AuthModal from '../components/ui/AuthModal';
+import { useAuth } from '../hooks/useAuth.jsx';
 import commandcoreHeroImg from '../assets/commandcore.jpg';
 import mSeriesImg from '../assets/M-series.jpg';
 import mSeriesProImg from '../assets/m-series-pro.jpg';
@@ -92,8 +94,21 @@ const tiers = [
   },
 ];
 
-const CommandCore = () => (
+const CommandCore = () => {
+  const { user } = useAuth();
+  const [showAuth, setShowAuth] = useState(false);
+
+  const handleDownload = () => {
+    if (!user) { setShowAuth(true); return; }
+    const a = document.createElement('a');
+    a.href = '/commandcore-brochure.pdf';
+    a.download = 'CommandCore-Brochure.pdf';
+    a.click();
+  };
+
+  return (
   <>
+    <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => {}} defaultMode="register" />
     <SEO
       title="CommandCore — Sovereign AI Platform | Arinox AI"
       description="CommandCore is Arinox AI's sovereign, private AI infrastructure for enterprises. On-premises AI compute with 80+ agents, full data sovereignty, and enterprise-grade security."
@@ -134,9 +149,17 @@ const CommandCore = () => (
             <DemoLink className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 hover:shadow-xl hover:shadow-brand-primary/25 transition-all">
               Request a Demo
             </DemoLink>
-            <a href="/contact" className="px-6 py-3 rounded-xl glass border border-brand-border text-white text-sm font-medium hover:border-brand-primary/50 transition-all">
+            <button
+              onClick={handleDownload}
+              className="px-6 py-3 rounded-xl glass border border-brand-border text-white text-sm font-medium hover:border-brand-primary/50 transition-all flex items-center gap-2"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
               Download Brochure
-            </a>
+            </button>
           </div>
         </motion.div>
 
@@ -295,7 +318,7 @@ const CommandCore = () => (
           Who trusts CommandCore
         </motion.p>
         <div className="flex flex-wrap gap-3 justify-center mb-8">
-          {['Indian Army', 'Michelin', 'Caryn Health', 'Hewlett Packard Enterprise', 'Coforge', 'Tech Mahindra', 'Sun Life'].map((c, i) => (
+          {['Indian Army', 'Hewlett Packard Enterprise', 'Coforge', 'Sun Life', 'Fortune 500 Clients', 'Global Enterprises'].map((c, i) => (
             <motion.span
               key={c}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -338,6 +361,7 @@ const CommandCore = () => (
       </div>
     </section>
   </>
-);
+  );
+};
 
 export default CommandCore;

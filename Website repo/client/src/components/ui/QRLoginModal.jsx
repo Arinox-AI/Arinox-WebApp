@@ -83,12 +83,12 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.88, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 24, stiffness: 300 }}
-            className="relative w-full max-w-xs bg-brand-card rounded-2xl p-5 text-center border border-brand-border shadow-2xl shadow-black/50 my-auto"
+            className="relative w-full max-w-xs bg-brand-card rounded-2xl p-5 text-center border border-brand-border shadow-2xl shadow-black/50 my-auto overflow-y-auto max-h-[90dvh]"
           >
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-white transition-colors text-xs"
+              className="absolute top-3 right-3 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
             >
               ✕
             </button>
@@ -99,7 +99,7 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
               alt="Arinox AI"
               className="h-8 w-auto object-contain mx-auto mb-3 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
             />
-            <h2 className="text-base font-display font-bold text-white mb-0.5">Sign In to Arinox</h2>
+            <h2 className="text-base font-display font-bold text-brand-text mb-0.5">Sign In to Arinox</h2>
             <p className="text-[11px] text-brand-muted mb-3">Use your phone to scan the QR code and log in</p>
 
             {/* Sign-in badge */}
@@ -202,11 +202,15 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
             {onSwitchToEmail && (
               <div className="mt-4 pt-4 border-t border-brand-border space-y-2">
                 {import.meta.env.VITE_GOOGLE_CLIENT_ID && (
-                  <GoogleButton onSuccess={onClose} label="Continue with Google" />
+                  <GoogleButton
+                    onSuccess={onClose}
+                    label="Continue with Google"
+                    onNotFound={(googleUser) => { onClose(); onSwitchToEmail?.(googleUser); }}
+                  />
                 )}
                 <button
                   onClick={() => { onClose(); onSwitchToEmail(); }}
-                  className="w-full py-2 rounded-xl border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-white transition-all"
+                  className="w-full py-2 rounded-xl border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-brand-text transition-all"
                 >
                   Sign in with email instead
                 </button>

@@ -67,7 +67,7 @@ html.light-mode {
   width: 100%;
   max-width: 1320px;
   margin: 0 auto;
-  /* padding: 0 1.5rem; */
+  padding: 0 1.5rem;
 }
 
 .section-padding {
@@ -122,6 +122,17 @@ html.light-mode .glass-card {
 html.light-mode .glass-card:hover {
   border-color: rgba(254, 99, 0, 0.28);
 }
+
+/* ─── Partner logo filters ───────────────────────────── */
+/* Dark mode (default): white logos show as-is; colored SI logos inverted to white */
+.logo-white    { opacity: 0.85; }
+.logo-colored  { filter: brightness(0) invert(1); opacity: 0.85; }
+.logo-fullcolor{ opacity: 0.85; }
+
+/* Light mode: white logos inverted to black; colored SI logos show original color */
+html.light-mode .logo-white    { filter: invert(1); opacity: 0.85; }
+html.light-mode .logo-colored  { filter: none; opacity: 0.9; }
+html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
 
 /* ─── Buttons ────────────────────────────────────────── */
 .btn-primary {
@@ -192,7 +203,7 @@ html.light-mode .glass-card:hover {
   background: #FE6300;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  z-index: 9999;
+  z-index: 2147483647;
   will-change: left, top;
   transition: opacity 0.2s ease;
 }
@@ -204,7 +215,7 @@ html.light-mode .glass-card:hover {
   border: 1.5px solid rgba(254, 99, 0, 0.55);
   pointer-events: none;
   transform: translate(-50%, -50%);
-  z-index: 9998;
+  z-index: 2147483646;
   will-change: left, top;
   transition: left 0.1s ease-out, top 0.1s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
 }
@@ -457,6 +468,12 @@ html.light-mode .logo-mono {
 html.light-mode .logo-color {
   opacity: 0.65;
 }
+
+/* ─── Chatbot cursor fix — restore native cursors inside the widget ─── */
+/* body sets cursor:none globally; these overrides bring back expected cursors */
+[data-chatbot] textarea { cursor: text !important; }
+[data-chatbot] button   { cursor: pointer !important; }
+[data-chatbot] *        { cursor: default; }
 
 /* ─── Mobile touch targets ───────────────────────────────── */
 @media (max-width: 639px) {

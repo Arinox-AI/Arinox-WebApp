@@ -76,14 +76,14 @@ const CookieBanner = () => {
                 >
                   <button
                     onClick={() => setShowManage(false)}
-                    className="absolute top-4 right-4 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-white transition-colors text-xs"
+                    className="absolute top-4 right-4 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
                   >
                     ✕
                   </button>
 
                   <div className="flex items-center gap-2.5 mb-1">
                     <CookieIcon />
-                    <h2 className="text-white font-display font-bold text-base">Cookie Preferences</h2>
+                    <h2 className="text-brand-text font-display font-bold text-base">Cookie Preferences</h2>
                   </div>
                   <p className="text-brand-muted text-xs mb-5 leading-relaxed">
                     Choose which cookies you allow. Necessary cookies are always active and keep the site running securely.
@@ -93,7 +93,7 @@ const CookieBanner = () => {
                     {categories.map(({ key, label, description, locked }) => (
                       <div key={key} className="flex items-start gap-3 p-3.5 rounded-xl bg-brand-surface border border-brand-border">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-semibold text-white mb-0.5">{label}</p>
+                          <p className="text-sm font-semibold text-brand-text mb-0.5">{label}</p>
                           <p className="text-[11px] text-brand-muted leading-relaxed">{description}</p>
                         </div>
                         <button
@@ -117,7 +117,7 @@ const CookieBanner = () => {
                   <div className="flex gap-2.5">
                     <button
                       onClick={rejectAll}
-                      className="flex-1 py-2.5 rounded-xl border border-brand-border text-brand-muted text-xs font-semibold hover:border-brand-primary hover:text-white transition-all"
+                      className="flex-1 py-2.5 rounded-xl border border-brand-border text-brand-muted text-xs font-semibold hover:border-brand-primary hover:text-brand-text transition-all"
                     >
                       Reject All
                     </button>
@@ -154,7 +154,7 @@ const CookieBanner = () => {
                     <CookieIcon />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-white text-sm font-semibold mb-0.5">We use cookies</p>
+                    <p className="text-brand-text text-sm font-semibold mb-0.5">We use cookies</p>
                     <p className="text-brand-muted text-xs leading-relaxed">
                       We use cookies to improve your experience, analyse site traffic, and personalise content. You can manage your preferences at any time.{' '}
                       <a href="/privacy" className="text-brand-primary hover:underline">Privacy Policy</a>
@@ -165,13 +165,13 @@ const CookieBanner = () => {
                 <div className="flex flex-wrap gap-2 mt-3.5">
                   <button
                     onClick={() => setShowManage(true)}
-                    className="px-3.5 py-2 rounded-lg border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-white transition-all"
+                    className="px-3.5 py-2 rounded-lg border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-brand-text transition-all"
                   >
                     Manage Preferences
                   </button>
                   <button
                     onClick={rejectAll}
-                    className="px-3.5 py-2 rounded-lg border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-white transition-all"
+                    className="px-3.5 py-2 rounded-lg border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-brand-text transition-all"
                   >
                     Reject All
                   </button>

@@ -1,6 +1,6 @@
-const nodemailer = require('nodemailer');
 const validator = require('validator');
-const Contact = require('../models/Contact');
+const supabase = require('../config/supabase');
+const { sendMail, contactNotification, contactAutoReply } = require('../utils/mailer');
 
 const submitContact = async (req, res, next) => {
   try {
@@ -11,36 +11,40 @@ const submitContact = async (req, res, next) => {
     if (!validator.isEmail(email))
       return res.status(400).json({ success: false, message: 'Invalid email address.' });
 
-    const contact = await Contact.create({ name, email, company, phone, subject, message });
+    const now = new Date().toISOString();
+    const { data: contact, error } = await supabase
+      .from('Contacts')
+      .insert({ name, email, company, phone, subject, message, createdAt: now, updatedAt: now })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
 
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: Number(process.env.EMAIL_PORT),
-        auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-      });
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: process.env.EMAIL_TO,
+    // Notify team + auto-reply to user (fire and forget — don't fail the request if email fails)
+    Promise.all([
+      sendMail({
+        to: process.env.EMAIL_TO || 'assist@arinox.ai',
         subject: `[Arinox] ${subject || 'New Contact'} from ${name}`,
-        html: `<h3>New Contact Submission</h3>
-          <p><b>Name:</b> ${name}</p>
-          <p><b>Email:</b> ${email}</p>
-          <p><b>Company:</b> ${company || 'N/A'}</p>
-          <p><b>Phone:</b> ${phone || 'N/A'}</p>
-          <p><b>Subject:</b> ${subject}</p>
-          <p><b>Message:</b><br>${message}</p>`,
-      });
-    }
+        html: contactNotification({ name, email, company, phone, subject, message }),
+      }),
+      sendMail({
+        to: email,
+        subject: `We received your message — Arinox AI`,
+        html: contactAutoReply({ name, subject }),
+      }),
+    ]).catch(err => console.error('Email error (contact):', err.message));
 
-    res.status(201).json({ success: true, message: 'Thank you! We will be in touch shortly.', id: contact.id });
+    res.status(201).json({ success: true, message: "Thank you! We'll be in touch shortly.", id: contact.id });
   } catch (err) { next(err); }
 };
 
 const getContacts = async (req, res, next) => {
   try {
-    const contacts = await Contact.findAll({ order: [['createdAt', 'DESC']] });
-    res.json({ success: true, data: contacts });
+    const { data, error } = await supabase
+      .from('Contacts')
+      .select('*')
+      .order('createdAt', { ascending: false });
+    if (error) throw new Error(error.message);
+    res.json({ success: true, data });
   } catch (err) { next(err); }
 };
 

@@ -3,8 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth.jsx';
 
-// Inner component — only rendered when GoogleOAuthProvider is present
-const GoogleButtonInner = ({ onSuccess, label }) => {
+const GoogleButtonInner = ({ onSuccess, onNotFound, label }) => {
   const { login } = useAuth();
 
   const handleGoogle = useGoogleLogin({
@@ -15,7 +14,11 @@ const GoogleButtonInner = ({ onSuccess, label }) => {
         toast.success(`Welcome, ${data.user.name.split(' ')[0]}!`);
         onSuccess?.();
       } catch (err) {
-        toast.error(err.response?.data?.message || 'Google sign-in failed.');
+        if (err.response?.status === 404 && err.response?.data?.code === 'USER_NOT_FOUND') {
+          onNotFound?.(err.response.data.googleUser);
+        } else {
+          toast.error(err.response?.data?.message || 'Google sign-in failed.');
+        }
       }
     },
     onError: () => toast.error('Google sign-in was cancelled.'),
@@ -25,7 +28,7 @@ const GoogleButtonInner = ({ onSuccess, label }) => {
     <button
       type="button"
       onClick={() => handleGoogle()}
-      className="w-full flex items-center justify-center gap-2.5 py-2.5 rounded-xl border border-brand-border text-white text-sm font-medium hover:border-white/30 hover:bg-white/5 transition-all duration-200"
+      className="w-full flex items-center justify-center gap-2.5 py-2.5 rounded-xl bg-white border border-gray-200 text-gray-700 text-sm font-medium hover:bg-gray-50 shadow-sm transition-all duration-200"
     >
       <GoogleIcon />
       {label}
@@ -33,10 +36,9 @@ const GoogleButtonInner = ({ onSuccess, label }) => {
   );
 };
 
-// Outer shell — renders nothing if Google Client ID is not configured
-const GoogleButton = ({ onSuccess, label = 'Continue with Google' }) => {
+const GoogleButton = ({ onSuccess, onNotFound, label = 'Continue with Google' }) => {
   if (!import.meta.env.VITE_GOOGLE_CLIENT_ID) return null;
-  return <GoogleButtonInner onSuccess={onSuccess} label={label} />;
+  return <GoogleButtonInner onSuccess={onSuccess} onNotFound={onNotFound} label={label} />;
 };
 
 const GoogleIcon = () => (

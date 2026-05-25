@@ -22,6 +22,7 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [showQR, setShowQR] = useState(false);
+  const [pendingGoogleUser, setPendingGoogleUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
   const userMenuRef = useRef(null);
@@ -114,7 +115,7 @@ const Navbar = () => {
                   <span className="w-6 h-6 rounded-full bg-brand-primary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary text-[11px] font-bold flex-shrink-0">
                     {user.name.charAt(0).toUpperCase()}
                   </span>
-                  <span className="text-white font-medium">{user.name.split(' ')[0]}</span>
+                  <span className="text-brand-text font-medium">{user.name.split(' ')[0]}</span>
                   <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-brand-muted">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                   </svg>
@@ -131,7 +132,7 @@ const Navbar = () => {
                     </div>
                     <button
                       onClick={() => { logout(); setShowUserMenu(false); }}
-                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-brand-muted hover:text-white hover:bg-brand-surface transition-colors text-left"
+                      className="w-full flex items-center gap-2 px-3 py-2.5 text-sm text-brand-muted hover:text-brand-text hover:bg-brand-surface transition-colors text-left"
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4" />
@@ -156,7 +157,7 @@ const Navbar = () => {
 
           {/* Mobile burger */}
           <button
-            className="lg:hidden p-2 text-brand-muted hover:text-white transition-colors"
+            className="lg:hidden p-2 text-brand-muted hover:text-brand-text transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -210,11 +211,11 @@ const Navbar = () => {
                   {user ? (
                     <div className="space-y-2">
                       <p className="text-sm text-brand-muted px-1">
-                        Hi, <span className="text-white font-medium">{user.name.split(' ')[0]}</span>
+                        Hi, <span className="text-brand-text font-medium">{user.name.split(' ')[0]}</span>
                       </p>
                       <button
                         onClick={() => { logout(); setMobileOpen(false); }}
-                        className="w-full py-2.5 rounded-xl border border-brand-border text-brand-muted text-sm font-semibold hover:border-brand-primary hover:text-white transition-all"
+                        className="w-full py-2.5 rounded-xl border border-brand-border text-brand-muted text-sm font-semibold hover:border-brand-primary hover:text-brand-text transition-all"
                       >
                         Logout
                       </button>
@@ -237,12 +238,18 @@ const Navbar = () => {
       <QRLoginModal
         isOpen={showQR}
         onClose={() => setShowQR(false)}
-        onSwitchToEmail={() => setShowAuth(true)}
+        onSwitchToEmail={(googleUser) => {
+          setShowQR(false);
+          if (googleUser) setPendingGoogleUser(googleUser);
+          setShowAuth(true);
+        }}
       />
       <AuthModal
         isOpen={showAuth}
-        onClose={() => setShowAuth(false)}
+        onClose={() => { setShowAuth(false); setPendingGoogleUser(null); }}
         onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }}
+        defaultMode="login"
+        pendingGoogleUser={pendingGoogleUser}
       />
     </>
   );

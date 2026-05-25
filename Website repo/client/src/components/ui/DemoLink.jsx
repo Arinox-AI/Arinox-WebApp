@@ -31,6 +31,7 @@ const DemoLink = ({ className, children }) => {
         isOpen={showAuth}
         onClose={() => setShowAuth(false)}
         onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }}
+        defaultMode="register"
       />
       <QRLoginModal isOpen={showQR} onClose={() => setShowQR(false)} />
     </>

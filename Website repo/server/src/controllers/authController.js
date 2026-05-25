@@ -1,14 +1,27 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
 const QRCode = require('qrcode');
 const https = require('https');
-const User = require('../models/User');
-const QRSession = require('../models/QRSession');
+const supabase = require('../config/supabase');
 
-const QR_TTL = 5 * 60 * 1000; // 5 minutes
-
-// In-memory store as fast cache / fallback
+const QR_TTL = 5 * 60 * 1000;
 const qrMemStore = new Map();
+
+const findUserBy = async (field, value) => {
+  const { data } = await supabase.from('Users').select('*').eq(field, value).maybeSingle();
+  return data;
+};
+
+const updateUser = async (id, fields) => {
+  const { data } = await supabase
+    .from('Users')
+    .update({ ...fields, updatedAt: new Date().toISOString() })
+    .eq('id', id)
+    .select()
+    .single();
+  return data;
+};
 
 const getQRSession = async (token) => {
   if (qrMemStore.has(token)) {
@@ -17,7 +30,7 @@ const getQRSession = async (token) => {
     return s;
   }
   try {
-    const s = await QRSession.findOne({ where: { token } });
+    const { data: s } = await supabase.from('QRSessions').select('*').eq('token', token).maybeSingle();
     if (!s || new Date(s.expiresAt) < new Date()) return null;
     return s;
   } catch { return null; }
@@ -25,11 +38,13 @@ const getQRSession = async (token) => {
 
 const setQRSession = async (token, data) => {
   const expiresAt = new Date(Date.now() + QR_TTL);
-  const session = { token, ...data, expiresAt: expiresAt.getTime() };
-  qrMemStore.set(token, session);
+  qrMemStore.set(token, { token, ...data, expiresAt: expiresAt.getTime() });
   try {
-    await QRSession.upsert({ token, ...data, expiresAt });
-  } catch { /* DB offline — mem store is fallback */ }
+    await supabase.from('QRSessions').upsert(
+      { token, ...data, expiresAt: expiresAt.toISOString(), updatedAt: new Date().toISOString() },
+      { onConflict: 'token' }
+    );
+  } catch { /* mem store is fallback */ }
 };
 
 const signToken = (id) =>
@@ -50,11 +65,19 @@ const register = async (req, res, next) => {
     if (!name || !email || !password)
       return res.status(400).json({ success: false, message: 'Name, email and password are required.' });
 
-    const existing = await User.findOne({ where: { email } });
+    const existing = await findUserBy('email', email);
     if (existing)
       return res.status(409).json({ success: false, message: 'Email already registered.' });
 
-    const user = await User.create({ name, email, password, company, phone });
+    const hashed = await bcrypt.hash(password, 12);
+    const now = new Date().toISOString();
+    const { data: user, error } = await supabase
+      .from('Users')
+      .insert({ name, email, password: hashed, company, phone, createdAt: now, updatedAt: now })
+      .select()
+      .single();
+    if (error) throw new Error(error.message);
+
     const token = signToken(user.id);
     setAuthCookie(res, token);
     res.status(201).json({
@@ -70,13 +93,11 @@ const login = async (req, res, next) => {
     if (!email || !password)
       return res.status(400).json({ success: false, message: 'Email and password are required.' });
 
-    const user = await User.findOne({ where: { email } });
-    if (!user || !user.password || !(await user.comparePassword(password)))
+    const user = await findUserBy('email', email);
+    if (!user || !user.password || !(await bcrypt.compare(password, user.password)))
       return res.status(401).json({ success: false, message: 'Invalid credentials.' });
 
-    user.lastLogin = new Date();
-    user.loginMethod = 'password';
-    await user.save();
+    await updateUser(user.id, { lastLogin: new Date().toISOString(), loginMethod: 'password' });
 
     const token = signToken(user.id);
     setAuthCookie(res, token);
@@ -93,11 +114,8 @@ const generateQR = async (req, res, next) => {
     await setQRSession(token, { status: 'pending', userId: null, jwt: null });
 
     const baseUrl = process.env.CLIENT_URL || 'http://localhost:5173';
-    const qrUrl = `${baseUrl}/auth/qr-scan/${token}`;
-
-    const qrImage = await QRCode.toDataURL(qrUrl, {
-      width: 280,
-      margin: 2,
+    const qrImage = await QRCode.toDataURL(`${baseUrl}/auth/qr-scan/${token}`, {
+      width: 280, margin: 2,
       color: { dark: '#FE6300', light: '#00000000' },
       errorCorrectionLevel: 'M',
     });
@@ -111,7 +129,6 @@ const checkQRStatus = async (req, res, next) => {
     const session = await getQRSession(req.params.token);
     if (!session)
       return res.status(404).json({ success: false, message: 'QR session expired. Please refresh.' });
-
     res.json({ success: true, status: session.status, jwt: session.jwt || null });
   } catch (err) { next(err); }
 };
@@ -125,16 +142,13 @@ const confirmQRScan = async (req, res, next) => {
     if (!session)
       return res.status(400).json({ success: false, message: 'QR session expired. Please refresh the QR code.' });
 
-    const user = await User.findOne({ where: { email } });
-    if (!user || !user.password || !(await user.comparePassword(password)))
+    const user = await findUserBy('email', email);
+    if (!user || !user.password || !(await bcrypt.compare(password, user.password)))
       return res.status(401).json({ success: false, message: 'Invalid email or password.' });
 
     const jwtToken = signToken(user.id);
     await setQRSession(token, { status: 'authenticated', userId: user.id, jwt: jwtToken });
-
-    user.lastLogin = new Date();
-    user.loginMethod = 'qr';
-    await user.save().catch(() => {});
+    await updateUser(user.id, { lastLogin: new Date().toISOString(), loginMethod: 'qr' }).catch(() => {});
 
     const io = req.app.get('io');
     if (io) {
@@ -152,7 +166,7 @@ const checkEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
     if (!email) return res.status(400).json({ success: false, message: 'Email required.' });
-    const user = await User.findOne({ where: { email } });
+    const user = await findUserBy('email', email);
     res.json({ success: true, exists: !!user });
   } catch (err) { next(err); }
 };
@@ -167,10 +181,7 @@ const confirmQRWithJWT = async (req, res, next) => {
     const user = req.user;
     const jwtToken = signToken(user.id);
     await setQRSession(token, { status: 'authenticated', userId: user.id, jwt: jwtToken });
-
-    user.lastLogin = new Date();
-    user.loginMethod = 'qr';
-    await user.save().catch(() => {});
+    await updateUser(user.id, { lastLogin: new Date().toISOString(), loginMethod: 'qr' }).catch(() => {});
 
     const io = req.app.get('io');
     if (io) {
@@ -185,12 +196,11 @@ const confirmQRWithJWT = async (req, res, next) => {
 
 const getMe = async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.user.id);
+    const { data: user } = await supabase.from('Users').select('*').eq('id', req.user.id).maybeSingle();
     res.json({ success: true, user });
   } catch (err) { next(err); }
 };
 
-// Verify Google access token by calling Google's userinfo endpoint
 const getGoogleUser = (access_token) => new Promise((resolve, reject) => {
   https.get(
     `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`,
@@ -210,22 +220,35 @@ const getGoogleUser = (access_token) => new Promise((resolve, reject) => {
 
 const googleAuth = async (req, res, next) => {
   try {
-    const { access_token } = req.body;
+    const { access_token, register: doRegister = false } = req.body;
     if (!access_token)
       return res.status(400).json({ success: false, message: 'Google access token missing.' });
 
     const { sub: googleId, email, name, picture } = await getGoogleUser(access_token);
 
-    let user = await User.findOne({ where: { email } });
+    let user = await findUserBy('email', email);
+
     if (!user) {
-      user = await User.create({ name, email, googleId, avatar: picture, isVerified: true });
-    } else if (!user.googleId) {
-      user.googleId = googleId;
-      if (!user.avatar) user.avatar = picture;
+      if (!doRegister) {
+        return res.status(404).json({
+          success: false, code: 'USER_NOT_FOUND',
+          googleUser: { name, email, picture },
+        });
+      }
+      const now = new Date().toISOString();
+      const { data: newUser, error } = await supabase
+        .from('Users')
+        .insert({ name, email, googleId, avatar: picture, isVerified: true, createdAt: now, updatedAt: now })
+        .select()
+        .single();
+      if (error) throw new Error(error.message);
+      user = newUser;
+    } else {
+      const updates = { lastLogin: new Date().toISOString(), loginMethod: 'google' };
+      if (!user.googleId) updates.googleId = googleId;
+      if (!user.avatar) updates.avatar = picture;
+      await updateUser(user.id, updates).catch(() => {});
     }
-    user.lastLogin = new Date();
-    user.loginMethod = 'google';
-    await user.save();
 
     const token = signToken(user.id);
     setAuthCookie(res, token);
@@ -241,7 +264,6 @@ const logout = (req, res) => {
   res.json({ success: true, message: 'Logged out.' });
 };
 
-// Called by the browser after QR socket event to get the cookie set
 const setCookieFromToken = (req, res) => {
   const { token } = req.body;
   if (!token) return res.status(400).json({ success: false, message: 'Token required.' });

@@ -22,7 +22,7 @@ const Footer = () => (
             <img src="/logo.png" alt="Arinox AI" className="h-6 w-auto object-contain opacity-90" />
           </Link>
           <p className="text-[11px] text-brand-subtle leading-snug">
-            Sovereign AI for the world's highest-stakes operations.
+            Sovereign AI infrastructure, built for operational reality.
           </p>
         </div>
 
@@ -60,7 +60,7 @@ const Footer = () => (
           © {new Date().getFullYear()} Arinox AI. All rights reserved.
         </p>
         <div className="flex items-center gap-4 text-[11px] text-brand-subtle">
-          <span>UAE · USA · India · Saudi Arabia</span>
+          <span>India</span>
           <a href="#" className="hover:text-brand-muted transition-colors">Privacy</a>
           <a href="#" className="hover:text-brand-muted transition-colors">Terms</a>
         </div>

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Landmark, ShieldCheck, Building2, Scale, Activity, Cpu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DemoLink from '../components/ui/DemoLink';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
@@ -86,6 +87,15 @@ const NetworkIcon = () => (
   </svg>
 );
 
+const industryCards = [
+  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   color: '#3b82f6', img: '/industries/legal.jpeg'      },
+  { Icon: ShieldCheck, name: 'Defence & Army',     desc: 'Sovereign military AI systems',    color: '#ef4444', img: '/industries/defence.jpeg'    },
+  { Icon: Building2,   name: 'Government',          desc: 'Public sector intelligence',      color: '#10b981', img: '/industries/government.jpeg' },
+  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  color: '#8b5cf6', img: '/industries/banking.jpeg'    },
+  { Icon: Activity,    name: 'Healthcare',           desc: 'Clinical AI & health compliance', color: '#06b6d4', img: '/industries/healthcare.jpeg' },
+  { Icon: Cpu,         name: 'Technology',           desc: 'Enterprise tech platforms',       color: '#FE6300', img: '/industries/technology.jpeg' },
+];
+
 /* ─── Data ──────────────────────────────────────────────── */
 const whyCards = [
   { Icon: ShieldCheckIcon, title: 'Sovereign AI', desc: 'Your data stays yours. Deploy on private cloud or on-prem. Compliance built in, not bolted on.' },
@@ -119,24 +129,17 @@ const clients = [
   { name: 'HPE', logo: `${WX}/ef7a11_64f239e2528b43c2ac75fcc1524bf499~mv2.png`, mono: false },
   { name: 'Indian Army', logo: `${WX}/ef7a11_58cfd59433de4b5eafbf2f4c5834f321~mv2.png`, mono: false },
   { name: 'Sun Mobility', logo: `${CL}/sunmobility.co.in`, mono: false },
-  { name: 'American Airlines', logo: `${SI}/americanairlines/0078d2`, mono: true },
   { name: 'NVIDIA', logo: `${SI}/nvidia/76b900`, mono: true },
-  { name: 'Accenture', logo: `${SI}/accenture/a100ff`, mono: true },
   { name: 'Coforge', logo: `${WX}/ef7a11_a28551da4b854e8e90260bcd82deb727~mv2.png`, mono: false },
-  { name: 'Michelin', logo: `${SI}/michelin/f60000`, mono: true },
-  { name: 'Caryn Health', logo: `${CL}/carynhealth.com`, mono: false },
-  { name: 'Saudi Expo 2030', logo: `${CL}/expo2030riyadh.com`, mono: false },
-  { name: 'Tech Mahindra', logo: `${SI}/techmahindra/dd1700`, mono: true },
-  { name: 'Deloitte', logo: `${SI}/deloitte/86bc25`, mono: true },
+  { name: 'Sun Mobility', logo: `${CL}/sunmobility.co.in`, mono: false },
   { name: 'EY', logo: `${CL}/ey.com`, mono: false },
-  { name: 'Wipro', logo: `${SI}/wipro/341c6a`, mono: true },
 ];
 
 const results = [
-  { client: 'Michelin', outcome: '−31% AWS bill', saved: '₹7.2 Cr saved', agent: 'Lucidity FinOps + KOGO AutoML' },
   { client: 'Indian Army', outcome: '−82% alert-triage time', saved: 'Operational edge', agent: 'KOGO Sentinel + on-prem LLaMA-4' },
-  { client: 'Caryn Health', outcome: '2× claims per FTE', saved: 'Cost halved', agent: 'KOGO Claim-QA Agent' },
-  { client: 'Tech Mahindra', outcome: '+18% ticket capacity', saved: '−28% Azure cost', agent: 'KOGO Helpdesk Mesh + Lucidity' },
+  { client: 'Fortune 500 Client', outcome: '−60% cloud cost', saved: 'Millions saved', agent: 'KOGO FinOps + AutoML Agent' },
+  { client: 'Insurance Enterprise', outcome: '2× claims per FTE', saved: 'Cost halved', agent: 'KOGO Claim-QA Agent' },
+  { client: 'Global BPO', outcome: '+18% ticket capacity', saved: '−28% Azure cost', agent: 'KOGO Helpdesk Mesh' },
 ];
 
 /* ─── About data ────────────────────────────────────────── */
@@ -158,7 +161,7 @@ const team = [
     tags: [],
   },
   {
-    name: 'Chytra',
+    name: 'Dr Chytra V Anand',
     role: 'Co-Founder',
     superpower: 'Enterprise transformation catalyst',
     track: 'Champions client partnerships and enterprise AI adoption across global markets, turning complex deployments into measurable outcomes.',
@@ -171,7 +174,7 @@ const team = [
     superpower: 'Enterprise systems architect',
     track: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
     photo: udayPhoto,
-    tags: ['Adobe Certified Developer', 'CSM', 'PMP'],
+    tags: [],
   },
   {
     name: 'Angad Singh',
@@ -184,15 +187,13 @@ const team = [
 ];
 
 const history = [
-  { year: '2022', title: 'Foundation', desc: 'Founded with a singular mission: democratize enterprise AI. Established UAE HQ.' },
-  { year: '2023', title: 'First Partnerships', desc: 'Strategic alliance with Lucidity. First Fortune 500 — 60% cloud cost reduction.' },
-  { year: '2024', title: 'Rapid Expansion', desc: 'Kogo.ai partnership. Indian Army, American Airlines, Saudi Expo 2030. 6 cities.' },
+  { year: '2022', title: 'Foundation', desc: 'Founded with a singular mission: democratize enterprise AI. Established headquarters in India.' },
+  { year: '2023', title: 'First Partnerships', desc: 'First Fortune 500 implementation — 60% cloud cost reduction. Expanded enterprise AI deployments globally.' },
+  { year: '2024', title: 'Rapid Expansion', desc: 'Kogo.ai partnership. Indian Army and global enterprise deployments across Defence, Healthcare, Manufacturing & Finance. Offices across India.' },
 ];
 
 const offices = [
-  { region: 'North America', locations: ['Princeton, New Jersey'] },
-  { region: 'Middle East (HQ)', locations: ['Dubai, UAE', 'Abu Dhabi, UAE', 'Riyadh, Saudi Arabia'] },
-  { region: 'South Asia', locations: ['New Delhi, India', 'Bangalore, India'] },
+  { region: 'India', locations: ['New Delhi', 'Bangalore'] },
 ];
 
 /* ─── Animated Counter ──────────────────────────────────── */
@@ -287,18 +288,6 @@ const Home = () => {
           style={{ y: heroY, opacity: heroOpacity }}
           className="relative z-10 text-center container-wide pt-28 pb-20"
         >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, ease: 'backOut' }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs font-semibold text-brand-primary mb-8 border border-brand-primary/25 relative"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-ping absolute left-4" />
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-primary ml-3" />
-            AI Transformation at Enterprise Scale
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 48 }}
@@ -325,7 +314,7 @@ const Home = () => {
             transition={{ duration: 0.65, delay: 0.32 }}
             className="text-base md:text-lg text-brand-muted max-w-xl mx-auto mb-10 leading-relaxed"
           >
-            From defence and banking to healthcare, government, legal, and technology — Arinox delivers sovereign AI for the world's highest-stakes operations.
+            From agentic automation and voice AI to sovereign on-premises compute and real-time decision intelligence — Arinox delivers enterprise AI across every industry and domain, entirely within your environment.
           </motion.p>
 
           {/* CTAs */}
@@ -339,11 +328,11 @@ const Home = () => {
               <Link to="/solutions" className="btn-primary w-full sm:w-auto px-7 py-3 rounded-xl text-white font-semibold text-sm text-center">
                 Explore Solutions →
               </Link>
-              <DemoLink className="w-full sm:w-auto px-7 py-3 rounded-xl border border-white/25 bg-white/5 backdrop-blur-sm text-white font-semibold hover:bg-white/10 hover:border-white/40 hover:-translate-y-0.5 transition-all duration-300 text-sm text-center">
+              <DemoLink className="w-full sm:w-auto px-7 py-3 rounded-xl bg-brand-primary text-white font-semibold hover:bg-brand-primary/90 hover:-translate-y-0.5 transition-all duration-300 text-sm text-center shadow-lg shadow-brand-primary/30">
                 Book a Free 15-min Call →
               </DemoLink>
             </div>
-            <span className="text-[11px] text-brand-muted text-center max-w-sm">Free call — we show you exactly where AI can save your business money. No tech knowledge needed.</span>
+            <span className="text-[11px] text-brand-muted text-center max-w-sm">Free session — we map where intelligent AI fits your organisation's operations, strategy, and compliance needs.</span>
           </motion.div>
 
           {/* Scroll cue */}
@@ -367,22 +356,64 @@ const Home = () => {
         <FloatingOrbs preset="warm" />
         <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
           <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Who We Are</p>
+            <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Where We Operate</p>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-5 leading-tight">
-              We don't do business with enterprises.<br />
-              <span className="text-gradient">We do it with the world.</span>
+              Wherever AI needs to perform<br />
+              <span className="text-gradient">without compromise.</span>
             </h2>
-            <p className="text-brand-muted leading-relaxed mb-5 text-sm md:text-base">
-              We don't just do business with enterprises — we do business with the institutions that run the world. Banks managing trillions. Armies protecting nations. Governments serving millions. Legal systems upholding justice. Hospitals saving lives. Tech giants shaping the future. Wherever the stakes are highest, Arinox delivers AI that's sovereign, scalable, and ready to act from day one.
+            <p className="text-brand-muted leading-relaxed mb-6 text-sm md:text-base">
+              Arinox deploys across every industry where data integrity, regulatory compliance, and operational continuity are non-negotiable — from national defence and capital markets to public governance, legal institutions, clinical systems, manufacturing, logistics, and beyond. Each engagement is engineered for the specific constraints of that domain, not a generic AI layer stretched to fit.
             </p>
-            <hr className="hr-gradient my-6" />
-            <div className="flex flex-wrap gap-2 mb-6">
-              {['Banking', 'Defense & Army', 'Government', 'Legal', 'Healthcare', 'Technology'].map((tag, i) => (
-                <motion.span key={tag} custom={i} variants={popIn} initial="hidden" whileInView="visible" viewport={{ once: true }} className="px-3 py-1 text-xs font-semibold rounded-lg bg-brand-primary/10 text-brand-primary border border-brand-primary/20">
-                  {tag}
-                </motion.span>
+            <div className="grid grid-cols-3 gap-3 mb-4">
+              {industryCards.map(({ Icon, name, desc, color, img }, i) => (
+                <motion.div key={name} custom={i} variants={popIn} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                  <MouseTilt
+                    className="relative overflow-hidden rounded-2xl group cursor-default"
+                    style={{ aspectRatio: '1 / 1' }}
+                    intensity={12}
+                  >
+                    {/* Real image */}
+                    <img
+                      src={img}
+                      alt={name}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    {/* Dark overlay */}
+                    <div className="absolute inset-0 transition-all duration-300"
+                      style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.88) 30%, rgba(0,0,0,0.25) 100%)' }}
+                    />
+                    {/* Content */}
+                    <div className="absolute inset-0 flex flex-col justify-between p-3">
+                      {/* Icon top-left */}
+                      <motion.div
+                        style={{ color, background: `${color}28`, border: `1px solid ${color}55`, translateZ: 30 }}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm self-start"
+                      >
+                        <Icon size={16} strokeWidth={1.8} />
+                      </motion.div>
+                      {/* Text bottom */}
+                      <div>
+                        <motion.p style={{ translateZ: 20 }} className="text-white text-[11px] font-bold leading-tight mb-0.5 drop-shadow">{name}</motion.p>
+                        <motion.p style={{ translateZ: 12 }} className="text-white/60 text-[9px] leading-snug">{desc}</motion.p>
+                      </div>
+                    </div>
+                  </MouseTilt>
+                </motion.div>
               ))}
             </div>
+            <motion.p
+              variants={popIn} custom={7} initial="hidden" whileInView="visible" viewport={{ once: true }}
+              className="text-[11px] text-brand-muted"
+            >
+              Also across{' '}
+              {['Manufacturing', 'Oil & Gas', 'Retail', 'Logistics', 'Education', 'Insurance'].map((s, i, arr) => (
+                <span key={s}>
+                  <span className="text-brand-primary/80 font-medium">{s}</span>
+                  {i < arr.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+              {' '}and any domain where intelligent systems create real operational advantage.
+            </motion.p>
           </motion.div>
 
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="why-section grid grid-cols-2 gap-3">
@@ -392,7 +423,7 @@ const Home = () => {
                   <motion.div style={{ translateZ: 30 }} className="w-9 h-9 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-3">
                     <Icon />
                   </motion.div>
-                  <motion.h3 style={{ translateZ: 20 }} className="text-white font-bold mb-1 text-sm">{title}</motion.h3>
+                  <motion.h3 style={{ translateZ: 20 }} className="text-brand-text font-bold mb-1 text-sm">{title}</motion.h3>
                   <motion.p style={{ translateZ: 10 }} className="text-xs text-brand-muted leading-relaxed">{desc}</motion.p>
                 </MouseTilt>
               </motion.div>
@@ -414,7 +445,7 @@ const Home = () => {
               We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We don't improve efficiency — we multiply it.
             </p>
             <p className="text-sm text-brand-muted leading-relaxed">
-              Headquartered in UAE and USA, we operate across Princeton, Dubai, Abu Dhabi, Riyadh, New Delhi, and Bangalore — connecting innovation to implementation without borders.
+              Headquartered in India with presence across New Delhi and Bangalore — connecting innovation to implementation and delivering enterprise AI transformation globally.
             </p>
           </motion.div>
           <motion.div
@@ -434,7 +465,7 @@ const Home = () => {
               We don't build everything — we curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context.
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo, Lucidity', '240+ AI Models Ready'].map(item => (
+              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', '240+ AI Models Ready'].map(item => (
                 <div key={item} className="flex items-start gap-2 text-brand-muted">
                   <span className="text-brand-primary mt-0.5">▸</span> {item}
                 </div>
@@ -469,7 +500,6 @@ const Home = () => {
                     <motion.h3 style={{ translateZ: 24 }} className="text-white font-bold mb-0.5">{name}</motion.h3>
                     <motion.p style={{ translateZ: 18 }} className="text-xs text-brand-primary mb-3">{role}</motion.p>
                     <motion.p style={{ translateZ: 12 }} className="text-xs font-semibold text-brand-accent mb-2">"{superpower}"</motion.p>
-                    <p className="text-xs text-brand-muted leading-relaxed">{track}</p>
                     {tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-4">
                         {tags.map(tag => (
@@ -510,13 +540,13 @@ const Home = () => {
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
             {[
               { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout — strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global Integrators. IBM, HPE, Indian Army, Nvidia, Accenture, American Airlines, and more.', grad: 'from-brand-accent to-brand-primary' },
+              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global Integrators. IBM, HPE, Indian Army, NVIDIA, Sun Mobility, and more across every industry worldwide.', grad: 'from-brand-accent to-brand-primary' },
               { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI — fast. Pre-built use cases. Real adoption.', grad: 'from-brand-gold to-brand-secondary' },
             ].map(({ tag, title, desc, grad }, i) => (
               <motion.div key={tag} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-7 cursor-default h-full" intensity={11}>
                   <motion.div style={{ translateZ: 35 }} className={`text-xs font-black tracking-[0.2em] bg-gradient-to-r ${grad} bg-clip-text text-transparent mb-3 uppercase`}>{tag}</motion.div>
-                  <motion.h3 style={{ translateZ: 22 }} className="text-lg font-display font-bold text-white mb-2">{title}</motion.h3>
+                  <motion.h3 style={{ translateZ: 22 }} className="text-lg font-display font-bold text-brand-text mb-2">{title}</motion.h3>
                   <motion.p style={{ translateZ: 10 }} className="text-sm text-brand-muted leading-relaxed">{desc}</motion.p>
                 </MouseTilt>
               </motion.div>

@@ -6,10 +6,10 @@ import SEO from '../components/ui/SEO';
 import DemoLink from '../components/ui/DemoLink';
 
 const featured = [
-  { slug: 'michelin-cloud-cost', client: { name: 'Michelin', industry: 'Manufacturing' }, challenge: 'AWS bill spiralling with no visibility into resource utilisation across multiple regions.', solution: 'Lucidity FinOps + KOGO AutoML Agent', results: [{ value: '−31%', metric: 'AWS bill reduction' }, { value: '₹7.2Cr', metric: 'Saved in 12 months' }] },
   { slug: 'indian-army-dgis', client: { name: 'Indian Army (DGIS)', industry: 'Defense' }, challenge: 'Disconnected legacy systems preventing real-time situational awareness and alert triage.', solution: 'KOGO Sentinel + on-prem LLaMA-4', results: [{ value: '−82%', metric: 'Alert-triage time' }, { value: '100%', metric: 'On-premises, sovereign' }] },
-  { slug: 'caryn-health-claims', client: { name: 'Caryn Health', industry: 'Healthcare' }, challenge: 'Manual claims processing causing bottlenecks and high per-FTE cost.', solution: 'KOGO Claim-QA Agent', results: [{ value: '2×', metric: 'Claims processed per FTE' }, { value: '70%', metric: 'Faster settlement' }] },
-  { slug: 'tech-mahindra-bpo', client: { name: 'Tech Mahindra', industry: 'BPO / Technology' }, challenge: 'High ticket backlog and expensive Azure cloud costs in BPO operations.', solution: 'KOGO Helpdesk Mesh + Lucidity', results: [{ value: '+18%', metric: 'Ticket capacity' }, { value: '−28%', metric: 'Azure cost reduction' }] },
+  { slug: 'fortune500-cloud-cost', client: { name: 'Fortune 500 Client', industry: 'Manufacturing' }, challenge: 'Cloud bill spiralling with no visibility into resource utilisation across multiple regions.', solution: 'KOGO FinOps + AutoML Agent', results: [{ value: '−31%', metric: 'Cloud bill reduction' }, { value: '12mo', metric: 'ROI payback period' }] },
+  { slug: 'insurance-claims-ai', client: { name: 'Insurance Enterprise', industry: 'Healthcare / Insurance' }, challenge: 'Manual claims processing causing bottlenecks and high per-FTE cost.', solution: 'KOGO Claim-QA Agent', results: [{ value: '2×', metric: 'Claims processed per FTE' }, { value: '70%', metric: 'Faster settlement' }] },
+  { slug: 'global-bpo-helpdesk', client: { name: 'Global BPO', industry: 'BPO / Technology' }, challenge: 'High ticket backlog and expensive cloud costs in BPO operations.', solution: 'KOGO Helpdesk Mesh', results: [{ value: '+18%', metric: 'Ticket capacity' }, { value: '−28%', metric: 'Cloud cost reduction' }] },
 ];
 
 const CaseStudies = () => {
@@ -29,7 +29,7 @@ const CaseStudies = () => {
     <>
       <SEO
         title="Case Studies — Arinox AI Real-World Results"
-        description="See how Arinox AI delivers measurable results — from −82% alert-triage time for the Indian Army to −31% AWS costs for Michelin. Real clients, real outcomes."
+        description="See how Arinox AI delivers measurable results — from −82% alert-triage time for the Indian Army to multi-million dollar savings for Fortune 500 enterprises. Real clients, real outcomes."
         canonical="https://www.arinox.ai/case-studies"
       />
 
@@ -38,7 +38,7 @@ const CaseStudies = () => {
         <div className="orb w-[400px] h-[400px] bg-brand-accent/8 top-0 right-1/4 -translate-y-1/4" />
         <div className="container-wide relative">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Impact</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-6xl md:text-7xl font-display font-bold text-white mb-4">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4">
             Real Clients.<br /><span className="text-gradient">Real Results.</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-brand-muted">

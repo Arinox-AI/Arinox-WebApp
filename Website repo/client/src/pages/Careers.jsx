@@ -38,16 +38,11 @@ const perks = [
   { Icon: GlobeIcon,      title: 'Impact at Scale',      desc: 'Your work powers transformation across industries and continents.' },
   { Icon: TrendingUpIcon, title: 'Fast Growth',           desc: "Develop tomorrow's skills today. We invest in your career." },
   { Icon: LightbulbIcon,  title: 'Creative Freedom',      desc: 'Bring your best ideas. We implement them.' },
-  { Icon: HomeIcon,       title: 'Flexible Work',         desc: 'Remote-friendly with offices across UAE, USA, and India.' },
+  { Icon: HomeIcon,       title: 'Flexible Work',         desc: 'Remote-friendly with offices across India.' },
 ];
 
 const sampleRoles = [
-  { title: 'Senior AI Engineer',       department: 'Engineering',  location: 'Dubai / Remote',      type: 'Full-time' },
-  { title: 'Enterprise Sales Manager', department: 'Sales',        location: 'Riyadh / Dubai',       type: 'Full-time' },
-  { title: 'AI Product Manager',       department: 'Operations',   location: 'New Delhi / Remote',   type: 'Full-time' },
-  { title: 'AI Research Scientist',    department: 'AI Research',  location: 'Bangalore / Remote',   type: 'Full-time' },
-  { title: 'Solutions Architect',      department: 'Delivery',     location: 'Princeton, USA',       type: 'Full-time' },
-  { title: 'Marketing Manager - AI',   department: 'Marketing',    location: 'Dubai / Remote',       type: 'Full-time' },
+  { title: 'AI Associate', department: 'Engineering', location: 'New Delhi / Remote', type: 'Full-time' },
 ];
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
@@ -116,7 +111,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
           {/* Close */}
           <button
             onClick={() => { if (done) onDone(job.title); onClose(); }}
-            className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-brand-muted hover:text-white hover:bg-white/10 transition-all"
+            className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-brand-muted hover:text-brand-text hover:bg-brand-border/30 transition-all"
             aria-label="Close"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -141,7 +136,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                   <polyline points="20 6 9 17 4 12"/>
                 </svg>
               </motion.div>
-              <h3 className="text-white font-bold text-lg mb-2">Application Received</h3>
+              <h3 className="text-brand-text font-bold text-lg mb-2">Application Received</h3>
               <p className="text-brand-muted text-sm mb-6">We'll review your profile and be in touch within 5 business days.</p>
               <button
                 onClick={() => { onDone(job.title); onClose(); }}
@@ -154,7 +149,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
             <>
               <div className="mb-6">
                 <p className="text-xs tracking-widest uppercase text-brand-primary font-semibold mb-1">Apply for</p>
-                <h2 className="text-xl font-display font-bold text-white">{job.title}</h2>
+                <h2 className="text-xl font-display font-bold text-brand-text">{job.title}</h2>
                 <p className="text-xs text-brand-muted mt-0.5">{job.department} · {job.location}</p>
               </div>
 
@@ -185,7 +180,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                   <button
                     type="button"
                     onClick={() => fileRef.current?.click()}
-                    className="w-full px-4 py-3 rounded-xl border-2 border-dashed border-brand-border hover:border-brand-primary/50 text-brand-muted hover:text-white text-sm transition-all flex items-center justify-center gap-2"
+                    className="w-full px-4 py-3 rounded-xl border-2 border-dashed border-brand-border hover:border-brand-primary/50 text-brand-muted hover:text-brand-text text-sm transition-all flex items-center justify-center gap-2"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
@@ -331,7 +326,7 @@ const Careers = () => {
           <div className="flex flex-wrap gap-3 justify-center mb-6">
             {depts.map(d => (
               <button key={d} onClick={() => setFilter(d)}
-                className={`px-4 py-2 rounded-xl text-sm transition-all ${filter === d ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'glass border border-brand-border text-brand-muted hover:text-white'}`}>
+                className={`px-4 py-2 rounded-xl text-sm transition-all ${filter === d ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'glass border border-brand-border text-brand-muted hover:text-brand-text'}`}>
                 {d}
               </button>
             ))}
@@ -350,7 +345,7 @@ const Careers = () => {
                   className="glass-card rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
                 >
                   <div>
-                    <h3 className="text-white font-bold text-lg mb-1">{job.title}</h3>
+                    <h3 className="text-brand-text font-bold text-lg mb-1">{job.title}</h3>
                     <div className="flex flex-wrap gap-3">
                       <span className="text-xs text-brand-primary">{job.department}</span>
                       <span className="text-xs text-brand-muted">📍 {job.location}</span>
@@ -365,7 +360,7 @@ const Careers = () => {
                   ) : (
                     <button
                       onClick={() => handleApplyClick(job)}
-                      className="flex-shrink-0 px-6 py-2.5 rounded-xl border border-brand-border text-brand-muted group-hover:border-brand-primary group-hover:text-white text-sm transition-all"
+                      className="flex-shrink-0 px-6 py-2.5 rounded-xl border border-brand-border text-brand-muted group-hover:border-brand-primary group-hover:text-brand-text text-sm transition-all"
                     >
                       Apply Now →
                     </button>
@@ -395,7 +390,7 @@ const Careers = () => {
 
       {/* Login prompts */}
       <QRLoginModal isOpen={showQR} onClose={() => setShowQR(false)} onSwitchToEmail={() => { setShowQR(false); setShowAuth(true); }} />
-      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }} />
+      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }} defaultMode="register" />
     </>
   );
 };

@@ -103,7 +103,7 @@ const industries = [
     problem: 'High manual effort in insurance claims lifecycle.',
     solution: 'Agents handle entire claims lifecycle from submission to payout, working across multiple legacy systems.',
     impact: ['70% faster claim settlement', 'Zero human intervention needed', 'Improved fraud detection'],
-    client: 'Sunlife Insurance, Caryn Health',
+    client: 'Sunlife Insurance',
   },
   {
     id: 'healthcare',
@@ -112,7 +112,7 @@ const industries = [
     problem: 'Lack of unified, automated patient management systems.',
     solution: 'AI agents for patient triage, appointment setting, follow-ups. Real-time analytics from EMRs & clinical data. HIPAA-compliant on-prem deployment.',
     impact: ['Doctor-patient interaction offloaded', 'AI as first-line care coordinator', '2× claims processed per FTE'],
-    client: 'Caryn Health, Manipal Group',
+    client: 'Healthcare Enterprise',
   },
   {
     id: 'manufacturing',
@@ -121,7 +121,7 @@ const industries = [
     problem: 'Downtime and inefficiencies due to reactive maintenance models.',
     solution: 'AI agents monitor machine health, detect anomalies, optimize production schedules, integrate across SCADA/ERP/MES.',
     impact: ['40% reduction in downtime', 'Leaner production workflows', 'Real-time plant floor insights'],
-    client: 'Michelin',
+    client: 'Fortune 500 Manufacturers',
   },
   {
     id: 'technology',
@@ -142,7 +142,7 @@ const Solutions = () => {
     <>
       <SEO
         title="AI Solutions — Enterprise Agents, Voice AI & Cloud Optimization"
-        description="Purpose-built AI solutions: KOGO™ agentic platform, CommandCORE™ sovereign AI, ArinoxVox™ voice agent, and Lucidity™ cloud autoscaler. On-premises, cloud, or AI-in-a-box deployment."
+        description="Purpose-built AI solutions: KOGO™ agentic platform, CommandCORE™ sovereign AI, and ArinoxVox™ voice agent. Deploy AI across any industry — on-premises, cloud, or as a sovereign AI-in-a-box."
         canonical="https://www.arinox.ai/solutions"
       />
 
@@ -251,61 +251,6 @@ const Solutions = () => {
               </MouseTilt>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ArinoxVox Feature Spotlight */}
-      <section className="section-padding bg-brand-surface relative overflow-hidden">
-        <FloatingOrbs preset="warm" />
-        <div className="container-wide">
-          <div className="text-center mb-10">
-            <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">ArinoxVox™</p>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Intelligent Voice <span className="text-gradient">Agent Platform</span></h2>
-            <p className="max-w-2xl mx-auto text-sm text-brand-muted leading-relaxed mt-3">
-              Vox™ is an enterprise-grade voice AI platform that enables natural, real-time conversations at scale. Built for high concurrency and deep customization, it's ideal for customer engagement, support, and process automation.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
-            <div className="space-y-5" style={{ perspective: 1200 }}>
-              {[
-                { title: 'Voice-first automation', desc: 'Handle customer calls, voice bots, and spoken workflows with context-aware NLP, interruption handling, and enterprise-grade response accuracy.' },
-                { title: 'Global, multilingual reach', desc: 'Localized voice models for any market — diverse languages, accents, and personalities. Handle thousands of concurrent calls with 85%+ customer satisfaction.' },
-                { title: 'Secure, enterprise-grade', desc: 'Deploy on-premises or in a private cloud. Connects with CRM, ticketing, and databases. Available as SaaS, PaaS, or fully sovereign on-prem.' },
-              ].map(({ title, desc }, i) => (
-                <motion.div
-                  key={title}
-                  initial={{ opacity: 0, x: -30, rotateY: 12 }}
-                  whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.12, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                  whileHover={{ rotateY: 7, rotateX: -3, scale: 1.02, z: 15 }}
-                  style={{ transformStyle: 'preserve-3d' }}
-                  className="glass-card rounded-2xl p-6"
-                >
-                  <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
-                  <p className="text-brand-muted text-sm leading-relaxed">{desc}</p>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, rotateY: 20 }}
-              whileInView={{ opacity: 1, rotateY: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ rotateY: -8, scale: 1.03, boxShadow: '0 0 50px rgba(254,99,0,0.18)' }}
-              style={{ perspective: 1200, transformStyle: 'preserve-3d' }}
-              className="glass-card rounded-3xl overflow-hidden border border-brand-border/40 p-6 flex items-center justify-center"
-            >
-              <img
-                src={avoxImg}
-                alt="ArinoxVox Voice Agent"
-                className="w-auto max-w-full max-h-[340px] object-contain transition-transform duration-500 hover:scale-105"
-                loading="eager"
-              />
-            </motion.div>
           </div>
         </div>
       </section>
