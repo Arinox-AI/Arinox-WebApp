@@ -178,7 +178,7 @@ const team = [
   },
   {
     name: 'Angad Singh',
-    role: 'COO / CTO',
+    role: 'COO & Chief Spokesperson',
     superpower: 'AI stack maestro',
     track: "Ex-NVIDIA & Qualcomm. Architected 40+ on-prem ML grids. Leads the design and deployment of Arinox's sovereign AI infrastructure.",
     photo: angadPhoto,

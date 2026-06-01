@@ -39,14 +39,14 @@ const team = [
   },
   {
     name: 'D Uday Bhaskar Rao',
-    role: 'Strategic Advisor',
+    role: 'CTO',
     superpower: 'Enterprise systems architect',
     track: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
     tags: [],
   },
   {
     name: 'Angad Singh',
-    role: 'COO / CTO',
+    role: 'COO & Chief Spokesperson',
     superpower: 'AI stack maestro',
     track: "Ex-NVIDIA & Qualcomm. Architected 40+ on-prem ML grids. Leads the design and deployment of Arinox's sovereign AI infrastructure.",
     tags: [],

@@ -8,10 +8,24 @@ export default defineConfig({
     port: 5173,
     host: true,
     proxy: {
-      '/api': { target: 'http://localhost:5000', changeOrigin: true },
+      '/api':       { target: 'http://localhost:5000', changeOrigin: true },
       '/socket.io': { target: 'http://localhost:5000', ws: true, changeOrigin: true },
       '/sitemap.xml': { target: 'http://localhost:5000', changeOrigin: true },
-      '/robots.txt': { target: 'http://localhost:5000', changeOrigin: true },
+      '/robots.txt':  { target: 'http://localhost:5000', changeOrigin: true },
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 700,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react':  ['react', 'react-dom', 'react-router-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-gsap':   ['gsap'],
+          'vendor-three':  ['three'],
+          'vendor-misc':   ['axios', 'socket.io-client', '@supabase/supabase-js'],
+        },
+      },
     },
   },
 });
