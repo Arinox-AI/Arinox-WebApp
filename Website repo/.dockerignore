@@ -1,0 +1,36 @@
+# Dependencies — reinstalled inside Docker
+**/node_modules
+
+# Environment files — never bake secrets into image
+.env
+**/.env
+server/.env
+client/.env
+**/.env.local
+**/.env.*.local
+
+# Build output — rebuilt inside Docker
+client/dist
+**/.vite
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Logs
+**/*.log
+**/npm-debug.log*
+
+# OS files
+**/.DS_Store
+**/Thumbs.db
+
+# Editor
+**/.vscode
+**/.idea
+
+# Docker files (not needed inside container)
+Dockerfile
+.dockerignore
+deploy.ps1
