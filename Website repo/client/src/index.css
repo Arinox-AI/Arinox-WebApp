@@ -2,30 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Theme tokens ───────────────────────────────────── */
+/* ─── Brand Guide Tokens (Arinox AI — March 2026) ──────────
+   Primary orange   : #E8590C  →  232 89 12
+   Secondary (dark) : #D0500A  →  208 80 10
+   Ink Black        : #1F1A12  →   31 26 18
+   Mid Grey         : #5C5244  →   92 82 68
+   Light Grey       : #9A8E82  →  154 142 130
+   Warm Off-White   : #F2EFE9  →  242 239 233
+   Orange Tint      : #FDE8DC  →  253 232 220
+   Divider          : #DDD8CF  →  221 216 207
+   Forest Green     : #1D7A5F  →   29 122  95
+   Alert Red        : #C0392B  →  192  57  43
+───────────────────────────────────────────────────────────── */
+
+/* ─── Theme tokens ───────────────────────────────────────── */
 :root {
   --color-bg:        13 13 14;
   --color-surface:   17 17 18;
   --color-card:      22 22 23;
   --color-border:    37 37 38;
-  --color-primary:   254 99 0;
-  --color-secondary: 229 90 0;
+  --color-primary:   232 89 12;
+  --color-secondary: 208 80 10;
   --color-accent:    26 106 255;
   --color-blue:      26 106 255;
   --color-gold:      255 229 139;
   --color-text:      240 240 240;
-  --color-muted:     143 143 143;
+  --color-muted:     154 142 130;
   --color-subtle:    110 110 110;
 }
 
+/* Light mode — exact brand guide warm palette */
 html.light-mode {
-  --color-bg:      250 246 240;
-  --color-surface: 244 239 231;
-  --color-card:    255 252 246;
-  --color-border:  220 212 200;
-  --color-text:    28 22 14;
-  --color-muted:   52 42 32;
-  --color-subtle:  88 72 56;
+  --color-bg:      242 239 233;
+  --color-surface: 253 232 220;
+  --color-card:    255 252 248;
+  --color-border:  221 216 207;
+  --color-text:    31 26 18;
+  --color-muted:   92 82 68;
+  --color-subtle:  154 142 130;
 }
 
 @layer base {
@@ -38,9 +52,9 @@ html.light-mode {
   body {
     background-color: rgb(var(--color-bg));
     color: rgb(var(--color-text));
-    /* Avenir LT W01 35 Light equivalent — Nunito 300 matches the light, geometric style of arinox.ai */
-    font-family: 'Nunito', 'Avenir Next', Avenir, system-ui, sans-serif;
-    font-weight: 300;
+    /* Brand Guide: Calibri, Arial, sans-serif */
+    font-family: 'Calibri', 'Arial', 'Nunito', system-ui, sans-serif;
+    font-weight: 400;
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
@@ -56,13 +70,23 @@ html.light-mode {
     overflow-x: hidden;
     width: 100%;
   }
-  ::selection { background: rgba(254, 99, 0, 0.3); color: #fff; }
+
+  /* Brand Guide: Georgia for all headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  p, li, td, th { font-weight: 400; }
+  strong, b { font-weight: 700; }
+
+  ::selection { background: rgba(232, 89, 12, 0.28); color: #fff; }
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: rgb(var(--color-bg)); }
   ::-webkit-scrollbar-thumb { background: rgb(var(--color-primary)); border-radius: 2px; }
 }
 
-/* ─── Layout ─────────────────────────────────────────── */
+/* ─── Layout ─────────────────────────────────────────────── */
 .container-wide {
   width: 100%;
   max-width: 1320px;
@@ -74,9 +98,9 @@ html.light-mode {
   padding: 3rem 0;
 }
 
-/* ─── Text gradients ─────────────────────────────────── */
+/* ─── Text gradients (brand orange #E8590C) ──────────────── */
 .text-gradient {
-  background: linear-gradient(135deg, #FE6300 0%, #ff9a5c 100%);
+  background: linear-gradient(135deg, #E8590C 0%, #ff8a4a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -94,65 +118,63 @@ html.light-mode {
   background-clip: text;
 }
 
-/* ─── Glass ──────────────────────────────────────────── */
+/* ─── Glass ──────────────────────────────────────────────── */
 .glass {
   background: rgba(22, 22, 23, 0.75);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(254, 99, 0, 0.1);
+  border: 1px solid rgba(232, 89, 12, 0.1);
 }
-
 .glass-card {
   background: rgba(22, 22, 23, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.06);
   transition: border-color 0.3s ease;
 }
 .glass-card:hover {
-  border-color: rgba(254, 99, 0, 0.28);
+  border-color: rgba(232, 89, 12, 0.28);
 }
 
 html.light-mode .glass {
-  background: rgba(255, 250, 242, 0.82);
-  border: 1px solid rgba(160, 130, 100, 0.15);
+  background: rgba(255, 252, 248, 0.88);
+  border: 1px solid rgba(221, 216, 207, 0.6);
 }
 html.light-mode .glass-card {
-  background: rgba(255, 252, 246, 0.98);
-  border: 1px solid rgba(160, 130, 100, 0.12);
+  background: rgba(255, 252, 248, 0.98);
+  border: 1px solid rgba(221, 216, 207, 0.5);
 }
 html.light-mode .glass-card:hover {
-  border-color: rgba(254, 99, 0, 0.28);
+  border-color: rgba(232, 89, 12, 0.3);
 }
 
-/* ─── Partner logo filters ───────────────────────────── */
-/* Dark mode (default): white logos show as-is; colored SI logos inverted to white */
+/* ─── Partner logo filters ───────────────────────────────── */
 .logo-white    { opacity: 0.85; }
 .logo-colored  { filter: brightness(0) invert(1); opacity: 0.85; }
 .logo-fullcolor{ opacity: 0.85; }
 
-/* Light mode: white logos inverted to black; colored SI logos show original color */
 html.light-mode .logo-white    { filter: invert(1); opacity: 0.85; }
 html.light-mode .logo-colored  { filter: none; opacity: 0.9; }
 html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
 
-/* ─── Buttons ────────────────────────────────────────── */
+/* ─── Buttons ─────────────────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #FE6300;
+  background: #E8590C;
   color: #fff;
+  font-family: 'Calibri', 'Arial', sans-serif;
   font-weight: 600;
   border-radius: 0.75rem;
   transition: background 0.2s ease, color 0.2s ease;
 }
 .btn-primary:hover {
-  background: #ff7a1a;
+  background: #D0500A;
 }
 
-/* ─── Backgrounds ────────────────────────────────────── */
+/* ─── Backgrounds ─────────────────────────────────────────── */
 .grid-bg {
   background-image:
-    radial-gradient(circle, rgba(254,99,0,0.07) 1px, transparent 1px);
+    radial-gradient(circle, rgba(232,89,12,0.07) 1px, transparent 1px);
   background-size: 36px 36px;
   background-position: 0 0;
   animation: gridDrift 40s linear infinite;
@@ -165,8 +187,8 @@ html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
 
 .line-grid {
   background-image:
-    linear-gradient(rgba(254,99,0,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(254,99,0,0.04) 1px, transparent 1px);
+    linear-gradient(rgba(232,89,12,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,89,12,0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   animation: lineGridScroll 25s linear infinite;
 }
@@ -176,7 +198,7 @@ html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
   100% { background-position: 60px 60px; }
 }
 
-/* ─── Glow orb ───────────────────────────────────────── */
+/* ─── Glow orb ────────────────────────────────────────────── */
 .orb {
   position: absolute;
   border-radius: 50%;
@@ -187,20 +209,20 @@ html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
 }
 
 @keyframes orbDrift {
-  0%   { transform: translate(0, 0)      scale(1);    }
-  25%  { transform: translate(30px,-24px) scale(1.06); }
-  50%  { transform: translate(-18px,36px) scale(0.94); }
-  75%  { transform: translate(24px, 12px) scale(1.04); }
-  100% { transform: translate(-12px,-18px) scale(1);   }
+  0%   { transform: translate(0, 0)       scale(1);    }
+  25%  { transform: translate(30px,-24px)  scale(1.06); }
+  50%  { transform: translate(-18px,36px)  scale(0.94); }
+  75%  { transform: translate(24px, 12px)  scale(1.04); }
+  100% { transform: translate(-12px,-18px) scale(1);    }
 }
 
-/* ─── Custom cursor ──────────────────────────────────── */
+/* ─── Custom cursor ───────────────────────────────────────── */
 .cursor-dot {
   position: fixed;
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: #FE6300;
+  background: #E8590C;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 2147483647;
@@ -212,34 +234,33 @@ html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: 1.5px solid rgba(254, 99, 0, 0.55);
+  border: 1.5px solid rgba(232, 89, 12, 0.55);
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 2147483646;
   will-change: left, top;
   transition: left 0.1s ease-out, top 0.1s ease-out, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
 }
-/* Expand ring slightly when hovering links/buttons */
 a:hover ~ .cursor-ring,
 button:hover ~ .cursor-ring {
   width: 40px;
   height: 40px;
-  border-color: rgba(254, 99, 0, 0.9);
+  border-color: rgba(232, 89, 12, 0.9);
 }
 
-/* ─── 3D perspective ─────────────────────────────────── */
+/* ─── 3D perspective ──────────────────────────────────────── */
 .perspective-1000 { perspective: 1000px; }
 .preserve-3d { transform-style: preserve-3d; }
 
-/* ─── Orange divider ─────────────────────────────────── */
+/* ─── Orange divider ──────────────────────────────────────── */
 .hr-gradient {
   height: 1px;
-  background: linear-gradient(90deg, transparent 0%, rgba(254,99,0,0.5) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(232,89,12,0.5) 50%, transparent 100%);
   border: none;
   margin: 2rem 0;
 }
 
-/* ─── Marquee ────────────────────────────────────────── */
+/* ─── Marquee ─────────────────────────────────────────────── */
 .marquee-wrap {
   overflow: hidden;
   width: 100%;
@@ -256,7 +277,7 @@ button:hover ~ .cursor-ring {
   to   { transform: translateX(-50%); }
 }
 
-/* ─── Animations ─────────────────────────────────────── */
+/* ─── Animations ──────────────────────────────────────────── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(32px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -278,29 +299,29 @@ button:hover ~ .cursor-ring {
 }
 @keyframes shimmer {
   from { background-position: -300% 0; }
-  to   { background-position: 300% 0; }
+  to   { background-position:  300% 0; }
 }
 @keyframes glow {
-  0%, 100% { box-shadow: 0 0 16px rgba(254,99,0,0.3); }
-  50%       { box-shadow: 0 0 40px rgba(254,99,0,0.7); }
+  0%, 100% { box-shadow: 0 0 16px rgba(232,89,12,0.3); }
+  50%       { box-shadow: 0 0 40px rgba(232,89,12,0.7); }
 }
 @keyframes borderPulse {
-  0%, 100% { border-color: rgba(254,99,0,0.2); }
-  50%       { border-color: rgba(254,99,0,0.6); }
+  0%, 100% { border-color: rgba(232,89,12,0.2); }
+  50%       { border-color: rgba(232,89,12,0.6); }
 }
 
-/* ─── Utility animation classes ──────────────────────── */
-.animate-float { animation: float 5s ease-in-out infinite; }
-.animate-spin-slow { animation: spinSlow 18s linear infinite; }
-.animate-glow { animation: glow 2.5s ease-in-out infinite; }
-.animate-border-pulse { animation: borderPulse 2s ease-in-out infinite; }
+/* ─── Utility animation classes ───────────────────────────── */
+.animate-float       { animation: float 5s ease-in-out infinite; }
+.animate-spin-slow   { animation: spinSlow 18s linear infinite; }
+.animate-glow        { animation: glow 2.5s ease-in-out infinite; }
+.animate-border-pulse{ animation: borderPulse 2s ease-in-out infinite; }
 .animate-shimmer {
-  background: linear-gradient(90deg, transparent 25%, rgba(254,99,0,0.08) 50%, transparent 75%);
+  background: linear-gradient(90deg, transparent 25%, rgba(232,89,12,0.08) 50%, transparent 75%);
   background-size: 300% 100%;
   animation: shimmer 2s linear infinite;
 }
 
-/* ─── Shimmer loading skeleton ───────────────────────── */
+/* ─── Shimmer loading skeleton ────────────────────────────── */
 .skeleton {
   background: linear-gradient(90deg, #1a1a1b 25%, #252526 50%, #1a1a1b 75%);
   background-size: 200% 100%;
@@ -308,7 +329,7 @@ button:hover ~ .cursor-ring {
   border-radius: 0.5rem;
 }
 
-/* ─── Link underline hover ───────────────────────────── */
+/* ─── Link underline hover ────────────────────────────────── */
 .link-hover {
   position: relative;
   display: inline-block;
@@ -320,12 +341,12 @@ button:hover ~ .cursor-ring {
   left: 0;
   width: 0;
   height: 1.5px;
-  background: #FE6300;
+  background: #E8590C;
   transition: width 0.3s ease;
 }
 .link-hover:hover::after { width: 100%; }
 
-/* ─── Tag chip ───────────────────────────────────────── */
+/* ─── Tag chip ────────────────────────────────────────────── */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -333,41 +354,152 @@ button:hover ~ .cursor-ring {
   border-radius: 9999px;
   font-size: 0.7rem;
   font-weight: 600;
-  background: rgba(254,99,0,0.1);
-  color: #FE6300;
-  border: 1px solid rgba(254,99,0,0.2);
+  background: rgba(232,89,12,0.1);
+  color: #E8590C;
+  border: 1px solid rgba(232,89,12,0.2);
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
 
-/* ─── Counter numbers ────────────────────────────────── */
+/* ─── Counter numbers ─────────────────────────────────────── */
 .counter { font-variant-numeric: tabular-nums; }
 
-/* ─── Font hierarchy (Avenir LT style) ───────────────── */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Wix Madefor Text', 'Nunito', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-p, li, td, th { font-weight: 300; }
-strong, b { font-weight: 700; }
-
-/* ─── Page section divider ───────────────────────────── */
+/* ─── Page section divider ────────────────────────────────── */
 .section-divider {
   width: 40px;
   height: 3px;
-  background: #FE6300;
+  background: #E8590C;
   border-radius: 2px;
   margin-bottom: 1.5rem;
 }
 
-/* ─── Mobile overflow guard ──────────────────────────── */
+/* ─── Mobile overflow guard ───────────────────────────────── */
 section, header, footer, nav, main { max-width: 100vw; overflow-x: hidden; }
 
-/* ─── Scrollbar for Firefox ──────────────────────────── */
+/* ─── Scrollbar for Firefox ───────────────────────────────── */
 * { scrollbar-width: thin; scrollbar-color: rgb(var(--color-primary)) rgb(var(--color-bg)); }
 
-/* ─── Light mode overrides ───────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   BRAND GUIDE PATTERNS
+   ═══════════════════════════════════════════════════════════ */
+
+/* ─── Section overline (Brand Guide §04) ─────────────────── */
+/* Usage: <div className="brand-overline"><span>SECTION LABEL</span></div> */
+.brand-overline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.brand-overline::before {
+  content: '— — — — —';
+  color: #E8590C;
+  letter-spacing: 3px;
+  font-size: 0.65rem;
+  font-family: 'Calibri', Arial, sans-serif;
+}
+.brand-overline span {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #E8590C;
+  font-family: 'Calibri', Arial, sans-serif;
+}
+
+/* ─── Callout boxes (Brand Guide §04) ────────────────────── */
+.callout {
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 0.875rem 1.25rem;
+  margin: 0.75rem 0;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+.callout-orange {
+  border-left: 4px solid #E8590C;
+  background: rgba(232, 89, 12, 0.08);
+  color: rgb(var(--color-text));
+}
+.callout-green {
+  border-left: 4px solid #1D7A5F;
+  background: rgba(29, 122, 95, 0.08);
+  color: rgb(var(--color-text));
+}
+.callout-red {
+  border-left: 4px solid #C0392B;
+  background: rgba(192, 57, 43, 0.08);
+  color: rgb(var(--color-text));
+}
+html.light-mode .callout-orange { background: #FDE8DC; }
+html.light-mode .callout-green  { background: #EAF7F2; }
+html.light-mode .callout-red    { background: #FDECEA; }
+
+/* ─── Blockquote (Brand Guide §04) ───────────────────────── */
+.brand-blockquote {
+  border-left: 4px solid #E8590C;
+  padding: 0.875rem 1.25rem;
+  margin: 1rem 0;
+  font-family: 'Georgia', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgb(var(--color-text));
+}
+
+/* ─── Stat boxes row (Brand Guide §04) ───────────────────── */
+.stat-boxes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  border: 1px solid rgba(221,216,207,0.25);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+html.light-mode .stat-boxes {
+  border-color: #DDD8CF;
+}
+.stat-box {
+  padding: 1.25rem 1rem;
+  border-right: 1px solid rgba(221,216,207,0.2);
+}
+.stat-box:last-child { border-right: none; }
+@media (max-width: 639px) {
+  .stat-boxes { grid-template-columns: repeat(2, 1fr); }
+  .stat-box:nth-child(2n) { border-right: none; }
+  .stat-box { border-bottom: 1px solid rgba(221,216,207,0.2); }
+}
+.stat-box .stat-label {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgb(var(--color-muted));
+  margin-bottom: 0.375rem;
+  font-family: 'Calibri', Arial, sans-serif;
+}
+.stat-box .stat-value {
+  font-family: 'Georgia', serif;
+  font-size: 1.75rem;
+  color: #E8590C;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.stat-box .stat-sub {
+  font-size: 0.7rem;
+  color: rgb(var(--color-muted));
+}
+
+/* ─── Layer stack (Brand Guide §04) ──────────────────────── */
+.layer-stack { border-radius: 0.5rem; overflow: hidden; }
+.layer-stack .layer {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+}
+@media (max-width: 639px) {
+  .layer-stack .layer { grid-template-columns: 1fr; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
 
 /* All headings dark in light mode */
 html.light-mode h1,
@@ -376,7 +508,7 @@ html.light-mode h3,
 html.light-mode h4 {
   color: rgb(var(--color-text)) !important;
 }
-/* Hero (.grid-bg) has a dark Three.js canvas behind it — keep white */
+/* Hero (.grid-bg) has a dark Three.js canvas — keep white */
 html.light-mode .grid-bg h1,
 html.light-mode .grid-bg h2,
 html.light-mode .grid-bg h3 {
@@ -387,47 +519,36 @@ html.light-mode .line-grid h2 {
   color: #ffffff !important;
 }
 
-/* Boost paragraph weight — 300 is too thin on cream bg */
-html.light-mode p,
-html.light-mode li,
-html.light-mode td,
-html.light-mode th,
-html.light-mode span.text-brand-muted {
-  font-weight: 400;
-}
-
-/* Non-heading text-white elements: dark in light mode (excludes a/button) */
+/* Non-heading text-white elements: dark in light mode */
 html.light-mode :not(a):not(button).text-white {
   color: rgb(var(--color-text)) !important;
 }
 /* Gradient/filled buttons always stay white */
 html.light-mode .btn-primary { color: #ffffff !important; }
 html.light-mode [class*="from-brand-primary"][class*="to-brand-secondary"] { color: #ffffff !important; }
-/* Hover state: orange-bg buttons get white text */
 html.light-mode [class*="hover:bg-brand-primary"]:hover { color: #ffffff !important; }
-/* CTA buttons using explicit white/transparent styling stay white in all modes */
 html.light-mode a[class*="border-white"],
 html.light-mode a[class*="bg-white"] { color: #ffffff !important; }
 
 html.light-mode .skeleton {
-  background: linear-gradient(90deg, #e8ddd0 25%, #f0e8dc 50%, #e8ddd0 75%);
+  background: linear-gradient(90deg, #ede8e0 25%, #f5f0e8 50%, #ede8e0 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s linear infinite;
 }
 
 html.light-mode .hr-gradient {
-  background: linear-gradient(90deg, transparent 0%, rgba(254,99,0,0.7) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(232,89,12,0.6) 50%, transparent 100%);
 }
 
 html.light-mode .grid-bg {
-  background-image: radial-gradient(circle, rgba(254,99,0,0.12) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(232,89,12,0.1) 1px, transparent 1px);
   background-size: 36px 36px;
 }
 
 html.light-mode .line-grid {
   background-image:
-    linear-gradient(rgba(254,99,0,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(254,99,0,0.06) 1px, transparent 1px);
+    linear-gradient(rgba(232,89,12,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(232,89,12,0.06) 1px, transparent 1px);
   background-size: 60px 60px;
 }
 
@@ -437,20 +558,22 @@ html.light-mode .line-grid {
   backdrop-filter: blur(20px);
   border: 1px solid rgba(37, 37, 38, 1);
   color: rgb(var(--color-text));
+  font-family: 'Calibri', 'Arial', sans-serif;
   transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 .contact-input::placeholder { color: rgb(var(--color-muted)); }
 .contact-input:focus {
-  border-color: rgba(254, 99, 0, 0.7);
-  box-shadow: 0 0 0 3px rgba(254, 99, 0, 0.12);
+  border-color: rgba(232, 89, 12, 0.7);
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.12);
 }
 html.light-mode .contact-input {
-  background: rgba(255, 252, 246, 0.95);
-  border-color: rgba(220, 212, 200, 1);
+  background: rgba(255, 252, 248, 0.95);
+  border-color: rgba(221, 216, 207, 1);
   color: rgb(var(--color-text));
 }
 html.light-mode .contact-input:focus {
-  border-color: rgba(254, 99, 0, 0.6);
+  border-color: rgba(232, 89, 12, 0.6);
+  box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.1);
 }
 
 /* ─── Client logo strip ──────────────────────────────────── */
@@ -469,8 +592,7 @@ html.light-mode .logo-color {
   opacity: 0.65;
 }
 
-/* ─── Chatbot cursor fix — restore native cursors inside the widget ─── */
-/* body sets cursor:none globally; these overrides bring back expected cursors */
+/* ─── Chatbot cursor fix ─────────────────────────────────── */
 [data-chatbot] textarea { cursor: text !important; }
 [data-chatbot] button   { cursor: pointer !important; }
 [data-chatbot] *        { cursor: default; }
@@ -484,3 +606,10 @@ html.light-mode .logo-color {
     justify-content: center;
   }
 }
+
+/* ─── Scrollbar hide utility ─────────────────────────────── */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar { display: none; }

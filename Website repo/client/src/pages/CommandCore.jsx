@@ -82,7 +82,7 @@ const tiers = [
     label: 'M-Series Pro',
     models: [
       { model: 'CommandCore M3', ram: '512 GB', gpu: '4× H100', storage: '16 TB NVMe', useCase: 'Multi-Tenant' },
-      { model: 'CommandCore S1', ram: '768 GB', gpu: '8× H100', storage: '32 TB NVMe', useCase: 'AI Factories' },
+      { model: 'CommandCore S1', ram: '768 GB', gpu: '8× H100', storage: '32 TB NVMe', useCase: 'Agentic AI-in-a-Box' },
     ],
   },
   {
@@ -110,8 +110,8 @@ const CommandCore = () => {
   <>
     <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => {}} defaultMode="register" />
     <SEO
-      title="CommandCore — Sovereign AI Platform | Arinox AI"
-      description="CommandCore is Arinox AI's sovereign, private AI infrastructure for enterprises. On-premises AI compute with 80+ agents, full data sovereignty, and enterprise-grade security."
+      title="CommandCore™ — Sovereign AI Infrastructure | Arinox AI"
+      description="CommandCore™ is Arinox AI's sovereign, private AI infrastructure for enterprises. On-premises AI compute with 80+ agents, full data sovereignty, and enterprise-grade security."
       canonical="https://www.arinox.ai/commandcore"
     />
 

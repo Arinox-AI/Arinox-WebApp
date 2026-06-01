@@ -57,7 +57,7 @@ const Footer = () => (
       {/* Bottom bar */}
       <div className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-2">
         <p className="text-[11px] text-brand-subtle">
-          © {new Date().getFullYear()} Arinox AI. All rights reserved.
+          © {new Date().getFullYear()} Adisen Tech Private Limited · Bengaluru · All rights reserved.
         </p>
         <div className="flex items-center gap-4 text-[11px] text-brand-subtle">
           <span>India</span>

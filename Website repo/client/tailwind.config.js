@@ -17,16 +17,27 @@ export default {
           text:      'rgb(var(--color-text) / <alpha-value>)',
           muted:     'rgb(var(--color-muted) / <alpha-value>)',
           subtle:    'rgb(var(--color-subtle) / <alpha-value>)',
+          /* Brand Guide named tokens */
+          orange:    '#E8590C',
+          ink:       '#1F1A12',
+          midgrey:   '#5C5244',
+          lightgrey: '#9A8E82',
+          divider:   '#DDD8CF',
+          green:     '#1D7A5F',
+          alert:     '#C0392B',
+          warmbg:    '#F2EFE9',
         },
       },
       fontFamily: {
-        sans:    ['Nunito', 'Avenir Next', 'Avenir', 'system-ui', 'sans-serif'],
-        display: ['Wix Madefor Text', 'Nunito', 'sans-serif'],
-        poppins: ['Poppins', 'Nunito', 'sans-serif'],
+        /* Brand Guide: Georgia for display/headings */
+        sans:    ['Calibri', 'Arial', 'Nunito', 'system-ui', 'sans-serif'],
+        display: ['Georgia', '"Times New Roman"', 'serif'],
+        serif:   ['Georgia', '"Times New Roman"', 'serif'],
+        poppins: ['Calibri', 'Arial', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'glow-primary':    'radial-gradient(ellipse at center, rgba(254,99,0,0.15) 0%, transparent 70%)',
+        'glow-primary':    'radial-gradient(ellipse at center, rgba(232,89,12,0.15) 0%, transparent 70%)',
         'glow-blue':       'radial-gradient(ellipse at center, rgba(26,106,255,0.10) 0%, transparent 70%)',
       },
       animation: {
@@ -41,7 +52,11 @@ export default {
         float:     { '0%, 100%': { transform: 'translateY(0px)' }, '50%': { transform: 'translateY(-20px)' } },
         marquee:   { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-50%)' } },
         shimmer:   { '0%': { backgroundPosition: '-200% 0' }, '100%': { backgroundPosition: '200% 0' } },
-        glowPulse: { '0%, 100%': { boxShadow: '0 0 20px rgba(254,99,0,0.3)' }, '50%': { boxShadow: '0 0 50px rgba(254,99,0,0.6)' } },
+        /* Brand orange #E8590C = 232,89,12 */
+        glowPulse: {
+          '0%, 100%': { boxShadow: '0 0 20px rgba(232,89,12,0.3)' },
+          '50%':      { boxShadow: '0 0 50px rgba(232,89,12,0.6)' },
+        },
       },
     },
   },

@@ -10,12 +10,16 @@ import nvidiaImg   from '../assets/26th June- Nvidia Workshop.jpg';
 import hitachiImg  from '../assets/Hitachi_shori_2026.JPG';
 import aiSummitImg from '../assets/ai_summit.jpg';
 
+const AI_FINANCE_IMG   = 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?auto=format&fit=crop&w=800&q=80';
+const SERVER_ROOM_IMG  = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80';
+const FACTORY_AUTO_IMG = 'https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=800&q=80';
+
 const samplePosts = [
   {
     _id: 'e1',
     slug: 'aks-workshop-global-sovereign-ai',
     title: 'AKS Workshop Global: Sovereign AI for Kubernetes-Native Enterprises',
-    excerpt: 'Arinox AI joined global CIOs and cloud architects at the AKS Workshop Global to demonstrate how Kubernetes-native deployments can achieve full data sovereignty without sacrificing performance — using CommandCore as the on-premises AI substrate.',
+    excerpt: 'Arinox AI joined global CIOs and cloud architects at the AKS Workshop Global to demonstrate how Kubernetes-native deployments can achieve full data sovereignty without sacrificing performance — using CommandCore™ as the on-premises AI substrate.',
     image: aksImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
@@ -78,6 +82,7 @@ const samplePosts = [
     slug: 'beyond-offshoring-ai-shoring',
     title: 'Beyond Offshoring: The Macroeconomics of AI-Shoring',
     excerpt: 'Why CFOs will reclassify cloud savings as growth CAPEX — and how the 30-30-30 loop turns theory into cashflow in 90 days.',
+    image: AI_FINANCE_IMG,
     author: { name: 'Praveer Kochhar', role: 'Co-Founder, KOGO AI' },
     category: 'AI Strategy',
     domain: 'General',
@@ -89,6 +94,7 @@ const samplePosts = [
     slug: 'edge-to-core-ai',
     title: 'Edge-to-Core AI: Turning On-Prem HPC Into a Profit Center',
     excerpt: 'Inside a Tier-1 bank that flipped its dormant DGX cluster into an agent farm and paid off hardware amortisation two quarters early.',
+    image: SERVER_ROOM_IMG,
     author: { name: 'P.N. Sudarshan', role: 'Global CTO, HPE' },
     category: 'Technology',
     domain: 'BFSI',
@@ -100,6 +106,7 @@ const samplePosts = [
     slug: 'bpo-to-autonomous-ops',
     title: 'From BPO to Autonomous Ops: Building an Agent Factory',
     excerpt: 'A step-by-step walkthrough of how Coforge cut 40% ticket resolution time by roboshoring processes back to on-prem KOGO agents.',
+    image: FACTORY_AUTO_IMG,
     author: { name: 'Nikhil Arora', role: 'SVP AI & Automation, Coforge' },
     category: 'Case Study',
     domain: 'Technology',
@@ -123,7 +130,12 @@ const Blog = () => {
   useEffect(() => {
     const params = category !== 'All' ? { category } : {};
     axios.get('/api/v1/blog', { params })
-      .then(({ data }) => setPosts(data.data.length ? data.data : samplePosts))
+      .then(({ data }) => {
+        const apiPosts = (data.data || []).map(p => ({ ...p, image: p.image ?? p.coverImage }));
+        const sampleSlugs = new Set(samplePosts.map(p => p.slug));
+        const extras = apiPosts.filter(p => !sampleSlugs.has(p.slug));
+        setPosts([...samplePosts, ...extras]);
+      })
       .catch(() => setPosts(samplePosts))
       .finally(() => setLoading(false));
   }, [category]);
@@ -139,85 +151,118 @@ const Blog = () => {
       />
 
       {/* Hero */}
-      <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
-        <div className="orb w-[400px] h-[400px] bg-brand-primary/10 top-0 left-1/3 -translate-y-1/4" />
-        <div className="container-wide relative">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Insights & Events</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-3">
+      <section className="relative pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 grid-bg overflow-hidden">
+        <div className="orb w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-brand-primary/10 top-0 left-1/3 -translate-y-1/4" />
+        <div className="container-wide relative px-4 sm:px-6">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-[10px] sm:text-xs tracking-widest uppercase text-brand-primary mb-3 sm:mb-4"
+          >
+            Insights & Events
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-2 sm:mb-3"
+          >
             Future-Forward <span className="text-gradient">Field Notes.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-sm md:text-base text-brand-muted">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-sm md:text-base text-brand-muted max-w-xl"
+          >
             Real consulting war-stories, event recaps, and distilled 5-minute reads.
           </motion.p>
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container-wide">
-          {/* Filters */}
-          <div className="flex flex-wrap gap-3 mb-10">
+      <section className="section-padding py-10 sm:py-14 md:py-20">
+        <div className="container-wide px-4 sm:px-6">
+
+          {/* Filters — horizontal scroll on xs, wraps on sm+ */}
+          <div className="flex gap-2 sm:gap-3 mb-8 sm:mb-10 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap scrollbar-none">
             {categories.map(c => (
               <button
                 key={c}
                 onClick={() => setCategory(c)}
-                className={`px-4 py-2 rounded-xl text-sm transition-all ${category === c ? 'bg-brand-primary text-white' : 'glass border border-brand-border text-brand-muted hover:text-brand-text'}`}
+                className={`flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm transition-all whitespace-nowrap ${
+                  category === c
+                    ? 'bg-brand-primary text-white'
+                    : 'glass border border-brand-border text-brand-muted hover:text-brand-text'
+                }`}
               >
                 {c}
               </button>
             ))}
           </div>
 
-          {/* Grid — items-start so text-only cards don't stretch to image-card height */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+          {/* Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 items-start">
             {loading
-              ? Array.from({ length: 6 }).map((_, i) => <div key={i} className="glass-card rounded-2xl h-72 animate-pulse" />)
+              ? Array.from({ length: 6 }).map((_, i) => (
+                  <div key={i} className="glass-card rounded-2xl h-64 sm:h-72 animate-pulse" />
+                ))
               : filtered.map((post, i) => (
-                <motion.article
-                  key={post._id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.07 }}
-                >
-                  <Link to={`/blog/${post.slug}`} className="glass-card rounded-2xl group overflow-hidden flex flex-col">
-                    {/* Cover image — taller for more visual impact */}
-                    {post.image && (
-                      <div className="h-56 overflow-hidden flex-shrink-0">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${post.imagePosition ?? 'object-center'}`}
-                          loading="lazy"
-                        />
-                      </div>
-                    )}
-
-                    <div className="p-5 flex flex-col">
-                      {/* Category + domain + date */}
-                      <div className="flex items-center gap-2 mb-3 flex-wrap">
-                        <span className="text-[11px] px-2.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold">{post.category}</span>
-                        {post.domain && <span className="text-[11px] text-brand-muted">{post.domain}</span>}
-                        <span className="text-[11px] text-brand-muted ml-auto">{formatDate(post.publishedAt)}</span>
-                      </div>
-
-                      <h2 className={`text-brand-text font-bold leading-snug mb-2 group-hover:text-brand-primary transition-colors line-clamp-2 ${post.image ? 'text-base' : 'text-sm'}`}>
-                        {post.title}
-                      </h2>
-                      <p className="text-sm text-brand-muted leading-relaxed mb-4 line-clamp-3">
-                        {post.excerpt}
-                      </p>
-
-                      <div className="flex items-center justify-between pt-3 border-t border-brand-border/40">
-                        <div>
-                          <p className="text-xs text-brand-text font-medium">{post.author?.name}</p>
-                          <p className="text-[11px] text-brand-muted">{post.author?.role}</p>
+                  <motion.article
+                    key={post._id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.07 }}
+                  >
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="glass-card rounded-2xl group overflow-hidden flex flex-col h-full"
+                    >
+                      {/* Cover image */}
+                      {(post.image ?? post.coverImage) && (
+                        <div className="h-44 sm:h-48 md:h-52 overflow-hidden flex-shrink-0">
+                          <img
+                            src={post.image ?? post.coverImage}
+                            alt={post.title}
+                            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${post.imagePosition ?? 'object-center'}`}
+                            loading="lazy"
+                          />
                         </div>
-                        <span className="text-[11px] text-brand-muted">{post.readTime} min read</span>
+                      )}
+
+                      <div className="p-4 sm:p-5 flex flex-col flex-1">
+                        {/* Category + domain + date */}
+                        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3 flex-wrap">
+                          <span className="text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold">
+                            {post.category}
+                          </span>
+                          {post.domain && (
+                            <span className="text-[10px] sm:text-[11px] text-brand-muted">{post.domain}</span>
+                          )}
+                          <span className="text-[10px] sm:text-[11px] text-brand-muted ml-auto">
+                            {formatDate(post.publishedAt)}
+                          </span>
+                        </div>
+
+                        <h2 className="text-sm sm:text-base text-brand-text font-bold leading-snug mb-2 group-hover:text-brand-primary transition-colors line-clamp-2">
+                          {post.title}
+                        </h2>
+                        <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-4 line-clamp-3 flex-1">
+                          {post.excerpt}
+                        </p>
+
+                        <div className="flex items-center justify-between pt-3 border-t border-brand-border/40 gap-2 min-w-0">
+                          <div className="min-w-0">
+                            <p className="text-xs text-brand-text font-medium truncate">{post.author?.name}</p>
+                            <p className="text-[10px] sm:text-[11px] text-brand-muted truncate">{post.author?.role}</p>
+                          </div>
+                          <span className="text-[10px] sm:text-[11px] text-brand-muted flex-shrink-0">
+                            {post.readTime} min read
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </motion.article>
-              ))}
+                    </Link>
+                  </motion.article>
+                ))}
           </div>
         </div>
       </section>
