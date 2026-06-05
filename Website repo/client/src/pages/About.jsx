@@ -105,7 +105,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             style={{ perspective: 1000 }}
-            className="text-4xl sm:text-5xl md:text-8xl font-display font-bold text-white"
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white"
           >
             Built to<br /><span className="text-gradient">Transform.</span>
           </motion.h1>
@@ -118,18 +118,18 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Leadership</p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ name, role, superpower, track, tags }, i) => (
               <motion.div key={name} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-6 group flex flex-col h-full" intensity={10}>
-                  <motion.div style={{ translateZ: 30 }} className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-primary to-brand-accent mb-4 flex items-center justify-center text-white font-bold text-xl shrink-0">
+                  <motion.div style={{ translateZ: 30 }} className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary mb-4 flex items-center justify-center text-white font-bold text-xl shrink-0">
                     {name.split(' ').map(n => n[0]).join('')}
                   </motion.div>
                   <motion.h3 style={{ translateZ: 22 }} className="text-white font-bold mb-0.5">{name}</motion.h3>
                   <motion.p style={{ translateZ: 16 }} className="text-xs text-brand-primary mb-3">{role}</motion.p>
-                  <p className="text-xs font-semibold text-brand-accent mb-2">"{superpower}"</p>
+                  <p className="text-xs font-semibold text-brand-primary mb-2">"{superpower}"</p>
                   <p className="text-xs text-brand-muted leading-relaxed flex-1">{track}</p>
                   {tags.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 mt-4">
@@ -152,7 +152,7 @@ const About = () => {
         <FloatingOrbs preset="cool" />
         <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+            <h2 className="text-lg md:text-xl font-display font-bold text-white mb-6">
               We founded Arinox.ai with one goal:<br />
               <span className="text-gradient">make enterprise-grade AI accessible to all.</span>
             </h2>
@@ -173,13 +173,13 @@ const About = () => {
             style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
             className="glass-card rounded-3xl p-8"
           >
-            <div className="text-6xl mb-4">⚡</div>
-            <h3 className="text-2xl font-display font-bold text-white mb-4">The Arinox Difference</h3>
+            <div className="text-4xl mb-4">⚡</div>
+            <h3 className="text-base font-display font-bold text-white mb-4">The Arinox Difference</h3>
             <p className="text-brand-muted leading-relaxed mb-6">
               We don't build everything. We curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context — without the complexity.
             </p>
             <div className="grid grid-cols-2 gap-3 text-sm">
-              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', '240+ AI Models Ready'].map(item => (
+              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', 'Sovereign On-Prem Compute'].map(item => (
                 <div key={item} className="flex items-start gap-2 text-brand-muted">
                   <span className="text-brand-primary mt-0.5">▸</span> {item}
                 </div>
@@ -195,14 +195,14 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Core Values</p>
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">The <span className="text-gradient">A.G.E.N.T.</span> Pillars</h2>
+            <h2 className="text-xl md:text-2xl font-display font-bold text-white">The <span className="text-gradient">A.G.E.N.T.</span> Pillars</h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-col md:flex-row gap-4 overflow-x-auto pb-4">
             {values.map(({ letter, title, desc }, i) => (
               <motion.div key={letter} variants={springCard} className="flex-1 min-w-[200px]">
                 <MouseTilt className="glass-card rounded-2xl p-6 h-full text-center" intensity={13} scaleOnHover={1.07}>
-                  <motion.div style={{ translateZ: 50 }} className="text-5xl font-display font-bold text-gradient mb-3">{letter}</motion.div>
-                  <motion.h3 style={{ translateZ: 30 }} className="text-white font-semibold mb-2">{title}</motion.h3>
+                  <motion.div style={{ translateZ: 50 }} className="text-2xl font-display font-bold text-gradient mb-3">{letter}</motion.div>
+                  <motion.h3 style={{ translateZ: 30 }} className="text-white text-sm font-semibold mb-2">{title}</motion.h3>
                   <motion.p style={{ translateZ: 15 }} className="text-xs text-brand-muted leading-relaxed">{desc}</motion.p>
                 </MouseTilt>
               </motion.div>
@@ -217,14 +217,14 @@ const About = () => {
         <div className="container-wide max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Our Journey</p>
-            <h2 className="text-4xl font-display font-bold text-white">Company <span className="text-gradient">History</span></h2>
+            <h2 className="text-xl font-display font-bold text-white">Company <span className="text-gradient">History</span></h2>
           </div>
           <div className="relative pl-8 border-l border-brand-border space-y-12">
             {history.map(({ year, title, desc }) => (
               <div key={year} className="timeline-item relative">
                 <div className="absolute -left-[2.35rem] top-1 w-4 h-4 rounded-full bg-brand-primary border-2 border-brand-bg" />
                 <span className="text-xs font-bold text-brand-primary mb-1 block">{year}</span>
-                <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
+                <h3 className="text-white font-bold text-sm mb-2">{title}</h3>
                 <p className="text-brand-muted text-sm leading-relaxed">{desc}</p>
               </div>
             ))}
@@ -238,7 +238,7 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Global Presence</p>
-            <h2 className="text-4xl font-display font-bold text-white">Where you operate. <span className="text-gradient">Where we deliver.</span></h2>
+            <h2 className="text-xl font-display font-bold text-white">Where you operate. <span className="text-gradient">Where we deliver.</span></h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-6">
             {offices.map(({ region, locations }, i) => (
@@ -263,7 +263,7 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Trust & Ethics</p>
-            <h2 className="text-4xl font-display font-bold text-white">Our Commitment to <span className="text-gradient">Ethical AI</span></h2>
+            <h2 className="text-xl font-display font-bold text-white">Our Commitment to <span className="text-gradient">Ethical AI</span></h2>
             <p className="text-brand-muted mt-4">Trust starts with control. Not with promises.</p>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-6">
@@ -274,8 +274,8 @@ const About = () => {
             ].map(({ icon, title, desc }, i) => (
               <motion.div key={title} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-8 text-center h-full" intensity={10}>
-                  <motion.div style={{ translateZ: 40 }} className="text-5xl mb-4">{icon}</motion.div>
-                  <motion.h3 style={{ translateZ: 25 }} className="text-white font-bold text-xl mb-3">{title}</motion.h3>
+                  <motion.div style={{ translateZ: 40 }} className="text-3xl mb-4">{icon}</motion.div>
+                  <motion.h3 style={{ translateZ: 25 }} className="text-white font-bold text-sm mb-3">{title}</motion.h3>
                   <motion.p style={{ translateZ: 12 }} className="text-brand-muted text-sm leading-relaxed">{desc}</motion.p>
                 </MouseTilt>
               </motion.div>

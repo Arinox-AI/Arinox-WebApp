@@ -42,7 +42,7 @@ const perks = [
 ];
 
 const sampleRoles = [
-  { title: 'AI Associate', department: 'Engineering', location: 'New Delhi / Remote', type: 'Full-time' },
+  { title: 'AI Associate', department: 'Engineering', location: 'Bangalore / Remote', type: 'Full-time' },
 ];
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };

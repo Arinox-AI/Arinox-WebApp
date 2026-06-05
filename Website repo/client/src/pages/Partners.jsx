@@ -31,6 +31,7 @@ const siPartners = [
 const enterpriseClients = [
   { name: 'Indian Army',      industry: 'Defense',   impact: '−82% alert-triage time',        logo: `${WX}/ef7a11_58cfd59433de4b5eafbf2f4c5834f321~mv2.png`, lc: WL },
   { name: 'Hitachi',          industry: 'Technology',impact: 'Enterprise AI transformation',  logo: `${CL}/hitachi.com`,                                     lc: FC },
+  { name: 'HCL Tech',         industry: 'Technology',impact: 'Sovereign AI infra deployment', logo: `${CL}/hcltech.com`,                                     lc: FC },
   { name: 'Sun Mobility',     industry: 'Mobility',  impact: 'Intelligent logistics & fleet', logo: `${CL}/sunmobility.co.in`,                               lc: FC },
   { name: 'Sunlife Insurance',industry: 'Insurance', impact: 'Policy & claims AI agents',     logo: `${CL}/sunlife.com`,                                     lc: FC },
 ];
@@ -152,12 +153,12 @@ const Partners = () => (
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Enterprise Clients</p>
           <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Transforming the World's <span className="text-gradient">Leading Enterprises</span></h2>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
           {enterpriseClients.map(({ name, industry, impact, logo, lc }, i) => (
             <motion.div key={name} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }} className="glass-card rounded-xl p-6 flex flex-col items-center gap-3 group cursor-default hover:border-brand-primary/30 transition-colors">
               <div className="w-20 h-14 flex items-center justify-center">
                 <PartnerLogo src={logo} alt={name} lc={lc} imgClass="max-w-full max-h-full object-contain">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-accent/20 border border-brand-border flex items-center justify-center font-bold text-brand-text text-sm">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 border border-brand-border flex items-center justify-center font-bold text-brand-text text-sm">
                     {name[0]}
                   </div>
                 </PartnerLogo>
@@ -178,11 +179,11 @@ const Partners = () => (
       <div className="orb w-[400px] h-[400px] bg-brand-primary/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       <div className="container-wide text-center relative">
         <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6">
-          Changing the AI world through <span className="text-gradient">innovative technology?</span>
+          Ready to transform your enterprise with <span className="text-gradient">sovereign AI?</span>
         </h2>
         <div className="flex justify-center">
           <a href="/contact" className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold text-sm hover:opacity-90 transition-opacity">
-            Become a Partner
+            Become a Customer
           </a>
         </div>
       </div>

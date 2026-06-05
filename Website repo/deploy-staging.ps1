@@ -69,7 +69,7 @@ $envLines += "  CLIENT_URL`: '$stagingUrl'"
 $envLines += "  SITE_URL`: '$stagingUrl'"
 
 $appYamlContent = @"
-runtime: nodejs18
+runtime: nodejs22
 service: staging
 entrypoint: node server/src/app.js
 

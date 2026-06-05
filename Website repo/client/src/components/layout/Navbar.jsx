@@ -91,11 +91,12 @@ const Navbar = () => {
 
           {/* Auth + Theme toggle */}
           <div className="hidden lg:flex items-center gap-2">
-            {/* Theme toggle */}
+            {/* Theme toggle icon */}
             <button
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="p-2 rounded-lg text-brand-muted hover:text-brand-primary border border-transparent hover:border-brand-border transition-all duration-200"
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              className="p-1.5 rounded-lg text-brand-muted hover:text-brand-primary transition-colors"
             >
               {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
             </button>
@@ -155,9 +156,17 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile burger */}
+          {/* Mobile: theme toggle + burger */}
+          <div className="lg:hidden flex items-center gap-1">
+            <button
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+              className="p-1.5 rounded-lg text-brand-muted hover:text-brand-primary transition-colors"
+            >
+              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            </button>
           <button
-            className="lg:hidden p-2 text-brand-muted hover:text-brand-text transition-colors"
+            className="p-2 text-brand-muted hover:text-brand-text transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -167,6 +176,7 @@ const Navbar = () => {
               <motion.span animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="block h-0.5 bg-current rounded-full" />
             </div>
           </button>
+          </div>
         </div>
 
         {/* Mobile Menu */}
@@ -201,10 +211,10 @@ const Navbar = () => {
                   <button
                     onClick={toggleTheme}
                     aria-label="Toggle theme"
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-brand-muted hover:text-brand-primary text-xs font-medium transition-colors"
+                    className="flex items-center gap-2 px-3 py-2 rounded-full border border-brand-border text-xs font-medium transition-all hover:border-brand-primary/50"
                   >
                     {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-                    <span>{theme === 'dark' ? 'Light mode' : 'Dark mode'}</span>
+                    <span className="text-brand-muted">{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
                   </button>
                 </div>
                 <div className="pt-2">

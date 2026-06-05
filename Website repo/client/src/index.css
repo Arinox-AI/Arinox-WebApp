@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Avenir LT W01 35 Light (matches arinox.ai) ─────────── */
+@font-face {
+  font-family: 'avenir-lt-w01_35-light1475496';
+  src: url('https://static.parastorage.com/fonts/v2/af36905f-3c92-4ef9-b0c1-f91432f16ac1/v1/avenir-lt-w01_35-light1475496.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ─── Brand Guide Tokens (Arinox AI — March 2026) ──────────
    Primary orange   : #E8590C  →  232 89 12
    Secondary (dark) : #D0500A  →  208 80 10
@@ -52,8 +61,7 @@ html.light-mode {
   body {
     background-color: rgb(var(--color-bg));
     color: rgb(var(--color-text));
-    /* Brand Guide: Calibri, Arial, sans-serif */
-    font-family: 'Calibri', 'Arial', 'Nunito', system-ui, sans-serif;
+    font-family: 'avenir-lt-w01_35-light1475496', sans-serif;
     font-weight: 400;
     overflow-x: hidden;
     width: 100%;
@@ -71,9 +79,8 @@ html.light-mode {
     width: 100%;
   }
 
-  /* Brand Guide: Georgia for all headings */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Georgia', 'Times New Roman', serif;
+    font-family: 'avenir-lt-w01_35-light1475496', sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
   }
@@ -146,14 +153,18 @@ html.light-mode .glass-card:hover {
   border-color: rgba(232, 89, 12, 0.3);
 }
 
-/* ─── Partner logo filters ───────────────────────────────── */
+/* ─── Partner logo filters ───────────────────────────────────
+   WL (logo-white)    = Wix CDN white logos → already white in dark, darken in light
+   CS (logo-colored)  = SimpleIcons with color → invert to white in dark, original in light
+   FC (logo-fullcolor)= Clearbit dark logos   → invert to white in dark, original in light
+─────────────────────────────────────────────────────────────── */
 .logo-white    { opacity: 0.85; }
 .logo-colored  { filter: brightness(0) invert(1); opacity: 0.85; }
-.logo-fullcolor{ opacity: 0.85; }
+.logo-fullcolor{ filter: brightness(0) invert(1); opacity: 0.78; }
 
-html.light-mode .logo-white    { filter: invert(1); opacity: 0.85; }
-html.light-mode .logo-colored  { filter: none; opacity: 0.9; }
-html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
+html.light-mode .logo-white    { filter: brightness(0); opacity: 0.55; }
+html.light-mode .logo-colored  { filter: none; opacity: 0.90; }
+html.light-mode .logo-fullcolor{ filter: none; opacity: 0.90; }
 
 /* ─── Buttons ─────────────────────────────────────────────── */
 .btn-primary {
@@ -162,7 +173,7 @@ html.light-mode .logo-fullcolor{ opacity: 0.9; filter: none; }
   justify-content: center;
   background: #E8590C;
   color: #fff;
-  font-family: 'Calibri', 'Arial', sans-serif;
+  font-family: 'avenir-lt-w01_35-light1475496', sans-serif;
   font-weight: 600;
   border-radius: 0.75rem;
   transition: background 0.2s ease, color 0.2s ease;
@@ -396,7 +407,7 @@ section, header, footer, nav, main { max-width: 100vw; overflow-x: hidden; }
   color: #E8590C;
   letter-spacing: 3px;
   font-size: 0.65rem;
-  font-family: 'Calibri', Arial, sans-serif;
+  font-family: 'avenir-lt-w01_35-light1475496', sans-serif;
 }
 .brand-overline span {
   font-size: 0.6rem;
@@ -404,7 +415,7 @@ section, header, footer, nav, main { max-width: 100vw; overflow-x: hidden; }
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #E8590C;
-  font-family: 'Calibri', Arial, sans-serif;
+  font-family: 'avenir-lt-w01_35-light1475496', sans-serif;
 }
 
 /* ─── Callout boxes (Brand Guide §04) ────────────────────── */
@@ -576,7 +587,10 @@ html.light-mode .contact-input:focus {
   box-shadow: 0 0 0 3px rgba(232, 89, 12, 0.1);
 }
 
-/* ─── Client logo strip ──────────────────────────────────── */
+/* ─── Client logo strip (Home marquee) ──────────────────────
+   mono=true  → colored/dark logos  → invert to white in dark
+   mono=false → Wix white logos     → already white in dark, darken in light
+─────────────────────────────────────────────────────────────── */
 .logo-mono {
   filter: brightness(0) invert(1);
   opacity: 0.65;
@@ -586,10 +600,11 @@ html.light-mode .contact-input:focus {
 }
 html.light-mode .logo-mono {
   filter: brightness(0);
-  opacity: 0.5;
+  opacity: 0.50;
 }
 html.light-mode .logo-color {
-  opacity: 0.65;
+  filter: brightness(0);
+  opacity: 0.50;
 }
 
 /* ─── Chatbot cursor fix ─────────────────────────────────── */

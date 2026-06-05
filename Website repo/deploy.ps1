@@ -35,19 +35,22 @@ if (-not (Test-Path $envFile)) {
 
 # ── Step 1: Set project ───────────────────────────────────
 Write-Host "[1/5] Setting GCP project..." -ForegroundColor Yellow
-& $GCLOUD config set project $PROJECT 2>&1 | Out-Null
+try { & $GCLOUD config set project $PROJECT --quiet } catch {}
 
 # ── Step 2: Ensure Artifact Registry repo exists ──────────
 Write-Host "[2/5] Ensuring Artifact Registry repository..." -ForegroundColor Yellow
-$repoCheck = & $GCLOUD artifacts repositories describe $REPO `
-    --location=$REGION --project=$PROJECT 2>&1
-if ($LASTEXITCODE -ne 0) {
+$repoExists = $false
+try {
+    & $GCLOUD artifacts repositories describe $REPO --location=$REGION --project=$PROJECT --quiet | Out-Null
+    if ($LASTEXITCODE -eq 0) { $repoExists = $true }
+} catch { $repoExists = $false }
+if (-not $repoExists) {
     Write-Host "  Creating repository '$REPO'..."
     & $GCLOUD artifacts repositories create $REPO `
         --repository-format=docker `
         --location=$REGION `
         --description="Arinox AI Docker images" `
-        --project=$PROJECT
+        --project=$PROJECT --quiet
 } else {
     Write-Host "  Repository '$REPO' already exists."
 }
@@ -57,7 +60,8 @@ Write-Host "[3/5] Building image with Cloud Build (~4-6 min)..." -ForegroundColo
 & $GCLOUD builds submit $ROOT `
     --tag="$IMAGE`:latest" `
     --project=$PROJECT `
-    --timeout=1200
+    --timeout=1200 `
+    --ignore-file=.dockerignore
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Cloud Build failed. Check logs above." -ForegroundColor Red
@@ -72,8 +76,7 @@ $tmpYaml = Join-Path $env:TEMP "arinox-env-$([guid]::NewGuid().ToString('N').Sub
 # Always force production values regardless of what's in .env
 $skip = @('NODE_ENV', 'PORT')
 $yamlLines = @(
-    "NODE_ENV: production",
-    "PORT: '8080'"
+    "NODE_ENV: production"
 )
 
 Get-Content $envFile | ForEach-Object {

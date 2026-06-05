@@ -32,10 +32,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Docker (not used for App Engine)
-Dockerfile
-.dockerignore
-
 # Deploy scripts (not needed in runtime)
 deploy.ps1
 deploy-staging.ps1

@@ -88,12 +88,12 @@ const NetworkIcon = () => (
 );
 
 const industryCards = [
-  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   color: '#3b82f6', img: '/industries/legal.jpeg'      },
-  { Icon: ShieldCheck, name: 'Defence & Army',     desc: 'Sovereign military AI systems',    color: '#ef4444', img: '/industries/defence.jpeg'    },
-  { Icon: Building2,   name: 'Government',          desc: 'Public sector intelligence',      color: '#10b981', img: '/industries/government.jpeg' },
-  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  color: '#8b5cf6', img: '/industries/banking.jpeg'    },
-  { Icon: Activity,    name: 'Healthcare',           desc: 'Clinical AI & health compliance', color: '#06b6d4', img: '/industries/healthcare.jpeg' },
-  { Icon: Cpu,         name: 'Technology',           desc: 'Enterprise tech platforms',       color: '#FE6300', img: '/industries/technology.jpeg' },
+  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   color: '#E8590C', img: '/industries/legal.jpeg'      },
+  { Icon: ShieldCheck, name: 'Defence & Army',     desc: 'Sovereign military AI systems',    color: '#E8590C', img: '/industries/defence.jpeg'    },
+  { Icon: Building2,   name: 'Government',          desc: 'Public sector intelligence',      color: '#E8590C', img: '/industries/government.jpeg' },
+  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  color: '#E8590C', img: '/industries/banking.jpeg'    },
+  { Icon: Activity,    name: 'Healthcare',           desc: 'Clinical AI & health compliance', color: '#E8590C', img: '/industries/healthcare.jpeg' },
+  { Icon: Cpu,         name: 'Technology',           desc: 'Enterprise tech platforms',       color: '#E8590C', img: '/industries/technology.jpeg' },
 ];
 
 /* ─── Data ──────────────────────────────────────────────── */
@@ -105,19 +105,18 @@ const whyCards = [
 ];
 
 const stats = [
-  { value: 240, suffix: '+', label: 'AI Models' },
   { value: 80, suffix: '+', label: 'Pre-built Agents' },
   { value: 30, suffix: '%', label: 'Cloud Cost Cut' },
   { value: 90, suffix: '', label: 'Days to Results' },
 ];
 
 const solutions = [
-  { title: 'Defense & Security', icon: '🎯', color: 'from-red-500/20 to-orange-500/10', desc: 'Edge-deployed AI for real-time situational awareness.' },
-  { title: 'Banking & Finance', icon: '🏦', color: 'from-brand-accent/20 to-brand-primary/10', desc: 'Auto-KYC, AML detection, fraud prevention at scale.' },
-  { title: 'Healthcare', icon: '🏥', color: 'from-green-500/20 to-emerald-500/10', desc: 'HIPAA-compliant intelligent triage and clinical AI.' },
-  { title: 'Manufacturing', icon: '🏭', color: 'from-yellow-500/20 to-orange-500/10', desc: 'Predictive maintenance, SCADA/ERP integration.' },
-  { title: 'Insurance', icon: '📋', color: 'from-purple-500/20 to-brand-accent/10', desc: '70% faster claim settlement. Full audit coverage.' },
-  { title: 'Technology & SaaS', icon: '💻', color: 'from-brand-primary/20 to-orange-400/10', desc: 'No-code orchestration and workflow automation.' },
+  { title: 'Defense & Security', icon: '🎯', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'Edge-deployed AI for real-time situational awareness.' },
+  { title: 'Banking & Finance', icon: '🏦', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'Auto-KYC, AML detection, fraud prevention at scale.' },
+  { title: 'Healthcare', icon: '🏥', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'HIPAA-compliant intelligent triage and clinical AI.' },
+  { title: 'Manufacturing', icon: '🏭', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'Predictive maintenance, SCADA/ERP integration.' },
+  { title: 'Insurance', icon: '📋', color: 'from-brand-primary/20 to-brand-secondary/10', desc: '70% faster claim settlement. Full audit coverage.' },
+  { title: 'Technology & SaaS', icon: '💻', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'No-code orchestration and workflow automation.' },
 ];
 
 const SI = 'https://cdn.simpleicons.org';
@@ -128,11 +127,12 @@ const clients = [
   { name: 'IBM', logo: `${SI}/ibm/ffffff`, mono: true },
   { name: 'HPE', logo: `${WX}/ef7a11_64f239e2528b43c2ac75fcc1524bf499~mv2.png`, mono: false },
   { name: 'Indian Army', logo: `${WX}/ef7a11_58cfd59433de4b5eafbf2f4c5834f321~mv2.png`, mono: false },
-  { name: 'Sun Mobility', logo: `${CL}/sunmobility.co.in`, mono: false },
+  { name: 'Hitachi', logo: `${CL}/hitachi.com`, mono: true },
   { name: 'NVIDIA', logo: `${SI}/nvidia/76b900`, mono: true },
   { name: 'Coforge', logo: `${WX}/ef7a11_a28551da4b854e8e90260bcd82deb727~mv2.png`, mono: false },
-  { name: 'Sun Mobility', logo: `${CL}/sunmobility.co.in`, mono: false },
-  { name: 'EY', logo: `${CL}/ey.com`, mono: false },
+  { name: 'HCL Tech', logo: `${CL}/hcltech.com`, mono: true },
+  { name: 'EY', logo: `${CL}/ey.com`, mono: true },
+  { name: 'Sun Mobility', logo: `${CL}/sunmobility.co.in`, mono: true },
 ];
 
 const results = [
@@ -214,7 +214,7 @@ const Counter = ({ value, suffix, label }) => {
 
   return (
     <div ref={ref} className="text-center group">
-      <div className="text-4xl md:text-5xl font-display font-bold text-gradient mb-1 counter" ref={displayRef}>
+      <div className="text-3xl md:text-4xl font-display font-bold text-gradient mb-1 counter" ref={displayRef}>
         0{suffix}
       </div>
       <div className="text-sm text-brand-muted group-hover:text-brand-text transition-colors">{label}</div>
@@ -282,7 +282,7 @@ const Home = () => {
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
         <ThreeScene />
         <div className="orb w-[400px] h-[400px] bg-brand-primary/10 top-1/4 -left-24" />
-        <div className="orb w-[320px] h-[320px] bg-brand-accent/8 bottom-1/4 -right-24" />
+        <div className="orb w-[320px] h-[320px] bg-brand-primary/8 bottom-1/4 -right-24" />
 
         <motion.div
           style={{ y: heroY, opacity: heroOpacity }}
@@ -293,7 +293,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="text-3xl md:text-4xl lg:text-[2.6rem] font-display font-bold text-white leading-[1.1] mb-2"
+            className="text-3xl md:text-4xl lg:text-4xl font-display font-bold text-white leading-[1.1] mb-2"
           >
             Powering the Decisions That
           </motion.h1>
@@ -303,7 +303,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.22 }}
-            className="text-3xl md:text-4xl lg:text-[2.6rem] font-display font-bold leading-[1.1] mb-6"
+            className="text-3xl md:text-4xl lg:text-4xl font-display font-bold leading-[1.1] mb-6"
           >
             <span ref={taglineRef} className="text-gradient">Strategic AI Systems</span>
           </motion.div>
@@ -465,7 +465,7 @@ const Home = () => {
               We don't build everything — we curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context.
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', '240+ AI Models Ready'].map(item => (
+              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', 'Sovereign On-Prem Compute'].map(item => (
                 <div key={item} className="flex items-start gap-2 text-brand-muted">
                   <span className="text-brand-primary mt-0.5">▸</span> {item}
                 </div>
@@ -491,7 +491,7 @@ const Home = () => {
                     {photo ? (
                       <img src={photo} alt={name} className="w-full h-full object-cover object-[center_top] transition-transform duration-500 group-hover:scale-105" />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-brand-primary to-brand-accent flex items-center justify-center text-white font-bold text-4xl">
+                      <div className="w-full h-full bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-4xl">
                         {name.split(' ').map(n => n[0]).join('')}
                       </div>
                     )}
@@ -499,7 +499,7 @@ const Home = () => {
                   <div className="p-5 flex flex-col">
                     <motion.h3 style={{ translateZ: 24 }} className="text-white font-bold mb-0.5">{name}</motion.h3>
                     <motion.p style={{ translateZ: 18 }} className="text-xs text-brand-primary mb-3">{role}</motion.p>
-                    <motion.p style={{ translateZ: 12 }} className="text-xs font-semibold text-brand-accent mb-2">"{superpower}"</motion.p>
+                    <motion.p style={{ translateZ: 12 }} className="text-xs font-semibold text-brand-primary mb-2">"{superpower}"</motion.p>
                     {tags.length > 0 && (
                       <div className="flex flex-wrap gap-1.5 mt-4">
                         {tags.map(tag => (
@@ -520,7 +520,7 @@ const Home = () => {
       {/* ═══ STATS COUNTER ══════════════════════════════════ */}
       <section className="py-16 border-y border-brand-border line-grid relative overflow-hidden">
         <div className="orb w-80 h-80 bg-brand-primary/8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="container-wide grid grid-cols-2 md:grid-cols-4 gap-8 relative">
+        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="container-wide grid grid-cols-3 gap-8 relative">
           {stats.map(({ value, suffix, label }) => (
             <Counter key={label} value={value} suffix={suffix} label={label} />
           ))}
@@ -540,8 +540,8 @@ const Home = () => {
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
             {[
               { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout — strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global Integrators. IBM, HPE, Indian Army, NVIDIA, Sun Mobility, and more across every industry worldwide.', grad: 'from-brand-accent to-brand-primary' },
-              { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI — fast. Pre-built use cases. Real adoption.', grad: 'from-brand-gold to-brand-secondary' },
+              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global Integrators. IBM, HPE, Indian Army, NVIDIA, HCL Tech, Hitachi, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI — fast. Pre-built use cases. Real adoption.', grad: 'from-brand-primary to-brand-secondary' },
             ].map(({ tag, title, desc, grad }, i) => (
               <motion.div key={tag} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-7 cursor-default h-full" intensity={11}>
@@ -579,49 +579,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══ ABOUT — AGENT VALUES ═══════════════════════════ */}
-      <section className="section-padding bg-brand-surface relative overflow-hidden">
-        <FloatingOrbs preset="cool" />
-        <div className="container-wide">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
-            <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Core Values</p>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">The <span className="text-gradient">A.G.E.N.T.</span> Pillars</h2>
-          </motion.div>
-          <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-col md:flex-row gap-4">
-            {values.map(({ letter, title, desc }, i) => (
-              <motion.div key={letter} variants={springCard} className="flex-1">
-                <MouseTilt className="glass-card rounded-2xl p-5 h-full text-center" intensity={13} scaleOnHover={1.07}>
-                  <motion.div style={{ translateZ: 45 }} className="text-4xl font-display font-bold text-gradient mb-2">{letter}</motion.div>
-                  <motion.h3 style={{ translateZ: 28 }} className="text-white font-semibold mb-1.5 text-sm">{title}</motion.h3>
-                  <motion.p style={{ translateZ: 14 }} className="text-xs text-brand-muted leading-relaxed">{desc}</motion.p>
-                </MouseTilt>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══ ABOUT — TIMELINE ═══════════════════════════════ */}
-      <section className="section-padding timeline-section relative overflow-hidden">
-        <FloatingOrbs preset="default" />
-        <div className="container-wide max-w-2xl mx-auto">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-10">
-            <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Our Journey</p>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Company <span className="text-gradient">History</span></h2>
-          </motion.div>
-          <div className="relative pl-7 border-l border-brand-border space-y-10">
-            {history.map(({ year, title, desc }) => (
-              <div key={year} className="timeline-item relative">
-                <div className="absolute -left-[1.85rem] top-1 w-3.5 h-3.5 rounded-full bg-brand-primary border-2 border-brand-bg" />
-                <span className="text-xs font-bold text-brand-primary mb-1 block">{year}</span>
-                <h3 className="text-white font-bold mb-1.5">{title}</h3>
-                <p className="text-brand-muted text-sm leading-relaxed">{desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ CTA ════════════════════════════════════════════ */}
       <section className="relative py-28 overflow-hidden line-grid">
         <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
@@ -634,7 +591,7 @@ const Home = () => {
             style={{ perspective: 1000 }}
           >
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-5 font-semibold">Ready?</p>
-            <h2 className="text-2xl md:text-3xl lg:text-[2.4rem] font-display font-bold text-white mb-5 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-5 leading-tight">
               Transform how your enterprise <span className="text-gradient">wins.</span>
             </h2>
             <p className="text-brand-muted text-base max-w-lg mx-auto">

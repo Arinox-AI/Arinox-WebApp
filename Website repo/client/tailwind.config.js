@@ -29,11 +29,19 @@ export default {
         },
       },
       fontFamily: {
-        /* Brand Guide: Georgia for display/headings */
-        sans:    ['Calibri', 'Arial', 'Nunito', 'system-ui', 'sans-serif'],
-        display: ['Georgia', '"Times New Roman"', 'serif'],
-        serif:   ['Georgia', '"Times New Roman"', 'serif'],
-        poppins: ['Calibri', 'Arial', 'system-ui', 'sans-serif'],
+        sans:    ['avenir-lt-w01_35-light1475496', 'sans-serif'],
+        display: ['avenir-lt-w01_35-light1475496', 'sans-serif'],
+        serif:   ['avenir-lt-w01_35-light1475496', 'sans-serif'],
+        poppins: ['avenir-lt-w01_35-light1475496', 'sans-serif'],
+      },
+      fontSize: {
+        '3xl': ['1.35rem',  { lineHeight: '1.3'  }],
+        '4xl': ['1.6rem',   { lineHeight: '1.25' }],
+        '5xl': ['1.9rem',   { lineHeight: '1.2'  }],
+        '6xl': ['2.15rem',  { lineHeight: '1.15' }],
+        '7xl': ['2.4rem',   { lineHeight: '1.1'  }],
+        '8xl': ['2.75rem',  { lineHeight: '1.05' }],
+        '9xl': ['3.25rem',  { lineHeight: '1.0'  }],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

@@ -67,9 +67,11 @@ export default function ArinoxChatBot() {
   const [messages, setMessages] = useState([WELCOME]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState('');
   const bottomRef = useRef(null);
   const inputRef = useRef(null);
+  const streamRef = useRef(null);
 
   // Show popup after 2.5s on first load
   useEffect(() => {
@@ -91,9 +93,12 @@ export default function ArinoxChatBot() {
     }
   }, [open, messages]);
 
+  // Clean up streaming timer on unmount
+  useEffect(() => () => { if (streamRef.current) clearTimeout(streamRef.current); }, []);
+
   const send = async (text) => {
     const content = (text ?? input).trim();
-    if (!content || loading) return;
+    if (!content || loading || streaming) return;
     setInput('');
     setError('');
 
@@ -105,11 +110,44 @@ export default function ArinoxChatBot() {
     try {
       const payload = next.filter(m => m.role !== 'system');
       const { data } = await axios.post('/api/v1/chat', { messages: payload });
-      setMessages(prev => [...prev, { role: 'assistant', content: data.reply }]);
+      const fullReply = data.reply;
+      setLoading(false);
+
+      // Typewriter effect: reveal one word at a time.
+      // Pauses 450ms at sentence endings (. ! ?) for a natural rhythm.
+      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
+      setStreaming(true);
+
+      const words = fullReply.trim().split(/\s+/);
+      let wordIdx = 0;
+
+      const typeNext = () => {
+        wordIdx++;
+        const word = words[wordIdx - 1] ?? '';
+        setMessages(prev => {
+          const updated = [...prev];
+          updated[updated.length - 1] = {
+            role: 'assistant',
+            content: words.slice(0, wordIdx).join(' '),
+          };
+          return updated;
+        });
+
+        if (wordIdx >= words.length) {
+          streamRef.current = null;
+          setStreaming(false);
+          return;
+        }
+
+        // Short pause after sentence-ending punctuation
+        const delay = /[.!?]$/.test(word) ? 450 : 75;
+        streamRef.current = setTimeout(typeNext, delay);
+      };
+
+      typeNext();
     } catch (err) {
       const msg = err.response?.data?.message || err.response?.data?.error;
       setError(msg || 'Could not reach Arin. Please try again.');
-    } finally {
       setLoading(false);
     }
   };
@@ -263,7 +301,7 @@ export default function ArinoxChatBot() {
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKey}
                   placeholder="Ask Arin about Arinox or AI…"
-                  disabled={loading}
+                  disabled={loading || streaming}
                   style={{
                     flex: 1, background: 'transparent', border: 'none', outline: 'none', resize: 'none',
                     color: '#1a1a1a', fontSize: '13.5px', lineHeight: '1.55', maxHeight: '120px',
@@ -272,11 +310,11 @@ export default function ArinoxChatBot() {
                 />
                 <button
                   onClick={() => send()}
-                  disabled={!input.trim() || loading}
+                  disabled={!input.trim() || loading || streaming}
                   style={{
                     flexShrink: 0, width: '34px', height: '34px', borderRadius: '9px', border: 'none',
-                    background: input.trim() && !loading ? 'linear-gradient(135deg, #FE6300, #E55A00)' : '#e5e5e5',
-                    cursor: input.trim() && !loading ? 'pointer' : 'not-allowed',
+                    background: input.trim() && !loading && !streaming ? 'linear-gradient(135deg, #FE6300, #E55A00)' : '#e5e5e5',
+                    cursor: input.trim() && !loading && !streaming ? 'pointer' : 'not-allowed',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s',
                   }}
                   aria-label="Send"

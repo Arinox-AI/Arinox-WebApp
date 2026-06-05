@@ -15,6 +15,7 @@ const CommandCore = lazy(() => import('./pages/CommandCore'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const QRScanPage = lazy(() => import('./pages/QRScanPage'));
 
@@ -96,7 +97,7 @@ const AppInner = () => {
               <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
-              <Route path="/blog/:slug" element={<PageTransition><Blog /></PageTransition>} />
+              <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/auth/qr-scan/:token" element={<QRScanPage />} />

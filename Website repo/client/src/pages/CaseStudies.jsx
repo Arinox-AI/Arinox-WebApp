@@ -35,10 +35,10 @@ const CaseStudies = () => {
 
       {/* Hero */}
       <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
-        <div className="orb w-[400px] h-[400px] bg-brand-accent/8 top-0 right-1/4 -translate-y-1/4" />
+        <div className="orb w-[400px] h-[400px] bg-brand-primary/8 top-0 right-1/4 -translate-y-1/4" />
         <div className="container-wide relative">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Impact</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-4xl sm:text-5xl md:text-7xl font-display font-bold text-white mb-4">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-4">
             Real Clients.<br /><span className="text-gradient">Real Results.</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-brand-muted">
@@ -79,7 +79,7 @@ const CaseStudies = () => {
                     <div className="grid grid-cols-2 gap-4 mt-auto">
                       {study.results.map(({ value, metric }) => (
                         <div key={metric} className="text-center p-3 rounded-xl bg-brand-bg/60 border border-brand-border">
-                          <div className="text-2xl font-display font-bold text-brand-accent">{value}</div>
+                          <div className="text-2xl font-display font-bold text-brand-primary">{value}</div>
                           <div className="text-xs text-brand-muted mt-1">{metric}</div>
                         </div>
                       ))}

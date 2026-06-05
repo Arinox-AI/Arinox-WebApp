@@ -119,7 +119,7 @@ const CommandCore = () => {
     <section className="relative pt-28 pb-16 grid-bg overflow-hidden">
       <FloatingOrbs preset="warm" />
       <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-0 right-0 translate-x-1/3 -translate-y-1/4" />
-      <div className="orb w-[300px] h-[300px] bg-brand-accent/6 bottom-0 left-0 -translate-x-1/4" />
+      <div className="orb w-[300px] h-[300px] bg-brand-primary/6 bottom-0 left-0 -translate-x-1/4" />
 
       <div className="container-wide relative grid lg:grid-cols-2 gap-6 items-center">
         {/* Text */}
@@ -196,7 +196,7 @@ const CommandCore = () => {
                   initial={{ width: '0%' }}
                   animate={{ width: '94%' }}
                   transition={{ duration: 2, delay: 0.8 }}
-                  className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-accent"
+                  className="h-full rounded-full bg-gradient-to-r from-brand-primary to-brand-secondary"
                 />
               </div>
               <div className="grid grid-cols-3 gap-2 mt-2 text-center">
@@ -299,7 +299,7 @@ const CommandCore = () => {
                     </div>
                     <div className="grid grid-cols-3 gap-1 text-[11px] text-brand-muted">
                       <span>{ram} RAM</span>
-                      <span className="text-brand-accent">{gpu}</span>
+                      <span className="text-brand-primary">{gpu}</span>
                       <span>{storage}</span>
                     </div>
                   </div>

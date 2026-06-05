@@ -10,8 +10,8 @@ const navLinks = [
 ];
 
 const Footer = () => (
-  <footer className="bg-brand-bg border-t border-brand-border/50">
-    <div className="container-wide py-6 px-6">
+  <footer className="bg-brand-bg border-t border-brand-border/50 py-5">
+    <div className="container-wide">
 
       {/* Main row */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pb-5 border-b border-brand-border/30">

@@ -23,7 +23,7 @@ export default defineConfig({
           'vendor-motion': ['framer-motion'],
           'vendor-gsap':   ['gsap'],
           'vendor-three':  ['three'],
-          'vendor-misc':   ['axios', 'socket.io-client', '@supabase/supabase-js'],
+          'vendor-misc':   ['axios', 'socket.io-client'],
         },
       },
     },

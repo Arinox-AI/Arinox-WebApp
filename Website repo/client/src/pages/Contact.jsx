@@ -88,7 +88,7 @@ const Contact = () => {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative pt-36 pb-14 grid-bg overflow-hidden">
         <div className="orb w-[440px] h-[440px] bg-brand-primary/10 -top-20 left-1/2 -translate-x-1/2" />
-        <div className="orb w-[260px] h-[260px] bg-brand-accent/7 top-1/2 right-0 translate-x-1/3" />
+        <div className="orb w-[260px] h-[260px] bg-brand-primary/7 top-1/2 right-0 translate-x-1/3" />
 
         <div className="container-wide relative">
           <motion.p

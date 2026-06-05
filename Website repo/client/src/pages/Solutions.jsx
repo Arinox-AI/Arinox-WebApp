@@ -4,10 +4,9 @@ import SEO from '../components/ui/SEO';
 import DemoLink from '../components/ui/DemoLink';
 import MouseTilt from '../components/ui/MouseTilt';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
-import kogoImg from '../assets/KOGO-WP.avif';
-import commandcoreWpImg from '../assets/severeign-CommandCore-WP.avif';
-import arinoxVoxImg from '../assets/ArinoxVOX-WP.avif';
-import avoxImg from '../assets/AVOX.avif';
+const kogoImg = 'https://static.wixstatic.com/media/dd0ee7_dc6ef29b792a48718737ce48d7903a93~mv2.png';
+const commandcoreWpImg = 'https://static.wixstatic.com/media/dd0ee7_145e34628fb34b78ace2c27e26f63923~mv2.png';
+const arinoxVoxImg = 'https://static.wixstatic.com/media/dd0ee7_fb6497e562074946b843c3082c95a779~mv2.png';
 
 const stats = [
   { value: '80+', label: 'Pre-built Enterprise Agents' },
@@ -149,7 +148,7 @@ const Solutions = () => {
       {/* Hero */}
       <section className="relative pt-40 pb-20 grid-bg overflow-hidden">
         <FloatingOrbs preset="warm" />
-        <div className="orb w-[500px] h-[500px] bg-brand-accent/8 top-0 left-1/4 -translate-y-1/3" />
+        <div className="orb w-[500px] h-[500px] bg-brand-primary/8 top-0 left-1/4 -translate-y-1/3" />
         <div className="container-wide relative">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Solutions</motion.p>
           <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4 max-w-3xl">
@@ -298,7 +297,7 @@ const Solutions = () => {
               className="grid lg:grid-cols-3 gap-6"
             >
               <MouseTilt className="glass-card rounded-2xl p-6 h-full" intensity={9}>
-                <motion.p style={{ translateZ: 20 }} className="text-xs text-red-400 font-semibold mb-2">Problem</motion.p>
+                <motion.p style={{ translateZ: 20 }} className="text-xs text-brand-primary font-semibold mb-2">Problem</motion.p>
                 <p className="text-brand-muted text-sm leading-relaxed">{current.problem}</p>
               </MouseTilt>
               <MouseTilt className="glass-card rounded-2xl p-6 h-full" intensity={9}>
@@ -306,9 +305,9 @@ const Solutions = () => {
                 <p className="text-brand-muted text-sm leading-relaxed">{current.solution}</p>
               </MouseTilt>
               <MouseTilt className="glass-card rounded-2xl p-6 h-full" intensity={9}>
-                <motion.p style={{ translateZ: 20 }} className="text-xs text-brand-accent font-semibold mb-2">Impact</motion.p>
+                <motion.p style={{ translateZ: 20 }} className="text-xs text-brand-primary font-semibold mb-2">Impact</motion.p>
                 <ul className="space-y-2">
-                  {current.impact.map(i => <li key={i} className="text-sm text-brand-muted flex items-start gap-2"><span className="text-brand-accent mt-0.5">✓</span>{i}</li>)}
+                  {current.impact.map(i => <li key={i} className="text-sm text-brand-muted flex items-start gap-2"><span className="text-brand-primary mt-0.5">✓</span>{i}</li>)}
                 </ul>
                 <p className="text-xs text-brand-primary mt-4 font-medium">Client: {current.client}</p>
               </MouseTilt>

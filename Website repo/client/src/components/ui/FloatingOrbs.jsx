@@ -2,19 +2,19 @@ import { motion } from 'framer-motion';
 
 const PRESETS = {
   default: [
-    { w: 420, h: 420, color: '#FE6300', opacity: 0.07, blur: 90,  top: '10%',  left: '5%',   dur: 20, dx: [0, 50, -25, 35, 0],  dy: [0, -35, 50, -15, 0] },
-    { w: 320, h: 320, color: '#1A6AFF', opacity: 0.055, blur: 80, top: '55%',  right: '8%',  dur: 27, dx: [0, -40, 25, -30, 0], dy: [0, 40, -30, 20, 0] },
-    { w: 240, h: 240, color: '#FFE58B', opacity: 0.045, blur: 70, bottom: '15%', left: '45%', dur: 18, dx: [0, 30, -40, 20, 0],  dy: [0, -25, 35, -20, 0] },
+    { w: 420, h: 420, color: '#FE6300', opacity: 0.07,  blur: 90,  top: '10%',    left: '5%',   dur: 20, dx: [0, 50, -25, 35, 0],  dy: [0, -35, 50, -15, 0] },
+    { w: 320, h: 320, color: '#D0500A', opacity: 0.045, blur: 80,  top: '55%',    right: '8%',  dur: 27, dx: [0, -40, 25, -30, 0], dy: [0, 40, -30, 20, 0] },
+    { w: 240, h: 240, color: '#FE6300', opacity: 0.035, blur: 70,  bottom: '15%', left: '45%',  dur: 18, dx: [0, 30, -40, 20, 0],  dy: [0, -25, 35, -20, 0] },
   ],
   warm: [
-    { w: 500, h: 500, color: '#FE6300', opacity: 0.08, blur: 100, top: '0%',   left: '20%',  dur: 24, dx: [0, 60, -30, 45, 0],  dy: [0, -45, 60, -25, 0] },
-    { w: 280, h: 280, color: '#FF8C3A', opacity: 0.06, blur: 80,  top: '60%',  right: '5%',  dur: 18, dx: [0, -35, 20, -28, 0], dy: [0, 30, -40, 15, 0] },
-    { w: 200, h: 200, color: '#FFE58B', opacity: 0.04, blur: 65,  bottom: '5%', left: '10%', dur: 22, dx: [0, 25, -45, 30, 0],  dy: [0, -20, 40, -30, 0] },
+    { w: 500, h: 500, color: '#FE6300', opacity: 0.08,  blur: 100, top: '0%',     left: '20%',  dur: 24, dx: [0, 60, -30, 45, 0],  dy: [0, -45, 60, -25, 0] },
+    { w: 280, h: 280, color: '#FF8C3A', opacity: 0.06,  blur: 80,  top: '60%',    right: '5%',  dur: 18, dx: [0, -35, 20, -28, 0], dy: [0, 30, -40, 15, 0] },
+    { w: 200, h: 200, color: '#D0500A', opacity: 0.04,  blur: 65,  bottom: '5%',  left: '10%',  dur: 22, dx: [0, 25, -45, 30, 0],  dy: [0, -20, 40, -30, 0] },
   ],
   cool: [
-    { w: 400, h: 400, color: '#1A6AFF', opacity: 0.065, blur: 90, top: '5%',   right: '10%', dur: 26, dx: [0, -55, 30, -40, 0], dy: [0, 40, -50, 25, 0] },
-    { w: 300, h: 300, color: '#FE6300', opacity: 0.06,  blur: 75, bottom: '20%', left: '5%', dur: 20, dx: [0, 45, -25, 35, 0],  dy: [0, -30, 45, -20, 0] },
-    { w: 220, h: 220, color: '#6ea8ff', opacity: 0.045, blur: 65, top: '50%', left: '40%',   dur: 16, dx: [0, 30, -40, 20, 0],  dy: [0, -35, 30, -15, 0] },
+    { w: 400, h: 400, color: '#FE6300', opacity: 0.055, blur: 90,  top: '5%',     right: '10%', dur: 26, dx: [0, -55, 30, -40, 0], dy: [0, 40, -50, 25, 0] },
+    { w: 300, h: 300, color: '#D0500A', opacity: 0.06,  blur: 75,  bottom: '20%', left: '5%',   dur: 20, dx: [0, 45, -25, 35, 0],  dy: [0, -30, 45, -20, 0] },
+    { w: 220, h: 220, color: '#FF8C3A', opacity: 0.038, blur: 65,  top: '50%',    left: '40%',  dur: 16, dx: [0, 30, -40, 20, 0],  dy: [0, -35, 30, -15, 0] },
   ],
 };
 

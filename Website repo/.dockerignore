@@ -30,7 +30,7 @@ client/dist
 **/.vscode
 **/.idea
 
-# Docker files (not needed inside container)
-Dockerfile
+# Deploy scripts (not needed inside container)
 .dockerignore
 deploy.ps1
+deploy-staging.ps1
