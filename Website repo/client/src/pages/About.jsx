@@ -1,10 +1,16 @@
 import { useEffect, useRef } from 'react';
+import { globalClients } from '../data/clients';
 import { motion } from 'framer-motion';
+import { Lock, Search, Handshake } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SEO from '../components/ui/SEO';
 import MouseTilt from '../components/ui/MouseTilt';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
+import ajayImg from '../assets/Ajay-Kharbanda-CEO-of-Arinox-AI.png';
+import chytraImg from '../assets/chytraD.jpeg';
+import udayImg from '../assets/Uday bhaskar.png';
+import angadImg from '../assets/Angad-Ahluwalia-Chief-Spokesperson-Arinox-AI.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -29,6 +35,7 @@ const team = [
     superpower: 'Vision-ops bridge-builder',
     track: '25+ years driving digital transformation at Fortune 500s. Connects enterprise strategy directly to AI execution at scale.',
     tags: [],
+    image: ajayImg,
   },
   {
     name: 'Dr Chytra V Anand',
@@ -36,6 +43,7 @@ const team = [
     superpower: 'Enterprise transformation catalyst',
     track: 'Champions client partnerships and enterprise AI adoption across global markets, turning complex deployments into measurable outcomes.',
     tags: [],
+    image: chytraImg,
   },
   {
     name: 'D Uday Bhaskar Rao',
@@ -43,6 +51,7 @@ const team = [
     superpower: 'Enterprise systems architect',
     track: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
     tags: [],
+    image: udayImg,
   },
   {
     name: 'Angad Singh',
@@ -50,6 +59,7 @@ const team = [
     superpower: 'AI stack maestro',
     track: "Ex-NVIDIA & Qualcomm. Architected 40+ on-prem ML grids. Leads the design and deployment of Arinox's sovereign AI infrastructure.",
     tags: [],
+    image: angadImg,
   },
 ];
 
@@ -105,9 +115,11 @@ const About = () => {
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             style={{ perspective: 1000 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white"
+            className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-white leading-tight"
           >
-            Built to<br /><span className="text-gradient">Transform.</span>
+            We Don't Just Deploy AI.<br />
+            <span className="text-gradient">We Build the Intelligence</span><br />
+            Behind Your Enterprise.
           </motion.h1>
         </div>
       </section>
@@ -121,12 +133,16 @@ const About = () => {
             <h2 className="text-xl md:text-2xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map(({ name, role, superpower, track, tags }, i) => (
+            {team.map(({ name, role, superpower, track, tags, image }, i) => (
               <motion.div key={name} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-6 group flex flex-col h-full" intensity={10}>
-                  <motion.div style={{ translateZ: 30 }} className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary mb-4 flex items-center justify-center text-white font-bold text-xl shrink-0">
-                    {name.split(' ').map(n => n[0]).join('')}
-                  </motion.div>
+                  {image ? (
+                    <motion.img style={{ translateZ: 30 }} src={image} alt={name} className="w-16 h-16 rounded-full object-cover mb-4 shrink-0 border-2 border-brand-primary/30" />
+                  ) : (
+                    <motion.div style={{ translateZ: 30 }} className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary mb-4 flex items-center justify-center text-white font-bold text-xl shrink-0">
+                      {name.split(' ').map(n => n[0]).join('')}
+                    </motion.div>
+                  )}
                   <motion.h3 style={{ translateZ: 22 }} className="text-white font-bold mb-0.5">{name}</motion.h3>
                   <motion.p style={{ translateZ: 16 }} className="text-xs text-brand-primary mb-3">{role}</motion.p>
                   <p className="text-xs font-semibold text-brand-primary mb-2">"{superpower}"</p>
@@ -147,45 +163,20 @@ const About = () => {
         </div>
       </section>
 
-      {/* Mission */}
-      <section className="section-padding relative overflow-hidden">
-        <FloatingOrbs preset="cool" />
-        <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="text-lg md:text-xl font-display font-bold text-white mb-6">
-              We founded Arinox.ai with one goal:<br />
-              <span className="text-gradient">make enterprise-grade AI accessible to all.</span>
-            </h2>
-            <p className="text-brand-muted leading-relaxed mb-4">
-              We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We don't improve efficiency — we multiply it.
-            </p>
-            <p className="text-brand-muted leading-relaxed">
-              Headquartered in India with offices in New Delhi and Bangalore — connecting innovation to implementation and delivering enterprise AI transformation globally.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, rotateY: -20 }}
-            whileInView={{ opacity: 1, rotateY: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ rotateY: 8, rotateX: -3, scale: 1.03, z: 20 }}
-            style={{ perspective: 1000, transformStyle: 'preserve-3d' }}
-            className="glass-card rounded-3xl p-8"
-          >
-            <div className="text-4xl mb-4">⚡</div>
-            <h3 className="text-base font-display font-bold text-white mb-4">The Arinox Difference</h3>
-            <p className="text-brand-muted leading-relaxed mb-6">
-              We don't build everything. We curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context — without the complexity.
-            </p>
-            <div className="grid grid-cols-2 gap-3 text-sm">
-              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', 'Sovereign On-Prem Compute'].map(item => (
-                <div key={item} className="flex items-start gap-2 text-brand-muted">
-                  <span className="text-brand-primary mt-0.5">▸</span> {item}
+      {/* Trusted by Global Leaders */}
+      <section className="py-14 bg-brand-surface border-y border-brand-border overflow-hidden">
+        <p className="text-xs tracking-[0.2em] uppercase text-brand-muted text-center mb-8 font-semibold">Trusted by global leaders</p>
+        <div className="container-wide">
+          <div className="flex flex-wrap justify-center items-center gap-4">
+            {globalClients.map(({ name, logo }) => (
+              <div key={name} className="inline-flex items-center gap-2.5 px-4 py-2 glass rounded-xl text-brand-muted font-medium text-sm border border-transparent hover:border-brand-primary/20 transition-all cursor-default">
+                <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
+                  <img src={logo} alt={name} className="h-5 w-auto object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
                 </div>
-              ))}
-            </div>
-          </motion.div>
+                {name}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -268,13 +259,15 @@ const About = () => {
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: '🔒', title: 'Data Sovereignty', desc: 'Your data stays yours. Always. Our on-premises deployment ensures your information never leaves your environment.' },
-              { icon: '🔍', title: 'Responsible AI', desc: 'No black boxes. Just clear decisions. Our solutions reveal how AI works, building the trust essential for enterprise-wide adoption.' },
-              { icon: '🤝', title: 'Human-AI Partnership', desc: 'AI that serves people. Not the other way around. We design AI to amplify human strengths, not replace them.' },
-            ].map(({ icon, title, desc }, i) => (
+              { Icon: Lock,      title: 'Data Sovereignty',    desc: 'Your data stays yours. Always. Our on-premises deployment ensures your information never leaves your environment.' },
+              { Icon: Search,    title: 'Responsible AI',      desc: 'No black boxes. Just clear decisions. Our solutions reveal how AI works, building the trust essential for enterprise-wide adoption.' },
+              { Icon: Handshake, title: 'Human-AI Partnership', desc: 'AI that serves people. Not the other way around. We design AI to amplify human strengths, not replace them.' },
+            ].map(({ Icon, title, desc }, i) => (
               <motion.div key={title} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-8 text-center h-full" intensity={10}>
-                  <motion.div style={{ translateZ: 40 }} className="text-3xl mb-4">{icon}</motion.div>
+                  <motion.div style={{ translateZ: 40 }} className="w-12 h-12 rounded-xl bg-brand-primary/10 text-brand-muted flex items-center justify-center mx-auto mb-4">
+                    <Icon size={22} strokeWidth={1.6} />
+                  </motion.div>
                   <motion.h3 style={{ translateZ: 25 }} className="text-white font-bold text-sm mb-3">{title}</motion.h3>
                   <motion.p style={{ translateZ: 12 }} className="text-brand-muted text-sm leading-relaxed">{desc}</motion.p>
                 </MouseTilt>

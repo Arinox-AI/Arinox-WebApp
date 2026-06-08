@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Landmark, ShieldCheck, Building2, Scale, Activity, Cpu } from 'lucide-react';
+import { Landmark, ShieldCheck, Building2, Scale, Activity, Cpu, RefreshCw, Network, Zap, ChevronRight, Target, Factory, ClipboardList, Monitor } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DemoLink from '../components/ui/DemoLink';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
@@ -11,9 +11,10 @@ import SEO from '../components/ui/SEO';
 import MouseTilt from '../components/ui/MouseTilt';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
 import ajayPhoto from '../assets/Ajay-Kharbanda-CEO-of-Arinox-AI.png';
-import chytraPhoto from '../assets/DrChytraAnand.jpg';
+import chytraPhoto from '../assets/chytraD.jpeg';
 import udayPhoto from '../assets/Uday bhaskar.png';
 import angadPhoto from '../assets/Angad-Ahluwalia-Chief-Spokesperson-Arinox-AI.jpeg';
+import { globalClients as clients } from '../data/clients';
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -59,80 +60,21 @@ const springCard = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 90, damping: 16 } },
 };
 
-/* ─── Why card icons ─────────────────────────────────────── */
-const ShieldCheckIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    <path d="m9 12 2 2 4-4"/>
-  </svg>
-);
-const RefreshCwIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-    <path d="M21 3v5h-5"/>
-    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-    <path d="M8 16H3v5"/>
-  </svg>
-);
-const CpuChipIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="7" y="7" width="10" height="10" rx="1"/>
-    <path d="M7 9H4M7 12H4M7 15H4M17 9h3M17 12h3M17 15h3M9 7V4M12 7V4M15 7V4M9 17v3M12 17v3M15 17v3"/>
-  </svg>
-);
-const NetworkIcon = () => (
-  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
-    <path d="M12 7v4M12 11l-5.5 6M12 11l5.5 6"/>
-  </svg>
-);
-
 const industryCards = [
-  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   color: '#E8590C', img: '/industries/legal.jpeg'      },
-  { Icon: ShieldCheck, name: 'Defence & Army',     desc: 'Sovereign military AI systems',    color: '#E8590C', img: '/industries/defence.jpeg'    },
-  { Icon: Building2,   name: 'Government',          desc: 'Public sector intelligence',      color: '#E8590C', img: '/industries/government.jpeg' },
-  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  color: '#E8590C', img: '/industries/banking.jpeg'    },
-  { Icon: Activity,    name: 'Healthcare',           desc: 'Clinical AI & health compliance', color: '#E8590C', img: '/industries/healthcare.jpeg' },
-  { Icon: Cpu,         name: 'Technology',           desc: 'Enterprise tech platforms',       color: '#E8590C', img: '/industries/technology.jpeg' },
+  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   img: '/industries/legal.jpeg'      },
+  { Icon: ShieldCheck, name: 'Defence & Army',     desc: 'Sovereign military AI systems',    img: '/industries/defence.jpeg'    },
+  { Icon: Building2,   name: 'Government',          desc: 'Public sector intelligence',      img: '/industries/government.jpeg' },
+  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  img: '/industries/banking.jpeg'    },
+  { Icon: Activity,    name: 'Healthcare',           desc: 'Clinical AI & health compliance', img: '/industries/healthcare.jpeg' },
+  { Icon: Cpu,         name: 'Technology',           desc: 'Enterprise tech platforms',       img: '/industries/technology.jpeg' },
 ];
 
 /* ─── Data ──────────────────────────────────────────────── */
 const whyCards = [
-  { Icon: ShieldCheckIcon, title: 'Sovereign AI', desc: 'Your data stays yours. Deploy on private cloud or on-prem. Compliance built in, not bolted on.' },
-  { Icon: RefreshCwIcon, title: 'AI That Adapts', desc: 'Enterprise-grade solutions that bend for you. Zero compromise on security.' },
-  { Icon: CpuChipIcon, title: 'Agents That Fit', desc: 'Seamless integration into your workflows. Real reasoning. Results from day one.' },
-  { Icon: NetworkIcon, title: 'Ecosystem Strength', desc: 'Global partner network. Best-in-class tech, infrastructure, and outcomes.' },
-];
-
-const stats = [
-  { value: 80, suffix: '+', label: 'Pre-built Agents' },
-  { value: 30, suffix: '%', label: 'Cloud Cost Cut' },
-  { value: 90, suffix: '', label: 'Days to Results' },
-];
-
-const solutions = [
-  { title: 'Defense & Security', icon: '🎯', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'Edge-deployed AI for real-time situational awareness.' },
-  { title: 'Banking & Finance', icon: '🏦', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'Auto-KYC, AML detection, fraud prevention at scale.' },
-  { title: 'Healthcare', icon: '🏥', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'HIPAA-compliant intelligent triage and clinical AI.' },
-  { title: 'Manufacturing', icon: '🏭', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'Predictive maintenance, SCADA/ERP integration.' },
-  { title: 'Insurance', icon: '📋', color: 'from-brand-primary/20 to-brand-secondary/10', desc: '70% faster claim settlement. Full audit coverage.' },
-  { title: 'Technology & SaaS', icon: '💻', color: 'from-brand-primary/20 to-brand-secondary/10', desc: 'No-code orchestration and workflow automation.' },
-];
-
-const SI = 'https://cdn.simpleicons.org';
-const WX = 'https://static.wixstatic.com/media';
-const CL = 'https://logo.clearbit.com';
-
-const clients = [
-  { name: 'IBM', logo: `${SI}/ibm/ffffff`, mono: true },
-  { name: 'HPE', logo: `${WX}/ef7a11_64f239e2528b43c2ac75fcc1524bf499~mv2.png`, mono: false },
-  { name: 'Indian Army', logo: `${WX}/ef7a11_58cfd59433de4b5eafbf2f4c5834f321~mv2.png`, mono: false },
-  { name: 'Hitachi', logo: `${CL}/hitachi.com`, mono: true },
-  { name: 'NVIDIA', logo: `${SI}/nvidia/76b900`, mono: true },
-  { name: 'Coforge', logo: `${WX}/ef7a11_a28551da4b854e8e90260bcd82deb727~mv2.png`, mono: false },
-  { name: 'HCL Tech', logo: `${CL}/hcltech.com`, mono: true },
-  { name: 'EY', logo: `${CL}/ey.com`, mono: true },
-  { name: 'Sun Mobility', logo: `${CL}/sunmobility.co.in`, mono: true },
+  { Icon: ShieldCheck, title: 'Sovereign AI', desc: 'Your data stays yours. Deploy on private cloud or on-prem. Compliance built in, not bolted on.' },
+  { Icon: RefreshCw, title: 'AI That Adapts', desc: 'Enterprise-grade solutions that bend for you. Zero compromise on security.' },
+  { Icon: Cpu, title: 'Agents That Fit', desc: 'Seamless integration into your workflows. Real reasoning. Results from day one.' },
+  { Icon: Network, title: 'Ecosystem Strength', desc: 'Global partner network. Best-in-class tech, infrastructure, and outcomes.' },
 ];
 
 const results = [
@@ -170,7 +112,7 @@ const team = [
   },
   {
     name: 'D Uday Bhaskar Rao',
-    role: 'Strategic Advisor',
+    role: 'CTO',
     superpower: 'Enterprise systems architect',
     track: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
     photo: udayPhoto,
@@ -295,17 +237,17 @@ const Home = () => {
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-4xl font-display font-bold text-white leading-[1.1] mb-2"
           >
-            Powering the Decisions That
+            Enterprise AI.
           </motion.h1>
 
-          {/* Dynamic tagline */}
+          {/* Tagline */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.22 }}
             className="text-3xl md:text-4xl lg:text-4xl font-display font-bold leading-[1.1] mb-6"
           >
-            <span ref={taglineRef} className="text-gradient">Strategic AI Systems</span>
+            <span className="text-gradient">Sovereign. Scalable. Yours.</span>
           </motion.div>
 
           <motion.p
@@ -365,7 +307,7 @@ const Home = () => {
               Arinox deploys across every industry where data integrity, regulatory compliance, and operational continuity are non-negotiable — from national defence and capital markets to public governance, legal institutions, clinical systems, manufacturing, logistics, and beyond. Each engagement is engineered for the specific constraints of that domain, not a generic AI layer stretched to fit.
             </p>
             <div className="grid grid-cols-3 gap-3 mb-4">
-              {industryCards.map(({ Icon, name, desc, color, img }, i) => (
+              {industryCards.map(({ Icon, name, desc, img }, i) => (
                 <motion.div key={name} custom={i} variants={popIn} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                   <MouseTilt
                     className="relative overflow-hidden rounded-2xl group cursor-default"
@@ -386,8 +328,8 @@ const Home = () => {
                     <div className="absolute inset-0 flex flex-col justify-between p-3">
                       {/* Icon top-left */}
                       <motion.div
-                        style={{ color, background: `${color}28`, border: `1px solid ${color}55`, translateZ: 30 }}
-                        className="w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm self-start"
+                        style={{ translateZ: 30 }}
+                        className="w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm self-start text-brand-primary bg-brand-primary/20 border border-brand-primary/40"
                       >
                         <Icon size={16} strokeWidth={1.8} />
                       </motion.div>
@@ -406,7 +348,7 @@ const Home = () => {
               className="text-[11px] text-brand-muted"
             >
               Also across{' '}
-              {['Manufacturing', 'Oil & Gas', 'Retail', 'Logistics', 'Education', 'Insurance'].map((s, i, arr) => (
+              {['Manufacturing', 'BFSI', 'Healthcare', 'Retail', 'Logistics', 'Education', 'Performance Marketing', 'E-commerce'].map((s, i, arr) => (
                 <span key={s}>
                   <span className="text-brand-primary/80 font-medium">{s}</span>
                   {i < arr.length - 1 ? ', ' : ''}
@@ -442,7 +384,7 @@ const Home = () => {
               Founded to make enterprise-grade AI <span className="text-gradient">accessible to all.</span>
             </h2>
             <p className="text-sm text-brand-muted leading-relaxed mb-4">
-              We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We don't improve efficiency — we multiply it.
+              We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We not only improve efficiency — we multiply it.
             </p>
             <p className="text-sm text-brand-muted leading-relaxed">
               Headquartered in India with presence across New Delhi and Bangalore — connecting innovation to implementation and delivering enterprise AI transformation globally.
@@ -458,7 +400,7 @@ const Home = () => {
             className="glass-card rounded-2xl p-7"
           >
             <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-4">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <Zap size={20} strokeWidth={1.6} />
             </div>
             <h3 className="text-xl font-display font-bold text-white mb-3">The Arinox Difference</h3>
             <p className="text-sm text-brand-muted leading-relaxed mb-5">
@@ -467,7 +409,7 @@ const Home = () => {
             <div className="grid grid-cols-2 gap-2 text-xs">
               {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', 'Sovereign On-Prem Compute'].map(item => (
                 <div key={item} className="flex items-start gap-2 text-brand-muted">
-                  <span className="text-brand-primary mt-0.5">▸</span> {item}
+                  <ChevronRight size={14} strokeWidth={2} className="text-brand-primary shrink-0 mt-0.5" /> {item}
                 </div>
               ))}
             </div>
@@ -517,15 +459,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══ STATS COUNTER ══════════════════════════════════ */}
-      <section className="py-16 border-y border-brand-border line-grid relative overflow-hidden">
-        <div className="orb w-80 h-80 bg-brand-primary/8 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="container-wide grid grid-cols-3 gap-8 relative">
-          {stats.map(({ value, suffix, label }) => (
-            <Counter key={label} value={value} suffix={suffix} label={label} />
-          ))}
-        </motion.div>
-      </section>
 
       {/* ═══ WHAT / WHO / HOW ═══════════════════════════════ */}
       <section className="section-padding relative overflow-hidden">
@@ -540,7 +473,7 @@ const Home = () => {
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
             {[
               { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout — strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global Integrators. IBM, HPE, Indian Army, NVIDIA, HCL Tech, Hitachi, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global System Integrators. IBM, HPE, Defence, NVIDIA, HCL Tech, Hitachi, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
               { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI — fast. Pre-built use cases. Real adoption.', grad: 'from-brand-primary to-brand-secondary' },
             ].map(({ tag, title, desc, grad }, i) => (
               <motion.div key={tag} variants={springCard}>
@@ -560,15 +493,17 @@ const Home = () => {
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-xs tracking-[0.2em] uppercase text-brand-muted text-center mb-8 font-semibold">Trusted by global leaders</motion.p>
         <div className="marquee-wrap">
           <div className="marquee-inner">
-            {[...clients, ...clients].map(({ name, logo, mono }, i) => (
+            {[...clients, ...clients].map(({ name, logo, lc }, i) => (
               <span key={i} className="inline-flex items-center gap-3 px-5 py-2.5 glass rounded-xl text-brand-muted font-medium text-sm flex-shrink-0 hover:text-white hover:border-brand-primary/30 transition-all border border-transparent cursor-default">
                 {logo ? (
-                  <img
-                    src={logo}
-                    alt={name}
-                    className={`h-5 w-auto object-contain flex-shrink-0 ${mono ? 'logo-mono' : 'logo-color'}`}
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
+                  <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
+                    <img
+                      src={logo}
+                      alt={name}
+                      className="h-5 w-auto object-contain"
+                      onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }}
+                    />
+                  </div>
                 ) : (
                   <span className="w-1.5 h-1.5 rounded-full bg-brand-primary/60 flex-shrink-0" />
                 )}

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import arinoxImg from '../../assets/img.png';
 
 const navLinks = [
   { label: 'About', to: '/' },
@@ -19,7 +20,7 @@ const Footer = () => (
         {/* Brand */}
         <div className="flex-shrink-0">
           <Link to="/" className="inline-block mb-1.5">
-            <img src="/logo.png" alt="Arinox AI" className="h-6 w-auto object-contain opacity-90" />
+            <img src={arinoxImg} alt="Arinox AI" className="h-6 w-auto object-contain opacity-90" />
           </Link>
           <p className="text-[11px] text-brand-subtle leading-snug">
             Sovereign AI infrastructure, built for operational reality.

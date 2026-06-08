@@ -103,7 +103,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 36, rotateX: 8 }}
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-            className="text-3xl md:text-[2.8rem] font-display font-bold text-white mb-3 leading-tight"
+            className="text-2xl md:text-3xl font-display font-bold text-white mb-3 leading-tight"
             style={{ transformOrigin: 'bottom center' }}
           >
             Let's Transform <span className="text-gradient">Together.</span>

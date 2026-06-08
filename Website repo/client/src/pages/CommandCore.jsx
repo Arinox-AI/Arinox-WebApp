@@ -1,4 +1,6 @@
 import { useRef, useState } from 'react';
+import { commandCoreClients } from '../data/clients';
+import { Shield, Zap, Cpu, Link2, ClipboardCheck, Network, Download, ChevronRight, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
 import DemoLink from '../components/ui/DemoLink';
@@ -18,79 +20,80 @@ const fadeUp = (delay = 0) => ({
   transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay },
 });
 
-/* ── Feature icons ─────────────────────────────────── */
-const ShieldIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-  </svg>
-);
-const ZapIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  </svg>
-);
-const CpuIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-    <rect x="4" y="4" width="16" height="16" rx="2" />
-    <rect x="9" y="9" width="6" height="6" />
-    <line x1="9" y1="1" x2="9" y2="4" /><line x1="15" y1="1" x2="15" y2="4" />
-    <line x1="9" y1="20" x2="9" y2="23" /><line x1="15" y1="20" x2="15" y2="23" />
-    <line x1="20" y1="9" x2="23" y2="9" /><line x1="20" y1="15" x2="23" y2="15" />
-    <line x1="1" y1="9" x2="4" y2="9" /><line x1="1" y1="15" x2="4" y2="15" />
-  </svg>
-);
-const LinkIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-    <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
-    <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
-  </svg>
-);
-const AuditIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-    <path d="M9 11l3 3L22 4" />
-    <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" />
-  </svg>
-);
-const MeshIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
-    <circle cx="12" cy="5" r="2" /><circle cx="5" cy="19" r="2" /><circle cx="19" cy="19" r="2" />
-    <line x1="12" y1="7" x2="5" y2="17" /><line x1="12" y1="7" x2="19" y2="17" /><line x1="7" y1="19" x2="17" y2="19" />
-  </svg>
-);
-
 const features = [
-  { Icon: ShieldIcon,  title: 'Data Sovereignty',     desc: 'Your data never leaves your premises. Complete isolation from public cloud.' },
-  { Icon: ZapIcon,     title: 'Deploy in Days',        desc: 'Platform live in 1–2 days. Custom agents in 14. Not months.' },
-  { Icon: CpuIcon,     title: '80+ Pre-built Agents',  desc: 'No prototypes. 80+ enterprise-ready agents deployable today.' },
-  { Icon: LinkIcon,    title: 'Native Integration',    desc: 'Zero barriers. Works with your existing tech stack out of the box.' },
-  { Icon: AuditIcon,   title: '100% Audit Coverage',   desc: 'Full transparency on every AI decision. Enterprise governance built in.' },
-  { Icon: MeshIcon,    title: 'Multi-Agent Mesh',      desc: "True collaboration across specialized agents — KOGO's agentic mesh." },
+  { Icon: Shield,        title: 'Data Sovereignty',    desc: 'Your data never leaves your premises. Complete isolation from public cloud.' },
+  { Icon: Link2,         title: 'Native Integration',   desc: 'Zero barriers. Works with your existing tech stack out of the box.' },
+  { Icon: ClipboardCheck,title: '100% Audit Coverage',  desc: 'RBAC, red teaming, and full audit trails — for complete governance on every AI decision.' },
+  { Icon: Network,       title: 'Agentic Workspace',    desc: "True collaboration across specialized agents in a unified agentic workspace." },
+  { Icon: Cpu,           title: '80+ Pre-built Agents', desc: 'No prototypes. 80+ enterprise-ready agents deployable today.' },
+  { Icon: Zap,           title: 'Deploy in Days',       desc: 'Platform live in 1–2 days. Custom agents in 7–14 days. Not months.' },
 ];
 
 /* ── Hardware tiers ─────────────────────────────────── */
 const tiers = [
   {
+    id: 's',
     img: mSeriesImg,
-    label: 'M-Series Entry',
-    models: [
-      { model: 'CommandCore M1', ram: '128 GB', gpu: '1× H100', storage: '4 TB NVMe',  useCase: 'Departmental AI' },
-      { model: 'CommandCore M2', ram: '256 GB', gpu: '2× H100', storage: '8 TB NVMe',  useCase: 'Enterprise Teams' },
+    badge: 'CommandCore™ S',
+    tagline: 'Agentic Edge AI',
+    subtitle: 'Real-time AI at the Edge',
+    accelerator: 'NVIDIA Jetson AGX Orin',
+    bestFor: [
+      'Video analytics & computer vision',
+      'Autonomous systems & IoT AI',
+      'Remote & tactical deployments',
+      'Batch processing',
     ],
+    specs: [
+      { label: 'GPU',    value: '2048 CUDA cores · 64 Tensor cores · 275 INT8 TOPS' },
+      { label: 'CPU',    value: 'Arm Cortex-A78AE · 12-core' },
+      { label: 'Memory', value: 'Up to 64 GB LPDDR5 (~204 GB/s)' },
+    ],
+    profile: 'Rugged · low-power · air-gappable',
+    highlight: false,
   },
   {
+    id: 'm',
     img: mSeriesProImg,
-    label: 'M-Series Pro',
-    models: [
-      { model: 'CommandCore M3', ram: '512 GB', gpu: '4× H100', storage: '16 TB NVMe', useCase: 'Multi-Tenant' },
-      { model: 'CommandCore S1', ram: '768 GB', gpu: '8× H100', storage: '32 TB NVMe', useCase: 'Agentic AI-in-a-Box' },
+    badge: 'CommandCore™ M',
+    tagline: 'Blackwell Powered Agents',
+    subtitle: 'Desktop AI Powerhouse',
+    accelerator: 'NVIDIA Grace Blackwell GB10 Superchip',
+    bestFor: [
+      'Secure AI labs & R&D',
+      'Local LLM inference (200B+ params)',
+      'Department-level analytics',
+      'Cloud-free simulation',
     ],
+    specs: [
+      { label: 'GPU',         value: 'Blackwell · 5th-gen Tensor · 4th-gen RT cores' },
+      { label: 'Performance', value: 'Up to 1 PFLOP FP4 (≈405B dual-node via ConnectX)' },
+      { label: 'Memory',      value: '128 GB unified CPU+GPU · up to 4 TB NVMe' },
+    ],
+    profile: 'Desktop sovereign AI · no cloud dependency',
+    highlight: false,
   },
   {
+    id: 'xl',
     img: xlSeriesImg,
-    label: 'XL Enterprise',
-    models: [
-      { model: 'CommandCore XL1', ram: '1.5 TB', gpu: '16× H100', storage: '64 TB NVMe', useCase: 'Sovereign AI DC' },
+    badge: 'CommandCore™ XL',
+    tagline: 'Datacenter-Grade AI',
+    subtitle: 'Mission-Critical Infrastructure',
+    accelerator: '2× NVIDIA RTX PRO 6000 Blackwell',
+    bestFor: [
+      'Enterprise AI operations',
+      'Large model inference',
+      'Multi-agent orchestration',
+      'Real-time intelligence',
     ],
+    specs: [
+      { label: 'GPU',    value: '2× RTX PRO 6000 Blackwell (Workstation Ed.)' },
+      { label: 'CPU',    value: 'Intel Xeon w7-2575X · 22C/44T · up to 4.8 GHz' },
+      { label: 'Memory', value: '192 GB DDR5-4800 ECC' },
+      { label: 'Storage', value: '1 TB NVMe (OS) + 4 TB SATA (data)' },
+    ],
+    profile: 'Fully air-gapped · 2000W PSU · 3-yr warranty',
+    highlight: true,
   },
 ];
 
@@ -136,6 +139,15 @@ const CommandCore = () => {
           <h1 className="text-2xl md:text-[2rem] font-display font-bold text-white mb-3 leading-tight">
             Command<span className="text-gradient">Core</span>™
           </h1>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/20 mb-4">
+            <span className="text-brand-primary font-bold text-xs">100% AI</span>
+            <span className="text-brand-border text-xs">·</span>
+            <span className="text-brand-muted text-xs font-medium">0% Internet</span>
+            <span className="text-brand-border text-xs">·</span>
+            <span className="text-brand-muted text-xs font-medium">0 Tokens</span>
+            <span className="text-brand-border text-xs">·</span>
+            <span className="text-brand-muted text-xs font-medium">0 Cloud</span>
+          </div>
           <p className="text-sm text-brand-muted mb-3 leading-relaxed max-w-md">
             Private AI infrastructure that never compromises. Your data stays inside. Your AI scales without limits.
           </p>
@@ -151,13 +163,9 @@ const CommandCore = () => {
             </DemoLink>
             <button
               onClick={handleDownload}
-              className="px-6 py-3 rounded-xl glass border border-brand-border text-white text-sm font-medium hover:border-brand-primary/50 transition-all flex items-center gap-2"
+              className="px-6 py-3 rounded-xl glass border border-brand-border text-brand-text text-sm font-medium hover:border-brand-primary/50 transition-all flex items-center gap-2"
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
+              <Download size={15} strokeWidth={2.2} />
               Download Brochure
             </button>
           </div>
@@ -259,51 +267,86 @@ const CommandCore = () => {
       <div className="container-wide">
         <motion.div className="text-center mb-10" {...fadeUp()}>
           <p className="text-[11px] tracking-widest uppercase text-brand-primary mb-2 font-semibold">Hardware Models</p>
-          <h2 className="text-xl md:text-2xl font-display font-bold text-white">Built for <span className="text-gradient">every scale.</span></h2>
+          <h2 className="text-xl md:text-2xl font-display font-bold text-white">Three tiers. <span className="text-gradient">One sovereign stack.</span></h2>
+          <p className="text-sm text-brand-muted mt-2 max-w-xl mx-auto">From edge deployments to datacenter-grade AI — all running KOGO OS, all air-gappable, all yours.</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-5" style={{ perspective: 1200 }}>
-          {tiers.map(({ img, label, models }, ti) => (
+        <div className="grid md:grid-cols-3 gap-5 items-start" style={{ perspective: 1200 }}>
+          {tiers.map((tier, ti) => (
             <motion.div
-              key={label}
-              initial={{ opacity: 0, y: 28, rotateX: 28 }}
+              key={tier.id}
+              initial={{ opacity: 0, y: 28, rotateX: 20 }}
               whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.65, delay: ti * 0.12, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ y: -8, rotateY: 9, rotateX: -5, scale: 1.03, z: 30, transition: { duration: 0.28 } }}
+              transition={{ duration: 0.6, delay: ti * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -6, rotateY: 6, rotateX: -3, scale: 1.02, z: 20, transition: { duration: 0.25 } }}
               style={{ transformStyle: 'preserve-3d' }}
-              className="glass-card rounded-2xl overflow-hidden group"
+              className={`glass-card rounded-2xl overflow-hidden group relative ${tier.highlight ? 'border border-brand-primary/40 shadow-xl shadow-brand-primary/10' : ''}`}
             >
-              {/* Image */}
-              <div className="overflow-hidden h-60 bg-brand-bg flex items-center justify-center">
+              {/* Featured badge */}
+              {tier.highlight && (
+                <div className="absolute top-3 right-3 z-10 px-2.5 py-0.5 rounded-full bg-brand-primary text-white text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-brand-primary/40">
+                  Featured
+                </div>
+              )}
+
+              {/* Product image */}
+              <div className="h-48 bg-brand-bg overflow-hidden flex items-center justify-center">
                 <img
-                  src={img}
-                  alt={label}
-                  className="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                  src={tier.img}
+                  alt={tier.badge}
+                  className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 />
               </div>
 
-              {/* Label */}
-              <div className="px-4 pt-3 pb-1 border-b border-brand-border/50">
-                <span className="text-[10px] font-bold tracking-widest uppercase text-brand-primary">{label}</span>
+              {/* Header */}
+              <div className="px-5 pt-4 pb-3 border-b border-brand-border/40">
+                <p className="text-[10px] font-bold tracking-widest uppercase text-brand-primary mb-1">{tier.badge}</p>
+                <h3 className="text-white font-bold text-base leading-tight">{tier.tagline}</h3>
+                <p className="text-brand-muted text-xs mt-0.5 mb-2">{tier.subtitle}</p>
+                <span className="inline-flex items-center gap-1.5 text-[10px] text-brand-muted/60 bg-brand-surface/60 border border-brand-border/40 px-2.5 py-1 rounded-full font-mono leading-none">
+                  <Cpu size={10} className="shrink-0" />
+                  {tier.accelerator}
+                </span>
+              </div>
+
+              {/* Best For */}
+              <div className="px-5 py-3 border-b border-brand-border/40">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted/50 mb-2">Best For</p>
+                <ul className="space-y-1.5">
+                  {tier.bestFor.map(item => (
+                    <li key={item} className="flex items-start gap-2 text-xs text-brand-muted leading-snug">
+                      <ChevronRight size={12} strokeWidth={2} className="text-brand-primary shrink-0 mt-0.5" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               {/* Specs */}
-              <div className="px-4 py-3 space-y-2.5">
-                {models.map(({ model, ram, gpu, storage, useCase }) => (
-                  <div key={model} className="text-xs">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="text-white font-semibold">{model}</span>
-                      <span className="px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary text-[10px]">{useCase}</span>
+              <div className="px-5 py-3 border-b border-brand-border/40">
+                <p className="text-[10px] font-bold uppercase tracking-widest text-brand-muted/50 mb-2">Specs</p>
+                <div className="space-y-2">
+                  {tier.specs.map(({ label, value }) => (
+                    <div key={label} className="flex gap-2">
+                      <span className="text-[10px] text-brand-primary/80 uppercase tracking-wider font-semibold w-24 shrink-0 pt-px">{label}</span>
+                      <span className="text-[11px] text-brand-muted leading-snug">{value}</span>
                     </div>
-                    <div className="grid grid-cols-3 gap-1 text-[11px] text-brand-muted">
-                      <span>{ram} RAM</span>
-                      <span className="text-brand-primary">{gpu}</span>
-                      <span>{storage}</span>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <p className="text-[10px] text-brand-muted/40 mt-3 font-mono leading-snug">{tier.profile}</p>
+              </div>
+
+              {/* CTA */}
+              <div className="px-5 py-4">
+                <DemoLink className={`w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
+                  tier.highlight
+                    ? 'bg-brand-primary text-white hover:opacity-90'
+                    : 'text-brand-primary border border-brand-primary/40 hover:bg-brand-primary/20 hover:border-brand-primary/60'
+                }`}>
+                  Learn More <ArrowRight size={13} />
+                </DemoLink>
               </div>
             </motion.div>
           ))}
@@ -318,16 +361,21 @@ const CommandCore = () => {
           Who trusts CommandCore
         </motion.p>
         <div className="flex flex-wrap gap-3 justify-center mb-8">
-          {['Indian Army', 'Hewlett Packard Enterprise', 'Coforge', 'Sun Life', 'Fortune 500 Clients', 'Global Enterprises'].map((c, i) => (
+          {commandCoreClients.map(({ name, logo }, i) => (
             <motion.span
-              key={c}
+              key={name}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.05 }}
-              className="px-3 py-1.5 glass rounded-lg text-xs text-brand-muted hover:text-white transition-colors"
+              className="inline-flex items-center gap-2 px-3 py-1.5 glass rounded-lg text-xs text-brand-muted border border-transparent hover:border-brand-primary/30 hover:text-brand-primary hover:bg-brand-primary/5 transition-all"
             >
-              {c}
+              {logo && (
+                <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
+                  <img src={logo} alt={name} className="h-3.5 w-auto object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
+                </div>
+              )}
+              {name}
             </motion.span>
           ))}
         </div>

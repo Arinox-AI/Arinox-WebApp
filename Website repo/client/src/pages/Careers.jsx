@@ -7,43 +7,37 @@ import { useAuth } from '../hooks/useAuth';
 import QRLoginModal from '../components/ui/QRLoginModal';
 import AuthModal from '../components/ui/AuthModal';
 
-/* ─── Why-join icons ─────────────────────────────────────── */
-const GlobeIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="10"/>
-    <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-  </svg>
-);
-const TrendingUpIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-    <polyline points="16 7 22 7 22 13"/>
-  </svg>
-);
-const LightbulbIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-    <path d="M9 18h6M10 22h4"/>
-  </svg>
-);
-const HomeIcon = () => (
-  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-    <polyline points="9 22 9 12 15 12 15 22"/>
-  </svg>
-);
+import { Globe, TrendingUp, Lightbulb, House } from 'lucide-react';
 
 /* ─── Data ───────────────────────────────────────────────── */
 const perks = [
-  { Icon: GlobeIcon,      title: 'Impact at Scale',      desc: 'Your work powers transformation across industries and continents.' },
-  { Icon: TrendingUpIcon, title: 'Fast Growth',           desc: "Develop tomorrow's skills today. We invest in your career." },
-  { Icon: LightbulbIcon,  title: 'Creative Freedom',      desc: 'Bring your best ideas. We implement them.' },
-  { Icon: HomeIcon,       title: 'Flexible Work',         desc: 'Remote-friendly with offices across India.' },
+  { Icon: Globe,       title: 'Impact at Scale', desc: 'Your work powers transformation across industries and continents.' },
+  { Icon: TrendingUp,  title: 'Fast Growth',      desc: "Develop tomorrow's skills today. We invest in your career." },
+  { Icon: Lightbulb,   title: 'Creative Freedom', desc: 'Bring your best ideas. We implement them.' },
+  { Icon: House,       title: 'Flexible Work',    desc: 'Remote-friendly with offices across India.' },
 ];
 
 const sampleRoles = [
   { title: 'AI Associate', department: 'Engineering', location: 'Bangalore / Remote', type: 'Full-time' },
 ];
+
+const jdContent = {
+  'AI Associate': {
+    tagline: "This is an entry-level role — but we're not looking for \"years on paper.\" We're looking for curiosity, builders, and people obsessed with figuring things out.",
+    fitLabel: "You'd be a great fit if you…",
+    fit: [
+      "Have explored LLMs, AI agents, MCPs, workflows, or automation tools — Cursor, LangChain, Hugging Face, OpenAI, whatever caught your attention",
+      "Have broken things, fixed them, and built something better",
+      "Like making AI actually useful — not just demo-worthy",
+      "Can explain what you built, why you built it, and what problem it solves",
+      "Thrive in fast-moving, slightly ambiguous environments",
+      "Are a fresher or have 1–2 years of experience working on AI, agents, automations, or related systems",
+    ],
+    bringLabel: "If you've been building AI agents in your spare time, experimenting with workflows, or shipping side projects — you're already the kind of person we want to talk to. Bring your:",
+    bring: ['GitHub', 'Demos', 'Experiments', 'Projects (even unfinished ones)'],
+    closing: "At Arinox AI, you won't spend months watching from the sidelines. You'll work on real enterprise AI systems and ship things that matter from day one.",
+  },
+};
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
 
@@ -237,6 +231,7 @@ const Careers = () => {
   const [filter, setFilter] = useState('All');
   const [applyJob, setApplyJob] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState(new Set());
+  const [expandedJD, setExpandedJD] = useState(null);
   const [showQR, setShowQR] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
 
@@ -342,29 +337,87 @@ const Careers = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  className="glass-card rounded-2xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+                  className="glass-card rounded-2xl overflow-hidden group"
                 >
-                  <div>
-                    <h3 className="text-brand-text font-bold text-lg mb-1">{job.title}</h3>
-                    <div className="flex flex-wrap gap-3">
-                      <span className="text-xs text-brand-primary">{job.department}</span>
-                      <span className="text-xs text-brand-muted">📍 {job.location}</span>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary">{job.type}</span>
+                  {/* Row header */}
+                  <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                      <h3 className="text-brand-text font-bold text-lg mb-1">{job.title}</h3>
+                      <div className="flex flex-wrap gap-3">
+                        <span className="text-xs text-brand-primary">{job.department}</span>
+                        <span className="text-xs text-brand-muted">📍 {job.location}</span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary">{job.type}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 flex-shrink-0">
+                      {jdContent[job.title] && (
+                        <button
+                          onClick={() => setExpandedJD(expandedJD === job.title ? null : job.title)}
+                          className="px-4 py-2.5 rounded-xl border border-brand-border text-brand-muted hover:border-brand-primary/50 hover:text-brand-text text-sm transition-all flex items-center gap-1.5"
+                        >
+                          {expandedJD === job.title ? 'Hide JD' : 'View Role'}
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`transition-transform ${expandedJD === job.title ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                      )}
+                      {appliedJobs.has(job.title) ? (
+                        <span className="px-6 py-2.5 rounded-xl border border-brand-primary/40 bg-brand-primary/8 text-brand-primary text-sm font-semibold flex items-center gap-2">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                          Applied
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => handleApplyClick(job)}
+                          className="px-6 py-2.5 rounded-xl border border-brand-border text-brand-muted group-hover:border-brand-primary group-hover:text-brand-text text-sm transition-all"
+                        >
+                          Apply Now →
+                        </button>
+                      )}
                     </div>
                   </div>
-                  {appliedJobs.has(job.title) ? (
-                    <span className="flex-shrink-0 px-6 py-2.5 rounded-xl border border-brand-primary/40 bg-brand-primary/8 text-brand-primary text-sm font-semibold flex items-center gap-2">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                      Applied
-                    </span>
-                  ) : (
-                    <button
-                      onClick={() => handleApplyClick(job)}
-                      className="flex-shrink-0 px-6 py-2.5 rounded-xl border border-brand-border text-brand-muted group-hover:border-brand-primary group-hover:text-brand-text text-sm transition-all"
-                    >
-                      Apply Now →
-                    </button>
-                  )}
+
+                  {/* Expandable JD */}
+                  <AnimatePresence>
+                    {expandedJD === job.title && jdContent[job.title] && (() => {
+                      const jd = jdContent[job.title];
+                      return (
+                        <motion.div
+                          key="jd"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden border-t border-brand-border/40"
+                        >
+                          <div className="px-6 py-6 space-y-5">
+                            <p className="text-sm text-brand-muted leading-relaxed italic">{jd.tagline}</p>
+
+                            <div>
+                              <p className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">{jd.fitLabel}</p>
+                              <ul className="space-y-2">
+                                {jd.fit.map((item, idx) => (
+                                  <li key={idx} className="flex items-start gap-2.5 text-sm text-brand-muted leading-relaxed">
+                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-primary/60 shrink-0" />
+                                    {item}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            <div>
+                              <p className="text-sm text-brand-muted leading-relaxed mb-3">{jd.bringLabel}</p>
+                              <div className="flex flex-wrap gap-2">
+                                {jd.bring.map(b => (
+                                  <span key={b} className="px-3 py-1.5 rounded-lg bg-brand-primary/10 text-brand-primary text-xs font-semibold">{b}</span>
+                                ))}
+                              </div>
+                            </div>
+
+                            <p className="text-sm text-white font-medium leading-relaxed border-l-2 border-brand-primary/40 pl-4">{jd.closing}</p>
+                          </div>
+                        </motion.div>
+                      );
+                    })()}
+                  </AnimatePresence>
                 </motion.div>
               ))
             }

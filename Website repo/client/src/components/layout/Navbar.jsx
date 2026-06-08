@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import arinoxLogo from '../../assets/img.png';
 import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -65,7 +66,7 @@ const Navbar = () => {
           {/* Logo only */}
           <Link to="/" className="flex items-center">
             <img
-              src="/logo.png"
+              src={arinoxLogo}
               alt="Arinox AI"
               className="h-6 w-auto object-contain drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
             />

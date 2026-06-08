@@ -36,8 +36,8 @@
   --color-blue:      26 106 255;
   --color-gold:      255 229 139;
   --color-text:      240 240 240;
-  --color-muted:     154 142 130;
-  --color-subtle:    110 110 110;
+  --color-muted:     200 194 188;
+  --color-subtle:    160 152 144;
 }
 
 /* Light mode — exact brand guide warm palette */
@@ -153,18 +153,25 @@ html.light-mode .glass-card:hover {
   border-color: rgba(232, 89, 12, 0.3);
 }
 
-/* ─── Partner logo filters ───────────────────────────────────
-   WL (logo-white)    = Wix CDN white logos → already white in dark, darken in light
-   CS (logo-colored)  = SimpleIcons with color → invert to white in dark, original in light
-   FC (logo-fullcolor)= Clearbit dark logos   → invert to white in dark, original in light
+/* ─── Partner logo visibility ────────────────────────────────
+   logo-fullcolor: white pill in dark mode so any logo is readable
+   on dark surfaces; transparent in light mode (logos already have
+   enough contrast on the warm cream background).
 ─────────────────────────────────────────────────────────────── */
-.logo-white    { opacity: 0.85; }
-.logo-colored  { filter: brightness(0) invert(1); opacity: 0.85; }
-.logo-fullcolor{ filter: brightness(0) invert(1); opacity: 0.78; }
-
-html.light-mode .logo-white    { filter: brightness(0); opacity: 0.55; }
-html.light-mode .logo-colored  { filter: none; opacity: 0.90; }
-html.light-mode .logo-fullcolor{ filter: none; opacity: 0.90; }
+.logo-fullcolor {
+  filter: none !important;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 4px;
+  padding: 3px;
+  opacity: 1;
+}
+html.light-mode .logo-fullcolor {
+  filter: none !important;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  opacity: 0.80;
+}
 
 /* ─── Buttons ─────────────────────────────────────────────── */
 .btn-primary {
