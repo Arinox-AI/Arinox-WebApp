@@ -293,7 +293,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-display font-bold text-white leading-[1.1] mb-2"
+            className="text-3xl md:text-4xl lg:text-4xl font-display font-bold text-white leading-[1.1] mb-2"
           >
             Powering the Decisions That
           </motion.h1>
@@ -303,7 +303,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.22 }}
-            className="text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-[1.1] mb-6"
+            className="text-3xl md:text-4xl lg:text-4xl font-display font-bold leading-[1.1] mb-6"
           >
             <span ref={taglineRef} className="text-gradient">Strategic AI Systems</span>
           </motion.div>
@@ -357,7 +357,7 @@ const Home = () => {
         <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
           <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Where We Operate</p>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-5 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-5 leading-tight">
               Wherever AI needs to perform<br />
               <span className="text-gradient">without compromise.</span>
             </h2>
@@ -438,7 +438,7 @@ const Home = () => {
         <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
           <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Our Story</p>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-5 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-5 leading-tight">
               Founded to make enterprise-grade AI <span className="text-gradient">accessible to all.</span>
             </h2>
             <p className="text-sm text-brand-muted leading-relaxed mb-4">
@@ -460,7 +460,7 @@ const Home = () => {
             <div className="w-10 h-10 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-4">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
-            <h3 className="text-2xl font-display font-bold text-white mb-3">The Arinox Difference</h3>
+            <h3 className="text-xl font-display font-bold text-white mb-3">The Arinox Difference</h3>
             <p className="text-sm text-brand-muted leading-relaxed mb-5">
               We don't build everything — we curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context.
             </p>
@@ -481,7 +481,7 @@ const Home = () => {
         <div className="container-wide">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Leadership</p>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
           </motion.div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ name, role, superpower, track, tags, photo }, i) => (
@@ -533,7 +533,7 @@ const Home = () => {
         <div className="container-wide">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center max-w-xl mx-auto mb-12">
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Our Model</p>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">
               One AI platform. <span className="text-gradient">Powerful outcomes.</span>
             </h2>
           </motion.div>
@@ -591,7 +591,7 @@ const Home = () => {
             style={{ perspective: 1000 }}
           >
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-5 font-semibold">Ready?</p>
-            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-5 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-5 leading-tight">
               Transform how your enterprise <span className="text-gradient">wins.</span>
             </h2>
             <p className="text-brand-muted text-base max-w-lg mx-auto">

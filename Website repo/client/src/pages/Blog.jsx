@@ -164,7 +164,7 @@ const Blog = () => {
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-display font-bold text-white mb-2 sm:mb-3"
+            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-2 sm:mb-3"
           >
             Future-Forward <span className="text-gradient">Field Notes.</span>
           </motion.h1>

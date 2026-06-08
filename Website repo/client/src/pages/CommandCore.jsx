@@ -133,7 +133,7 @@ const CommandCore = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
             Sovereign AI Platform
           </div>
-          <h1 className="text-5xl md:text-6xl font-display font-bold text-white mb-3 leading-tight">
+          <h1 className="text-2xl md:text-[2rem] font-display font-bold text-white mb-3 leading-tight">
             Command<span className="text-gradient">Core</span>™
           </h1>
           <p className="text-sm text-brand-muted mb-3 leading-relaxed max-w-md">
@@ -227,7 +227,7 @@ const CommandCore = () => {
       <div className="container-wide">
         <motion.div className="text-center mb-10" {...fadeUp()}>
           <p className="text-[11px] tracking-widest uppercase text-brand-primary mb-2 font-semibold">Why CommandCore</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Enterprise-Ready. <span className="text-gradient">Now.</span></h2>
+          <h2 className="text-xl md:text-2xl font-display font-bold text-white">Enterprise-Ready. <span className="text-gradient">Now.</span></h2>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4" style={{ perspective: 1200 }}>
@@ -259,7 +259,7 @@ const CommandCore = () => {
       <div className="container-wide">
         <motion.div className="text-center mb-10" {...fadeUp()}>
           <p className="text-[11px] tracking-widest uppercase text-brand-primary mb-2 font-semibold">Hardware Models</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Built for <span className="text-gradient">every scale.</span></h2>
+          <h2 className="text-xl md:text-2xl font-display font-bold text-white">Built for <span className="text-gradient">every scale.</span></h2>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-5" style={{ perspective: 1200 }}>
@@ -346,7 +346,7 @@ const CommandCore = () => {
       <div className="container-wide text-center relative">
         <motion.h2
           {...fadeUp()}
-          className="text-3xl md:text-4xl font-display font-bold text-white mb-3"
+          className="text-xl md:text-2xl font-display font-bold text-white mb-3"
         >
           Start with a problem.<br /><span className="text-gradient">We'll build the solution.</span>
         </motion.h2>

@@ -38,7 +38,7 @@ const CaseStudies = () => {
         <div className="orb w-[400px] h-[400px] bg-brand-primary/8 top-0 right-1/4 -translate-y-1/4" />
         <div className="container-wide relative">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Impact</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-4">
             Real Clients.<br /><span className="text-gradient">Real Results.</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-xl text-brand-muted">

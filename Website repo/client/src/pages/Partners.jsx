@@ -63,7 +63,7 @@ const Partners = () => (
       <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-0 right-0" />
       <div className="container-wide relative">
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Our Ecosystem</motion.p>
-        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
+        <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
           Your AI <span className="text-gradient">Force Multiplier.</span>
         </motion.h1>
         <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-sm md:text-base text-brand-muted max-w-xl">
@@ -100,7 +100,7 @@ const Partners = () => (
       <div className="container-wide">
         <div className="text-center mb-12">
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">AI Innovators</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Curating the Best in <span className="text-gradient">Enterprise AI</span></h2>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Curating the Best in <span className="text-gradient">Enterprise AI</span></h2>
           <p className="text-brand-muted mt-4 text-sm">Production-ready. Scalable. Agentic.</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -127,7 +127,7 @@ const Partners = () => (
       <div className="container-wide">
         <div className="text-center mb-12">
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">System Integrators</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Delivering Through <span className="text-gradient">Global Leaders</span></h2>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Delivering Through <span className="text-gradient">Global Leaders</span></h2>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {siPartners.map(({ name, logo, lc }, i) => (
@@ -151,7 +151,7 @@ const Partners = () => (
       <div className="container-wide">
         <div className="text-center mb-12">
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Enterprise Clients</p>
-          <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Transforming the World's <span className="text-gradient">Leading Enterprises</span></h2>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Transforming the World's <span className="text-gradient">Leading Enterprises</span></h2>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6">
           {enterpriseClients.map(({ name, industry, impact, logo, lc }, i) => (
@@ -178,7 +178,7 @@ const Partners = () => (
     <section className="relative py-24 overflow-hidden">
       <div className="orb w-[400px] h-[400px] bg-brand-primary/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
       <div className="container-wide text-center relative">
-        <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
+        <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6">
           Ready to transform your enterprise with <span className="text-gradient">sovereign AI?</span>
         </h2>
         <div className="flex justify-center">
