@@ -273,7 +273,7 @@ const Careers = () => {
         <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-0 right-0 -translate-y-1/4" />
         <div className="container-wide relative">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Careers</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-display font-bold text-white mb-4">
             Build What <span className="text-gradient">Matters.</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-sm md:text-base text-brand-muted max-w-xl">
@@ -290,7 +290,7 @@ const Careers = () => {
       <section className="py-12">
         <div className="container-wide">
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Why <span className="text-gradient">Join Arinox?</span></h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Why <span className="text-gradient">Join Arinox?</span></h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {perks.map(({ Icon, title, desc }, i) => (
@@ -319,7 +319,7 @@ const Careers = () => {
       <section id="roles" className="py-12 bg-brand-surface">
         <div className="container-wide">
           <div className="text-center mb-7">
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Open <span className="text-gradient">Positions</span></h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Open <span className="text-gradient">Positions</span></h2>
           </div>
 
           {/* Filter tabs */}

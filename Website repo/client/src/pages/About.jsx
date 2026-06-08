@@ -105,7 +105,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0, rotateX: 0 }}
             transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
             style={{ perspective: 1000 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white"
+            className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-white"
           >
             Built to<br /><span className="text-gradient">Transform.</span>
           </motion.h1>
@@ -118,7 +118,7 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Leadership</p>
-            <h2 className="text-xl md:text-2xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {team.map(({ name, role, superpower, track, tags }, i) => (
@@ -152,7 +152,7 @@ const About = () => {
         <FloatingOrbs preset="cool" />
         <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h2 className="text-lg md:text-xl font-display font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
               We founded Arinox.ai with one goal:<br />
               <span className="text-gradient">make enterprise-grade AI accessible to all.</span>
             </h2>
@@ -195,7 +195,7 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Core Values</p>
-            <h2 className="text-xl md:text-2xl font-display font-bold text-white">The <span className="text-gradient">A.G.E.N.T.</span> Pillars</h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">The <span className="text-gradient">A.G.E.N.T.</span> Pillars</h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex flex-col md:flex-row gap-4 overflow-x-auto pb-4">
             {values.map(({ letter, title, desc }, i) => (
@@ -217,7 +217,7 @@ const About = () => {
         <div className="container-wide max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Our Journey</p>
-            <h2 className="text-xl font-display font-bold text-white">Company <span className="text-gradient">History</span></h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Company <span className="text-gradient">History</span></h2>
           </div>
           <div className="relative pl-8 border-l border-brand-border space-y-12">
             {history.map(({ year, title, desc }) => (
@@ -238,7 +238,7 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Global Presence</p>
-            <h2 className="text-xl font-display font-bold text-white">Where you operate. <span className="text-gradient">Where we deliver.</span></h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Where you operate. <span className="text-gradient">Where we deliver.</span></h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-6">
             {offices.map(({ region, locations }, i) => (
@@ -263,7 +263,7 @@ const About = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Trust & Ethics</p>
-            <h2 className="text-xl font-display font-bold text-white">Our Commitment to <span className="text-gradient">Ethical AI</span></h2>
+            <h2 className="text-4xl md:text-5xl font-display font-bold text-white">Our Commitment to <span className="text-gradient">Ethical AI</span></h2>
             <p className="text-brand-muted mt-4">Trust starts with control. Not with promises.</p>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-6">

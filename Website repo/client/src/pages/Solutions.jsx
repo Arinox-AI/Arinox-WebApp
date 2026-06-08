@@ -151,7 +151,7 @@ const Solutions = () => {
         <div className="orb w-[500px] h-[500px] bg-brand-primary/8 top-0 left-1/4 -translate-y-1/3" />
         <div className="container-wide relative">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Solutions</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4 max-w-3xl">
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-5xl md:text-6xl font-display font-bold text-white mb-4 max-w-3xl">
             Transform Your Enterprise with <span className="text-gradient">Purpose-Built AI Solutions</span>
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="text-brand-muted text-sm md:text-base max-w-2xl leading-relaxed">
@@ -178,7 +178,7 @@ const Solutions = () => {
                 transition={{ delay: i * 0.08, duration: 0.55 }}
                 style={{ perspective: 800 }}
               >
-                <p className="text-2xl md:text-3xl font-display font-bold text-gradient">{value}</p>
+                <p className="text-3xl md:text-4xl font-display font-bold text-gradient">{value}</p>
                 <p className="text-xs text-brand-muted mt-1 leading-snug">{label}</p>
               </motion.div>
             ))}
@@ -192,7 +192,7 @@ const Solutions = () => {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Product Suite</p>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">One exceptional <span className="text-gradient">AI Transformation Stack</span></h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3">One exceptional <span className="text-gradient">AI Transformation Stack</span></h2>
             <p className="max-w-2xl mx-auto text-sm text-brand-muted leading-relaxed">
               From orchestration to execution, from voice interaction to infrastructure optimization — our products work seamlessly together to deliver true end-to-end AI transformation.
             </p>
@@ -260,7 +260,7 @@ const Solutions = () => {
         <div className="container-wide">
           <div className="text-center mb-10">
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Industry Solutions</p>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Your world. <span className="text-gradient">Our focus.</span></h2>
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-white">Your world. <span className="text-gradient">Our focus.</span></h2>
           </div>
 
           {/* Tab nav — layoutId sliding pill */}
@@ -321,7 +321,7 @@ const Solutions = () => {
         <div className="orb w-96 h-96 bg-brand-primary/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
         <div className="container-wide text-center relative">
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-4">Get Started</p>
-          <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-6">
             Let's Transform Your Enterprise.<br /><span className="text-gradient">Start with a problem. We'll build the solution.</span>
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
