@@ -13,7 +13,7 @@ const siPartners = [
   { name: 'HPE',          logo: WM('4/46/Hewlett_Packard_Enterprise_logo.svg'),         lc: FC },
   { name: 'Langoor',      logo: GF('langoor.com'),                                     lc: FC },
   { name: 'TechData',     logo: GF('techdata.com'),                                    lc: FC },
-  { name: 'HCL Tech',     logo: WM('6/63/HCL_Technologies_logo.svg'),                  lc: FC },
+  { name: 'HCL Tech',     logo: WM('e/e5/HCLTech-new-logo.svg'),                      lc: FC },
   { name: 'Acer',         logo: GF('acer.com'),                                        lc: FC },
 ];
 
