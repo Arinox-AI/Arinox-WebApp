@@ -20,7 +20,7 @@ const submitContact = async (req, res, next) => {
     if (error) throw new Error(error.message);
 
     // Notify team + auto-reply to user (fire and forget — don't fail the request if email fails)
-    Promise.all([
+    Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
         subject: `[Arinox] ${subject || 'New Contact'} from ${name}`,
@@ -31,7 +31,14 @@ const submitContact = async (req, res, next) => {
         subject: `We received your message — Arinox AI`,
         html: contactAutoReply({ name, subject }),
       }),
-    ]).catch(err => console.error('Email error (contact):', err.message));
+    ]).then(results => {
+      results.forEach((r, i) => {
+        if (r.status === 'rejected') {
+          const label = i === 0 ? 'team-notify' : 'auto-reply';
+          console.error(`Email error (contact/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
+        }
+      });
+    });
 
     res.status(201).json({ success: true, message: "Thank you! We'll be in touch shortly.", id: contact.id });
   } catch (err) { next(err); }

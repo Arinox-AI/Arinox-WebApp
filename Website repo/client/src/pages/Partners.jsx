@@ -8,7 +8,7 @@ import { WM, GF, LOGO_FC as FC } from '../utils/logos';
 
 const siPartners = [
   { name: 'Coforge',      logo: GF('coforge.com'),                                     lc: FC },
-  { name: 'Hitachi',      logo: GF('hitachi.com'),                                     lc: FC },
+  { name: 'Hitachi Systems', logo: WM('8/85/Hitachi_2025_logo.svg'),                  lc: FC },
   { name: 'IBM',          logo: WM('5/51/IBM_logo.svg'),                               lc: FC },
   { name: 'HPE',          logo: WM('4/46/Hewlett_Packard_Enterprise_logo.svg'),         lc: FC },
   { name: 'Langoor',      logo: 'https://langoor.business/assets/images/siteLogo.png', lc: FC },
@@ -136,7 +136,7 @@ const Partners = () => {
                 Icon={Icon} logo={logo} lc={lc} alt={name}
                 textLabel={textLabel}
                 boxClass="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/90 border border-white/20 flex items-center justify-center overflow-hidden p-2"
-                imgClass="max-w-[70%] max-h-[70%] w-auto h-auto object-contain"
+                imgClass="max-w-[90%] max-h-[90%] w-auto h-auto object-contain"
                 fallback={
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 border border-brand-border flex items-center justify-center font-bold text-brand-text text-lg">
                     {name[0]}

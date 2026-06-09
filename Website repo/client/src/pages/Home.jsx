@@ -216,8 +216,10 @@ const Home = () => {
   return (
     <>
       <SEO
-        title="Arinox AI — Powering the Decisions That Shape Nations, Markets and Lives"
-        description="From strategy to execution — Arinox transforms enterprises through AI systems that solve real problems across BFSI, Healthcare, Manufacturing, Defense, and Government."
+        title="Arinox AI — Sovereign AI Infrastructure for Enterprise India"
+        description="Arinox AI delivers CommandCore™ — sovereign, on-premises AI infrastructure and intelligent agents for BFSI, Healthcare, Manufacturing, Defence, and Government. Built in India."
+        canonical="https://www.arinox.ai/"
+        keywords="sovereign AI India, enterprise AI platform, CommandCore, on-premises AI, AI agents India, private AI infrastructure, BFSI AI, defence AI, government AI, Arinox AI"
       />
 
       {/* ═══ HERO ═══════════════════════════════════════════ */}
@@ -473,7 +475,7 @@ const Home = () => {
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
             {[
               { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout — strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global System Integrators. IBM, HPE, Defence, NVIDIA, HCL Tech, Hitachi, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global System Integrators. IBM, HPE, Defence, NVIDIA, HCL Tech, Hitachi Systems, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
               { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI — fast. Pre-built use cases. Real adoption.', grad: 'from-brand-primary to-brand-secondary' },
             ].map(({ tag, title, desc, grad }, i) => (
               <motion.div key={tag} variants={springCard}>
@@ -494,13 +496,13 @@ const Home = () => {
         <div className="marquee-wrap">
           <div className="marquee-inner">
             {[...clients, ...clients].map(({ name, logo, lc }, i) => (
-              <span key={i} className="inline-flex items-center gap-3 px-5 py-2.5 glass rounded-xl text-brand-muted font-medium text-sm flex-shrink-0 hover:text-white hover:border-brand-primary/30 transition-all border border-transparent cursor-default">
+              <span key={i} className="inline-flex items-center gap-3 px-5 py-2.5 glass rounded-xl text-brand-muted font-medium text-sm flex-shrink-0 hover:text-brand-primary hover:border-brand-primary/30 transition-all border border-transparent cursor-default">
                 {logo ? (
-                  <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
+                  <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0 w-7 h-5 overflow-hidden">
                     <img
                       src={logo}
                       alt={name}
-                      className="h-5 w-auto object-contain"
+                      className="w-full h-full object-contain"
                       onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }}
                     />
                   </div>

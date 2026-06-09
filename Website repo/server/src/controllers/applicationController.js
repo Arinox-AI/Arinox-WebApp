@@ -42,7 +42,7 @@ const submitApplication = async (req, res, next) => {
     if (error) throw new Error(error.message);
 
     // Notify team + auto-reply to applicant
-    Promise.all([
+    Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
         subject: `[Arinox Careers] New Application — ${role} from ${fullName}`,
@@ -57,7 +57,14 @@ const submitApplication = async (req, res, next) => {
         subject: `Application received — ${role} at Arinox AI`,
         html: applicationAutoReply({ fullName, role }),
       }),
-    ]).catch(err => console.error('Email error (application):', err.message));
+    ]).then(results => {
+      results.forEach((r, i) => {
+        if (r.status === 'rejected') {
+          const label = i === 0 ? 'team-notify' : 'auto-reply';
+          console.error(`Email error (application/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
+        }
+      });
+    });
 
     res.status(201).json({ success: true, message: "Application submitted! We'll be in touch." });
   } catch (err) { next(err); }

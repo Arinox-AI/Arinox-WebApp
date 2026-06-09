@@ -7,6 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const { connectDB } = require('./models');
+const { verifyMailer } = require('./utils/mailer');
 const { errorHandler, notFound } = require('./middleware/errorHandler');
 
 const app = express();
@@ -23,8 +24,9 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {});
 });
 
-// DB
+// DB + email
 connectDB();
+verifyMailer();
 
 // Security & middleware
 app.use(helmet({ contentSecurityPolicy: false }));

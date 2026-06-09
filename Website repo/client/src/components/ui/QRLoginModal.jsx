@@ -6,6 +6,7 @@ import { io } from 'socket.io-client';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth.jsx';
 import GoogleButton from './GoogleButton';
+import arinoxLogo from '../../assets/img.png';
 
 const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
   const [qrImage, setQrImage] = useState(null);
@@ -95,9 +96,9 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
 
             {/* Logo + title */}
             <img
-              src="/logo.png"
+              src={arinoxLogo}
               alt="Arinox AI"
-              className="h-8 w-auto object-contain mx-auto mb-3 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
+              className="h-7 w-auto object-contain mx-auto mb-3 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
             />
             <h2 className="text-base font-display font-bold text-brand-text mb-0.5">Sign In to Arinox</h2>
             <p className="text-[11px] text-brand-muted mb-3">Use your phone to scan the QR code and log in</p>

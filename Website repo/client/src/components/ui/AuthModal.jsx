@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth.jsx';
 import GoogleButton from './GoogleButton';
+import arinoxLogo from '../../assets/img.png';
 
 const INPUT = 'w-full px-4 py-2.5 rounded-xl bg-brand-surface border border-brand-border text-brand-text placeholder-brand-muted text-sm focus:outline-none focus:border-brand-primary transition-colors';
 const BTN_PRIMARY = 'w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50';
@@ -124,9 +125,9 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
             >✕</button>
 
             <img
-              src="/logo.png"
+              src={arinoxLogo}
               alt="Arinox AI"
-              className="h-8 w-auto object-contain mx-auto mb-3 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
+              className="h-7 w-auto object-contain mx-auto mb-3 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
             />
 
             <h2 className="text-base font-display font-bold text-brand-text mb-1">

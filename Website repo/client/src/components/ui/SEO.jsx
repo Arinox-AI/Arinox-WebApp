@@ -6,6 +6,7 @@ const SEO = ({
   canonical = 'https://www.arinox.ai',
   image = 'https://www.arinox.ai/og-image.jpg',
   type = 'website',
+  keywords = 'sovereign AI, enterprise AI, on-premises AI, CommandCore, AI agents, private AI infrastructure, BFSI AI, defence AI, government AI, India AI platform',
   jsonLd,
 }) => {
   const fullTitle = title.includes('Arinox') ? title : `${title} | Arinox AI`;
@@ -14,19 +15,25 @@ const SEO = ({
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Arinox AI',
+    legalName: 'Adisen Tech Private Limited',
     url: 'https://www.arinox.ai',
     logo: 'https://www.arinox.ai/logo.png',
     description,
-    sameAs: ['https://www.linkedin.com/company/arinox-ai'],
+    foundingDate: '2022',
+    sameAs: [
+      'https://www.linkedin.com/company/arinox-ai',
+    ],
     address: {
       '@type': 'PostalAddress',
-      addressCountry: 'AE',
-      addressLocality: 'Dubai',
+      addressCountry: 'IN',
+      addressLocality: 'Bengaluru',
+      addressRegion: 'Karnataka',
     },
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       email: 'assist@arinox.ai',
+      availableLanguage: 'English',
     },
   };
 
@@ -34,6 +41,9 @@ const SEO = ({
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
+      <meta name="keywords" content={keywords} />
+      <meta name="robots" content="index, follow" />
+      <meta name="author" content="Arinox AI" />
       <link rel="canonical" href={canonical} />
 
       {/* Open Graph */}
@@ -44,10 +54,13 @@ const SEO = ({
       <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={fullTitle} />
       <meta property="og:site_name" content="Arinox AI" />
+      <meta property="og:locale" content="en_IN" />
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@ArinoxAI" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />

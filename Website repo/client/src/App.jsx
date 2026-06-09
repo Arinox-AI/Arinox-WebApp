@@ -18,6 +18,8 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const QRScanPage = lazy(() => import('./pages/QRScanPage'));
+const Privacy = lazy(() => import('./pages/Privacy'));
+const Terms = lazy(() => import('./pages/Terms'));
 
 const PageTransition = ({ children }) => (
   <motion.div
@@ -65,10 +67,11 @@ const CursorGlow = () => {
   );
 };
 
-// Scroll to top on route change
+// Scroll to top on route change — disable browser scroll restoration so it can't override us
+if (typeof window !== 'undefined') window.history.scrollRestoration = 'manual';
 const ScrollReset = () => {
   const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); }, [pathname]);
   return null;
 };
 
@@ -101,6 +104,8 @@ const AppInner = () => {
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/auth/qr-scan/:token" element={<QRScanPage />} />
+              <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
+              <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
             </Routes>
           </AnimatePresence>
         </Suspense>

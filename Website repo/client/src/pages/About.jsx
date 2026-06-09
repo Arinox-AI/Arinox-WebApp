@@ -44,6 +44,7 @@ const team = [
     track: 'Champions client partnerships and enterprise AI adoption across global markets, turning complex deployments into measurable outcomes.',
     tags: [],
     image: chytraImg,
+    photoClass: 'scale-125',
   },
   {
     name: 'D Uday Bhaskar Rao',
@@ -100,7 +101,7 @@ const About = () => {
     <>
       <SEO
         title="About Arinox AI — Our Story, Mission & Leadership"
-        description="Founded to democratize enterprise AI. Meet the team behind Arinox AI — pioneers in intelligent business transformation headquartered in Dubai with global presence."
+        description="Founded to democratize enterprise AI. Meet the team behind Arinox AI — pioneers in sovereign AI and intelligent business transformation, headquartered in Bengaluru, India."
         canonical="https://www.arinox.ai/about"
       />
 
@@ -133,11 +134,11 @@ const About = () => {
             <h2 className="text-xl md:text-2xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
           </div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.map(({ name, role, superpower, track, tags, image }, i) => (
+            {team.map(({ name, role, superpower, track, tags, image, photoClass }, i) => (
               <motion.div key={name} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-6 group flex flex-col h-full" intensity={10}>
                   {image ? (
-                    <motion.img style={{ translateZ: 30 }} src={image} alt={name} className="w-16 h-16 rounded-full object-cover mb-4 shrink-0 border-2 border-brand-primary/30" />
+                    <motion.img style={{ translateZ: 30 }} src={image} alt={name} className={`w-16 h-16 rounded-full object-cover mb-4 shrink-0 border-2 border-brand-primary/30 ${photoClass ?? ''}`} />
                   ) : (
                     <motion.div style={{ translateZ: 30 }} className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary mb-4 flex items-center justify-center text-white font-bold text-xl shrink-0">
                       {name.split(' ').map(n => n[0]).join('')}
@@ -169,9 +170,9 @@ const About = () => {
         <div className="container-wide">
           <div className="flex flex-wrap justify-center items-center gap-4">
             {globalClients.map(({ name, logo }) => (
-              <div key={name} className="inline-flex items-center gap-2.5 px-4 py-2 glass rounded-xl text-brand-muted font-medium text-sm border border-transparent hover:border-brand-primary/20 transition-all cursor-default">
-                <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
-                  <img src={logo} alt={name} className="h-4 w-auto max-w-[28px] object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
+              <div key={name} className="partner-chip inline-flex items-center gap-2.5 px-4 py-2 glass rounded-xl text-brand-muted font-medium text-sm border border-transparent hover:border-brand-primary/40 hover:bg-brand-primary/15 hover:text-brand-primary transition-all cursor-default">
+                <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0 w-5 h-4 overflow-hidden">
+                  <img src={logo} alt={name} className="w-full h-full object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
                 </div>
                 {name}
               </div>
@@ -231,7 +232,7 @@ const About = () => {
             <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Global Presence</p>
             <h2 className="text-xl font-display font-bold text-white">Where you operate. <span className="text-gradient">Where we deliver.</span></h2>
           </div>
-          <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-6">
+          <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-2xl mx-auto">
             {offices.map(({ region, locations }, i) => (
               <motion.div key={region} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-6 h-full" intensity={9}>

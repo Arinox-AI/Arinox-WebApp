@@ -4,11 +4,15 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import SEO from '../components/ui/SEO';
 
-import aksImg      from '../assets/9th Nov- AKS Workshop Global.jpeg';
-import ansrImg     from '../assets/4th July - ANSR Tech Workshop_.jpg';
-import nvidiaImg   from '../assets/26th June- Nvidia Workshop.jpg';
-import hitachiImg  from '../assets/Hitachi_shori_2026.JPG';
-import aiSummitImg from '../assets/ai_summit.jpg';
+import aksImg           from '../assets/9th Nov- AKS Workshop Global.jpeg';
+import ansrImg          from '../assets/4th July - ANSR Tech Workshop_.jpg';
+import nvidiaImg        from '../assets/26th June- Nvidia Workshop.jpg';
+import hitachiImg       from '../assets/Hitachi_shori_2026.JPG';
+import aiSummitImg      from '../assets/ai_summit.jpg';
+import sovereignLaunchImg from '../assets/severign_launch.jpeg';
+import hitachiSystemsImg  from '../assets/Hitachi_systems_event.jpeg';
+import indianGovImg       from '../assets/IndianGov.jpeg';
+import bharatDigitalImg   from '../assets/Bharat_digital_event.jpeg';
 
 const AI_FINANCE_IMG   = 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?auto=format&fit=crop&w=800&q=80';
 const SERVER_ROOM_IMG  = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80';
@@ -33,7 +37,7 @@ const samplePosts = [
     title: 'ANSR Tech Workshop: Agentic AI Meets Global Capability Centre Operations',
     excerpt: 'At the ANSR Tech Workshop in July, Arinox AI explored how agentic AI systems are redefining the role of Global Capability Centres — shifting them from cost arbitrage hubs to autonomous intelligence factories.',
     image: ansrImg,
-    imagePosition: 'object-[center_35%]',
+    imagePosition: 'center 35%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'GCC & Outsourcing',
@@ -58,7 +62,7 @@ const samplePosts = [
     title: 'Hitachi Shori 2026: Industrial Intelligence at the Sovereign Edge',
     excerpt: 'Arinox AI was featured at Hitachi Shori 2026 — an elite gathering of industrial leaders — to present how sovereign AI and agentic automation are transforming manufacturing, supply chain, and operational technology environments.',
     image: hitachiImg,
-    imagePosition: 'object-top',
+    imagePosition: 'top',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Industrial AI',
@@ -66,12 +70,63 @@ const samplePosts = [
     readTime: 7,
   },
   {
+    _id: 'e6',
+    slug: 'langoor-arinox-sovereign-ai-launch',
+    title: 'Langoor & Arinox Launch Sovereign AI: Marketing Transforms Into Autonomous Execution',
+    excerpt: 'In a landmark broadcast on AIM\'s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence — turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
+    image: sovereignLaunchImg,
+    imagePosition: 'center 25%',
+    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
+    category: 'Events',
+    domain: 'Marketing AI',
+    publishedAt: '2025-10-15',
+    readTime: 5,
+  },
+  {
+    _id: 'e7',
+    slug: 'hitachi-systems-india-partnership',
+    title: 'Hitachi Systems India: Expanding the Sovereign AI SI Network',
+    excerpt: 'Arinox AI formalised a strategic partnership with Hitachi Systems India, extending CommandCore™ sovereign AI deployments into manufacturing, logistics, and government enterprise sectors through one of India\'s most trusted system integration networks.',
+    image: hitachiSystemsImg,
+    imagePosition: 'center 35%',
+    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
+    category: 'Events',
+    domain: 'Enterprise AI',
+    publishedAt: '2025-08-20',
+    readTime: 4,
+  },
+  {
+    _id: 'e8',
+    slug: 'government-engagement-sovereign-ai-india',
+    title: 'Government Engagement: Sovereign AI Briefing for India\'s Public Sector',
+    excerpt: 'Arinox AI engaged senior officials from India\'s central and state government agencies to present CommandCore™ as a sovereign AI platform for public sector digital transformation — with full data localisation, on-premises deployment, and compliance-ready agent governance.',
+    image: indianGovImg,
+    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
+    category: 'Events',
+    domain: 'Government & Defence',
+    publishedAt: '2025-07-28',
+    readTime: 5,
+  },
+  {
+    _id: 'e9',
+    slug: 'bharat-digital-summit-bdia',
+    title: 'Bharat Digital Summit: Arinox at BDIA\'s Foundation Forum for India\'s Digital Future',
+    excerpt: 'Arinox AI joined India\'s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit — BDIA\'s Foundation Forum — contributing to the roadmap for India\'s sovereign digital infrastructure and AI-first public services.',
+    image: bharatDigitalImg,
+    imagePosition: 'center 55%',
+    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
+    category: 'Events',
+    domain: 'Digital Infrastructure',
+    publishedAt: '2025-06-10',
+    readTime: 4,
+  },
+  {
     _id: 'e5',
     slug: 'nvidia-inception-ai-summit-2025',
     title: 'NVIDIA Inception AI Summit: Arinox Showcases Sovereign AI to Indian Defence & Enterprises',
     excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\'s defence leadership and enterprise innovators — demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
     image: aiSummitImg,
-    imagePosition: 'object-[center_25%]',
+    imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Defence & Enterprise',
@@ -224,7 +279,8 @@ const Blog = () => {
                           <img
                             src={post.image ?? post.coverImage}
                             alt={post.title}
-                            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${post.imagePosition ?? 'object-center'}`}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            style={post.imagePosition ? { objectPosition: post.imagePosition } : undefined}
                             loading="lazy"
                           />
                         </div>

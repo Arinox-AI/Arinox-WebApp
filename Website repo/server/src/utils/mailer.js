@@ -8,14 +8,26 @@ const getTransporter = () =>
     port: Number(process.env.EMAIL_PORT) || 587,
     secure: false,
     auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+    tls: { rejectUnauthorized: false },
   });
 
 const sendMail = async (options) => {
-  if (!isConfigured()) return;
+  if (!isConfigured()) {
+    console.warn('[mailer] EMAIL_USER / EMAIL_PASS not set — skipping email');
+    return;
+  }
   const transporter = getTransporter();
   await transporter.sendMail({
     from: `"Arinox AI" <${process.env.EMAIL_USER}>`,
     ...options,
+  });
+};
+
+const verifyMailer = () => {
+  if (!isConfigured()) return;
+  getTransporter().verify((err) => {
+    if (err) console.error('[mailer] SMTP connection failed:', err.responseCode ?? '', err.message);
+    else console.log('[mailer] SMTP ready — emails will deliver to', process.env.EMAIL_TO || 'assist@arinox.ai');
   });
 };
 
@@ -151,6 +163,7 @@ const applicationAutoReply = ({ fullName, role }) =>
 
 module.exports = {
   sendMail,
+  verifyMailer,
   contactNotification,
   contactAutoReply,
   applicationNotification,

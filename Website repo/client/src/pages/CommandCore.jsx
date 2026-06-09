@@ -371,8 +371,8 @@ const CommandCore = () => {
               className="inline-flex items-center gap-2 px-3 py-1.5 glass rounded-lg text-xs text-brand-muted border border-transparent hover:border-brand-primary/30 hover:text-brand-primary hover:bg-brand-primary/5 transition-all"
             >
               {logo && (
-                <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
-                  <img src={logo} alt={name} className="h-3 w-auto max-w-[24px] object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
+                <div className="bg-white rounded p-1 flex items-center justify-center shrink-0">
+                  <img src={logo} alt={name} className="h-7 w-auto max-w-[56px] object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
                 </div>
               )}
               {name}

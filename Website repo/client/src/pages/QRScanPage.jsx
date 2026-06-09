@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../hooks/useAuth.jsx';
+import arinoxLogo from '../assets/img.png';
 
 // stage: 'resolving' | 'email' | 'login' | 'register' | 'done'
 const QRScanPage = () => {
@@ -95,9 +96,9 @@ const QRScanPage = () => {
         </button>
 
         <img
-          src="/logo.png"
+          src={arinoxLogo}
           alt="Arinox AI"
-          className="h-8 w-auto object-contain mx-auto mb-4 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
+          className="h-7 w-auto object-contain mx-auto mb-4 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
         />
 
         <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-primary/15 border border-brand-primary/30 text-brand-primary text-[9px] font-bold uppercase tracking-widest mb-4">

@@ -541,6 +541,18 @@ html.light-mode .line-grid h2 {
 html.light-mode :not(a):not(button).text-white {
   color: rgb(var(--color-text)) !important;
 }
+/* Prevent hover:text-white from firing on glass chips in light mode */
+html.light-mode .glass:not(a):not(button):hover,
+html.light-mode .glass-card:not(a):not(button):hover {
+  color: inherit;
+}
+/* Partner chips in light mode — allow brand-primary text + lift shadow on hover */
+html.light-mode .partner-chip:hover {
+  color: rgb(var(--color-primary)) !important;
+  box-shadow: 0 4px 16px rgba(232, 89, 12, 0.18), 0 1px 4px rgba(0,0,0,0.07);
+  transform: translateY(-2px);
+}
+
 /* Gradient/filled buttons always stay white */
 html.light-mode .btn-primary { color: #ffffff !important; }
 html.light-mode [class*="from-brand-primary"][class*="to-brand-secondary"] { color: #ffffff !important; }
