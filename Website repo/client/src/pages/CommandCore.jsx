@@ -372,7 +372,7 @@ const CommandCore = () => {
             >
               {logo && (
                 <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
-                  <img src={logo} alt={name} className="h-3.5 w-auto max-w-[36px] object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
+                  <img src={logo} alt={name} className="h-3 w-auto max-w-[24px] object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
                 </div>
               )}
               {name}

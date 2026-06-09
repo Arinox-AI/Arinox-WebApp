@@ -136,7 +136,7 @@ const Partners = () => {
                 Icon={Icon} logo={logo} lc={lc} alt={name}
                 textLabel={textLabel}
                 boxClass="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/90 border border-white/20 flex items-center justify-center overflow-hidden p-2"
-                imgClass="w-full h-full object-contain"
+                imgClass="max-w-[70%] max-h-[70%] w-auto h-auto object-contain"
                 fallback={
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-white/10 border border-brand-border flex items-center justify-center font-bold text-brand-text text-lg">
                     {name[0]}
