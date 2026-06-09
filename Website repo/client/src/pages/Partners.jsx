@@ -18,7 +18,7 @@ const siPartners = [
 ];
 
 const techPartners = [
-  { name: 'Altos by Acer',     logo: GF('altos.acer.com'), lc: FC, tag: 'Infrastructure', desc: 'Enterprise-grade server hardware by Acer — purpose-built for on-premises sovereign AI deployments at scale.' },
+  { name: 'Altos by Acer',     logo: WM('b/b5/Altos_Computer_Systems_logo.svg'), lc: FC, tag: 'Infrastructure', desc: 'Enterprise-grade server hardware by Acer — purpose-built for on-premises sovereign AI deployments at scale.' },
   { name: 'NVIDIA & Qualcomm', icons: [SiNvidia, SiQualcomm], tag: 'AI Hardware',   desc: 'NVIDIA AI accelerators for data-centre inference and Qualcomm edge silicon for last-mile deployments — together covering the full compute stack for sovereign AI.' },
   { name: 'Kogo.ai',           logo: 'https://kogo.ai/favicon.png', tag: 'Private AI OS',  desc: 'AI agentic platform enabling enterprises to build, deploy, and manage custom autonomous agents — the orchestration layer in Arinox\'s agentic stack.' },
 ];
