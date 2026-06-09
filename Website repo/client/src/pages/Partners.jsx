@@ -11,7 +11,7 @@ const siPartners = [
   { name: 'Hitachi',      logo: GF('hitachi.com'),                                     lc: FC },
   { name: 'IBM',          logo: WM('5/51/IBM_logo.svg'),                               lc: FC },
   { name: 'HPE',          logo: WM('4/46/Hewlett_Packard_Enterprise_logo.svg'),         lc: FC },
-  { name: 'Langoor',      logo: GF('langoor.com'),                                     lc: FC },
+  { name: 'Langoor',      logo: 'https://langoor.business/assets/images/siteLogo.png', lc: FC },
   { name: 'TechData',     logo: GF('techdata.com'),                                    lc: FC },
   { name: 'HCL Tech',     logo: WM('e/e5/HCLTech-new-logo.svg'),                      lc: FC },
   { name: 'Acer',         logo: GF('acer.com'),                                        lc: FC },

@@ -10,7 +10,7 @@ export const globalClients = [
   { name: 'HCL Tech',           logo: WM('e/e5/HCLTech-new-logo.svg'),                  lc: LOGO_FC },
   { name: 'Sun Mobility',       logo: WM('b/bf/SUN_Mobility_Logo.png'),                 lc: LOGO_FC },
   { name: 'Kosmoderma Clinics', logo: GF('kosmoderma.com'),                             lc: LOGO_FC },
-  { name: 'Langoor',            logo: GF('langoor.com'),                                lc: LOGO_FC },
+  { name: 'Langoor',            logo: 'https://langoor.business/assets/images/siteLogo.png', lc: LOGO_FC },
 ];
 
 export const commandCoreClients = [
@@ -20,7 +20,7 @@ export const commandCoreClients = [
   { name: 'Sun Life',            logo: GF('sunlife.com') },
   { name: 'Hitachi',             logo: GF('hitachi.com') },
   { name: 'HCL Tech',            logo: WM('e/e5/HCLTech-new-logo.svg') },
-  { name: 'Langoor',             logo: GF('langoor.com') },
+  { name: 'Langoor',             logo: 'https://langoor.business/assets/images/siteLogo.png' },
   { name: 'Fortune 500 Clients', logo: GF('fortune.com') },
   { name: 'Global Enterprises',  logo: GF('weforum.org') },
 ];

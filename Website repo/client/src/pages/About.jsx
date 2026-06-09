@@ -171,7 +171,7 @@ const About = () => {
             {globalClients.map(({ name, logo }) => (
               <div key={name} className="inline-flex items-center gap-2.5 px-4 py-2 glass rounded-xl text-brand-muted font-medium text-sm border border-transparent hover:border-brand-primary/20 transition-all cursor-default">
                 <div className="bg-white rounded p-0.5 flex items-center justify-center shrink-0">
-                  <img src={logo} alt={name} className="h-5 w-auto object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
+                  <img src={logo} alt={name} className="h-5 w-auto max-w-[40px] object-contain" onError={(e) => { e.currentTarget.parentElement.style.display = 'none'; }} />
                 </div>
                 {name}
               </div>
