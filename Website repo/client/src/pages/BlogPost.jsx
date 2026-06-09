@@ -47,12 +47,14 @@ const BlogPost = () => {
       />
 
       {/* Hero image */}
-      <div className="w-full h-56 sm:h-72 md:h-96 overflow-hidden mt-16">
-        <img
-          src={post.image}
-          alt={post.title}
-          className={`w-full h-full object-cover ${post.imagePosition ?? 'object-center'}`}
-        />
+      <div className="w-full overflow-hidden" style={{ marginTop: '64px' }}>
+        <div className="h-56 sm:h-72 md:h-96 overflow-hidden">
+          <img
+            src={post.image}
+            alt={post.title}
+            className={`w-full h-full object-cover ${post.imagePosition ?? 'object-center'}`}
+          />
+        </div>
       </div>
 
       <article className="container-wide px-4 sm:px-6 py-10 sm:py-14 max-w-3xl">
@@ -95,11 +97,7 @@ const BlogPost = () => {
 
         {/* Content */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="prose prose-invert max-w-none">
-          <p className="text-base sm:text-lg text-brand-muted leading-relaxed mb-6">{post.excerpt}</p>
-          <div className="glass-card rounded-2xl p-6 text-center">
-            <p className="text-brand-muted text-sm">Full article coming soon.</p>
-            <Link to="/contact" className="inline-block mt-3 text-brand-primary text-sm hover:underline">Get in touch with our team →</Link>
-          </div>
+          <p className="text-base sm:text-lg text-brand-muted leading-relaxed">{post.excerpt}</p>
         </motion.div>
       </article>
     </>

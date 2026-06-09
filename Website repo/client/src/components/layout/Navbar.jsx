@@ -233,7 +233,7 @@ const Navbar = () => {
                     </div>
                   ) : (
                     <button
-                      onClick={() => { setShowQR(true); setMobileOpen(false); }}
+                      onClick={() => { setShowAuth(true); setMobileOpen(false); }}
                       className="w-full py-2.5 rounded-xl border border-brand-primary/40 text-brand-primary text-sm font-semibold hover:bg-brand-primary/8 transition-all"
                     >
                       Sign In

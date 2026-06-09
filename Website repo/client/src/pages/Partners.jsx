@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { SiNvidia, SiQualcomm, SiHitachi } from '@icons-pack/react-simple-icons';
+import { SiNvidia, SiQualcomm } from '@icons-pack/react-simple-icons';
 import { Link2, Zap, Package } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import NetworkSphere from '../components/ui/NetworkSphere';
@@ -8,16 +8,17 @@ import { WM, GF, LOGO_FC as FC } from '../utils/logos';
 
 const siPartners = [
   { name: 'Coforge',      logo: GF('coforge.com'),                                     lc: FC },
-  { name: 'Hitachi',      Icon: SiHitachi },
-  { name: 'IBM',          logo: WM('5/51/IBM_logo.svg'),                         lc: FC },
+  { name: 'Hitachi',      logo: GF('hitachi.com'),                                     lc: FC },
+  { name: 'IBM',          logo: WM('5/51/IBM_logo.svg'),                               lc: FC },
   { name: 'HPE',          logo: WM('4/46/Hewlett_Packard_Enterprise_logo.svg'),         lc: FC },
   { name: 'Langoor',      logo: GF('langoor.com'),                                     lc: FC },
   { name: 'TechData',     logo: GF('techdata.com'),                                    lc: FC },
-  { name: 'HCL Tech',     textLabel: 'HCL' },
+  { name: 'HCL Tech',     logo: WM('6/63/HCL_Technologies_logo.svg'),                  lc: FC },
+  { name: 'Acer',         logo: GF('acer.com'),                                        lc: FC },
 ];
 
 const techPartners = [
-  { name: 'Altos by Acer',     logo: 'https://images.seeklogo.com/logo-png/48/1/altos-computing-logo-png_seeklogo-486740.png', tag: 'Infrastructure', desc: 'Enterprise-grade server hardware by Acer — purpose-built for on-premises sovereign AI deployments at scale.' },
+  { name: 'Altos by Acer',     logo: GF('altos.acer.com'), lc: FC, tag: 'Infrastructure', desc: 'Enterprise-grade server hardware by Acer — purpose-built for on-premises sovereign AI deployments at scale.' },
   { name: 'NVIDIA & Qualcomm', icons: [SiNvidia, SiQualcomm], tag: 'AI Hardware',   desc: 'NVIDIA AI accelerators for data-centre inference and Qualcomm edge silicon for last-mile deployments — together covering the full compute stack for sovereign AI.' },
   { name: 'Kogo.ai',           logo: 'https://kogo.ai/favicon.png', tag: 'Private AI OS',  desc: 'AI agentic platform enabling enterprises to build, deploy, and manage custom autonomous agents — the orchestration layer in Arinox\'s agentic stack.' },
 ];
