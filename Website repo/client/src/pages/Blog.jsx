@@ -66,7 +66,7 @@ const samplePosts = [
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Industrial AI',
-    publishedAt: '2026-01-01',
+    publishedAt: '2026-05-07',
     readTime: 7,
   },
   {
@@ -79,7 +79,7 @@ const samplePosts = [
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Marketing AI',
-    publishedAt: '2025-10-15',
+    publishedAt: '2026-05-09',
     readTime: 5,
   },
   {
@@ -92,7 +92,7 @@ const samplePosts = [
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Enterprise AI',
-    publishedAt: '2025-08-20',
+    publishedAt: '2026-05-21',
     readTime: 4,
   },
   {
@@ -104,7 +104,7 @@ const samplePosts = [
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Government & Defence',
-    publishedAt: '2025-07-28',
+    publishedAt: '2026-04-23',
     readTime: 5,
   },
   {
@@ -117,7 +117,7 @@ const samplePosts = [
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Digital Infrastructure',
-    publishedAt: '2025-06-10',
+    publishedAt: '2026-05-28',
     readTime: 4,
   },
   {
@@ -130,7 +130,7 @@ const samplePosts = [
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
     domain: 'Defence & Enterprise',
-    publishedAt: '2025-09-15',
+    publishedAt: '2026-02-18',
     readTime: 5,
   },
   {

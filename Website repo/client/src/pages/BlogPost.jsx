@@ -65,7 +65,7 @@ const samplePosts = [
     excerpt: 'Arinox AI was featured at Hitachi Shori 2026 — an elite gathering of industrial leaders — to present how sovereign AI and agentic automation are transforming manufacturing, supply chain, and operational technology environments.',
     image: hitachiImg, imagePosition: 'top',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events', domain: 'Industrial AI', publishedAt: '2026-01-01', readTime: 7,
+    category: 'Events', domain: 'Industrial AI', publishedAt: '2026-05-07', readTime: 7,
     body: [
       'Hitachi Shori 2026 assembled an elite cohort of industrial and manufacturing leaders to explore the convergence of Industrial IoT, operational technology AI, and sovereign edge computing. Arinox AI was invited to demonstrate CommandCore™ in the context of OT environments — running AI agents directly at the plant floor, analysing real-time sensor data, predicting equipment failure, and coordinating supply chain responses, all within an air-gapped edge environment that meets the uptime and safety constraints of industrial operations.',
       'The demonstration addressed the specific challenges that make industrial AI different from commercial deployments: deterministic response times, safety-critical decision boundaries, and the absolute requirement that operational data — production recipes, quality specifications, equipment telemetry — never leaves the enterprise boundary. CommandCore\'s architecture supports both cloud-connected and fully air-gapped edge deployments, making it viable for manufacturing environments where external network access is prohibited or restricted.',
@@ -79,7 +79,7 @@ const samplePosts = [
     excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\'s defence leadership and enterprise innovators — demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
     image: aiSummitImg, imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events', domain: 'Defence & Enterprise', publishedAt: '2025-09-15', readTime: 5,
+    category: 'Events', domain: 'Defence & Enterprise', publishedAt: '2026-02-18', readTime: 5,
     body: [
       'The NVIDIA Inception AI Summit is among India\'s most strategically significant AI gatherings — convening defence leadership, enterprise technology heads, and the global AI hardware ecosystem in a single forum. Arinox AI\'s presence at the summit reflected the company\'s positioning at the intersection of two critical national priorities: frontier AI capability and sovereign infrastructure for defence and high-security enterprise operations.',
       'At the Arinox booth, CommandCore™ was demonstrated handling defence-grade workloads — real-time intelligence correlation, multi-source data fusion, and classified document processing — running entirely within an air-gapped, on-premises environment with zero external network dependency. Conversations with defence and government attendees focused on a core architectural requirement: a system where the AI itself, not just the data, remains sovereign and auditable at every inference step.',
@@ -93,7 +93,7 @@ const samplePosts = [
     excerpt: 'In a landmark broadcast on AIM\'s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence — turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
     image: sovereignLaunchImg, imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events', domain: 'Marketing AI', publishedAt: '2025-10-15', readTime: 5,
+    category: 'Events', domain: 'Marketing AI', publishedAt: '2026-05-09', readTime: 5,
     body: [
       'Featured on Analytics India Magazine\'s Front Page segment, Langoor and Arinox AI jointly announced the commercial launch of a sovereign AI marketing intelligence platform — the first time a major Indian marketing agency has built autonomous campaign execution directly on private, on-premises AI infrastructure. The broadcast brought together Langoor\'s leadership and Arinox\'s AI team to walk through the platform\'s architecture, its commercial positioning, and the enterprise use cases it unlocks.',
       'The platform, powered by CommandCore™, runs Langoor\'s proprietary marketing agents entirely within the client\'s own environment. Campaign data — audience insights, creative performance metrics, spend attribution, and competitive intelligence — never leaves the enterprise boundary. AI agents handle everything from creative brief generation and audience segmentation to real-time bid optimisation, with full audit trails on every decision. For enterprise clients handling sensitive brand and customer data, this eliminates the governance risk of routing marketing intelligence through public model APIs.',
@@ -108,7 +108,7 @@ const samplePosts = [
     image: hitachiSystemsImg,
     imagePosition: 'center 35%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events', domain: 'Enterprise AI', publishedAt: '2025-08-20', readTime: 4,
+    category: 'Events', domain: 'Enterprise AI', publishedAt: '2026-05-21', readTime: 4,
     body: [
       'Arinox AI\'s partnership with Hitachi Systems India marks a significant expansion of the CommandCore™ sovereign AI ecosystem. The collaboration brings together Arinox\'s on-premises AI platform with Hitachi Systems India\'s deep enterprise integration expertise — giving enterprise clients access to sovereign AI through a trusted infrastructure partner with decades of on-the-ground deployment experience across India\'s most demanding sectors.',
       'Hitachi Systems India operates across manufacturing, logistics, government, and financial services — precisely the sectors where data sovereignty and compliance are non-negotiable. By embedding CommandCore into Hitachi\'s delivery model, enterprises in these sectors can now deploy frontier AI agents within their own environments, with Hitachi Systems providing end-to-end services: hardware infrastructure procurement, system integration, agent configuration, and ongoing managed support. The partnership also accelerates Arinox\'s reach into Tier 2 and Tier 3 enterprise markets where Hitachi Systems has established long-standing client relationships.',
@@ -122,7 +122,7 @@ const samplePosts = [
     excerpt: 'Arinox AI engaged senior officials from India\'s central and state government agencies to present CommandCore™ as a sovereign AI platform for public sector digital transformation — with full data localisation, on-premises deployment, and compliance-ready agent governance.',
     image: indianGovImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events', domain: 'Government & Defence', publishedAt: '2025-07-28', readTime: 5,
+    category: 'Events', domain: 'Government & Defence', publishedAt: '2026-04-23', readTime: 5,
     body: [
       'Arinox AI conducted formal briefings with senior officials from Indian central and state government agencies, presenting CommandCore™ as a purpose-built sovereign AI platform for public sector digital transformation. The meeting brought together officials spanning digital transformation, IT policy, and departmental administration — exploring how AI-powered agents can streamline government operations while ensuring that all data processing remains within government-controlled infrastructure, under full government audit and oversight.',
       'The briefings focused on three requirements unique to government AI deployments: complete data localisation (all AI inference within government-owned or government-leased environments), granular audit coverage (every agent decision traceable and explainable for RTI compliance and internal governance), and seamless interoperability with existing government IT systems including NIC infrastructure, state data centres, and the India Stack digital public infrastructure layer. CommandCore was demonstrated handling document processing, citizen query routing, and policy compliance verification — all running offline, within a closed local network.',
@@ -136,7 +136,7 @@ const samplePosts = [
     excerpt: 'Arinox AI joined India\'s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit — BDIA\'s Foundation Forum — contributing to the roadmap for India\'s sovereign digital infrastructure and AI-first public services.',
     image: bharatDigitalImg, imagePosition: 'center 55%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events', domain: 'Digital Infrastructure', publishedAt: '2025-06-10', readTime: 4,
+    category: 'Events', domain: 'Digital Infrastructure', publishedAt: '2026-05-28', readTime: 4,
     body: [
       'The Bharat Digital Summit, organised by BDIA (Bharat Digital Infrastructure Alliance), brought together India\'s most influential voices in technology policy, enterprise AI, and digital public infrastructure at a high-profile Foundation Forum. The event convened policymakers, enterprise CIOs, sovereign AI infrastructure providers, and digital transformation leaders to align on India\'s technology roadmap — covering sovereign cloud, DPI (Digital Public Infrastructure), AI-first citizen services, and national compute capacity.',
       'Arinox AI participated as a featured contributor to the sovereign cloud and enterprise AI stream, presenting CommandCore™ as a deployment-ready platform for India\'s digital public infrastructure requirements. Key discussion themes included data sovereignty for DPI workloads, AI-powered citizen services running on government-controlled compute, and the role of private enterprise in building India\'s national AI capacity. CommandCore\'s air-gapped deployment architecture and 80+ pre-built agents drew particular interest from government digital transformation heads exploring on-premises alternatives to hyperscaler-dependent AI.',
