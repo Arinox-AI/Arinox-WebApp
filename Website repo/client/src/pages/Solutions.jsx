@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Landmark, Activity, Settings2, Shield, Globe, ArrowRight, ChevronDown } from 'lucide-react';
+import { Landmark, Activity, Settings2, Shield, Globe, ArrowRight, ChevronDown, ShoppingCart } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import DemoLink from '../components/ui/DemoLink';
 import MouseTilt from '../components/ui/MouseTilt';
@@ -168,6 +168,38 @@ const sectors = [
       },
     ],
   },
+  {
+    id: 'fmcg',
+    label: 'FMCG',
+    regHook: 'Supply chain · demand planning · retail analytics',
+    Icon: ShoppingCart,
+    useCases: [
+      {
+        title: 'Demand Forecasting & Replenishment',
+        problem: 'SKU-level forecasting is manual and fragmented, causing stockouts on fast-movers and dead stock on slow-movers simultaneously.',
+        agent: 'DemandSense™ FMCG Agent',
+        agentNote: 'On-prem · ERP/WMS integration · retailer feed support',
+        outcome: '35% reduction in stockouts. 28% lower inventory carrying cost over 6 months.',
+        metric: '−35% stockouts',
+      },
+      {
+        title: 'Route-to-Market Intelligence',
+        problem: 'Field sales teams operate without real-time visibility into distributor stock levels or secondary sales performance.',
+        agent: 'RouteIQ™ Agent',
+        agentNote: 'Edge-deployed · offline-capable · distributor portal sync',
+        outcome: '18% increase in secondary sales. Beat target in 3 of 4 regions within 90 days.',
+        metric: '+18% secondary sales',
+      },
+      {
+        title: 'Shelf & Out-of-Stock Detection',
+        problem: 'Identifying out-of-stock and planogram violations across thousands of retail outlets requires costly and slow field audits.',
+        agent: 'ShelfAI™ Agent',
+        agentNote: 'On-prem · image-model · retail data stays local',
+        outcome: '40% faster OOS detection. Planogram compliance improved by 22% in pilot outlets.',
+        metric: '−40% OOS detection time',
+      },
+    ],
+  },
 ];
 
 // ── Platform tiers ─────────────────────────────────────────────────
@@ -199,7 +231,7 @@ const platformTiers = [
 const proofStats = [
   { value: '100k+', label: 'Tasks automated monthly', note: 'across live deployments' },
   { value: '~40%', label: 'Lower TCO vs cloud AI', note: 'CommandCORE deployments' },
-  { value: '4', label: 'Tier-1 global partners', note: 'HPE · Coforge · Sun Mobility · Minera' },
+  { value: '3', label: 'Tier-1 global partners', note: 'Hitachi · Acer · HPE' },
 ];
 
 
