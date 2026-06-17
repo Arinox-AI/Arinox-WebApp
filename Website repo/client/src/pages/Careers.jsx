@@ -19,6 +19,7 @@ const perks = [
 
 const sampleRoles = [
   { title: 'AI Associate', department: 'Engineering', location: 'Bangalore / Remote', type: 'Full-time' },
+  { title: 'Enterprise Solutions Architect', department: 'Solutions', location: 'Bengaluru', type: 'Full-time · On-site' },
 ];
 
 const jdContent = {
@@ -36,6 +37,29 @@ const jdContent = {
     bringLabel: "If you've been building AI agents in your spare time, experimenting with workflows, or shipping side projects — you're already the kind of person we want to talk to. Bring your:",
     bring: ['GitHub', 'Demos', 'Experiments', 'Projects (even unfinished ones)'],
     closing: "At Arinox AI, you won't spend months watching from the sidelines. You'll work on real enterprise AI systems and ship things that matter from day one.",
+  },
+  'Enterprise Solutions Architect': {
+    tagline: "A full-time, on-site role in Bengaluru. You'll design and own end-to-end AI solution architectures for large enterprises and public sector organizations — spanning infrastructure, data, application, and security layers.",
+    responsibilitiesLabel: "What you'll do",
+    responsibilities: [
+      "Engage with C-level and technical stakeholders to understand business objectives and translate them into scalable AI Factory and agentic system designs",
+      "Create detailed architecture documents, reference blueprints, and integration patterns",
+      "Work closely with product, data science, engineering, and partner teams to validate solution designs",
+      "Lead technical workshops, guide proofs of concept, and ensure successful deployment on on-prem, edge, or hybrid cloud environments",
+      "Provide technical leadership in RFP responses and support pre-sales engagements",
+      "Contribute to best practices, governance frameworks, and reusable assets for future implementations",
+    ],
+    fitLabel: "What we're looking for",
+    fit: [
+      "Proven experience architecting and delivering large-scale enterprise solutions, preferably involving AI/ML, data platforms, or distributed systems",
+      "Strong background in solution architecture across on-prem, hybrid, and cloud infrastructures, with understanding of networking, security, and scalability patterns",
+      "Hands-on familiarity with AI/ML concepts (LLMs, agentic systems, data pipelines, model deployment) and the ability to translate them into robust enterprise architectures",
+      "Experience working with mid to large enterprises",
+      "Ability to lead technical discovery sessions, create high-quality architecture artifacts, and communicate complex solutions clearly to both technical and non-technical stakeholders",
+      "Demonstrated experience collaborating with cross-functional teams (engineering, data science, product, delivery, and partners/system integrators)",
+      "Bachelor's or Master's degree in Computer Science, Engineering, Information Systems, or a related field, or equivalent practical experience",
+    ],
+    closing: "Help shape how the world's largest enterprises and governments adopt AI — from first blueprint to production deployment.",
   },
 };
 
@@ -391,6 +415,20 @@ const Careers = () => {
                           <div className="px-6 py-6 space-y-5">
                             <p className="text-sm text-brand-muted leading-relaxed italic">{jd.tagline}</p>
 
+                            {jd.responsibilities && (
+                              <div>
+                                <p className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">{jd.responsibilitiesLabel}</p>
+                                <ul className="space-y-2">
+                                  {jd.responsibilities.map((item, idx) => (
+                                    <li key={idx} className="flex items-start gap-2.5 text-sm text-brand-muted leading-relaxed">
+                                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-primary/60 shrink-0" />
+                                      {item}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
                             <div>
                               <p className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">{jd.fitLabel}</p>
                               <ul className="space-y-2">
@@ -403,14 +441,16 @@ const Careers = () => {
                               </ul>
                             </div>
 
-                            <div>
-                              <p className="text-sm text-brand-muted leading-relaxed mb-3">{jd.bringLabel}</p>
-                              <div className="flex flex-wrap gap-2">
-                                {jd.bring.map(b => (
-                                  <span key={b} className="px-3 py-1.5 rounded-lg bg-brand-primary/10 text-brand-primary text-xs font-semibold">{b}</span>
-                                ))}
+                            {jd.bring && (
+                              <div>
+                                <p className="text-sm text-brand-muted leading-relaxed mb-3">{jd.bringLabel}</p>
+                                <div className="flex flex-wrap gap-2">
+                                  {jd.bring.map(b => (
+                                    <span key={b} className="px-3 py-1.5 rounded-lg bg-brand-primary/10 text-brand-primary text-xs font-semibold">{b}</span>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
+                            )}
 
                             <p className="text-sm text-white font-medium leading-relaxed border-l-2 border-brand-primary/40 pl-4">{jd.closing}</p>
                           </div>
