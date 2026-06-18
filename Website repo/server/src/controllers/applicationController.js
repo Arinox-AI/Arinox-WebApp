@@ -51,6 +51,9 @@ const submitApplication = async (req, res, next) => {
           linkedIn, coverNote,
           resumeName: req.file ? req.file.originalname : null,
         }),
+        attachments: req.file
+          ? [{ filename: req.file.originalname, path: req.file.path }]
+          : [],
       }),
       sendMail({
         to: email,
