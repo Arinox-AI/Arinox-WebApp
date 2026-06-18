@@ -1,12 +1,12 @@
 # =============================================================
-# Arinox AI — GCP Cloud Run Production Deploy Script
+# Arinox AI - GCP Cloud Run Production Deploy Script
 # Usage: .\deploy.ps1
 # Requires: gcloud CLI authenticated as assist@arinox.ai
 # =============================================================
 
 $ErrorActionPreference = "Stop"
 
-# ── Config ────────────────────────────────────────────────
+# -- Config ------------------------------------------------
 $GCLOUD  = "$env:LOCALAPPDATA\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd"
 $PROJECT = "arinox-staging"
 $REGION  = "asia-south1"
@@ -15,17 +15,17 @@ $REPO    = "arinox"
 $IMAGE   = "$REGION-docker.pkg.dev/$PROJECT/$REPO/$SERVICE"
 $ROOT    = $PSScriptRoot
 
-# ── Banner ────────────────────────────────────────────────
+# -- Banner ------------------------------------------------
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Cyan
-Write-Host "  Arinox AI — Cloud Run Production Deploy" -ForegroundColor Cyan
+Write-Host "  Arinox AI - Cloud Run Production Deploy" -ForegroundColor Cyan
 Write-Host "  Project : $PROJECT" -ForegroundColor Cyan
 Write-Host "  Region  : $REGION" -ForegroundColor Cyan
 Write-Host "  Service : $SERVICE" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan
 Write-Host ""
 
-# ── Guard: server/.env must exist ─────────────────────────
+# -- Guard: server/.env must exist -------------------------
 $envFile = Join-Path $ROOT "server\.env"
 if (-not (Test-Path $envFile)) {
     Write-Host "ERROR: server/.env not found." -ForegroundColor Red
@@ -33,11 +33,11 @@ if (-not (Test-Path $envFile)) {
     exit 1
 }
 
-# ── Step 1: Set project ───────────────────────────────────
+# -- Step 1: Set project -----------------------------------
 Write-Host "[1/5] Setting GCP project..." -ForegroundColor Yellow
 try { & $GCLOUD config set project $PROJECT --quiet } catch {}
 
-# ── Step 2: Ensure Artifact Registry repo exists ──────────
+# -- Step 2: Ensure Artifact Registry repo exists ----------
 Write-Host "[2/5] Ensuring Artifact Registry repository..." -ForegroundColor Yellow
 $repoExists = $false
 try {
@@ -55,7 +55,7 @@ if (-not $repoExists) {
     Write-Host "  Repository '$REPO' already exists."
 }
 
-# ── Step 3: Cloud Build ───────────────────────────────────
+# -- Step 3: Cloud Build -----------------------------------
 Write-Host "[3/5] Building image with Cloud Build (~4-6 min)..." -ForegroundColor Yellow
 & $GCLOUD builds submit $ROOT `
     --tag="$IMAGE`:latest" `
@@ -69,7 +69,7 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host "  Image built: $IMAGE`:latest" -ForegroundColor Green
 
-# ── Step 4: Parse server/.env → YAML ─────────────────────
+# -- Step 4: Parse server/.env -> YAML ---------------------
 Write-Host "[4/5] Preparing environment variables..." -ForegroundColor Yellow
 $tmpYaml = Join-Path $env:TEMP "arinox-env-$([guid]::NewGuid().ToString('N').Substring(0,8)).yaml"
 
@@ -95,7 +95,7 @@ Get-Content $envFile | ForEach-Object {
 $yamlLines | Set-Content $tmpYaml -Encoding UTF8
 Write-Host "  Loaded $($yamlLines.Count) env vars (including NODE_ENV + PORT overrides)."
 
-# ── Step 5: Deploy to Cloud Run ───────────────────────────
+# -- Step 5: Deploy to Cloud Run ---------------------------
 Write-Host "[5/5] Deploying to Cloud Run..." -ForegroundColor Yellow
 & $GCLOUD run deploy $SERVICE `
     --image="$IMAGE`:latest" `
@@ -117,16 +117,16 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# ── Get service URL ────────────────────────────────────────
+# -- Get service URL ----------------------------------------
 $url = & $GCLOUD run services describe $SERVICE `
     --region=$REGION `
     --format="value(status.url)" `
     --project=$PROJECT
 
-# ── Cleanup ────────────────────────────────────────────────
+# -- Cleanup ------------------------------------------------
 Remove-Item $tmpYaml -ErrorAction SilentlyContinue
 
-# ── Done ──────────────────────────────────────────────────
+# -- Done --------------------------------------------------
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Green
 Write-Host "  DEPLOYED SUCCESSFULLY!" -ForegroundColor Green
