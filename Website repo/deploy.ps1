@@ -74,9 +74,12 @@ Write-Host "[4/5] Preparing environment variables..." -ForegroundColor Yellow
 $tmpYaml = Join-Path $env:TEMP "arinox-env-$([guid]::NewGuid().ToString('N').Substring(0,8)).yaml"
 
 # Always force production values regardless of what's in .env
-$skip = @('NODE_ENV', 'PORT')
+$prodUrl = "https://www.arinox.ai"
+$skip = @('NODE_ENV', 'PORT', 'CLIENT_URL', 'SITE_URL')
 $yamlLines = @(
-    "NODE_ENV: production"
+    "NODE_ENV: production",
+    "CLIENT_URL: '$prodUrl'",
+    "SITE_URL: '$prodUrl'"
 )
 
 Get-Content $envFile | ForEach-Object {
