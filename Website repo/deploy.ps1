@@ -1,5 +1,5 @@
 # =============================================================
-# Arinox AI — GCP Cloud Run Staging Deploy Script
+# Arinox AI — GCP Cloud Run Production Deploy Script
 # Usage: .\deploy.ps1
 # Requires: gcloud CLI authenticated as assist@arinox.ai
 # =============================================================
@@ -10,7 +10,7 @@ $ErrorActionPreference = "Stop"
 $GCLOUD  = "$env:LOCALAPPDATA\Google\Cloud SDK\google-cloud-sdk\bin\gcloud.cmd"
 $PROJECT = "arinox-staging"
 $REGION  = "asia-south1"
-$SERVICE = "arinox-staging"
+$SERVICE = "arinox-web"
 $REPO    = "arinox"
 $IMAGE   = "$REGION-docker.pkg.dev/$PROJECT/$REPO/$SERVICE"
 $ROOT    = $PSScriptRoot
@@ -18,7 +18,7 @@ $ROOT    = $PSScriptRoot
 # ── Banner ────────────────────────────────────────────────
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Cyan
-Write-Host "  Arinox AI — Cloud Run Staging Deploy" -ForegroundColor Cyan
+Write-Host "  Arinox AI — Cloud Run Production Deploy" -ForegroundColor Cyan
 Write-Host "  Project : $PROJECT" -ForegroundColor Cyan
 Write-Host "  Region  : $REGION" -ForegroundColor Cyan
 Write-Host "  Service : $SERVICE" -ForegroundColor Cyan
@@ -105,8 +105,8 @@ Write-Host "[5/5] Deploying to Cloud Run..." -ForegroundColor Yellow
     --port=8080 `
     --memory=1Gi `
     --cpu=1 `
-    --min-instances=0 `
-    --max-instances=5 `
+    --min-instances=1 `
+    --max-instances=10 `
     --timeout=120 `
     --env-vars-file=$tmpYaml `
     --project=$PROJECT
