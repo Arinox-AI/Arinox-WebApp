@@ -31,7 +31,12 @@ verifyMailer();
 // Security & middleware
 app.use(helmet({ contentSecurityPolicy: false }));
 const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? [process.env.CLIENT_URL].filter(Boolean)
+  ? [
+      // The server serves its own frontend, so requests can carry either the
+      // apex or www origin depending on which host the user visited.
+      'https://arinox.ai', 'https://www.arinox.ai',
+      process.env.CLIENT_URL,
+    ].filter(Boolean)
   : [
       'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175',
       'http://127.0.0.1:5173', 'http://127.0.0.1:5174',
