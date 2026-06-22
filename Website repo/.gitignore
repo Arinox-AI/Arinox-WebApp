@@ -32,3 +32,8 @@ uploads/
 
 # Coverage
 coverage/
+
+# Exported applicant data / resumes (PII - never commit)
+resumes_export/
+Candidate_Outreach_Sheet.pdf
+Resume_*.pdf
