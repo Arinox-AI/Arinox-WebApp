@@ -349,12 +349,6 @@ export default function ArinoxChatBot() {
             }}
             onClick={() => { setPopup(false); setOpen(true); }}
           >
-            <div style={{
-              position: 'absolute', top: 0, left: 0, right: 0, height: '4px',
-              background: 'linear-gradient(90deg, #FE6300, #E55A00)',
-              borderRadius: '16px 16px 0 0',
-            }} />
-
             <button
               onClick={e => { e.stopPropagation(); setPopup(false); }}
               style={{
@@ -377,7 +371,7 @@ export default function ArinoxChatBot() {
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '12.5px', color: '#444', lineHeight: 1.55 }}>
-              Hey! I'm Arin — how may I assist you?
+              Hey! I'm Arin, how may I assist you?
             </p>
 
             <div style={{
