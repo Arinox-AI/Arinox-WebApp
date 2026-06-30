@@ -116,6 +116,60 @@ const contactAutoReply = ({ name, subject }) =>
       </div>
     </div>`);
 
+/* ── Lead notification to Arinox team (Google Ads landing page) ── */
+const leadNotification = (lead) => {
+  const {
+    name, email, phone, company, role, companySize, companyType, domain,
+    usesAi, aiTools, useCases, timeline, message,
+    utmSource, utmMedium, utmCampaign, utmTerm, utmContent, gclid, gadSource, referrer, landingPage,
+  } = lead;
+  const row = (label, value) =>
+    `<div style="${rowStyle}"><span style="${labelStyle}">${label}:</span> ${value || '—'}</div>`;
+  const hasCampaign = utmSource || utmMedium || utmCampaign || gclid || gadSource;
+  return emailWrapper(`
+    <div style="${headerStyle}">
+      <img src="https://www.arinox.ai/logo.png" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
+      <h2 style="color:#fff;margin:0;font-size:20px;">New Lead — Google Ads</h2>
+      <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:13px;">Submitted via /get-started</p>
+    </div>
+    <div style="${bodyStyle}">
+      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;">Contact</p>
+      ${row('Name', name)}
+      ${row('Email', `<a href="mailto:${email}" style="color:#FE6300;">${email}</a>`)}
+      ${row('Phone', phone)}
+      ${row('Company', company)}
+      ${row('Role', role)}
+
+      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:22px 0 8px;">Firmographics (ICP)</p>
+      ${row('Employees', companySize)}
+      ${row('Company type', companyType)}
+      ${row('Industry / domain', domain)}
+
+      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:22px 0 8px;">AI profile</p>
+      ${row('Uses AI today', usesAi)}
+      ${row('AI tools used', aiTools)}
+      ${row('Wants AI for', useCases)}
+      ${row('Timeline', timeline)}
+
+      ${message ? `<div style="padding-top:16px;"><span style="${labelStyle}">Message:</span><p style="margin-top:8px;font-size:14px;color:#444;line-height:1.7;background:#faf7f4;padding:14px;border-radius:8px;">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
+
+      ${hasCampaign ? `
+      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:22px 0 8px;">Campaign attribution</p>
+      ${row('Source', utmSource)}
+      ${row('Medium', utmMedium)}
+      ${row('Campaign', utmCampaign)}
+      ${row('Term', utmTerm)}
+      ${row('Content', utmContent)}
+      ${row('gclid', gclid)}
+      ${row('gad_source', gadSource)}
+      ` : ''}
+      ${referrer || landingPage ? `
+      ${row('Referrer', referrer)}
+      ${row('Landing page', landingPage ? `<span style="word-break:break-all;font-size:12px;">${landingPage}</span>` : '')}
+      ` : ''}
+    </div>`);
+};
+
 /* ── Application notification to Arinox team ── */
 const applicationNotification = ({ fullName, email, phone, role, department, linkedIn, coverNote, resumeName }) =>
   emailWrapper(`
@@ -166,6 +220,7 @@ module.exports = {
   verifyMailer,
   contactNotification,
   contactAutoReply,
+  leadNotification,
   applicationNotification,
   applicationAutoReply,
 };

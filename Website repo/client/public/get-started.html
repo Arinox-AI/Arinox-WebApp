@@ -391,8 +391,9 @@
   <script>
     // ── Configuration ──────────────────────────────────────────────
     // Served from the Arinox server, so the API is same-origin — a
-    // relative path avoids CORS entirely.
-    const API_ENDPOINT = '/api/v1/contact';
+    // relative path avoids CORS entirely. Posts to the dedicated leads
+    // endpoint, which stores each answer as a structured column.
+    const API_ENDPOINT = '/api/v1/leads';
     const ADS_CONVERSION = null; // e.g. 'AW-XXXXXXXXXX/AbC-D_efGhIjKlMnOp'
 
     // ── Capture campaign attribution (UTM + gclid) from the URL ────
@@ -464,37 +465,8 @@
       if (!data.name || !data.email || !data.phone) return showError('Please fill in your name, email and phone.');
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return showError('Please enter a valid email address.');
 
-      // Build a structured, human-readable block so every ICP answer is
-      // captured even on the existing /contact endpoint.
-      const L = [];
-      L.push('========= GOOGLE ADS LEAD =========');
-      L.push('--- Firmographics (ICP) ---');
-      L.push(`Role:            ${data.role || '-'}`);
-      L.push(`Company:         ${data.company || '-'}`);
-      L.push(`Employees:       ${data.companySize || '-'}`);
-      L.push(`Company type:    ${data.companyType || '-'}`);
-      L.push(`Industry/domain: ${data.domain || '-'}`);
-      L.push('');
-      L.push('--- AI profile ---');
-      L.push(`Uses AI today:   ${data.usesAi || '-'}`);
-      L.push(`AI tools used:   ${data.aiTools.length ? data.aiTools.join(', ') : '-'}`);
-      L.push(`Wants AI for:    ${data.useCases.length ? data.useCases.join(', ') : '-'}`);
-      L.push(`Timeline:        ${data.timeline || '-'}`);
-      L.push('');
-      L.push('--- Message ---');
-      L.push(data.message || '(none)');
-      L.push('');
-      L.push('--- Campaign attribution ---');
-      Object.entries(campaign).forEach(([k, v]) => L.push(`${k}: ${v}`));
-
-      const payload = {
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        company: data.company,
-        subject: 'Demo Request',
-        message: L.join('\n'),
-      };
+      // Send each ICP answer as its own field + the campaign attribution.
+      const payload = { ...data, ...campaign };
 
       setLoading(true);
       try {

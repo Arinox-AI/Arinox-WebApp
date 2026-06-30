@@ -61,6 +61,7 @@ app.use('/api/v1/blog', require('./routes/blog'));
 app.use('/api/v1/case-studies', require('./routes/caseStudies'));
 app.use('/api/v1/careers', require('./routes/careers'));
 app.use('/api/v1/contact', require('./routes/contact'));
+app.use('/api/v1/leads', require('./routes/leads'));
 app.use('/api/v1/partners', require('./routes/partners'));
 app.use('/api/v1/chat', require('./routes/chat'));
 
