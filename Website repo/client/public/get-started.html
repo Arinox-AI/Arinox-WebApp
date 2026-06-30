@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#E8590C" />
+  <title>Arinox AI — Book Your Free AI Strategy Call</title>
+  <meta name="description" content="Tell us about your business and our team will reach out within 24 hours with a tailored AI plan — no commitment." />
+
+  <!-- Paid landing page — keep out of the organic index -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta property="og:title" content="Arinox AI — Book Your Free AI Strategy Call" />
+  <meta property="og:description" content="Tell us about your business and our team will reach out within 24 hours." />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              bg:        '#0D0D0E',
+              surface:   '#111112',
+              card:      '#161617',
+              border:    '#252526',
+              primary:   '#E8590C',
+              secondary: '#D0500A',
+              text:      '#F0F0F0',
+              muted:     '#C8C2BC',
+              subtle:    '#A09890',
+              green:     '#1D7A5F',
+              alert:     '#C0392B',
+            },
+          },
+          fontFamily: { sans: ['avenir-lt-w01_35-light1475496', 'system-ui', 'sans-serif'] },
+        },
+      },
+    };
+  </script>
+
+  <!-- ── Google Ads conversion tracking (OPTIONAL) ──────────────────
+       Uncomment + set AW-XXXXXXXXXX and CONVERSION_LABEL to fire a
+       conversion on submit. Leave commented until you have the IDs.
+  ────────────────────────────────────────────────────────────────────
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'AW-XXXXXXXXXX');
+  </script>
+  -->
+
+  <style>
+    /* Avenir LT W01 35 Light — same font as arinox.ai */
+    @font-face {
+      font-family: 'avenir-lt-w01_35-light1475496';
+      src: url('https://static.parastorage.com/fonts/v2/af36905f-3c92-4ef9-b0c1-f91432f16ac1/v1/avenir-lt-w01_35-light1475496.woff2') format('woff2');
+      font-weight: 300; font-style: normal; font-display: swap;
+    }
+
+    :root { --primary: 232 89 12; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0D0D0E;
+      color: #F0F0F0;
+      font-family: 'avenir-lt-w01_35-light1475496', system-ui, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4 { font-weight: 300; letter-spacing: -0.02em; }
+    strong, b, .font-bold { font-weight: 700 !important; }
+    ::selection { background: rgba(232,89,12,0.28); color: #fff; }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #0D0D0E; }
+    ::-webkit-scrollbar-thumb { background: #E8590C; border-radius: 3px; }
+
+    /* Brand surfaces */
+    .glass { background: rgba(22,22,23,0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(232,89,12,0.1); }
+    .glass-card { background: rgba(22,22,23,0.95); border: 1px solid rgba(255,255,255,0.06); transition: border-color .3s ease; }
+    .glass-card:hover { border-color: rgba(232,89,12,0.28); }
+
+    .text-gradient { background: linear-gradient(135deg, #E8590C 0%, #ff8a4a 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+    .grid-bg {
+      background-image: radial-gradient(circle, rgba(232,89,12,0.07) 1px, transparent 1px);
+      background-size: 36px 36px; animation: gridDrift 40s linear infinite;
+    }
+    @keyframes gridDrift { 0% { background-position: 0 0; } 100% { background-position: 36px 36px; } }
+
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; }
+
+    .tag {
+      display: inline-flex; align-items: center; padding: 0.3rem 0.8rem; border-radius: 9999px;
+      font-size: 0.65rem; font-weight: 700; background: rgba(232,89,12,0.1); color: #E8590C;
+      border: 1px solid rgba(232,89,12,0.2); letter-spacing: 0.12em; text-transform: uppercase;
+    }
+
+    /* Inputs — mirrors .contact-input on the site */
+    .contact-input {
+      background: rgba(22,22,23,0.75); border: 1px solid #252526; color: #F0F0F0;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+    .contact-input::placeholder { color: #8a8278; }
+    .contact-input:focus { outline: none; border-color: rgba(232,89,12,0.7); box-shadow: 0 0 0 3px rgba(232,89,12,0.12); }
+    select.contact-input option { background: #161617; color: #F0F0F0; }
+
+    .label { display: block; font-size: 0.72rem; font-weight: 600; color: #C8C2BC; margin-bottom: 0.4rem; letter-spacing: 0.02em; }
+
+    /* Checkbox chips */
+    .chip { cursor: pointer; user-select: none; }
+    .chip input { position: absolute; opacity: 0; pointer-events: none; }
+    .chip span {
+      display: inline-flex; align-items: center; gap: .4rem; padding: .5rem .85rem; border-radius: 9999px;
+      font-size: .78rem; border: 1px solid #2f2f30; background: rgba(22,22,23,0.6); color: #C8C2BC;
+      transition: all .2s ease;
+    }
+    .chip input:checked + span { border-color: rgba(232,89,12,0.7); background: rgba(232,89,12,0.12); color: #fff; }
+
+    .btn-primary { background: #E8590C; transition: background .2s ease, box-shadow .2s ease; }
+    .btn-primary:hover { background: #D0500A; box-shadow: 0 10px 30px rgba(232,89,12,0.25); }
+
+    .spin { animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .fade-in { animation: fade .5s ease both; }
+    @keyframes fade { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+
+    .section-divider { width: 40px; height: 3px; background: #E8590C; border-radius: 2px; margin-bottom: 1rem; }
+  </style>
+</head>
+<body class="min-h-screen relative">
+
+  <!-- Ambient orbs -->
+  <div class="orb" style="width:480px;height:480px;background:rgba(232,89,12,0.10);top:-120px;left:50%;transform:translateX(-50%);"></div>
+  <div class="orb" style="width:300px;height:300px;background:rgba(232,89,12,0.07);top:40%;right:-80px;"></div>
+
+  <div class="grid-bg absolute inset-0 opacity-60 pointer-events-none"></div>
+
+  <div class="relative max-w-6xl mx-auto px-5 py-10 md:py-14">
+
+    <!-- Brand header -->
+    <header class="flex items-center gap-2.5 mb-10">
+      <img src="/logo.png" alt="Arinox AI" class="h-8 w-auto" onerror="this.style.display='none'" />
+      <span class="text-lg font-bold tracking-tight">Arinox<span class="text-brand-primary">AI</span></span>
+    </header>
+
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-14 items-start">
+
+      <!-- ── Left: value proposition ───────────────────────────── -->
+      <div class="lg:pt-6 lg:sticky lg:top-10">
+        <span class="tag mb-5">Free AI Strategy Call</span>
+        <h1 class="text-3xl md:text-[2.4rem] leading-tight mb-5">
+          Put AI to work in your business — <span class="text-gradient font-bold">without the guesswork.</span>
+        </h1>
+        <p class="text-brand-muted text-base leading-relaxed mb-8 max-w-md">
+          Tell us about your business. Our team maps your highest-impact AI opportunity and sends a tailored plan within 24 hours. No jargon, no commitment.
+        </p>
+
+        <ul class="space-y-4 mb-8">
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-primary/15 border border-brand-primary/40 flex items-center justify-center text-brand-primary text-xs flex-shrink-0">✓</span>
+            <span class="text-sm text-brand-muted">A free 15-minute discovery call with an AI specialist</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-primary/15 border border-brand-primary/40 flex items-center justify-center text-brand-primary text-xs flex-shrink-0">✓</span>
+            <span class="text-sm text-brand-muted">A tailored AI opportunity map for your industry</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-primary/15 border border-brand-primary/40 flex items-center justify-center text-brand-primary text-xs flex-shrink-0">✓</span>
+            <span class="text-sm text-brand-muted">Clear next steps and pricing — zero pressure</span>
+          </li>
+        </ul>
+
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-brand-subtle">
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brand-green"></span> Replies within 24 hours</div>
+          <div class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-brand-green"></span> Trusted by enterprise teams</div>
+        </div>
+      </div>
+
+      <!-- ── Right: the form ───────────────────────────────────── -->
+      <div class="glass-card rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/40">
+
+        <form id="leadForm" novalidate>
+          <h2 class="text-xl font-bold mb-1">Request your free call</h2>
+          <p class="text-sm text-brand-muted mb-7">A few quick questions so we come prepared.</p>
+
+          <!-- ═══ 1. Your details ═══ -->
+          <div class="section-divider"></div>
+          <p class="text-[0.7rem] font-bold tracking-[0.15em] uppercase text-brand-primary mb-4">Your details</p>
+
+          <div class="space-y-4 mb-8">
+            <div>
+              <label class="label" for="name">Full name *</label>
+              <input id="name" name="name" type="text" autocomplete="name" required
+                class="contact-input w-full px-4 py-3 rounded-xl text-sm" placeholder="Jane Doe" />
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="label" for="email">Work email *</label>
+                <input id="email" name="email" type="email" autocomplete="email" required
+                  class="contact-input w-full px-4 py-3 rounded-xl text-sm" placeholder="jane@company.com" />
+              </div>
+              <div>
+                <label class="label" for="phone">Phone *</label>
+                <input id="phone" name="phone" type="tel" autocomplete="tel" required
+                  class="contact-input w-full px-4 py-3 rounded-xl text-sm" placeholder="+91 98765 43210" />
+              </div>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="label" for="company">Company name</label>
+                <input id="company" name="company" type="text" autocomplete="organization"
+                  class="contact-input w-full px-4 py-3 rounded-xl text-sm" placeholder="Acme Corp" />
+              </div>
+              <div>
+                <label class="label" for="role">Your role</label>
+                <select id="role" name="role" class="contact-input w-full px-4 py-3 rounded-xl text-sm">
+                  <option value="">Select...</option>
+                  <option>Founder / C-Suite (CEO, CTO, CIO)</option>
+                  <option>VP / Director</option>
+                  <option>Manager / Team Lead</option>
+                  <option>IT / Engineering</option>
+                  <option>Operations</option>
+                  <option>Sales / Marketing</option>
+                  <option>Analyst / Individual Contributor</option>
+                  <option>Student / Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- ═══ 2. About your company ═══ -->
+          <div class="section-divider"></div>
+          <p class="text-[0.7rem] font-bold tracking-[0.15em] uppercase text-brand-primary mb-4">About your company</p>
+
+          <div class="space-y-4 mb-8">
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="label" for="companySize">Number of employees</label>
+                <select id="companySize" name="companySize" class="contact-input w-full px-4 py-3 rounded-xl text-sm">
+                  <option value="">Select...</option>
+                  <option>1–10</option>
+                  <option>11–50</option>
+                  <option>51–200</option>
+                  <option>201–500</option>
+                  <option>501–1,000</option>
+                  <option>1,001–5,000</option>
+                  <option>5,000+</option>
+                </select>
+              </div>
+              <div>
+                <label class="label" for="companyType">Type of company</label>
+                <select id="companyType" name="companyType" class="contact-input w-full px-4 py-3 rounded-xl text-sm">
+                  <option value="">Select...</option>
+                  <option>Startup</option>
+                  <option>SME / Mid-market</option>
+                  <option>Large Enterprise</option>
+                  <option>Government / PSU</option>
+                  <option>Non-profit / NGO</option>
+                  <option>Educational Institution</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="label" for="domain">Industry / domain</label>
+              <select id="domain" name="domain" class="contact-input w-full px-4 py-3 rounded-xl text-sm">
+                <option value="">Select your industry...</option>
+                <option>BFSI (Banking, Financial Services, Insurance)</option>
+                <option>Healthcare &amp; Pharma</option>
+                <option>Manufacturing</option>
+                <option>Retail &amp; E-commerce</option>
+                <option>IT / Software / SaaS</option>
+                <option>Government &amp; Defence / PSU</option>
+                <option>Logistics &amp; Supply Chain</option>
+                <option>Telecom</option>
+                <option>Energy &amp; Utilities</option>
+                <option>Real Estate &amp; Construction</option>
+                <option>Education</option>
+                <option>Media &amp; Entertainment</option>
+                <option>Professional Services / Consulting</option>
+                <option>Agriculture</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- ═══ 3. About your AI needs ═══ -->
+          <div class="section-divider"></div>
+          <p class="text-[0.7rem] font-bold tracking-[0.15em] uppercase text-brand-primary mb-4">About your AI needs</p>
+
+          <div class="space-y-5 mb-8">
+            <div>
+              <label class="label">Do you currently use AI in your business?</label>
+              <div class="flex flex-wrap gap-2" id="usesAiGroup">
+                <label class="chip"><input type="radio" name="usesAi" value="Yes — actively using" /><span>Yes — actively using</span></label>
+                <label class="chip"><input type="radio" name="usesAi" value="Piloting / exploring" /><span>Piloting / exploring</span></label>
+                <label class="chip"><input type="radio" name="usesAi" value="No — not yet" /><span>No — not yet</span></label>
+              </div>
+            </div>
+
+            <!-- Conditional: which tools (shown only if they use AI) -->
+            <div id="toolsBlock" class="hidden">
+              <label class="label">Which AI tools do you use? <span class="text-brand-subtle font-normal">(select all)</span></label>
+              <div class="flex flex-wrap gap-2">
+                <label class="chip"><input type="checkbox" name="aiTools" value="ChatGPT / OpenAI" /><span>ChatGPT / OpenAI</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="Claude (Anthropic)" /><span>Claude</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="Google Gemini" /><span>Google Gemini</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="Microsoft Copilot" /><span>Microsoft Copilot</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="GitHub Copilot" /><span>GitHub Copilot</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="Perplexity" /><span>Perplexity</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="Custom / in-house models" /><span>Custom / in-house</span></label>
+                <label class="chip"><input type="checkbox" name="aiTools" value="Other" /><span>Other</span></label>
+              </div>
+            </div>
+
+            <div>
+              <label class="label">What would you like to use AI for? <span class="text-brand-subtle font-normal">(select all)</span></label>
+              <div class="flex flex-wrap gap-2">
+                <label class="chip"><input type="checkbox" name="useCases" value="Customer support automation" /><span>Customer support</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="AI chat / agents" /><span>AI chat / agents</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Document &amp; data processing" /><span>Document / data processing</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Data analytics &amp; insights" /><span>Analytics &amp; insights</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Sales &amp; marketing automation" /><span>Sales &amp; marketing</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Internal knowledge search" /><span>Knowledge search</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Process / workflow automation" /><span>Process automation</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Coding / developer productivity" /><span>Coding productivity</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Security &amp; compliance" /><span>Security &amp; compliance</span></label>
+                <label class="chip"><input type="checkbox" name="useCases" value="Not sure yet" /><span>Not sure yet</span></label>
+              </div>
+            </div>
+
+            <div>
+              <label class="label" for="timeline">When are you looking to implement?</label>
+              <select id="timeline" name="timeline" class="contact-input w-full px-4 py-3 rounded-xl text-sm">
+                <option value="">Select...</option>
+                <option>Immediately (0–1 month)</option>
+                <option>Short term (1–3 months)</option>
+                <option>Mid term (3–6 months)</option>
+                <option>Just researching</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="label" for="message">Anything else you'd like us to know? <span class="text-brand-subtle font-normal">(optional)</span></label>
+              <textarea id="message" name="message" rows="3"
+                class="contact-input w-full px-4 py-3 rounded-xl text-sm resize-none"
+                placeholder="e.g. biggest challenge, current bottleneck, goals for the next 6 months..."></textarea>
+            </div>
+          </div>
+
+          <!-- Honeypot anti-spam (hidden from humans) -->
+          <input type="text" name="website" id="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+          <p id="formError" class="hidden text-sm text-brand-alert mb-3"></p>
+
+          <button id="submitBtn" type="submit"
+            class="btn-primary w-full py-3.5 rounded-xl text-white font-bold text-sm flex items-center justify-center gap-2 disabled:opacity-50">
+            <span id="btnText">Book my free call →</span>
+            <span id="btnSpinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full spin"></span>
+          </button>
+
+          <p class="text-[11px] text-brand-subtle text-center leading-relaxed mt-3">
+            By submitting, you agree to be contacted by Arinox AI. We respect your privacy and never share your details.
+          </p>
+        </form>
+
+        <!-- Success view -->
+        <div id="successView" class="hidden text-center py-10 fade-in">
+          <div class="w-16 h-16 rounded-full bg-brand-green/15 border border-brand-green/40 flex items-center justify-center mx-auto mb-4">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#1D7A5F" stroke-width="2.5" class="w-8 h-8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 class="text-xl font-bold mb-2">You're all set! 🎉</h2>
+          <p class="text-brand-muted text-sm max-w-xs mx-auto">
+            Thanks for reaching out. Our team will contact you within <span class="text-brand-text font-bold">24 hours</span> to schedule your free call.
+          </p>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="mt-14 text-center text-xs text-brand-subtle">
+      © <span id="year"></span> Arinox AI · New Delhi · Bangalore · <a href="https://www.arinox.ai" class="text-brand-primary hover:underline">arinox.ai</a>
+    </footer>
+  </div>
+
+  <script>
+    // ── Configuration ──────────────────────────────────────────────
+    // Served from the Arinox server, so the API is same-origin — a
+    // relative path avoids CORS entirely.
+    const API_ENDPOINT = '/api/v1/contact';
+    const ADS_CONVERSION = null; // e.g. 'AW-XXXXXXXXXX/AbC-D_efGhIjKlMnOp'
+
+    // ── Capture campaign attribution (UTM + gclid) from the URL ────
+    function getParams() {
+      const p = new URLSearchParams(window.location.search);
+      const keys = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gad_source'];
+      const out = {};
+      keys.forEach(k => { const v = p.get(k); if (v) out[k] = v; });
+      out.referrer = document.referrer || '(direct)';
+      out.landing_page = window.location.href;
+      return out;
+    }
+    const campaign = getParams();
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Reveal "which AI tools" only when they use / pilot AI
+    const toolsBlock = document.getElementById('toolsBlock');
+    document.querySelectorAll('input[name="usesAi"]').forEach(r => {
+      r.addEventListener('change', () => {
+        const show = r.value !== 'No — not yet';
+        toolsBlock.classList.toggle('hidden', !show);
+      });
+    });
+
+    const form = document.getElementById('leadForm');
+    const errEl = document.getElementById('formError');
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+
+    function showError(msg) { errEl.textContent = msg; errEl.classList.remove('hidden'); errEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    function setLoading(on) {
+      btn.disabled = on;
+      btnText.textContent = on ? 'Sending...' : 'Book my free call →';
+      btnSpinner.classList.toggle('hidden', !on);
+    }
+    function checkedValues(name) {
+      return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(el => el.value);
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errEl.classList.add('hidden');
+
+      // Honeypot — if filled, it's a bot; fake success silently
+      if (document.getElementById('website').value) {
+        form.classList.add('hidden');
+        document.getElementById('successView').classList.remove('hidden');
+        return;
+      }
+
+      const f = form;
+      const data = {
+        name:        f.name.value.trim(),
+        email:       f.email.value.trim(),
+        phone:       f.phone.value.trim(),
+        company:     f.company.value.trim(),
+        role:        f.role.value,
+        companySize: f.companySize.value,
+        companyType: f.companyType.value,
+        domain:      f.domain.value,
+        usesAi:      (document.querySelector('input[name="usesAi"]:checked') || {}).value || '',
+        aiTools:     checkedValues('aiTools'),
+        useCases:    checkedValues('useCases'),
+        timeline:    f.timeline.value,
+        message:     f.message.value.trim(),
+      };
+
+      if (!data.name || !data.email || !data.phone) return showError('Please fill in your name, email and phone.');
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return showError('Please enter a valid email address.');
+
+      // Build a structured, human-readable block so every ICP answer is
+      // captured even on the existing /contact endpoint.
+      const L = [];
+      L.push('========= GOOGLE ADS LEAD =========');
+      L.push('--- Firmographics (ICP) ---');
+      L.push(`Role:            ${data.role || '-'}`);
+      L.push(`Company:         ${data.company || '-'}`);
+      L.push(`Employees:       ${data.companySize || '-'}`);
+      L.push(`Company type:    ${data.companyType || '-'}`);
+      L.push(`Industry/domain: ${data.domain || '-'}`);
+      L.push('');
+      L.push('--- AI profile ---');
+      L.push(`Uses AI today:   ${data.usesAi || '-'}`);
+      L.push(`AI tools used:   ${data.aiTools.length ? data.aiTools.join(', ') : '-'}`);
+      L.push(`Wants AI for:    ${data.useCases.length ? data.useCases.join(', ') : '-'}`);
+      L.push(`Timeline:        ${data.timeline || '-'}`);
+      L.push('');
+      L.push('--- Message ---');
+      L.push(data.message || '(none)');
+      L.push('');
+      L.push('--- Campaign attribution ---');
+      Object.entries(campaign).forEach(([k, v]) => L.push(`${k}: ${v}`));
+
+      const payload = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        company: data.company,
+        subject: 'Demo Request',
+        message: L.join('\n'),
+      };
+
+      setLoading(true);
+      try {
+        const res = await fetch(API_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const json = await res.json().catch(() => ({}));
+        if (!res.ok || json.success === false) throw new Error(json.message || 'Request failed');
+
+        if (ADS_CONVERSION && typeof gtag === 'function') gtag('event', 'conversion', { send_to: ADS_CONVERSION });
+
+        form.classList.add('hidden');
+        document.getElementById('successView').classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } catch (err) {
+        showError('Something went wrong. Please try again or email assist@arinox.ai.');
+      } finally {
+        setLoading(false);
+      }
+    });
+  </script>
+</body>
+</html>

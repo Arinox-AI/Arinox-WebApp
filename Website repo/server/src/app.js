@@ -86,6 +86,11 @@ app.get('/health', (req, res) => res.json({ status: 'ok', env: process.env.NODE_
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
   const clientBuild = path.join(__dirname, '../../client/dist');
+
+  // Standalone Google Ads lead-capture landing page — clean URL alias so
+  // the ad can point at /get-started (the file ships as get-started.html).
+  app.get('/get-started', (req, res) => res.sendFile(path.join(clientBuild, 'get-started.html')));
+
   app.use(express.static(clientBuild));
   app.get('*', (req, res) => res.sendFile(path.join(clientBuild, 'index.html')));
 }
