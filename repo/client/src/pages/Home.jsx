@@ -15,6 +15,7 @@ import chytraPhoto from '../assets/chytraD.jpeg';
 import udayPhoto from '../assets/Uday bhaskar.png';
 import angadPhoto from '../assets/Angad-Ahluwalia-Chief-Spokesperson-Arinox-AI.jpeg';
 import venuPhoto from '../assets/venu.png';
+import repswalPhoto from '../assets/repswal.jpg';
 import { globalClients as clients } from '../data/clients';
 import LogoGrid from '../components/ui/LogoGrid';
 
@@ -125,10 +126,10 @@ const team = [
 
 /* ─── Advisors data (TODO: fill real advisory board) ─── */
 const advisors = [
-  { name: 'Venu Ganganna', role: 'Strategic Advisor', photo: venuPhoto, focus: 'Placeholder   replace with advisor background and area of expertise.' },
-  { name: 'Lt General BK Repswal', role: 'Defence Warfare Expert', focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
-  { name: 'Advisor Name',  role: 'Technology Advisor', focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
-  { name: 'Advisor Name',  role: 'Industry Advisor',   focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
+  { name: 'Venu Ganganna', role: 'Creative, Data & Tech Specialist', photo: venuPhoto, focus: 'Strategic advisor driving creative innovation, data intelligence, and technology transformation.' },
+  { name: 'Lt General BK Repswal', role: 'Defence & Strategic Advisor', photo: repswalPhoto, focus: 'A trusted sounding board for Arinox, providing strategic counsel and deep defence domain expertise.' },
+  // { name: 'Advisor Name',  role: 'Technology Advisor', focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
+  // { name: 'Advisor Name',  role: 'Industry Advisor',   focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
 ];
 
 /* ─── Home ──────────────────────────────────────────────── */
