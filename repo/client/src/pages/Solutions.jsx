@@ -310,8 +310,8 @@ const Solutions = () => {
   return (
     <>
       <SEO
-        title="AI Solutions — Sovereign AI for Regulated Industries"
-        description="Purpose-built sovereign AI solutions for BFSI, Healthcare, Manufacturing, Defence, and Government. Deployed on-premises on CommandCORE™ with KOGO OS — air-gapped and audit-ready from day one."
+        title="AI Solutions | Sovereign AI for Regulated Industries"
+        description="Purpose-built sovereign AI solutions for BFSI, Healthcare, Manufacturing, Defence, and Government. Deployed on-premises on CommandCORE™ with KOGO OS   air-gapped and audit-ready from day one."
         canonical="https://www.arinox.ai/solutions"
       />
 
@@ -365,7 +365,7 @@ const Solutions = () => {
               Find your sector. <span className="text-gradient">See the deployment.</span>
             </h2>
             <p className="text-sm text-brand-muted max-w-lg mx-auto">
-              Each use case is a real agent we've built or deployed — expressed as the problem it solves, the sovereign agent that runs, and what it delivered.
+              Each use case is a real agent we've built or deployed   expressed as the problem it solves, the sovereign agent that runs, and what it delivered.
             </p>
           </div>
 
@@ -416,7 +416,7 @@ const Solutions = () => {
                     <span className="text-xs font-medium text-brand-primary bg-brand-primary/10 border border-brand-primary/20 px-3 py-1.5 rounded-full">
                       {current.regHook}
                     </span>
-                    <span className="text-xs text-brand-muted">— sovereign deployment required for this sector</span>
+                    <span className="text-xs text-brand-muted">  sovereign deployment required for this sector</span>
                   </div>
 
                   {/* Triplet cards */}
@@ -452,7 +452,7 @@ const Solutions = () => {
               One platform. <span className="text-gradient">Every deployment.</span>
             </h2>
             <p className="text-sm text-brand-muted max-w-xl mx-auto leading-relaxed">
-              CommandCORE™ and KOGO OS run beneath every solution on this page — whether you're triaging intelligence in a classified facility or forecasting demand on a factory floor.
+              CommandCORE™ and KOGO OS run beneath every solution on this page   whether you're triaging intelligence in a classified facility or forecasting demand on a factory floor.
             </p>
           </div>
 
@@ -498,7 +498,7 @@ const Solutions = () => {
               <span className="text-[10px] font-bold uppercase tracking-widest text-brand-primary">KOGO OS™</span>
               <h3 className="text-white font-bold text-base mt-1 mb-1.5">Full-stack agentic operating system</h3>
               <p className="text-sm text-brand-muted leading-relaxed">
-                LLMOps · Swarm Orchestration · Agent Registry · Memory Layer — all running on your hardware, never on ours.
+                LLMOps · Swarm Orchestration · Agent Registry · Memory Layer   all running on your hardware, never on ours.
               </p>
             </div>
             <Link
@@ -558,7 +558,7 @@ const Solutions = () => {
             </DemoLink>
           </div>
           <p className="mt-3 text-xs text-brand-muted">
-            A focused call where we map your sector's regulatory constraints to a concrete deployment — zero jargon, zero commitment.
+            A focused call where we map your sector's regulatory constraints to a concrete deployment   zero jargon, zero commitment.
           </p>
         </div>
       </section>

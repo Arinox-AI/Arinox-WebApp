@@ -125,9 +125,10 @@ const team = [
 
 /* ─── Advisors data (TODO: fill real advisory board) ─── */
 const advisors = [
-  { name: 'Venu Ganganna', role: 'Strategic Advisor', photo: venuPhoto, focus: 'Placeholder — replace with advisor background and area of expertise.' },
-  { name: 'Advisor Name',  role: 'Technology Advisor', focus: 'Placeholder bio — replace with advisor background and area of expertise.' },
-  { name: 'Advisor Name',  role: 'Industry Advisor',   focus: 'Placeholder bio — replace with advisor background and area of expertise.' },
+  { name: 'Venu Ganganna', role: 'Strategic Advisor', photo: venuPhoto, focus: 'Placeholder   replace with advisor background and area of expertise.' },
+  { name: 'Lt General BK Repswal', role: 'Defence Warfare Expert', focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
+  { name: 'Advisor Name',  role: 'Technology Advisor', focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
+  { name: 'Advisor Name',  role: 'Industry Advisor',   focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
 ];
 
 /* ─── Home ──────────────────────────────────────────────── */
@@ -138,24 +139,30 @@ const Home = () => {
   const heroY = useTransform(scrollY, [0, 500], [0, -80]);
   const heroOpacity = useTransform(scrollY, [0, 350], [1, 0]);
 
-  /* GSAP: typing tagline */
+  /* GSAP: typing tagline — pauses when hero is out of view */
   useEffect(() => {
-    if (!taglineRef.current) return;
+    if (!taglineRef.current || !heroRef.current) return;
     const phrases = ['Shape Nations', 'Move Markets', 'Save Lives', 'Define the Future'];
-    const tl = gsap.timeline({ repeat: -1 });
+    const tl = gsap.timeline({ repeat: -1, paused: true });
     phrases.forEach((phrase) => {
       tl.to(taglineRef.current, { duration: 0.05, text: '', ease: 'none' })
         .to(taglineRef.current, { duration: phrase.length * 0.055, text: phrase, ease: 'none' })
         .to({}, { duration: 2.2 });
     });
-    return () => tl.kill();
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) tl.play();
+      else tl.pause();
+    }, { threshold: 0 });
+    observer.observe(heroRef.current);
+    tl.play();
+    return () => { tl.kill(); observer.disconnect(); };
   }, []);
 
   return (
     <>
       <SEO
-        title="Arinox AI — Sovereign AI Infrastructure for Enterprise India"
-        description="Arinox AI delivers CommandCore™ — sovereign, on-premises AI infrastructure and intelligent agents for BFSI, Healthcare, Manufacturing, Defence, and Government. Built in India."
+        title="Arinox AI | Sovereign AI Infrastructure for Enterprise India"
+        description="Arinox AI delivers CommandCore™   sovereign, on-premises AI infrastructure and intelligent agents for BFSI, Healthcare, Manufacturing, Defence, and Government. Built in India."
         canonical="https://www.arinox.ai/"
         keywords="sovereign AI India, enterprise AI platform, CommandCore, on-premises AI, AI agents India, private AI infrastructure, BFSI AI, defence AI, government AI, Arinox AI"
       />
@@ -196,7 +203,7 @@ const Home = () => {
             transition={{ duration: 0.65, delay: 0.32 }}
             className="text-base md:text-lg text-brand-muted max-w-xl mx-auto mb-10 leading-relaxed"
           >
-            From agentic automation and voice AI to sovereign on-premises compute and real-time decision intelligence — Arinox delivers enterprise AI across every industry and domain, entirely within your environment.
+            From agentic automation and voice AI to sovereign on-premises compute and real-time decision intelligence   Arinox delivers enterprise AI across every industry and domain, entirely within your environment.
           </motion.p>
 
           {/* CTAs */}
@@ -214,7 +221,7 @@ const Home = () => {
                 Request Demo →
               </DemoLink>
             </div>
-            <span className="text-[11px] text-brand-muted text-center max-w-sm">Free session — we map where intelligent AI fits your organisation's operations, strategy, and compliance needs.</span>
+            <span className="text-[11px] text-brand-muted text-center max-w-sm">Free session   we map where intelligent AI fits your organisation's operations, strategy, and compliance needs.</span>
           </motion.div>
 
           {/* Scroll cue */}
@@ -244,7 +251,7 @@ const Home = () => {
               <span className="text-gradient">without compromise.</span>
             </h2>
             <p className="text-brand-muted leading-relaxed mb-6 text-sm md:text-base">
-              Arinox deploys across every industry where data integrity, regulatory compliance, and operational continuity are non-negotiable — from national defence and capital markets to public governance, legal institutions, clinical systems, manufacturing, logistics, and beyond. Each engagement is engineered for the specific constraints of that domain, not a generic AI layer stretched to fit.
+              Arinox deploys across every industry where data integrity, regulatory compliance, and operational continuity are non-negotiable   from national defence and capital markets to public governance, legal institutions, clinical systems, manufacturing, logistics, and beyond. Each engagement is engineered for the specific constraints of that domain, not a generic AI layer stretched to fit.
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
               {industryCards.map(({ Icon, name, desc, img }, i) => (
@@ -317,8 +324,7 @@ const Home = () => {
       </section>
 
       {/* ═══ OUR STORY ══════════════════════════════════════ */}
-      <section className="section-padding relative overflow-hidden">
-        <FloatingOrbs preset="cool" />
+      <section className="section-padding relative overflow-hidden" style={{ contentVisibility: 'auto' }}>
         <div className="container-wide grid lg:grid-cols-2 gap-16 items-center">
           <motion.div variants={slideLeft} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Our Story</p>
@@ -326,10 +332,10 @@ const Home = () => {
               Founded to make enterprise-grade AI <span className="text-gradient">accessible to all.</span>
             </h2>
             <p className="text-sm text-brand-muted leading-relaxed mb-4">
-              We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We not only improve efficiency — we multiply it.
+              We are pioneers in intelligent business transformation, specializing in decoding how enterprises run today and redesigning how they should operate tomorrow. We not only improve efficiency   we multiply it.
             </p>
             <p className="text-sm text-brand-muted leading-relaxed">
-              Headquartered in India with presence across New Delhi and Bangalore — connecting innovation to implementation and delivering enterprise AI transformation globally.
+              Headquartered in India with presence across New Delhi and Bangalore   connecting innovation to implementation and delivering enterprise AI transformation globally.
             </p>
           </motion.div>
           <motion.div
@@ -345,7 +351,7 @@ const Home = () => {
             </div>
             <h3 className="text-xl font-display font-bold text-white mb-3">The Arinox Difference</h3>
             <p className="text-sm text-brand-muted leading-relaxed mb-5">
-              We don't build everything — we curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context.
+              We don't build everything   we curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context.
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
               {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai', 'Sovereign On-Prem Compute'].map(item => (
@@ -359,7 +365,7 @@ const Home = () => {
       </section>
 
       {/* ═══ ARCHITECTS OF CHANGE ══════════════════════════ */}
-      <section className="section-padding bg-brand-surface relative overflow-hidden" id="about">
+      <section className="section-padding bg-brand-surface relative overflow-hidden" id="about" style={{ contentVisibility: 'auto' }}>
         <FloatingOrbs preset="default" />
         <div className="container-wide">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
@@ -401,30 +407,34 @@ const Home = () => {
       </section>
 
       {/* ═══ OUR ADVISORS ═══════════════════════════════════ */}
-      <section className="section-padding relative overflow-hidden">
-        <FloatingOrbs preset="cool" />
+      <section className="section-padding relative overflow-hidden" style={{ contentVisibility: 'auto' }}>
         <div className="container-wide">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-12">
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Advisory Board</p>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Our <span className="text-gradient">Advisors</span></h2>
           </motion.div>
-          <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {advisors.map(({ name, role, focus, photo }) => (
-              <motion.div key={name} variants={springCard}>
-                <MouseTilt className="glass-card rounded-2xl p-7 text-center h-full" intensity={9}>
-                  {photo ? (
-                    <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-brand-primary/30">
-                      <img src={photo} alt={name} className="w-full h-full object-cover" />
-                    </div>
-                  ) : (
-                    <motion.div style={{ translateZ: 24 }} className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-xl">
-                      {name.split(' ').map(n => n[0]).join('')}
-                    </motion.div>
-                  )}
-                  <motion.h3 style={{ translateZ: 18 }} className="text-white font-bold mb-0.5">{name}</motion.h3>
-                  <motion.p style={{ translateZ: 12 }} className="text-xs text-brand-primary mb-3">{role}</motion.p>
-                  <motion.p style={{ translateZ: 8 }} className="text-xs text-brand-muted leading-relaxed">{focus}</motion.p>
-                </MouseTilt>
+          <motion.div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
+            {advisors.map(({ name, role, focus, photo }, i) => (
+              <motion.div
+                key={name}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="glass-card rounded-2xl p-6 flex flex-col items-center text-center border border-brand-border/25"
+              >
+                {photo ? (
+                  <div className="w-36 h-36 rounded-full overflow-hidden shrink-0 border-2 border-brand-primary/30 mb-4">
+                    <img src={photo} alt={name} className="w-full h-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="w-36 h-36 rounded-full shrink-0 bg-brand-primary/10 border-2 border-brand-primary/20 flex items-center justify-center mb-4">
+                    <span className="text-brand-primary font-bold text-3xl">{name.split(' ').map(n => n[0]).join('')}</span>
+                  </div>
+                )}
+                <p className="text-white font-bold text-base">{name}</p>
+                <p className="text-sm text-brand-primary font-semibold mt-1">{role}</p>
+                {focus && <p className="text-sm text-brand-muted leading-relaxed mt-2">{focus}</p>}
               </motion.div>
             ))}
           </motion.div>
@@ -432,8 +442,7 @@ const Home = () => {
       </section>
 
       {/* ═══ WHAT / WHO / HOW ═══════════════════════════════ */}
-      <section className="section-padding relative overflow-hidden">
-        <FloatingOrbs preset="warm" />
+      <section className="section-padding relative overflow-hidden" style={{ contentVisibility: 'auto' }}>
         <div className="container-wide">
           <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center max-w-xl mx-auto mb-12">
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Our Model</p>
@@ -443,9 +452,9 @@ const Home = () => {
           </motion.div>
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
             {[
-              { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout — strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout   strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
               { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global System Integrators. IBM, HPE, Defence, NVIDIA, HCL Tech, Hitachi Systems, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI — fast. Pre-built use cases. Real adoption.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI   fast. Pre-built use cases. Real adoption.', grad: 'from-brand-primary to-brand-secondary' },
             ].map(({ tag, title, desc, grad }, i) => (
               <motion.div key={tag} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-7 cursor-default h-full" intensity={11}>
@@ -460,7 +469,7 @@ const Home = () => {
       </section>
 
       {/* ═══ LOGO CLOUD ═══════════════════════════════════════ */}
-      <section className="py-16 sm:py-24 bg-brand-surface border-y border-brand-border">
+      <section className="py-16 sm:py-24 bg-brand-surface border-y border-brand-border" style={{ contentVisibility: 'auto' }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.p
             variants={fadeUp}
@@ -478,7 +487,7 @@ const Home = () => {
       </section>
 
       {/* ═══ CTA ════════════════════════════════════════════ */}
-      <section className="relative py-28 overflow-hidden line-grid">
+      <section className="relative py-28 overflow-hidden line-grid" style={{ contentVisibility: 'auto' }}>
         <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
         <div className="container-wide text-center relative">
           <motion.div

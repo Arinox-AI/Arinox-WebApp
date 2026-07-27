@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-  title = 'Arinox AI — Transforming Enterprises Through Strategic AI Systems',
+  title = 'Arinox AI | Sovereign AI Infrastructure for Enterprises',
   description = 'Arinox AI delivers sovereign, private AI infrastructure and intelligent agents for enterprises across BFSI, Healthcare, Manufacturing, Defense, and Government.',
   canonical = 'https://www.arinox.ai',
   image = 'https://www.arinox.ai/og-image.jpg',

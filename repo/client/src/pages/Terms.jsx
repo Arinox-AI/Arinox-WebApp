@@ -11,7 +11,7 @@ const Section = ({ title, children }) => (
 const Terms = () => (
   <>
     <SEO
-      title="Terms of Service — Arinox AI"
+      title="Terms of Service | Arinox AI"
       description="Terms and conditions governing use of Arinox AI's website and enterprise AI services."
       canonical="https://www.arinox.ai/terms"
     />
@@ -52,7 +52,7 @@ const Terms = () => (
           </Section>
 
           <Section title="3. Intellectual Property">
-            <p><strong className="text-brand-text">Arinox AI property:</strong> All content on this website — including text, graphics, logos, product names (including CommandCore™), software, and documentation — is the property of Adisen Tech Private Limited or its licensors and is protected by applicable Indian and international intellectual property laws.</p>
+            <p><strong className="text-brand-text">Arinox AI property:</strong> All content on this website   including text, graphics, logos, product names (including CommandCore™), software, and documentation   is the property of Adisen Tech Private Limited or its licensors and is protected by applicable Indian and international intellectual property laws.</p>
             <p><strong className="text-brand-text">Permitted use:</strong> You may access and view website content for your personal, non-commercial informational purposes. You may not reproduce, distribute, modify, create derivative works from, or commercially exploit any content without our prior written consent.</p>
             <p><strong className="text-brand-text">Your data:</strong> You retain all rights to data you provide to us or that is processed through our services. We acquire no ownership interest in your data by virtue of providing our services.</p>
             <p><strong className="text-brand-text">Feedback:</strong> If you provide us with suggestions, feedback, or ideas regarding our products or services, you grant us a perpetual, worldwide, royalty-free licence to use such feedback without any obligation to compensate you.</p>

@@ -1,16 +1,46 @@
-/**
- * Logo marquee — continuous horizontal scroll with gradient fade edges.
- * All logos rendered at the same height with balanced breathing room.
- * Seamless loop (items duplicated), pauses on hover.
- */
+import { motion, useMotionValue, animate } from 'framer-motion';
+import { useEffect, useRef } from 'react';
+
 const LogoGrid = ({ items }) => {
   const doubled = [...items, ...items];
+  const trackRef = useRef(null);
+  const x = useMotionValue(0);
+  const animRef = useRef(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !items.length) return;
+
+    const startAnim = () => {
+      const halfWidth = track.scrollWidth / 2;
+      animRef.current = animate(x, -halfWidth, {
+        duration: 50,
+        ease: 'linear',
+        repeat: Infinity,
+        repeatType: 'loop',
+      });
+    };
+
+    const stopAnim = () => { animRef.current?.stop(); };
+
+    const container = track.parentElement;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) startAnim();
+      else stopAnim();
+    }, { threshold: 0 });
+    if (container) observer.observe(container);
+
+    startAnim();
+
+    return () => { stopAnim(); observer.disconnect(); };
+  }, [items.length, x]);
 
   return (
     <div className="logo-marquee-mask overflow-hidden">
-      <div
-        className="logo-marquee-track flex items-center shrink-0"
-        style={{ width: 'max-content' }}
+      <motion.div
+        ref={trackRef}
+        className="flex items-center shrink-0"
+        style={{ x, width: 'max-content' }}
       >
         {doubled.map(({ name, logo }, i) => (
           <div
@@ -31,7 +61,7 @@ const LogoGrid = ({ items }) => {
             )}
           </div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };

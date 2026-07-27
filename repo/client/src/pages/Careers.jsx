@@ -249,7 +249,7 @@ const Careers = () => {
   return (
     <>
       <SEO
-        title="Careers at Arinox AI — Build What Matters"
+        title="Careers at Arinox AI | Build What Matters"
         description="Join Arinox AI and build AI systems that transform enterprises and governments worldwide. Explore open roles in engineering, sales, research, and more."
         canonical="https://www.arinox.ai/careers"
       />

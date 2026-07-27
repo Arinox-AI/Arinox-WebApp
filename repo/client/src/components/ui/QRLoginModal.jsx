@@ -109,7 +109,7 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
             {/* Sign-in badge */}
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-primary/15 border border-brand-primary/30 text-brand-primary text-[9px] font-bold uppercase tracking-widest mb-3">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
-              QR Code Sign In — Scan with Your Phone
+              QR Code Sign In
             </div>
 
             {/* Steps */}

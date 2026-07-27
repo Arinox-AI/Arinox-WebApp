@@ -11,7 +11,7 @@ const Section = ({ title, children }) => (
 const Privacy = () => (
   <>
     <SEO
-      title="Privacy Policy — Arinox AI"
+      title="Privacy Policy | Arinox AI"
       description="How Arinox AI collects, uses, and protects your personal information."
       canonical="https://www.arinox.ai/privacy"
     />
@@ -39,6 +39,7 @@ const Privacy = () => (
               <li><strong className="text-brand-text">Book a demo / Book a free call:</strong> Name, business email, company name, and any scheduling preferences you share</li>
               <li><strong className="text-brand-text">Newsletter / update subscriptions:</strong> Email address and name (where provided)</li>
               <li><strong className="text-brand-text">Event registrations:</strong> Name, email, company, and event-specific details you submit via our registration forms</li>
+              <li><strong className="text-brand-text">Chatbot conversations:</strong> Messages sent through our website chat assistant. These may be monitored, recorded, and used for service improvement, personalisation, and business purposes as described in this policy</li>
             </ul>
 
             <p className="pt-1"><strong className="text-brand-text">B. Data collected automatically when you visit our website</strong></p>
@@ -54,13 +55,13 @@ const Privacy = () => (
             <p>We use the following types of cookies on this website:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Strictly necessary cookies:</strong> Required for the website to function (session state, CSRF protection, cookie consent preference). These are always active.</li>
-              <li><strong className="text-brand-text">Analytics cookies (Google Analytics):</strong> Collect anonymised data on how visitors use the site — pages viewed, time on site, bounce rate. Only set with your consent via our cookie banner.</li>
+              <li><strong className="text-brand-text">Analytics cookies (Google Analytics):</strong> Collect anonymised data on how visitors use the site   pages viewed, time on site, bounce rate. Only set with your consent via our cookie banner.</li>
               <li><strong className="text-brand-text">Marketing cookies (LinkedIn Insight Tag):</strong> Used to understand the professional profile of visitors and measure campaign performance in aggregate. Only set with your consent.</li>
             </ul>
             <p>You can withdraw cookie consent at any time by clicking "Cookie Settings" in the footer or clearing your browser cookies.</p>
 
             <p className="pt-1"><strong className="text-brand-text">D. What we do NOT collect</strong></p>
-            <p>We do not collect, process, or store any data processed by CommandCore™ or other on-premises AI deployments. Our sovereign AI platform operates entirely within your own infrastructure — your operational data, AI prompts, model outputs, and business data never reach our systems or servers.</p>
+            <p>We do not collect, process, or store any data processed by CommandCore™ or other on-premises AI deployments. Our sovereign AI platform operates entirely within your own infrastructure   your operational data, AI prompts, model outputs, and business data never reach our systems or servers.</p>
             <p>We do not use session recording tools (e.g., Hotjar, FullStory) and do not capture keystrokes, form field contents before submission, or individual video recordings of browsing sessions.</p>
           </Section>
 

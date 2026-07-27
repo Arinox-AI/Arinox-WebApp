@@ -14,7 +14,7 @@ const categories = [
   {
     key: 'necessary',
     label: 'Necessary',
-    description: 'Required for the site to function — authentication, security, session management. Cannot be disabled.',
+    description: 'Required for the site to function   authentication, security, session management. Cannot be disabled.',
     locked: true,
   },
   {

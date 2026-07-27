@@ -286,7 +286,7 @@ export default function ArinoxChatBot() {
             )}
 
             {/* Input */}
-            <div style={{ padding: '12px 14px 14px', flexShrink: 0, borderTop: '1px solid #ebebeb', background: '#fff' }}>
+            <div style={{ padding: '10px 14px 12px', flexShrink: 0, borderTop: '1px solid #ebebeb', background: '#fff' }}>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', background: '#f4f4f5', border: '1.5px solid #e5e5e5', borderRadius: '14px', padding: '10px 12px' }}>
                 <textarea
                   ref={inputRef}
@@ -294,7 +294,7 @@ export default function ArinoxChatBot() {
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={handleKey}
-                  placeholder="Ask Arin about Arinox or AI…"
+                  placeholder="Ask Arin about Arinox or AI"
                   disabled={loading || streaming}
                   style={{
                     flex: 1, background: 'transparent', border: 'none', outline: 'none', resize: 'none',
@@ -318,6 +318,10 @@ export default function ArinoxChatBot() {
                   </svg>
                 </button>
               </div>
+              <p style={{ margin: '6px 2px 0', fontSize: '10px', color: '#999', lineHeight: '1.4', textAlign: 'center' }}>
+                By messaging, you agree this chat may be monitored, recorded, and used for personalization and other business services per our{' '}
+                <a href="/privacy" style={{ color: '#FE6300', textDecoration: 'none' }}>Privacy Policy</a>.
+              </p>
             </div>
           </motion.div>
         )}

@@ -11,7 +11,7 @@ const FloatingSphere = ({ position, color, speed, distort, scale = 1 }) => {
   });
   return (
     <Float speed={speed} rotationIntensity={0.3} floatIntensity={1.2}>
-      <Sphere ref={meshRef} args={[scale, 64, 64]} position={position}>
+      <Sphere ref={meshRef} args={[scale, 32, 32]} position={position}>
         <MeshDistortMaterial
           color={color}
           distort={distort}
@@ -27,7 +27,7 @@ const FloatingSphere = ({ position, color, speed, distort, scale = 1 }) => {
 };
 
 const Particles = () => {
-  const count = 300;
+  const count = 150;
   const positions = useMemo(() => {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -84,14 +84,14 @@ const ThreeScene = () => {
     camera={{ position: [0, 0, 10], fov: 55 }}
     style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
     gl={{ antialias: true, alpha: true }}
-    dpr={[1, 1.5]}
+    dpr={[1, 1.25]}
   >
     <ambientLight intensity={0.4} />
     <pointLight position={[8, 8, 8]} intensity={1.5} color="#FE6300" />
     <pointLight position={[-8, -4, 4]} intensity={0.6} color="#1A6AFF" />
     <pointLight position={[0, -8, 2]} intensity={0.3} color="#FFE58B" />
 
-    <Stars radius={100} depth={60} count={4000} factor={2.5} fade speed={0.4} />
+    <Stars radius={100} depth={60} count={2000} factor={2.5} fade speed={0.4} />
     <Particles />
     <MovingGrid />
 

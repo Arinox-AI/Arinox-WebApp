@@ -281,15 +281,8 @@ const CommandCore = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: ti * 0.1, ease: [0.22, 1, 0.36, 1] }}
               whileHover={{ y: -6, scale: 1.02, transition: { duration: 0.25 } }}
-              className={`glass-card rounded-2xl overflow-hidden group relative ${tier.highlight ? 'border border-brand-primary/40 shadow-xl shadow-brand-primary/10' : ''}`}
+              className="glass-card rounded-2xl overflow-hidden group"
             >
-              {/* Featured badge */}
-              {tier.highlight && (
-                <div className="absolute top-3 right-3 z-10 px-2.5 py-0.5 rounded-full bg-brand-primary text-white text-[10px] font-bold tracking-widest uppercase shadow-lg shadow-brand-primary/40">
-                  Featured
-                </div>
-              )}
-
               {/* Product image */}
               <div className="h-48 bg-brand-bg overflow-hidden flex items-center justify-center">
                 <img
@@ -340,11 +333,7 @@ const CommandCore = () => {
 
               {/* CTA */}
               <div className="px-5 py-4">
-                <DemoLink className={`w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold transition-colors ${
-                  tier.highlight
-                    ? 'bg-brand-primary text-white hover:opacity-90'
-                    : 'text-brand-primary border border-brand-primary/40 hover:bg-brand-primary/20 hover:border-brand-primary/60'
-                }`}>
+                <DemoLink className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-xs font-semibold transition-colors bg-brand-primary text-white hover:opacity-90">
                   Request Demo <ArrowRight size={13} />
                 </DemoLink>
               </div>

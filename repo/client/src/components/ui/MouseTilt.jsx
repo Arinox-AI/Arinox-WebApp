@@ -41,14 +41,19 @@ const MouseTilt = ({
       `radial-gradient(circle at ${x * 100}% ${y * 100}%, rgba(255,255,255,0.10) 0%, transparent 65%)`
   );
 
+  const boundsRef = useRef(null);
+
   const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    if (!boundsRef.current || !ref.current) return;
+    const { left, top, width, height } = boundsRef.current;
     mx.set((e.clientX - left) / width);
     my.set((e.clientY - top) / height);
   };
 
-  const handleMouseEnter = () => isHovered.set(1);
+  const handleMouseEnter = () => {
+    if (ref.current) boundsRef.current = ref.current.getBoundingClientRect();
+    isHovered.set(1);
+  };
   const handleMouseLeave = () => {
     mx.set(0.5);
     my.set(0.5);
@@ -67,6 +72,7 @@ const MouseTilt = ({
         scale,
         transformStyle: 'preserve-3d',
         perspective: '1000px',
+        willChange: 'transform',
       }}
       className={`relative ${className}`}
     >

@@ -27,8 +27,8 @@ const CaseStudies = () => {
   return (
     <>
       <SEO
-        title="Case Studies — Arinox AI Real-World Results"
-        description="See how Arinox AI delivers measurable results — from −82% alert-triage time for the Indian Army to multi-million dollar savings for Fortune 500 enterprises. Real clients, real outcomes."
+        title="Case Studies | Arinox AI Real-World Results"
+        description="See how Arinox AI delivers measurable results   from −82% alert-triage time for the Indian Army to multi-million dollar savings for Fortune 500 enterprises. Real clients, real outcomes."
         canonical="https://www.arinox.ai/case-studies"
       />
 

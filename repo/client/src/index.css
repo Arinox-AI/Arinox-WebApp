@@ -350,7 +350,6 @@ section, header, footer, nav, main { max-width: 100vw; overflow-x: hidden; }
   }
   .orb { display: none !important; }
   .grid-bg, .line-grid { background-image: none !important; }
-  .logo-marquee-track { animation: none !important; }
 }
 
 /* ─── Focus-visible ─────────────────────────────────────── */
@@ -387,11 +386,12 @@ textarea:focus:not(:focus-visible) {
   margin-bottom: 1rem;
 }
 .brand-overline::before {
-  content: '— — — — —';
-  color: #E8590C;
-  letter-spacing: 3px;
-  font-size: 0.65rem;
-  font-family: 'avenir-lt-w01_35-light1475496', sans-serif;
+  content: '';
+  width: 24px;
+  height: 2px;
+  background: #E8590C;
+  display: inline-block;
+  vertical-align: middle;
 }
 .brand-overline span {
   font-size: 0.6rem;
@@ -611,13 +611,9 @@ html.light-mode .contact-input:focus {
 
 /* ─── Logo marquee ────────────────────────────────────────
    Continuous horizontal scroll with fade edges.
-   Items are duplicated so the loop is seamless.           */
-@keyframes logo-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+   Items are duplicated so the loop is seamless.
+   Animation driven by framer-motion via LogoGrid.jsx.     */
 .logo-marquee-mask {
   mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
 }
-.logo-marquee-track {
-  animation: logo-scroll 35s linear infinite;
-}
-.logo-marquee-mask:hover .logo-marquee-track { animation-play-state: paused; }

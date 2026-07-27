@@ -13,17 +13,17 @@ export const roles = [
     location: 'Bangalore / Remote',
     type: 'Full-time',
     jd: {
-      tagline: "This is an entry-level role — but we're not looking for \"years on paper.\" We're looking for curiosity, builders, and people obsessed with figuring things out.",
+      tagline: "This is an entry-level role   but we're not looking for \"years on paper.\" We're looking for curiosity, builders, and people obsessed with figuring things out.",
       fitLabel: "You'd be a great fit if you…",
       fit: [
-        "Have explored LLMs, AI agents, MCPs, workflows, or automation tools — Cursor, LangChain, Hugging Face, OpenAI, whatever caught your attention",
+        "Have explored LLMs, AI agents, MCPs, workflows, or automation tools   Cursor, LangChain, Hugging Face, OpenAI, whatever caught your attention",
         "Have broken things, fixed them, and built something better",
-        "Like making AI actually useful — not just demo-worthy",
+        "Like making AI actually useful   not just demo-worthy",
         "Can explain what you built, why you built it, and what problem it solves",
         "Thrive in fast-moving, slightly ambiguous environments",
         "Are a fresher or have 1–2 years of experience working on AI, agents, automations, or related systems",
       ],
-      bringLabel: "If you've been building AI agents in your spare time, experimenting with workflows, or shipping side projects — you're already the kind of person we want to talk to. Bring your:",
+      bringLabel: "If you've been building AI agents in your spare time, experimenting with workflows, or shipping side projects   you're already the kind of person we want to talk to. Bring your:",
       bring: ['GitHub', 'Demos', 'Experiments', 'Projects (even unfinished ones)'],
       closing: "At Arinox AI, you won't spend months watching from the sidelines. You'll work on real enterprise AI systems and ship things that matter from day one.",
     },
@@ -35,7 +35,7 @@ export const roles = [
     location: 'Bengaluru',
     type: 'Full-time · On-site',
     jd: {
-      tagline: "A full-time, on-site role in Bengaluru. You'll design and own end-to-end AI solution architectures for large enterprises and public sector organizations — spanning infrastructure, data, application, and security layers.",
+      tagline: "A full-time, on-site role in Bengaluru. You'll design and own end-to-end AI solution architectures for large enterprises and public sector organizations   spanning infrastructure, data, application, and security layers.",
       responsibilitiesLabel: "What you'll do",
       responsibilities: [
         "Engage with C-level and technical stakeholders to understand business objectives and translate them into scalable AI Factory and agentic system designs",
@@ -55,7 +55,7 @@ export const roles = [
         "Demonstrated experience collaborating with cross-functional teams (engineering, data science, product, delivery, and partners/system integrators)",
         "Bachelor's or Master's degree in Computer Science, Engineering, Information Systems, or a related field, or equivalent practical experience",
       ],
-      closing: "Help shape how the world's largest enterprises and governments adopt AI — from first blueprint to production deployment.",
+      closing: "Help shape how the world's largest enterprises and governments adopt AI   from first blueprint to production deployment.",
     },
   },
 ];
