@@ -5,7 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './hooks/useAuth';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
-import CookieBanner from './components/ui/CookieBanner';
+import ConsentBanner from './components/ui/ConsentBanner';
 import ArinoxChatBot from './components/ui/ArinoxChatBot';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -111,7 +111,7 @@ const AppInner = () => {
         </Suspense>
       </main>
       {!qrPage && <Footer />}
-      {!qrPage && <CookieBanner />}
+      {!qrPage && <ConsentBanner />}
       {!qrPage && <ArinoxChatBot />}
     </AuthProvider>
   );
