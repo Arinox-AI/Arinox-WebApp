@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SiNvidia, SiQualcomm } from '@icons-pack/react-simple-icons';
 import { Link2, Zap, Package } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import NetworkSphere from '../components/ui/NetworkSphere';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
@@ -196,9 +197,9 @@ const Partners = () => {
           Whether you integrate, build, or sell — there's a partnership structure that accelerates your business and expands what's possible for your customers.
         </p>
         <div className="flex justify-center">
-          <a href="/contact" className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold text-sm hover:opacity-90 transition-opacity">
+          <Link to="/contact" className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-semibold text-sm hover:opacity-90 transition-opacity">
             Become a Partner
-          </a>
+          </Link>
         </div>
       </div>
     </section>

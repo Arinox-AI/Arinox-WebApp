@@ -244,7 +244,7 @@ const Blog = () => {
               <button
                 key={c}
                 onClick={() => setCategory(c)}
-                className={`flex-shrink-0 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm transition-all whitespace-nowrap ${
+                className={`flex-shrink-0 px-3 sm:px-4 py-3 sm:py-2 rounded-xl text-xs sm:text-sm transition-all whitespace-nowrap ${
                   category === c
                     ? 'bg-brand-primary text-white'
                     : 'glass border border-brand-border text-brand-muted hover:text-brand-text'

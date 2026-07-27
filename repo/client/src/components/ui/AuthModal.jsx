@@ -78,7 +78,6 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
       const { data: emailCheck } = await axios.post('/api/v1/auth/check-email', { email: form.email });
       if (!emailCheck.exists) {
         setMode('register');
-        setForm(f => ({ name: '', email: f.email, password: '' }));
         toast('No account found — create one below!', { icon: '👋' });
         return;
       }
@@ -107,8 +106,11 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4"
+          className="fixed inset-0 z-[300] flex items-center justify-center p-3 sm:p-4"
           onClick={(e) => e.target === e.currentTarget && handleClose()}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Sign in or create account"
         >
           <div className="absolute inset-0 bg-brand-bg/85 backdrop-blur-2xl" />
 
@@ -121,7 +123,7 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
           >
             <button
               onClick={handleClose}
-              className="absolute top-3 right-3 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
+              className="absolute top-3 right-3 w-10 h-10 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
             >✕</button>
 
             <img
@@ -195,6 +197,8 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
                       value={form.name}
                       onChange={set('name')}
                       readOnly={!!googlePending}
+                      aria-label="Full Name"
+                      autoComplete="name"
                       className={googlePending
                         ? 'w-full px-4 py-2.5 rounded-xl bg-brand-surface/50 border border-brand-border text-brand-muted text-sm cursor-not-allowed'
                         : INPUT}
@@ -210,6 +214,8 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
                 value={form.email}
                 onChange={set('email')}
                 readOnly={!!googlePending}
+                aria-label="Email address"
+                autoComplete="email"
                 className={googlePending
                   ? 'w-full px-4 py-2.5 rounded-xl bg-brand-surface/50 border border-brand-border text-brand-muted text-sm cursor-not-allowed'
                   : INPUT}
@@ -231,6 +237,8 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
                       minLength={6}
                       value={form.password}
                       onChange={set('password')}
+                      aria-label={googlePending ? 'Create a password' : 'Password'}
+                      autoComplete={googlePending ? 'new-password' : 'current-password'}
                       className={INPUT}
                     />
                   </motion.div>

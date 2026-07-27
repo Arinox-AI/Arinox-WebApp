@@ -74,8 +74,11 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-[200] flex items-center justify-center p-4 overflow-y-auto"
+          className="fixed inset-0 z-[300] flex items-center justify-center p-4 overflow-y-auto"
           onClick={(e) => e.target === e.currentTarget && onClose()}
+          role="dialog"
+          aria-modal="true"
+          aria-label="QR code sign in"
         >
           <div className="absolute inset-0 bg-brand-bg/85 backdrop-blur-2xl" />
 
@@ -89,7 +92,7 @@ const QRLoginModal = ({ isOpen, onClose, onSwitchToEmail }) => {
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
+              className="absolute top-3 right-3 w-10 h-10 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
             >
               ✕
             </button>

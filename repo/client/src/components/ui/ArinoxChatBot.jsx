@@ -73,18 +73,12 @@ export default function ArinoxChatBot() {
   const inputRef = useRef(null);
   const streamRef = useRef(null);
 
-  // Show popup after 2.5s on first load
+  // Show popup once on first load (per session)
   useEffect(() => {
+    if (sessionStorage.getItem('arinox_chat_popup_dismissed')) return;
     const t = setTimeout(() => setPopup(true), 2500);
     return () => clearTimeout(t);
   }, []);
-
-  // Sync popup with open state (skip first render)
-  const firstRender = useRef(true);
-  useEffect(() => {
-    if (firstRender.current) { firstRender.current = false; return; }
-    setPopup(!open);
-  }, [open]);
 
   useEffect(() => {
     if (open) {
@@ -159,7 +153,7 @@ export default function ArinoxChatBot() {
   return (
     <div
       data-chatbot
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[150] flex flex-col items-end gap-3"
+      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[50] flex flex-col items-end gap-3"
     >
       {/* Chat panel */}
       <AnimatePresence>
@@ -206,7 +200,7 @@ export default function ArinoxChatBot() {
               </div>
               <button
                 onClick={() => setOpen(false)}
-                style={{ color: 'rgba(255,255,255,0.8)', background: 'none', border: 'none', cursor: 'pointer', padding: '4px', flexShrink: 0 }}
+                style={{ color: 'rgba(255,255,255,0.8)', background: 'none', border: 'none', cursor: 'pointer', padding: '10px', flexShrink: 0 }}
                 aria-label="Close"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -280,7 +274,7 @@ export default function ArinoxChatBot() {
               <div style={{ padding: '10px 14px 8px', display: 'flex', flexWrap: 'wrap', gap: '6px', background: '#f7f7f8', borderTop: '1px solid #ebebeb' }}>
                 {SUGGESTED.map(s => (
                   <button key={s} onClick={() => send(s)} style={{
-                    fontSize: '11.5px', padding: '5px 11px', borderRadius: '20px', cursor: 'pointer',
+                    fontSize: '13px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer',
                     background: '#fff', color: '#FE6300',
                     border: '1px solid rgba(254,99,0,0.35)', transition: 'background 0.15s',
                   }}
@@ -312,7 +306,7 @@ export default function ArinoxChatBot() {
                   onClick={() => send()}
                   disabled={!input.trim() || loading || streaming}
                   style={{
-                    flexShrink: 0, width: '34px', height: '34px', borderRadius: '9px', border: 'none',
+                    flexShrink: 0, width: '44px', height: '44px', borderRadius: '11px', border: 'none',
                     background: input.trim() && !loading && !streaming ? 'linear-gradient(135deg, #FE6300, #E55A00)' : '#e5e5e5',
                     cursor: input.trim() && !loading && !streaming ? 'pointer' : 'not-allowed',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s',
@@ -347,16 +341,16 @@ export default function ArinoxChatBot() {
               cursor: 'pointer',
               border: '1.5px solid rgba(254,99,0,0.18)',
             }}
-            onClick={() => { setPopup(false); setOpen(true); }}
+            onClick={() => { sessionStorage.setItem('arinox_chat_popup_dismissed', 'true'); setPopup(false); setOpen(true); }}
           >
             <button
-              onClick={e => { e.stopPropagation(); setPopup(false); }}
+              onClick={e => { e.stopPropagation(); sessionStorage.setItem('arinox_chat_popup_dismissed', 'true'); setPopup(false); }}
               style={{
                 position: 'absolute', top: '8px', right: '8px',
                 background: 'none', border: 'none', cursor: 'pointer',
-                color: '#aaa', fontSize: '14px', lineHeight: 1, padding: '2px',
+                color: '#aaa', fontSize: '14px', lineHeight: 1, padding: '10px',
               }}
-              aria-label="Dismiss"
+              aria-label="Dismiss popup"
             >×</button>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>

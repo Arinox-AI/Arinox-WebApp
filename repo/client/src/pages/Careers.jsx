@@ -64,8 +64,11 @@ const ApplyModal = ({ job, onClose, onDone }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 z-[300] flex items-center justify-center p-4"
         onClick={(e) => { if (e.target === e.currentTarget) { if (done) onDone(job.title); onClose(); } }}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Apply for position"
       >
         {/* Backdrop */}
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
@@ -80,7 +83,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
           {/* Close */}
           <button
             onClick={() => { if (done) onDone(job.title); onClose(); }}
-            className="absolute top-5 right-5 w-8 h-8 rounded-full flex items-center justify-center text-brand-muted hover:text-brand-text hover:bg-brand-border/30 transition-all"
+            className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-brand-muted hover:text-brand-text hover:bg-brand-border/30 transition-all"
             aria-label="Close"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -128,11 +131,15 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                   <input
                     name="fullName" value={form.fullName} onChange={handleChange}
                     placeholder="Full Name" required
+                    aria-label="Full Name"
+                    autoComplete="name"
                     className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
                   />
                   <input
                     name="email" type="email" value={form.email} onChange={handleChange}
                     placeholder="Email Address" required
+                    aria-label="Email Address"
+                    autoComplete="email"
                     className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
                   />
                 </div>
@@ -141,6 +148,8 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                 <input
                   name="phone" type="tel" value={form.phone} onChange={handleChange}
                   placeholder="Contact Number" required
+                  aria-label="Contact Number"
+                  autoComplete="tel"
                   className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
                 />
 
@@ -149,6 +158,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                   <button
                     type="button"
                     onClick={() => fileRef.current?.click()}
+                    aria-label="Upload Resume or CV"
                     className="w-full px-4 py-3 rounded-xl border-2 border-dashed border-brand-border hover:border-brand-primary/50 text-brand-muted hover:text-brand-text text-sm transition-all flex items-center justify-center gap-2"
                   >
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -156,13 +166,14 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                     </svg>
                     {resume ? resume.name : 'Upload Resume / CV (PDF, DOC, DOCX · max 5 MB)'}
                   </button>
-                  <input ref={fileRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFile} className="hidden" />
+                  <input ref={fileRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFile} className="hidden" aria-label="Resume file upload" />
                 </div>
 
                 {/* LinkedIn */}
                 <input
                   name="linkedIn" value={form.linkedIn} onChange={handleChange}
                   placeholder="LinkedIn Profile URL (optional)"
+                  aria-label="LinkedIn Profile URL"
                   className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
                 />
 
@@ -171,6 +182,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                   name="coverNote" value={form.coverNote} onChange={handleChange}
                   rows={3}
                   placeholder="Why do you want to join Arinox? (optional)"
+                  aria-label="Cover letter"
                   className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none resize-none"
                 />
 

@@ -228,7 +228,7 @@ const BlogPost = () => {
       />
 
       {/* Hero image */}
-      <div className="w-full overflow-hidden" style={{ marginTop: '64px' }}>
+      <div className="w-full overflow-hidden pt-16">
         <div className="h-56 sm:h-72 md:h-96 overflow-hidden">
           <img
             src={post.image}
@@ -239,7 +239,7 @@ const BlogPost = () => {
         </div>
       </div>
 
-      <article className="container-wide px-4 sm:px-6 py-10 sm:py-14 max-w-3xl">
+      <article className="container-wide px-4 sm:px-6 py-10 sm:py-14 max-w-2xl">
 
         {/* Back */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
@@ -251,9 +251,9 @@ const BlogPost = () => {
 
         {/* Meta */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="text-[11px] px-2.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold">{post.category}</span>
-          {post.domain && <span className="text-[11px] text-brand-muted">{post.domain}</span>}
-          <span className="text-[11px] text-brand-muted ml-auto">{formatDate(post.publishedAt)} · {post.readTime} min read</span>
+          <span className="text-xs px-2.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold">{post.category}</span>
+          {post.domain && <span className="text-xs text-brand-muted">{post.domain}</span>}
+          <span className="text-xs text-brand-muted ml-auto">{formatDate(post.publishedAt)} · {post.readTime} min read</span>
         </motion.div>
 
         {/* Title */}
@@ -284,10 +284,10 @@ const BlogPost = () => {
             i === post.body.length - 1 ? (
               <div key={i} className="mt-8 pt-6 border-t border-brand-border">
                 <p className="text-xs font-semibold text-brand-primary uppercase tracking-widest mb-2">Research Note</p>
-                <p className="text-sm text-brand-muted/80 leading-relaxed italic">{para.replace(/^Do your own research:\s*/i, '')}</p>
+                <p className="text-sm text-brand-muted leading-relaxed">{para.replace(/^Do your own research:\s*/i, '')}</p>
               </div>
             ) : (
-              <p key={i} className="text-sm sm:text-base text-brand-muted leading-relaxed">{para}</p>
+              <p key={i} className="text-base text-brand-muted leading-relaxed">{para}</p>
             )
           ))}
         </motion.div>

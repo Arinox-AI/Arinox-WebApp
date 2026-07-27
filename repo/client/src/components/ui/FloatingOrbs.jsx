@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 
 const PRESETS = {
   default: [
@@ -19,6 +20,14 @@ const PRESETS = {
 };
 
 const FloatingOrbs = ({ preset = 'default', extra = [] }) => {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const isMobile = window.innerWidth < 640;
+    if (mq.matches || isMobile) setShow(false);
+  }, []);
+  if (!show) return null;
+
   const orbs = [...(PRESETS[preset] ?? PRESETS.default), ...extra];
 
   return (

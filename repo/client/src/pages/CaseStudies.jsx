@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import SEO from '../components/ui/SEO';
@@ -57,7 +56,7 @@ const CaseStudies = () => {
             <div className="grid md:grid-cols-2 gap-6">
               {display.map((study, i) => (
                 <motion.div key={study.slug || i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
-                  <Link to={`/case-studies/${study.slug}`} className="glass-card rounded-2xl p-8 block group h-full">
+                  <div className="glass-card rounded-2xl p-8 block h-full">
                     <div className="flex items-start justify-between mb-6">
                       <div>
                         <h2 className="text-white font-bold text-xl mb-1">{study.client.name}</h2>
@@ -76,7 +75,7 @@ const CaseStudies = () => {
                       <p className="text-sm text-white">{study.solution}</p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 mt-auto">
+                    <div className="grid grid-cols-2 gap-4">
                       {study.results.map(({ value, metric }) => (
                         <div key={metric} className="text-center p-3 rounded-xl bg-brand-bg/60 border border-brand-border">
                           <div className="text-2xl font-display font-bold text-brand-primary">{value}</div>
@@ -84,9 +83,7 @@ const CaseStudies = () => {
                         </div>
                       ))}
                     </div>
-
-                    <p className="text-xs text-brand-primary mt-4 group-hover:underline">Read full case study →</p>
-                  </Link>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -98,7 +95,7 @@ const CaseStudies = () => {
       <section className="relative py-20">
         <div className="orb w-96 h-96 bg-brand-primary/15 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
         <div className="container-wide text-center relative">
-          <h2 className="text-4xl font-display font-bold text-white mb-4">Your case study starts <span className="text-gradient">here.</span></h2>
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">Your case study starts <span className="text-gradient">here.</span></h2>
           <DemoLink className="inline-flex px-10 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold hover:opacity-90 transition-all">
             Start Your Transformation →
           </DemoLink>

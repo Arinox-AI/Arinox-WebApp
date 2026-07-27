@@ -42,7 +42,7 @@ const Terms = () => (
 
           <Section title="2. Services">
             <p>Arinox AI provides enterprise-grade sovereign AI solutions, including but not limited to:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">CommandCore™:</strong> An on-premises, sovereign AI platform for large-scale enterprise deployments</li>
               <li><strong className="text-brand-text">AI Agents & Automation:</strong> Purpose-built autonomous AI agents for enterprise workflows across BFSI, Healthcare, Defence, Manufacturing, and other sectors</li>
               <li><strong className="text-brand-text">Advisory & Implementation:</strong> AI strategy consulting, system integration, and managed deployment services</li>
@@ -65,7 +65,7 @@ const Terms = () => (
 
           <Section title="5. Acceptable Use">
             <p>When using our website or services, you must not:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Use our systems for any unlawful purpose or in violation of applicable Indian or international law</li>
               <li>Attempt to gain unauthorised access to any system, network, or data</li>
               <li>Transmit malware, viruses, or other harmful code</li>
@@ -85,7 +85,7 @@ const Terms = () => (
 
           <Section title="7. Limitation of Liability">
             <p>To the maximum extent permitted by applicable Indian law, Adisen Tech Private Limited, its directors, employees, and affiliates shall not be liable for:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Indirect, incidental, special, consequential, or punitive damages</li>
               <li>Loss of profits, revenue, data, business opportunity, or goodwill</li>
               <li>Losses arising from reliance on information on this website</li>
@@ -115,7 +115,7 @@ const Terms = () => (
               <p><strong className="text-brand-text">Contact</strong></p>
               <p>Adisen Tech Private Limited (Arinox AI)</p>
               <p>Bengaluru, Karnataka, India</p>
-              <p>Email: <a href="mailto:assist@arinox.ai" className="text-brand-primary hover:underline">assist@arinox.ai</a></p>
+              <p>Email: <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a></p>
             </div>
           </Section>
 

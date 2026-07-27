@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useEffect, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Sphere, MeshDistortMaterial, Stars } from '@react-three/drei';
 
@@ -72,8 +72,15 @@ const MovingGrid = () => {
   );
 };
 
-const ThreeScene = () => (
-  <Canvas
+const ThreeScene = () => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const isMobile = window.innerWidth < 768;
+    if (!mq.matches && !isMobile) setShow(true);
+  }, []);
+  if (!show) return null;
+  return <Canvas
     camera={{ position: [0, 0, 10], fov: 55 }}
     style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}
     gl={{ antialias: true, alpha: true }}
@@ -96,7 +103,7 @@ const ThreeScene = () => (
     <FloatingSphere position={[1, 3.5, -6]} color="#FFE58B" speed={1.4} distort={0.45} scale={0.8} />
     {/* Extra orange glow */}
     <FloatingSphere position={[-2, -3, -2]} color="#FF8C3A" speed={0.9} distort={0.3} scale={0.6} />
-  </Canvas>
-);
+  </Canvas>;
+};
 
 export default ThreeScene;

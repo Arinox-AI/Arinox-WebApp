@@ -7,6 +7,7 @@ import DemoLink from '../components/ui/DemoLink';
 import MouseTilt from '../components/ui/MouseTilt';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
 import AuthModal from '../components/ui/AuthModal';
+import QRLoginModal from '../components/ui/QRLoginModal';
 import { useAuth } from '../hooks/useAuth.jsx';
 import LogoGrid from '../components/ui/LogoGrid';
 import commandcoreHeroImg from '../assets/commandcore.jpg';
@@ -101,6 +102,7 @@ const tiers = [
 const CommandCore = () => {
   const { user } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
+  const [showQR, setShowQR] = useState(false);
 
   const handleDownload = () => {
     if (!user) { setShowAuth(true); return; }
@@ -112,7 +114,8 @@ const CommandCore = () => {
 
   return (
   <>
-    <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => {}} defaultMode="register" />
+    <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }} defaultMode="register" />
+    <QRLoginModal isOpen={showQR} onClose={() => setShowQR(false)} onSwitchToEmail={(g) => { setShowQR(false); setShowAuth(true); }} />
     <SEO
       title="CommandCore™ — Sovereign AI Infrastructure | Arinox AI"
       description="CommandCore™ is Arinox AI's sovereign, private AI infrastructure for enterprises. On-premises AI compute with 80+ agents, full data sovereignty, and enterprise-grade security."
@@ -155,7 +158,7 @@ const CommandCore = () => {
             Deploy on-premises with complete sovereignty — 80+ agents, full audit coverage, and enterprise-grade performance.
           </p>
           <p className="text-sm text-brand-muted mb-7 leading-relaxed max-w-md">
-            Built for both infrastructure and solution delivery — including Avox voice agent experiences and the broader CommandCore agent ecosystem.
+            Built for both infrastructure and solution delivery — including voice agent experiences and the broader CommandCore agent ecosystem.
           </p>
           <div className="flex gap-3 flex-wrap">
             <DemoLink className="px-6 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 hover:shadow-xl hover:shadow-brand-primary/25 transition-all">
@@ -342,7 +345,7 @@ const CommandCore = () => {
                     ? 'bg-brand-primary text-white hover:opacity-90'
                     : 'text-brand-primary border border-brand-primary/40 hover:bg-brand-primary/20 hover:border-brand-primary/60'
                 }`}>
-                  Learn More <ArrowRight size={13} />
+                  Request Demo <ArrowRight size={13} />
                 </DemoLink>
               </div>
             </motion.div>

@@ -34,7 +34,7 @@ const Privacy = () => (
 
           <Section title="1. Information We Collect">
             <p><strong className="text-brand-text">A. Information you provide directly</strong></p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Contact & enquiry forms:</strong> Name, email address, phone number (optional), company name, job title, and the message you write to us</li>
               <li><strong className="text-brand-text">Book a demo / Book a free call:</strong> Name, business email, company name, and any scheduling preferences you share</li>
               <li><strong className="text-brand-text">Newsletter / update subscriptions:</strong> Email address and name (where provided)</li>
@@ -42,7 +42,7 @@ const Privacy = () => (
             </ul>
 
             <p className="pt-1"><strong className="text-brand-text">B. Data collected automatically when you visit our website</strong></p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Device & browser information:</strong> Browser type and version, operating system, device type (desktop / mobile / tablet), screen resolution, and language settings</li>
               <li><strong className="text-brand-text">Network information:</strong> Your IP address (used to determine approximate country/region for analytics; not stored in identifiable form beyond 90 days)</li>
               <li><strong className="text-brand-text">Page interaction data:</strong> Pages visited, time spent on each page, scroll depth, links clicked, and buttons interacted with</li>
@@ -52,7 +52,7 @@ const Privacy = () => (
 
             <p className="pt-1"><strong className="text-brand-text">C. Cookies and tracking technologies</strong></p>
             <p>We use the following types of cookies on this website:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Strictly necessary cookies:</strong> Required for the website to function (session state, CSRF protection, cookie consent preference). These are always active.</li>
               <li><strong className="text-brand-text">Analytics cookies (Google Analytics):</strong> Collect anonymised data on how visitors use the site — pages viewed, time on site, bounce rate. Only set with your consent via our cookie banner.</li>
               <li><strong className="text-brand-text">Marketing cookies (LinkedIn Insight Tag):</strong> Used to understand the professional profile of visitors and measure campaign performance in aggregate. Only set with your consent.</li>
@@ -66,7 +66,7 @@ const Privacy = () => (
 
           <Section title="2. How We Use Your Information">
             <p>We use the information we collect to:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Respond to your enquiries and provide the services you request</li>
               <li>Send you updates, newsletters, and product information where you have opted in</li>
               <li>Improve our website and understand how visitors engage with our content</li>
@@ -78,7 +78,7 @@ const Privacy = () => (
 
           <Section title="3. Legal Basis for Processing">
             <p>We process your personal data on the following bases under the DPDP Act 2023 and applicable Indian law:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Consent:</strong> For marketing communications and non-essential cookies, where you have given explicit consent</li>
               <li><strong className="text-brand-text">Legitimate interest:</strong> For responding to enquiries, website security monitoring, and aggregate analytics</li>
               <li><strong className="text-brand-text">Legal obligation:</strong> Where processing is required to comply with applicable Indian law</li>
@@ -87,7 +87,7 @@ const Privacy = () => (
 
           <Section title="4. Data Sharing and Third Parties">
             <p>We share your personal data only in the following limited circumstances:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Service providers:</strong> Trusted vendors (hosting, email delivery, analytics) who process data on our behalf under contractual data processing agreements</li>
               <li><strong className="text-brand-text">Google:</strong> Google Analytics is used for aggregate website analytics. Data is anonymised and subject to Google's privacy policy</li>
               <li><strong className="text-brand-text">LinkedIn:</strong> LinkedIn Insight Tag may be used for aggregate advertising analytics where you have consented</li>
@@ -98,7 +98,7 @@ const Privacy = () => (
 
           <Section title="5. Data Retention">
             <p>We retain personal data only as long as necessary for the purposes described in this policy:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Contact form submissions: 3 years from date of submission</li>
               <li>Marketing opt-in data: Until you withdraw consent</li>
               <li>Server logs: 90 days</li>
@@ -109,19 +109,19 @@ const Privacy = () => (
 
           <Section title="6. Your Rights">
             <p>Under the DPDP Act 2023 and applicable Indian law, you have the right to:</p>
-            <ul className="list-disc list-inside space-y-1 pl-2">
+            <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Access:</strong> Request a copy of the personal data we hold about you</li>
               <li><strong className="text-brand-text">Correction:</strong> Request that inaccurate or incomplete data be corrected</li>
               <li><strong className="text-brand-text">Erasure:</strong> Request deletion of your personal data where there is no legitimate reason for continued processing</li>
               <li><strong className="text-brand-text">Withdraw consent:</strong> Where processing is based on consent, withdraw it at any time without affecting the lawfulness of prior processing</li>
               <li><strong className="text-brand-text">Grievance redressal:</strong> Lodge a complaint with our Data Protection Officer or the Data Protection Board of India</li>
             </ul>
-            <p>To exercise any of these rights, contact us at <a href="mailto:assist@arinox.ai" className="text-brand-primary hover:underline">assist@arinox.ai</a>. We will respond within 30 days.</p>
+            <p>To exercise any of these rights, contact us at <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a>. We will respond within 30 days.</p>
           </Section>
 
           <Section title="7. Security">
             <p>We implement industry-standard technical and organisational measures to protect your personal data against unauthorised access, disclosure, alteration, or destruction. These include TLS encryption in transit, access controls, and regular security reviews.</p>
-            <p>No method of transmission over the internet is 100% secure. If you believe your data has been compromised, contact us immediately at <a href="mailto:assist@arinox.ai" className="text-brand-primary hover:underline">assist@arinox.ai</a>.</p>
+            <p>No method of transmission over the internet is 100% secure. If you believe your data has been compromised, contact us immediately at <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a>.</p>
           </Section>
 
           <Section title="8. Children's Privacy">
@@ -138,7 +138,7 @@ const Privacy = () => (
               <p><strong className="text-brand-text">Contact</strong></p>
               <p>Adisen Tech Private Limited (Arinox AI)</p>
               <p>Bengaluru, Karnataka, India</p>
-              <p>Email: <a href="mailto:assist@arinox.ai" className="text-brand-primary hover:underline">assist@arinox.ai</a></p>
+              <p>Email: <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a></p>
             </div>
           </Section>
 

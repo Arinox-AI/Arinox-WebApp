@@ -2,9 +2,8 @@ import { useEffect, useRef } from 'react';
 import { Landmark, ShieldCheck, Building2, Scale, Activity, Cpu, RefreshCw, Network, Zap, ChevronRight, Target, Factory, ClipboardList, Monitor } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DemoLink from '../components/ui/DemoLink';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextPlugin } from 'gsap/TextPlugin';
 import ThreeScene from '../components/ui/ThreeScene';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
@@ -19,7 +18,7 @@ import venuPhoto from '../assets/venu.png';
 import { globalClients as clients } from '../data/clients';
 import LogoGrid from '../components/ui/LogoGrid';
 
-gsap.registerPlugin(ScrollTrigger, TextPlugin);
+gsap.registerPlugin(TextPlugin);
 
 /* ─── Animation variants ────────────────────────────────── */
 const fadeUp = {
@@ -64,10 +63,10 @@ const springCard = {
 };
 
 const industryCards = [
-  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   img: '/industries/legal.jpeg'      },
+  { Icon: Landmark,    name: 'Banking & Finance', desc: 'Capital markets & compliance AI',   img: '/industries/banking.jpeg'    },
   { Icon: ShieldCheck, name: 'Defence & Army',     desc: 'Sovereign military AI systems',    img: '/industries/defence.jpeg'    },
   { Icon: Building2,   name: 'Government',          desc: 'Public sector intelligence',      img: '/industries/government.jpeg' },
-  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  img: '/industries/banking.jpeg'    },
+  { Icon: Scale,       name: 'Legal',               desc: 'AI-assisted legal intelligence',  img: '/industries/legal.jpeg'      },
   { Icon: Activity,    name: 'Healthcare',           desc: 'Clinical AI & health compliance', img: '/industries/healthcare.jpeg' },
   { Icon: Cpu,         name: 'Technology',           desc: 'Enterprise tech platforms',       img: '/industries/technology.jpeg' },
 ];
@@ -78,13 +77,6 @@ const whyCards = [
   { Icon: RefreshCw, title: 'AI That Adapts', desc: 'Enterprise-grade solutions that bend for you. Zero compromise on security.' },
   { Icon: Cpu, title: 'Agents That Fit', desc: 'Seamless integration into your workflows. Real reasoning. Results from day one.' },
   { Icon: Network, title: 'Ecosystem Strength', desc: 'Global partner network. Best-in-class tech, infrastructure, and outcomes.' },
-];
-
-const results = [
-  { client: 'Indian Army', outcome: '−82% alert-triage time', saved: 'Operational edge', agent: 'KOGO Sentinel + on-prem LLaMA-4' },
-  { client: 'Fortune 500 Client', outcome: '−60% cloud cost', saved: 'Millions saved', agent: 'KOGO FinOps + AutoML Agent' },
-  { client: 'Insurance Enterprise', outcome: '2× claims per FTE', saved: 'Cost halved', agent: 'KOGO Claim-QA Agent' },
-  { client: 'Global BPO', outcome: '+18% ticket capacity', saved: '−28% Azure cost', agent: 'KOGO Helpdesk Mesh' },
 ];
 
 /* ─── About data ────────────────────────────────────────── */
@@ -131,54 +123,17 @@ const team = [
   },
 ];
 
-/* ─── Advisors data (placeholder — replace with real advisory board) ─── */
+/* ─── Advisors data (TODO: fill real advisory board) ─── */
 const advisors = [
   { name: 'Venu Ganganna', role: 'Strategic Advisor', photo: venuPhoto, focus: 'Placeholder — replace with advisor background and area of expertise.' },
   { name: 'Advisor Name',  role: 'Technology Advisor', focus: 'Placeholder bio — replace with advisor background and area of expertise.' },
   { name: 'Advisor Name',  role: 'Industry Advisor',   focus: 'Placeholder bio — replace with advisor background and area of expertise.' },
 ];
 
-const history = [
-  { year: '2022', title: 'Foundation', desc: 'Founded with a singular mission: democratize enterprise AI. Established headquarters in India.' },
-  { year: '2023', title: 'First Partnerships', desc: 'First Fortune 500 implementation — 60% cloud cost reduction. Expanded enterprise AI deployments globally.' },
-  { year: '2024', title: 'Rapid Expansion', desc: 'Kogo.ai partnership. Indian Army and global enterprise deployments across Defence, Healthcare, Manufacturing & Finance. Offices across India.' },
-];
-
-const offices = [
-  { region: 'India', locations: ['New Delhi', 'Bangalore'] },
-];
-
-/* ─── Animated Counter ──────────────────────────────────── */
-const Counter = ({ value, suffix, label }) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const displayRef = useRef(null);
-
-  useEffect(() => {
-    if (!inView || !displayRef.current) return;
-    gsap.fromTo(displayRef.current,
-      { textContent: 0 },
-      { textContent: value, duration: 2, ease: 'power2.out', snap: { textContent: 1 },
-        onUpdate() { if (displayRef.current) displayRef.current.textContent = Math.round(this.targets()[0].textContent) + suffix; }
-      }
-    );
-  }, [inView, value, suffix]);
-
-  return (
-    <div ref={ref} className="text-center group">
-      <div className="text-3xl md:text-4xl font-display font-bold text-gradient mb-1 counter" ref={displayRef}>
-        0{suffix}
-      </div>
-      <div className="text-sm text-brand-muted group-hover:text-brand-text transition-colors">{label}</div>
-    </div>
-  );
-};
-
 /* ─── Home ──────────────────────────────────────────────── */
 const Home = () => {
   const heroRef = useRef(null);
   const taglineRef = useRef(null);
-  const timelineRef = useRef(null);
   const { scrollY } = useScroll();
   const heroY = useTransform(scrollY, [0, 500], [0, -80]);
   const heroOpacity = useTransform(scrollY, [0, 350], [1, 0]);
@@ -196,33 +151,6 @@ const Home = () => {
     return () => tl.kill();
   }, []);
 
-  /* GSAP: scroll-triggered reveals */
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.why-card', {
-        opacity: 0, y: 50,
-        stagger: 0.12, duration: 0.75, ease: 'back.out(1.3)',
-        scrollTrigger: { trigger: '.why-section', start: 'top 78%' },
-      });
-      gsap.from('.result-row', {
-        opacity: 0, x: -30,
-        stagger: 0.1, duration: 0.6,
-        scrollTrigger: { trigger: '.results-table', start: 'top 82%' },
-      });
-      gsap.from('.timeline-item', {
-        opacity: 0, x: -50,
-        stagger: 0.25,
-        scrollTrigger: { trigger: '.timeline-section', start: 'top 78%' },
-      });
-      gsap.from('.hr-gradient', {
-        scaleX: 0, transformOrigin: 'left',
-        duration: 1.1, ease: 'expo.out',
-        scrollTrigger: { trigger: '.hr-gradient', start: 'top 92%' },
-      });
-    });
-    return () => ctx.revert();
-  }, []);
-
   return (
     <>
       <SEO
@@ -233,7 +161,7 @@ const Home = () => {
       />
 
       {/* ═══ HERO ═══════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden grid-bg">
+      <section ref={heroRef} className="relative min-h-[100dvh] min-h-screen flex items-center justify-center overflow-hidden grid-bg">
         <ErrorBoundary><ThreeScene /></ErrorBoundary>
         <div className="orb w-[400px] h-[400px] bg-brand-primary/10 top-1/4 -left-24" />
         <div className="orb w-[320px] h-[320px] bg-brand-primary/8 bottom-1/4 -right-24" />
@@ -283,7 +211,7 @@ const Home = () => {
                 Explore Solutions →
               </Link>
               <DemoLink className="w-full sm:w-auto px-7 py-3 rounded-xl bg-brand-primary text-white font-semibold hover:bg-brand-primary/90 hover:-translate-y-0.5 transition-all duration-300 text-sm text-center shadow-lg shadow-brand-primary/30">
-                Book a Free 15-min Call →
+                Request Demo →
               </DemoLink>
             </div>
             <span className="text-[11px] text-brand-muted text-center max-w-sm">Free session — we map where intelligent AI fits your organisation's operations, strategy, and compliance needs.</span>
@@ -318,7 +246,7 @@ const Home = () => {
             <p className="text-brand-muted leading-relaxed mb-6 text-sm md:text-base">
               Arinox deploys across every industry where data integrity, regulatory compliance, and operational continuity are non-negotiable — from national defence and capital markets to public governance, legal institutions, clinical systems, manufacturing, logistics, and beyond. Each engagement is engineered for the specific constraints of that domain, not a generic AI layer stretched to fit.
             </p>
-            <div className="grid grid-cols-3 gap-3 mb-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
               {industryCards.map(({ Icon, name, desc, img }, i) => (
                 <motion.div key={name} custom={i} variants={popIn} initial="hidden" whileInView="visible" viewport={{ once: true }}>
                   <MouseTilt
@@ -330,6 +258,8 @@ const Home = () => {
                     <img
                       src={img}
                       alt={name}
+                      loading="lazy"
+                      decoding="async"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     {/* Dark overlay */}
@@ -347,8 +277,8 @@ const Home = () => {
                       </motion.div>
                       {/* Text bottom */}
                       <div>
-                        <motion.p style={{ translateZ: 20 }} className="text-white text-[11px] font-bold leading-tight mb-0.5 drop-shadow">{name}</motion.p>
-                        <motion.p style={{ translateZ: 12 }} className="text-white/60 text-[9px] leading-snug">{desc}</motion.p>
+                        <motion.p style={{ translateZ: 20 }} className="text-white text-[12px] font-bold leading-tight mb-0.5 drop-shadow">{name}</motion.p>
+                        <motion.p style={{ translateZ: 12 }} className="text-white/60 text-[10px] leading-snug">{desc}</motion.p>
                       </div>
                     </div>
                   </MouseTilt>
@@ -418,7 +348,7 @@ const Home = () => {
               We don't build everything — we curate the best. Through exclusive partnerships with AI Pioneers, System Integrators, and Tech Majors, we deliver proven solutions that work in your context.
             </p>
             <div className="grid grid-cols-2 gap-2 text-xs">
-              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai, AVOX', 'Sovereign On-Prem Compute'].map(item => (
+              {['Infra & Compute: HP, IBM, NetWeb', 'Chipset: NVIDIA, Qualcomm', 'AI Engines: Kogo.ai', 'Sovereign On-Prem Compute'].map(item => (
                 <div key={item} className="flex items-start gap-2 text-brand-muted">
                   <ChevronRight size={14} strokeWidth={2} className="text-brand-primary shrink-0 mt-0.5" /> {item}
                 </div>
@@ -442,7 +372,7 @@ const Home = () => {
                 <MouseTilt className="glass-card rounded-2xl overflow-hidden group flex flex-col h-full" intensity={9}>
                   <div className="w-full h-72 shrink-0 overflow-hidden">
                     {photo ? (
-                      <img src={photo} alt={name} className="w-full h-full object-cover object-[center_top] transition-transform duration-500 group-hover:scale-105" />
+                      <img src={photo} alt={name} loading="lazy" decoding="async" className="w-full h-full object-cover object-[center_top] transition-transform duration-500 group-hover:scale-105" />
                     ) : (
                       <div className="w-full h-full bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-white font-bold text-4xl">
                         {name.split(' ').map(n => n[0]).join('')}
@@ -561,9 +491,12 @@ const Home = () => {
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-5 leading-tight">
               Transform how your enterprise <span className="text-gradient">wins.</span>
             </h2>
-            <p className="text-brand-muted text-base max-w-lg mx-auto">
+            <p className="text-brand-muted text-base max-w-lg mx-auto mb-8">
               Deploy your first AI solution today and see results in hours, not months.
             </p>
+            <DemoLink className="inline-flex px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 hover:shadow-xl hover:shadow-brand-primary/25 transition-all">
+              Request Demo
+            </DemoLink>
           </motion.div>
         </div>
       </section>

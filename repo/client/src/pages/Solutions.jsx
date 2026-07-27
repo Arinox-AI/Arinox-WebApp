@@ -349,7 +349,7 @@ const Solutions = () => {
             transition={{ delay: 0.3 }}
           >
             <DemoLink className="inline-flex px-7 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity">
-              Book a Demo →
+              Request Demo →
             </DemoLink>
           </motion.div>
         </div>
@@ -503,7 +503,7 @@ const Solutions = () => {
             </div>
             <Link
               to="/commandcore"
-              className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-brand-primary/35 text-brand-primary text-sm font-medium hover:bg-brand-primary/10 transition-colors"
+              className="shrink-0 inline-flex items-center gap-2 px-5 py-3 min-h-[44px] rounded-xl border border-brand-primary/35 text-brand-primary text-sm font-medium hover:bg-brand-primary/10 transition-colors"
             >
               See CommandCORE specs <ArrowRight className="w-3 h-3 shrink-0" />
             </Link>
@@ -554,7 +554,7 @@ const Solutions = () => {
           </h2>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <DemoLink className="inline-flex px-8 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity">
-              Talk to an Expert →
+              Request Demo →
             </DemoLink>
           </div>
           <p className="mt-3 text-xs text-brand-muted">

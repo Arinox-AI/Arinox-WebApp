@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const STORAGE_KEY = 'arinox_cookie_consent';
@@ -63,7 +64,7 @@ const ConsentBanner = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-[300] flex items-end sm:items-center justify-center p-4"
+                className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-4"
                 onClick={(e) => e.target === e.currentTarget && setShowManage(false)}
               >
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
@@ -76,7 +77,7 @@ const ConsentBanner = () => {
                 >
                   <button
                     onClick={() => setShowManage(false)}
-                    className="absolute top-4 right-4 w-7 h-7 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
+                    className="absolute top-4 right-4 w-10 h-10 rounded-lg flex items-center justify-center text-brand-muted hover:text-brand-text transition-colors text-xs"
                   >
                     ✕
                   </button>
@@ -99,16 +100,20 @@ const ConsentBanner = () => {
                         <button
                           onClick={() => !locked && toggle(key)}
                           disabled={locked}
-                          className={`flex-shrink-0 mt-0.5 w-9 h-5 rounded-full transition-all duration-200 relative ${
-                            prefs[key] ? 'bg-brand-primary' : 'bg-brand-border'
-                          } ${locked ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
-                          aria-label={`Toggle ${label}`}
+                          className={`flex-shrink-0 p-2 -m-2 mt-0.5 ${
+                            locked ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'
+                          }`}
+                          aria-label={`Toggle ${label}${locked ? ' (always on)' : ''}`}
                         >
-                          <span
-                            className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all duration-200 ${
-                              prefs[key] ? 'left-4' : 'left-0.5'
-                            }`}
-                          />
+                          <span className={`block w-9 h-5 rounded-full relative transition-all duration-200 ${
+                            prefs[key] ? 'bg-brand-primary' : 'bg-brand-border'
+                          }`}>
+                            <span
+                              className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-all duration-200 ${
+                                prefs[key] ? 'left-4' : 'left-0.5'
+                              }`}
+                            />
+                          </span>
                         </button>
                       </div>
                     ))}
@@ -117,19 +122,19 @@ const ConsentBanner = () => {
                   <div className="flex gap-2.5">
                     <button
                       onClick={rejectAll}
-                      className="flex-1 py-2.5 rounded-xl border border-brand-border text-brand-muted text-xs font-semibold hover:border-brand-primary hover:text-brand-text transition-all"
+                      className="flex-1 py-3 rounded-xl border border-brand-border text-brand-muted text-xs font-semibold min-h-[44px] hover:border-brand-primary hover:text-brand-text transition-all"
                     >
                       Reject All
                     </button>
                     <button
                       onClick={saveCustom}
-                      className="flex-1 py-2.5 rounded-xl bg-brand-primary text-white text-xs font-semibold hover:opacity-90 transition-opacity"
+                      className="flex-1 py-3 rounded-xl bg-brand-primary text-white text-xs font-semibold min-h-[44px] hover:opacity-90 transition-opacity"
                     >
                       Save Preferences
                     </button>
                     <button
                       onClick={acceptAll}
-                      className="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white text-xs font-bold hover:opacity-90 transition-opacity"
+                      className="flex-1 py-3 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white text-xs font-bold min-h-[44px] hover:opacity-90 transition-opacity"
                     >
                       Accept All
                     </button>
@@ -146,7 +151,7 @@ const ConsentBanner = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 80 }}
               transition={{ type: 'spring', damping: 28, stiffness: 280, delay: 0.1 }}
-              className="fixed bottom-4 left-4 right-4 z-[250] max-w-2xl mx-auto"
+              className="fixed bottom-4 left-4 right-4 z-[100] max-w-2xl mx-auto"
             >
               <div className="bg-brand-card border border-brand-border rounded-2xl p-4 shadow-2xl shadow-black/50 backdrop-blur-xl">
                 <div className="flex items-start gap-3">
@@ -157,7 +162,7 @@ const ConsentBanner = () => {
                     <p className="text-brand-text text-sm font-semibold mb-0.5">We use cookies</p>
                     <p className="text-brand-muted text-xs leading-relaxed">
                       We use cookies to improve your experience, analyse site traffic, and personalise content. You can manage your preferences at any time.{' '}
-                      <a href="/privacy" className="text-brand-primary hover:underline">Privacy Policy</a>
+                       <Link to="/privacy" className="text-brand-primary hover:underline">Privacy Policy</Link>
                     </p>
                   </div>
                 </div>
@@ -165,19 +170,19 @@ const ConsentBanner = () => {
                 <div className="flex flex-wrap gap-2 mt-3.5">
                   <button
                     onClick={() => setShowManage(true)}
-                    className="px-3.5 py-2 rounded-lg border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-brand-text transition-all"
+                    className="px-3.5 py-2.5 rounded-lg border border-brand-border text-brand-muted text-xs font-medium min-h-[44px] hover:border-brand-primary hover:text-brand-text transition-all"
                   >
                     Manage Preferences
                   </button>
                   <button
                     onClick={rejectAll}
-                    className="px-3.5 py-2 rounded-lg border border-brand-border text-brand-muted text-xs font-medium hover:border-brand-primary hover:text-brand-text transition-all"
+                    className="px-3.5 py-2.5 rounded-lg border border-brand-border text-brand-muted text-xs font-medium min-h-[44px] hover:border-brand-primary hover:text-brand-text transition-all"
                   >
                     Reject All
                   </button>
                   <button
                     onClick={acceptAll}
-                    className="px-3.5 py-2 rounded-lg bg-brand-primary text-white text-xs font-bold hover:opacity-90 transition-opacity"
+                    className="px-3.5 py-2.5 rounded-lg bg-brand-primary text-white text-xs font-bold min-h-[44px] hover:opacity-90 transition-opacity"
                   >
                     Accept All
                   </button>

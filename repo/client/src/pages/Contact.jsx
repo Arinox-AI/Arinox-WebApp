@@ -161,7 +161,7 @@ const Contact = () => {
                 <p className="text-brand-muted text-sm mb-5">Our team will reach out within 24 hours.</p>
                 <button
                   onClick={() => setSent(false)}
-                  className="text-brand-primary text-sm hover:underline transition-colors"
+                  className="text-brand-primary text-sm hover:underline transition-colors py-2 px-3"
                 >
                   Send another message
                 </button>
@@ -187,11 +187,11 @@ const Contact = () => {
                         onBlur={() => setFocused(null)}
                         placeholder={placeholder}
                         required={required}
-                        className="w-full px-4 py-3.5 rounded-xl glass border text-sm focus:outline-none transition-all duration-300 placeholder-brand-muted text-white"
-                        style={{
-                          borderColor: focused === name ? 'rgba(254,99,0,0.7)' : 'rgba(37,37,38,1)',
-                          boxShadow: focused === name ? '0 0 0 3px rgba(254,99,0,0.12)' : 'none',
-                        }}
+                        aria-label={placeholder}
+                        autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : name === 'phone' ? 'tel' : name === 'company' ? 'organization' : undefined}
+                        className={`w-full px-4 py-3.5 rounded-xl glass border text-sm focus:outline-none transition-all duration-300 placeholder-brand-muted text-brand-text ${
+                          focused === name ? 'border-brand-primary/70 ring-2 ring-brand-primary/12' : 'border-brand-border'
+                        }`}
                       />
                     </motion.div>
                   ))}
@@ -202,6 +202,7 @@ const Contact = () => {
                   name="subject"
                   value={form.subject}
                   onChange={handleChange}
+                  aria-label="Subject"
                   className="w-full px-4 py-3.5 rounded-xl glass border border-brand-border text-white text-sm focus:outline-none focus:border-brand-primary transition-all duration-300 bg-brand-surface"
                 >
                   {['Demo Request', 'General Inquiry', 'Partnership', 'Career', 'Media', 'Other'].map(s => (
@@ -219,11 +220,10 @@ const Contact = () => {
                   rows={4}
                   placeholder="Tell us about your challenge or what you'd like to achieve with AI..."
                   required
-                  className="w-full px-4 py-3.5 rounded-xl glass border text-white placeholder-brand-muted text-sm focus:outline-none transition-all duration-300 resize-none"
-                  style={{
-                    borderColor: focused === 'message' ? 'rgba(254,99,0,0.7)' : 'rgba(37,37,38,1)',
-                    boxShadow: focused === 'message' ? '0 0 0 3px rgba(254,99,0,0.12)' : 'none',
-                  }}
+                  aria-label="Message"
+                  className={`w-full px-4 py-3.5 rounded-xl glass border text-brand-text placeholder-brand-muted text-sm focus:outline-none transition-all duration-300 resize-none ${
+                    focused === 'message' ? 'border-brand-primary/70 ring-2 ring-brand-primary/12' : 'border-brand-border'
+                  }`}
                 />
 
                 <motion.div custom={6} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}>
@@ -274,7 +274,7 @@ const Contact = () => {
               <div className="offices-grid grid grid-cols-2 gap-3">
                 {offices.map(({ region, detail, flags }) => (
                   <motion.div
-                    key={region}
+                    key={`${region}-${detail}`}
                     whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
                     className="office-card glass-card rounded-xl p-4 cursor-default"
                   >

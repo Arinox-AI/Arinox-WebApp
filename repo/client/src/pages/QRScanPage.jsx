@@ -101,7 +101,7 @@ const QRScanPage = () => {
           className="h-7 w-auto object-contain mx-auto mb-4 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
         />
 
-        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-primary/15 border border-brand-primary/30 text-brand-primary text-[9px] font-bold uppercase tracking-widest mb-4">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-primary/15 border border-brand-primary/30 text-brand-primary text-[11px] font-bold uppercase tracking-widest mb-4">
           <span className="w-1.5 h-1.5 rounded-full bg-brand-primary animate-pulse" />
           QR Code Sign In
         </div>
@@ -158,6 +158,8 @@ const QRScanPage = () => {
                   autoFocus
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  aria-label="Work Email"
+                  autoComplete="email"
                   className={inputClass}
                 />
                 <button type="submit" disabled={loading} className={btnClass}>
@@ -184,7 +186,7 @@ const QRScanPage = () => {
                   <button
                     type="button"
                     onClick={() => setStage('email')}
-                    className="text-brand-primary hover:underline text-[10px] ml-2 flex-shrink-0"
+                    className="text-brand-primary hover:underline text-xs ml-2 flex-shrink-0 py-1 px-2"
                   >
                     Change
                   </button>
@@ -197,6 +199,8 @@ const QRScanPage = () => {
                   autoFocus
                   value={form.password}
                   onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+                  aria-label="Password"
+                  autoComplete="current-password"
                   className={inputClass}
                 />
                 <button type="submit" disabled={loading} className={btnClass}>
@@ -223,7 +227,7 @@ const QRScanPage = () => {
                   <button
                     type="button"
                     onClick={() => setStage('email')}
-                    className="text-brand-primary hover:underline text-[10px] ml-2 flex-shrink-0"
+                    className="text-brand-primary hover:underline text-xs ml-2 flex-shrink-0 py-1 px-2"
                   >
                     Change
                   </button>
@@ -235,6 +239,8 @@ const QRScanPage = () => {
                   autoFocus
                   value={form.name}
                   onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  aria-label="Full Name"
+                  autoComplete="name"
                   className={inputClass}
                 />
                 <input
@@ -244,6 +250,8 @@ const QRScanPage = () => {
                   minLength={6}
                   value={form.password}
                   onChange={(e) => setForm((f) => ({ ...f, password: e.target.value }))}
+                  aria-label="Password (minimum 6 characters)"
+                  autoComplete="new-password"
                   className={inputClass}
                 />
                 <button type="submit" disabled={loading} className={btnClass}>
@@ -257,7 +265,7 @@ const QRScanPage = () => {
         {stage !== 'resolving' && stage !== 'done' && (
           <button
             onClick={() => navigate('/')}
-            className="mt-5 text-[10px] text-brand-muted hover:text-white transition-colors"
+            className="mt-5 text-xs text-brand-muted hover:text-white transition-colors py-2 px-3"
           >
             ← Cancel and go back
           </button>
