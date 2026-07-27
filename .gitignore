@@ -8,7 +8,7 @@ dist/
 build/
 .output/
 
-# Environment variables
+# Environment variables — NEVER commit these
 .env
 .env.local
 .env.*.local
@@ -35,6 +35,17 @@ Thumbs.db
 .cache/
 .parcel-cache/
 .eslintcache
+
+# Test coverage
+coverage/
+
+# Uploads (server uses in-memory storage; kept as a safety net)
+uploads/
+
+# Exported applicant data / resumes (PII — never commit)
+resumes_export/
+Candidate_Outreach_Sheet.pdf
+Resume_*.pdf
 
 # Demo / temp files
 js.js
