@@ -30,7 +30,7 @@ if (-not (Test-Path $envFile)) {
 # -- Step 1: Build React client ----------------------------
 Write-Host "[1/4] Building React client..." -ForegroundColor Yellow
 Set-Location (Join-Path $ROOT "client")
-npm ci --prefer-offline
+npm install --prefer-offline
 npm run build
 Write-Host "  Client built successfully." -ForegroundColor Green
 
