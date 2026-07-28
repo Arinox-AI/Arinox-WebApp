@@ -9,7 +9,6 @@ export default defineConfig({
     host: true,
     proxy: {
       '/api':       { target: 'http://localhost:5000', changeOrigin: true },
-      '/socket.io': { target: 'http://localhost:5000', ws: true, changeOrigin: true },
       '/sitemap.xml': { target: 'http://localhost:5000', changeOrigin: true },
       '/robots.txt':  { target: 'http://localhost:5000', changeOrigin: true },
     },
@@ -23,7 +22,7 @@ export default defineConfig({
           'vendor-motion': ['framer-motion'],
           'vendor-gsap':   ['gsap'],
           'vendor-three':  ['three'],
-          'vendor-misc':   ['axios', 'socket.io-client'],
+          'vendor-misc':   ['axios'],
         },
       },
     },
