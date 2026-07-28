@@ -1,0 +1,4 @@
+_app_staging.yaml
+node_modules/
+client/dist/
+.env
