@@ -79,8 +79,27 @@ if (process.env.NODE_ENV === 'production') {
   // the ad can point at /get-started (the file ships as get-started.html).
   app.get('/get-started', (req, res) => res.sendFile(path.join(clientBuild, 'get-started.html')));
 
-  app.use(express.static(clientBuild));
-  app.get('*', (req, res) => res.sendFile(path.join(clientBuild, 'index.html')));
+  // Cache versioned assets (hashes in filenames) aggressively
+  app.use('/assets', express.static(path.join(clientBuild, 'assets'), {
+    maxAge: '365d',
+    immutable: true,
+  }));
+
+  // Public directory (logos, industries, etc.) with short cache
+  app.use(express.static(clientBuild, {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('index.html')) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      } else if (!filePath.includes('/assets/')) {
+        res.setHeader('Cache-Control', 'public, max-age=86400');
+      }
+    },
+  }));
+
+  app.get('*', (req, res) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.sendFile(path.join(clientBuild, 'index.html'));
+  });
 }
 
 app.use(notFound);
