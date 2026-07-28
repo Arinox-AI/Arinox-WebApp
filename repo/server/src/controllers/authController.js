@@ -1,12 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const { v4: uuidv4 } = require('uuid');
-const QRCode = require('qrcode');
 const https = require('https');
 const supabase = require('../config/supabase');
-
-const QR_TTL = 5 * 60 * 1000;
-const qrMemStore = new Map();
 
 const findUserBy = async (field, value) => {
   const { data } = await supabase.from('Users').select('*').eq(field, value).maybeSingle();
@@ -21,30 +16,6 @@ const updateUser = async (id, fields) => {
     .select()
     .single();
   return data;
-};
-
-const getQRSession = async (token) => {
-  if (qrMemStore.has(token)) {
-    const s = qrMemStore.get(token);
-    if (Date.now() > s.expiresAt) { qrMemStore.delete(token); return null; }
-    return s;
-  }
-  try {
-    const { data: s } = await supabase.from('QRSessions').select('*').eq('token', token).maybeSingle();
-    if (!s || new Date(s.expiresAt) < new Date()) return null;
-    return s;
-  } catch { return null; }
-};
-
-const setQRSession = async (token, data) => {
-  const expiresAt = new Date(Date.now() + QR_TTL);
-  qrMemStore.set(token, { token, ...data, expiresAt: expiresAt.getTime() });
-  try {
-    await supabase.from('QRSessions').upsert(
-      { token, ...data, expiresAt: expiresAt.toISOString(), updatedAt: new Date().toISOString() },
-      { onConflict: 'token' }
-    );
-  } catch { /* mem store is fallback */ }
 };
 
 const signToken = (id) =>
@@ -108,89 +79,12 @@ const login = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-const generateQR = async (req, res, next) => {
-  try {
-    const token = uuidv4();
-    await setQRSession(token, { status: 'pending', userId: null, jwt: null });
-
-    const baseUrl = process.env.CLIENT_URL || 'http://localhost:5173';
-    const qrImage = await QRCode.toDataURL(`${baseUrl}/auth/qr-scan/${token}`, {
-      width: 280, margin: 2,
-      color: { dark: '#FE6300', light: '#00000000' },
-      errorCorrectionLevel: 'M',
-    });
-
-    res.json({ success: true, token, qrImage });
-  } catch (err) { next(err); }
-};
-
-const checkQRStatus = async (req, res, next) => {
-  try {
-    const session = await getQRSession(req.params.token);
-    if (!session)
-      return res.status(404).json({ success: false, message: 'QR session expired. Please refresh.' });
-    res.json({ success: true, status: session.status, jwt: session.jwt || null });
-  } catch (err) { next(err); }
-};
-
-const confirmQRScan = async (req, res, next) => {
-  try {
-    const { token } = req.params;
-    const { email, password } = req.body;
-
-    const session = await getQRSession(token);
-    if (!session)
-      return res.status(400).json({ success: false, message: 'QR session expired. Please refresh the QR code.' });
-
-    const user = await findUserBy('email', email);
-    if (!user || !user.password || !(await bcrypt.compare(password, user.password)))
-      return res.status(401).json({ success: false, message: 'Invalid email or password.' });
-
-    const jwtToken = signToken(user.id);
-    await setQRSession(token, { status: 'authenticated', userId: user.id, jwt: jwtToken });
-    await updateUser(user.id, { lastLogin: new Date().toISOString(), loginMethod: 'qr' }).catch(() => {});
-
-    const io = req.app.get('io');
-    if (io) {
-      io.to(token).emit('qr-authenticated', {
-        token: jwtToken,
-        user: { id: user.id, name: user.name, email: user.email, role: user.role },
-      });
-    }
-
-    res.json({ success: true, message: 'Login successful. Return to your browser.' });
-  } catch (err) { next(err); }
-};
-
 const checkEmail = async (req, res, next) => {
   try {
     const { email } = req.body;
     if (!email) return res.status(400).json({ success: false, message: 'Email required.' });
     const user = await findUserBy('email', email);
     res.json({ success: true, exists: !!user });
-  } catch (err) { next(err); }
-};
-
-const confirmQRWithJWT = async (req, res, next) => {
-  try {
-    const { token } = req.params;
-    const session = await getQRSession(token);
-    if (!session)
-      return res.status(400).json({ success: false, message: 'QR session expired. Please refresh the QR code.' });
-
-    const user = req.user;
-    const jwtToken = signToken(user.id);
-    await setQRSession(token, { status: 'authenticated', userId: user.id, jwt: jwtToken });
-    await updateUser(user.id, { lastLogin: new Date().toISOString(), loginMethod: 'qr' }).catch(() => {});
-
-    const io = req.app.get('io');
-    if (io) {
-      io.to(token).emit('qr-authenticated', {
-        token: jwtToken,
-        user: { id: user.id, name: user.name, email: user.email, role: user.role },
-      });
-    }
-    res.json({ success: true, message: 'Authenticated. Return to your browser.' });
   } catch (err) { next(err); }
 };
 
@@ -276,4 +170,4 @@ const setCookieFromToken = (req, res) => {
   }
 };
 
-module.exports = { register, login, googleAuth, generateQR, checkQRStatus, confirmQRScan, confirmQRWithJWT, checkEmail, getMe, logout, setCookieFromToken };
+module.exports = { register, login, googleAuth, checkEmail, getMe, logout, setCookieFromToken };

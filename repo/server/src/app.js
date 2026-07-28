@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
-const { Server } = require('socket.io');
 const helmet = require('helmet');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -12,17 +11,6 @@ const { errorHandler, notFound } = require('./middleware/errorHandler');
 
 const app = express();
 const server = http.createServer(app);
-
-// Socket.IO — used for real-time QR auth notifications
-const io = new Server(server, {
-  cors: { origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true },
-});
-app.set('io', io);
-
-io.on('connection', (socket) => {
-  socket.on('join-qr-room', (token) => socket.join(token));
-  socket.on('disconnect', () => {});
-});
 
 // DB + email
 connectDB();

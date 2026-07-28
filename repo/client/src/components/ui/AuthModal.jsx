@@ -10,7 +10,7 @@ import arinoxLogo from '../../assets/img.png';
 const INPUT = 'w-full px-4 py-2.5 rounded-xl bg-brand-surface border border-brand-border text-brand-text placeholder-brand-muted text-sm focus:outline-none focus:border-brand-primary transition-colors';
 const BTN_PRIMARY = 'w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50';
 
-const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendingGoogleUser = null }) => {
+const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser = null }) => {
   const [mode, setMode] = useState(defaultMode);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   // When set, user came via Google but wasn't found — show signup form
@@ -251,34 +251,11 @@ const AuthModal = ({ isOpen, onClose, onSwitchToQR, defaultMode = 'login', pendi
                   : (isSignup ? 'Create Account →' : 'Continue →')}
               </button>
             </form>
-
-            {onSwitchToQR && (
-              <div className="mt-4 pt-3 border-t border-brand-border">
-                <button
-                  onClick={() => { handleClose(); onSwitchToQR(); }}
-                  className="flex items-center justify-center gap-1.5 w-full text-[11px] text-brand-muted hover:text-brand-primary transition-colors"
-                >
-                  <QRIcon /> Sign in with QR code instead
-                </button>
-              </div>
-            )}
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
 };
-
-const QRIcon = () => (
-  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-    <rect x="3" y="3" width="7" height="7" rx="1" />
-    <rect x="14" y="3" width="7" height="7" rx="1" />
-    <rect x="3" y="14" width="7" height="7" rx="1" />
-    <rect x="14" y="14" width="3" height="3" />
-    <rect x="19" y="14" width="2" height="2" />
-    <rect x="14" y="19" width="2" height="2" />
-    <rect x="19" y="19" width="2" height="2" />
-  </svg>
-);
 
 export default AuthModal;

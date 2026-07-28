@@ -17,7 +17,6 @@ const Contact = lazy(() => import('./pages/Contact'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
-const QRScanPage = lazy(() => import('./pages/QRScanPage'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
@@ -46,18 +45,15 @@ const ScrollReset = () => {
   return null;
 };
 
-const isQRRoute = (pathname) => pathname.startsWith('/auth/qr-scan');
-
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
 
 const AppInner = () => {
   const location = useLocation();
-  const qrPage = isQRRoute(location.pathname);
 
   return (
     <AuthProvider>
       <ScrollReset />
-      {!qrPage && <Navbar />}
+      <Navbar />
       <main>
         <Suspense fallback={<Loader />}>
           <AnimatePresence mode="wait" initial={false}>
@@ -73,16 +69,15 @@ const AppInner = () => {
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudies /></PageTransition>} />
-              <Route path="/auth/qr-scan/:token" element={<QRScanPage />} />
               <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
             </Routes>
           </AnimatePresence>
         </Suspense>
       </main>
-      {!qrPage && <Footer />}
-      {!qrPage && <ConsentBanner />}
-      {!qrPage && <ArinoxChatBot />}
+      <Footer />
+      <ConsentBanner />
+      <ArinoxChatBot />
     </AuthProvider>
   );
 };

@@ -19,7 +19,6 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (token, userData) => {
-    // Keep Authorization header set for the current session (QR flow uses it too)
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     setUser(userData);
   };

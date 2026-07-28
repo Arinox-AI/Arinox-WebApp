@@ -2,13 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import AuthModal from './AuthModal';
-import QRLoginModal from './QRLoginModal';
 
 const DemoLink = ({ className, children }) => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [showAuth, setShowAuth] = useState(false);
-  const [showQR, setShowQR] = useState(false);
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
@@ -30,10 +28,8 @@ const DemoLink = ({ className, children }) => {
       <AuthModal
         isOpen={showAuth}
         onClose={() => setShowAuth(false)}
-        onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }}
         defaultMode="register"
       />
-      <QRLoginModal isOpen={showQR} onClose={() => setShowQR(false)} />
     </>
   );
 };

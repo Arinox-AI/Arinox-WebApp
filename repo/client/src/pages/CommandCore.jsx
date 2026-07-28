@@ -7,7 +7,6 @@ import DemoLink from '../components/ui/DemoLink';
 import MouseTilt from '../components/ui/MouseTilt';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
 import AuthModal from '../components/ui/AuthModal';
-import QRLoginModal from '../components/ui/QRLoginModal';
 import { useAuth } from '../hooks/useAuth.jsx';
 import LogoGrid from '../components/ui/LogoGrid';
 import commandcoreHeroImg from '../assets/commandcore.jpg';
@@ -102,7 +101,6 @@ const tiers = [
 const CommandCore = () => {
   const { user } = useAuth();
   const [showAuth, setShowAuth] = useState(false);
-  const [showQR, setShowQR] = useState(false);
 
   const handleDownload = () => {
     if (!user) { setShowAuth(true); return; }
@@ -114,8 +112,7 @@ const CommandCore = () => {
 
   return (
   <>
-    <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }} defaultMode="register" />
-    <QRLoginModal isOpen={showQR} onClose={() => setShowQR(false)} onSwitchToEmail={(g) => { setShowQR(false); setShowAuth(true); }} />
+    <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} defaultMode="register" />
     <SEO
       title="CommandCore™ — Sovereign AI Infrastructure | Arinox AI"
       description="CommandCore™ is Arinox AI's sovereign, private AI infrastructure for enterprises. On-premises AI compute with 80+ agents, full data sovereignty, and enterprise-grade security."

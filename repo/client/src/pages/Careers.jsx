@@ -5,7 +5,6 @@ import toast from 'react-hot-toast';
 import * as LucideIcons from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../hooks/useAuth';
-import QRLoginModal from '../components/ui/QRLoginModal';
 import AuthModal from '../components/ui/AuthModal';
 import { perks as perksData, roles as fallbackRoles } from '../data/careers';
 
@@ -219,11 +218,10 @@ const Careers = () => {
   const [applyJob, setApplyJob] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState(new Set());
   const [expandedJD, setExpandedJD] = useState(null);
-  const [showQR, setShowQR] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
 
   const handleApplyClick = (job) => {
-    if (!user) { setShowQR(true); return; }
+    if (!user) { setShowAuth(true); return; }
     setApplyJob(job);
   };
 
@@ -448,9 +446,8 @@ const Careers = () => {
         />
       )}
 
-      {/* Login prompts */}
-      <QRLoginModal isOpen={showQR} onClose={() => setShowQR(false)} onSwitchToEmail={() => { setShowQR(false); setShowAuth(true); }} />
-      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} onSwitchToQR={() => { setShowAuth(false); setShowQR(true); }} defaultMode="register" />
+      {/* Login prompt */}
+      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} defaultMode="register" />
     </>
   );
 };
