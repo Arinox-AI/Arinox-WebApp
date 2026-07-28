@@ -316,7 +316,7 @@ const Contact = () => {
               <p className="text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">What happens next</p>
               <div className="steps-list space-y-3">
                 {[
-                  'We review your message within 2 hours',
+                  'We review your message within 24 hours',
                   'Our team schedules a free 15-min call',
                   'We map your AI opportunity — no commitment',
                   'You get a tailored proposal within 5 days',

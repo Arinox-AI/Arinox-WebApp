@@ -56,6 +56,8 @@ const rowStyle = `
 `;
 const labelStyle = `font-weight: 600; color: #FE6300; min-width: 110px; display: inline-block;`;
 
+const logoUrl = () => `${process.env.SITE_URL || 'https://www.arinox.ai'}/logo.png`;
+
 const emailWrapper = (content) => `
 <html><body style="${baseStyle}">
   <div style="${cardStyle}">
@@ -73,7 +75,7 @@ const emailWrapper = (content) => `
 const contactNotification = ({ name, email, company, phone, subject, message }) =>
   emailWrapper(`
     <div style="${headerStyle}">
-      <img src="https://www.arinox.ai/logo.png" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
+      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
       <h2 style="color:#fff;margin:0;font-size:20px;">New Contact Form Submission</h2>
     </div>
     <div style="${bodyStyle}">
@@ -93,7 +95,7 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
 const contactAutoReply = ({ name, subject }) =>
   emailWrapper(`
     <div style="${headerStyle}">
-      <img src="https://www.arinox.ai/logo.png" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
+      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
       <h2 style="color:#fff;margin:0;font-size:20px;">We've Received Your Message</h2>
     </div>
     <div style="${bodyStyle}">
@@ -128,7 +130,7 @@ const leadNotification = (lead) => {
   const hasCampaign = utmSource || utmMedium || utmCampaign || gclid || gadSource;
   return emailWrapper(`
     <div style="${headerStyle}">
-      <img src="https://www.arinox.ai/logo.png" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
+      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
       <h2 style="color:#fff;margin:0;font-size:20px;">New Lead — Google Ads</h2>
       <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:13px;">Submitted via /get-started</p>
     </div>
@@ -174,7 +176,7 @@ const leadNotification = (lead) => {
 const applicationNotification = ({ fullName, email, phone, role, department, linkedIn, coverNote, resumeName }) =>
   emailWrapper(`
     <div style="${headerStyle}">
-      <img src="https://www.arinox.ai/logo.png" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
+      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
       <h2 style="color:#fff;margin:0;font-size:20px;">New Job Application</h2>
       <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:14px;">${role}</p>
     </div>
@@ -194,7 +196,7 @@ const applicationNotification = ({ fullName, email, phone, role, department, lin
 const applicationAutoReply = ({ fullName, role }) =>
   emailWrapper(`
     <div style="${headerStyle}">
-      <img src="https://www.arinox.ai/logo.png" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
+      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
       <h2 style="color:#fff;margin:0;font-size:20px;">Application Received</h2>
       <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:14px;">${role}</p>
     </div>
