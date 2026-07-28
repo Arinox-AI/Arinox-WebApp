@@ -1,7 +1,6 @@
 ﻿import { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './hooks/useAuth';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -45,8 +44,6 @@ const ScrollReset = () => {
   return null;
 };
 
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
-
 const AppInner = () => {
   const location = useLocation();
 
@@ -82,9 +79,5 @@ const AppInner = () => {
   );
 };
 
-const App = () => GOOGLE_CLIENT_ID
-  ? <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}><AppInner /></GoogleOAuthProvider>
-  : <AppInner />;
-
-export default App;
+export default AppInner;
 

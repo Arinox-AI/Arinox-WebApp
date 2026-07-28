@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const https = require('https');
 const supabase = require('../config/supabase');
 
 const findUserBy = async (field, value) => {
@@ -95,64 +94,6 @@ const getMe = async (req, res, next) => {
   } catch (err) { next(err); }
 };
 
-const getGoogleUser = (access_token) => new Promise((resolve, reject) => {
-  https.get(
-    `https://www.googleapis.com/oauth2/v3/userinfo?access_token=${access_token}`,
-    (res) => {
-      let raw = '';
-      res.on('data', (chunk) => { raw += chunk; });
-      res.on('end', () => {
-        try {
-          const data = JSON.parse(raw);
-          if (data.error) reject(new Error(data.error_description || 'Invalid token'));
-          else resolve(data);
-        } catch { reject(new Error('Failed to parse Google response')); }
-      });
-    }
-  ).on('error', reject);
-});
-
-const googleAuth = async (req, res, next) => {
-  try {
-    const { access_token, register: doRegister = false } = req.body;
-    if (!access_token)
-      return res.status(400).json({ success: false, message: 'Google access token missing.' });
-
-    const { sub: googleId, email, name, picture } = await getGoogleUser(access_token);
-
-    let user = await findUserBy('email', email);
-
-    if (!user) {
-      if (!doRegister) {
-        return res.status(404).json({
-          success: false, code: 'USER_NOT_FOUND',
-          googleUser: { name, email, picture },
-        });
-      }
-      const now = new Date().toISOString();
-      const { data: newUser, error } = await supabase
-        .from('Users')
-        .insert({ name, email, googleId, avatar: picture, isVerified: true, createdAt: now, updatedAt: now })
-        .select()
-        .single();
-      if (error) throw new Error(error.message);
-      user = newUser;
-    } else {
-      const updates = { lastLogin: new Date().toISOString(), loginMethod: 'google' };
-      if (!user.googleId) updates.googleId = googleId;
-      if (!user.avatar) updates.avatar = picture;
-      await updateUser(user.id, updates).catch(() => {});
-    }
-
-    const token = signToken(user.id);
-    setAuthCookie(res, token);
-    res.json({
-      success: true, token,
-      user: { id: user.id, name: user.name, email: user.email, role: user.role, avatar: user.avatar },
-    });
-  } catch (err) { next(err); }
-};
-
 const logout = (req, res) => {
   res.clearCookie('arinox_token', COOKIE_OPTS);
   res.json({ success: true, message: 'Logged out.' });
@@ -170,4 +111,4 @@ const setCookieFromToken = (req, res) => {
   }
 };
 
-module.exports = { register, login, googleAuth, checkEmail, getMe, logout, setCookieFromToken };
+module.exports = { register, login, checkEmail, getMe, logout, setCookieFromToken };

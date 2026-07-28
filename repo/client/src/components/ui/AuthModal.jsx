@@ -4,32 +4,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../hooks/useAuth.jsx';
-import GoogleButton from './GoogleButton';
 import arinoxLogo from '../../assets/img.png';
 
 const INPUT = 'w-full px-4 py-2.5 rounded-xl bg-brand-surface border border-brand-border text-brand-text placeholder-brand-muted text-sm focus:outline-none focus:border-brand-primary transition-colors';
 const BTN_PRIMARY = 'w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50';
 
-const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser = null }) => {
+const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }) => {
   const [mode, setMode] = useState(defaultMode);
   const [form, setForm] = useState({ name: '', email: '', password: '' });
-  // When set, user came via Google but wasn't found — show signup form
-  const [googlePending, setGooglePending] = useState(null);
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  // Reset every time the modal opens; if pendingGoogleUser is passed, pre-fill signup form
+  // Reset every time the modal opens
   useEffect(() => {
     if (isOpen) {
-      if (pendingGoogleUser) {
-        setGooglePending(pendingGoogleUser);
-        setForm({ name: pendingGoogleUser.name, email: pendingGoogleUser.email, password: '' });
-      } else {
-        setMode(defaultMode);
-        setForm({ name: '', email: '', password: '' });
-        setGooglePending(null);
-      }
+      setMode(defaultMode);
+      setForm({ name: '', email: '', password: '' });
     }
   }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -38,20 +29,10 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser =
   const handleClose = () => {
     setForm({ name: '', email: '', password: '' });
     setMode(defaultMode);
-    setGooglePending(null);
     onClose();
   };
 
-  // Called by GoogleButton when server returns USER_NOT_FOUND
-  const handleGoogleNotFound = (googleUser) => {
-    setGooglePending(googleUser); // { name, email, picture }
-    setForm({ name: googleUser.name, email: googleUser.email, password: '' });
-    // googlePending being set is what drives showing the signup form — mode is secondary
-    setMode('register');
-  };
-
-  // googlePending being truthy means: show signup form regardless of mode state
-  const isSignup = mode === 'register' || !!googlePending;
+  const isSignup = mode === 'register';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,8 +78,6 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser =
     }
   };
 
-  const hasGoogle = !!import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -136,49 +115,25 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser =
               {isSignup ? 'Create your account' : 'Sign in to Arinox'}
             </h2>
 
-            {/* Google not-found notice */}
-            {googlePending ? (
-              <p className="text-[11px] text-brand-muted mb-4">
-                No Arinox account for <span className="text-brand-text font-medium">{googlePending.email}</span>.
-                Set a password to complete signup.
-              </p>
-            ) : (
-              <p className="text-[11px] text-brand-muted mb-4">
-                {isSignup ? (
-                  <span>
-                    Already have an account?{' '}
-                    <button
-                      onClick={() => { setMode('login'); setForm(f => ({ ...f, name: '', password: '' })); }}
-                      className="text-brand-primary hover:underline font-medium"
-                    >Sign in</button>
-                  </span>
-                ) : (
-                  <span>
-                    Don't have an account?{' '}
-                    <button
-                      onClick={() => { setMode('register'); setForm(f => ({ ...f, name: '', password: '' })); }}
-                      className="text-brand-primary hover:underline font-medium"
-                    >Sign up</button>
-                  </span>
-                )}
-              </p>
-            )}
-
-            {/* Google button — hide it once we're in the google-pending signup step */}
-            {hasGoogle && !googlePending && (
-              <>
-                <GoogleButton
-                  onSuccess={handleClose}
-                  onNotFound={handleGoogleNotFound}
-                  label={isSignup ? 'Sign up with Google' : 'Continue with Google'}
-                />
-                <div className="flex items-center gap-3 my-4">
-                  <div className="flex-1 h-px bg-brand-border" />
-                  <span className="text-[10px] text-brand-muted uppercase tracking-widest">or</span>
-                  <div className="flex-1 h-px bg-brand-border" />
-                </div>
-              </>
-            )}
+            <p className="text-[11px] text-brand-muted mb-4">
+              {isSignup ? (
+                <span>
+                  Already have an account?{' '}
+                  <button
+                    onClick={() => { setMode('login'); setForm(f => ({ ...f, name: '', password: '' })); }}
+                    className="text-brand-primary hover:underline font-medium"
+                  >Sign in</button>
+                </span>
+              ) : (
+                <span>
+                  Don't have an account?{' '}
+                  <button
+                    onClick={() => { setMode('register'); setForm(f => ({ ...f, name: '', password: '' })); }}
+                    className="text-brand-primary hover:underline font-medium"
+                  >Sign up</button>
+                </span>
+              )}
+            </p>
 
             <form onSubmit={handleSubmit} className="space-y-3 text-left">
               <AnimatePresence initial={false}>
@@ -196,12 +151,9 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser =
                       required
                       value={form.name}
                       onChange={set('name')}
-                      readOnly={!!googlePending}
                       aria-label="Full Name"
                       autoComplete="name"
-                      className={googlePending
-                        ? 'w-full px-4 py-2.5 rounded-xl bg-brand-surface/50 border border-brand-border text-brand-muted text-sm cursor-not-allowed'
-                        : INPUT}
+                      className={INPUT}
                     />
                   </motion.div>
                 )}
@@ -213,12 +165,9 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser =
                 required
                 value={form.email}
                 onChange={set('email')}
-                readOnly={!!googlePending}
                 aria-label="Email address"
                 autoComplete="email"
-                className={googlePending
-                  ? 'w-full px-4 py-2.5 rounded-xl bg-brand-surface/50 border border-brand-border text-brand-muted text-sm cursor-not-allowed'
-                  : INPUT}
+                className={INPUT}
               />
 
               <AnimatePresence initial={false}>
@@ -232,13 +181,13 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login', pendingGoogleUser =
                   >
                     <input
                       type="password"
-                      placeholder={googlePending ? 'Create a password for your account' : 'Password'}
+                      placeholder="Password"
                       required
                       minLength={6}
                       value={form.password}
                       onChange={set('password')}
-                      aria-label={googlePending ? 'Create a password' : 'Password'}
-                      autoComplete={googlePending ? 'new-password' : 'current-password'}
+                      aria-label="Password"
+                      autoComplete="current-password"
                       className={INPUT}
                     />
                   </motion.div>

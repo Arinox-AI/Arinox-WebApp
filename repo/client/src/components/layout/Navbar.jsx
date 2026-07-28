@@ -21,7 +21,6 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
-  const [pendingGoogleUser, setPendingGoogleUser] = useState(null);
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [menuPos, setMenuPos] = useState({ top: 0, right: 0 });
   const userMenuRef = useRef(null);
@@ -246,9 +245,8 @@ const Navbar = () => {
 
       <AuthModal
         isOpen={showAuth}
-        onClose={() => { setShowAuth(false); setPendingGoogleUser(null); }}
+        onClose={() => setShowAuth(false)}
         defaultMode="login"
-        pendingGoogleUser={pendingGoogleUser}
       />
     </>
   );
