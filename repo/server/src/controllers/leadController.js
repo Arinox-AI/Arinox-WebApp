@@ -57,8 +57,9 @@ const submitLead = async (req, res, next) => {
       console.error('Lead DB insert failed (email will still send):', dbErr.message);
     }
 
-    // Notify team + auto-reply to lead (fire and forget)
-    Promise.allSettled([
+    // Notify team + auto-reply to lead. Await in serverless so Vercel does not
+    // freeze the function before SMTP has a chance to complete.
+    const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
         subject: `[Arinox Lead] ${lead.name}${lead.company ? ' — ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
@@ -70,13 +71,12 @@ const submitLead = async (req, res, next) => {
         subject: 'We received your request — Arinox AI',
         html: contactAutoReply({ name: lead.name, subject: 'your AI strategy call' }),
       }),
-    ]).then(results => {
-      results.forEach((r, i) => {
-        if (r.status === 'rejected') {
-          const label = i === 0 ? 'team-notify' : 'auto-reply';
-          console.error(`Email error (lead/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
-        }
-      });
+    ]);
+    emailResults.forEach((r, i) => {
+      if (r.status === 'rejected') {
+        const label = i === 0 ? 'team-notify' : 'auto-reply';
+        console.error(`Email error (lead/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
+      }
     });
 
     res.status(201).json({ success: true, message: "Thank you! We'll be in touch within 24 hours.", id: saved?.id });

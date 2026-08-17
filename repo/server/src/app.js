@@ -31,7 +31,14 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
       process.env.CLIENT_URL,
     ].filter(Boolean);
 app.use(cors({
-  origin: (origin, cb) => (!origin || allowedOrigins.includes(origin) ? cb(null, true) : cb(new Error('CORS blocked'))),
+  origin: (origin, cb) => {
+    // Vercel preview deployments get a *.vercel.app origin — allow those
+    // so preview links (and staging.arinox.ai) can hit the API.
+    if (!origin || allowedOrigins.includes(origin) || /^https:\/\/[\w-]+\.vercel\.app$/.test(origin)) {
+      return cb(null, true);
+    }
+    cb(new Error('CORS blocked'));
+  },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -73,7 +80,10 @@ app.get('/health', (req, res) => res.json({ status: 'ok', env: process.env.NODE_
 // Serve React build in production
 if (process.env.NODE_ENV === 'production') {
   const path = require('path');
+  const fs = require('fs');
   const clientBuild = path.join(__dirname, '../../client/dist');
+
+  if (fs.existsSync(clientBuild)) {
 
   // Standalone Google Ads lead-capture landing page — clean URL alias so
   // the ad can point at /get-started (the file ships as get-started.html).
@@ -100,10 +110,18 @@ if (process.env.NODE_ENV === 'production') {
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.join(clientBuild, 'index.html'));
   });
+  }
 }
 
 app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Vercel serverless: export the app and let the platform handle listening.
+// Run directly (node src/app.js) → start the HTTP server as before.
+if (require.main === module) {
+  server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+}
+
+module.exports = app;

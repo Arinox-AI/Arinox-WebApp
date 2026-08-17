@@ -114,14 +114,6 @@ const team = [
     photo: udayPhoto,
     tags: [],
   },
-  {
-    name: 'Angad Singh',
-    role: 'COO & Chief Spokesperson',
-    superpower: 'AI stack maestro',
-    track: "Ex-NVIDIA & Qualcomm. Architected 40+ on-prem ML grids. Leads the design and deployment of Arinox's sovereign AI infrastructure.",
-    photo: angadPhoto,
-    tags: [],
-  },
 ];
 
 /* ─── Advisors data (TODO: fill real advisory board) ─── */
@@ -373,7 +365,7 @@ const Home = () => {
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Leadership</p>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Architects of <span className="text-gradient">Change</span></h2>
           </motion.div>
-          <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {team.map(({ name, role, superpower, track, tags, photo }, i) => (
               <motion.div key={name} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl overflow-hidden group flex flex-col h-full" intensity={9}>

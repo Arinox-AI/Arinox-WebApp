@@ -19,8 +19,9 @@ const submitContact = async (req, res, next) => {
       .single();
     if (error) throw new Error(error.message);
 
-    // Notify team + auto-reply to user (fire and forget — don't fail the request if email fails)
-    Promise.allSettled([
+    // Notify team + auto-reply to user. Await in serverless so Vercel does not
+    // freeze the function before SMTP has a chance to complete.
+    const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
         subject: `[Arinox] ${subject || 'New Contact'} from ${name}`,
@@ -31,13 +32,12 @@ const submitContact = async (req, res, next) => {
         subject: `We received your message — Arinox AI`,
         html: contactAutoReply({ name, subject }),
       }),
-    ]).then(results => {
-      results.forEach((r, i) => {
-        if (r.status === 'rejected') {
-          const label = i === 0 ? 'team-notify' : 'auto-reply';
-          console.error(`Email error (contact/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
-        }
-      });
+    ]);
+    emailResults.forEach((r, i) => {
+      if (r.status === 'rejected') {
+        const label = i === 0 ? 'team-notify' : 'auto-reply';
+        console.error(`Email error (contact/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
+      }
     });
 
     res.status(201).json({ success: true, message: "Thank you! We'll be in touch shortly.", id: contact.id });

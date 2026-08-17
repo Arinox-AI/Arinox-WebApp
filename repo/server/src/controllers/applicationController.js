@@ -68,8 +68,9 @@ const submitApplication = async (req, res, next) => {
     });
     if (error) throw new Error(error.message);
 
-    // Notify team + auto-reply to applicant
-    Promise.allSettled([
+    // Notify team + auto-reply to applicant. Await in serverless so Vercel does
+    // not freeze the function before SMTP has a chance to complete.
+    const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
         subject: `[Arinox Careers] New Application — ${role} from ${fullName}`,
@@ -85,13 +86,12 @@ const submitApplication = async (req, res, next) => {
         subject: `Application received — ${role} at Arinox AI`,
         html: applicationAutoReply({ fullName, role }),
       }),
-    ]).then(results => {
-      results.forEach((r, i) => {
-        if (r.status === 'rejected') {
-          const label = i === 0 ? 'team-notify' : 'auto-reply';
-          console.error(`Email error (application/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
-        }
-      });
+    ]);
+    emailResults.forEach((r, i) => {
+      if (r.status === 'rejected') {
+        const label = i === 0 ? 'team-notify' : 'auto-reply';
+        console.error(`Email error (application/${label}):`, r.reason?.responseCode ?? '', r.reason?.message ?? r.reason);
+      }
     });
 
     res.status(201).json({ success: true, message: "Application submitted! We'll be in touch." });
