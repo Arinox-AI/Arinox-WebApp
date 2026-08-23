@@ -16,6 +16,7 @@ import udayPhoto from '../assets/Uday bhaskar.png';
 import angadPhoto from '../assets/Angad-Ahluwalia-Chief-Spokesperson-Arinox-AI.jpeg';
 import venuPhoto from '../assets/venu.png';
 import repswalPhoto from '../assets/repswal.jpg';
+import aniruddhaPhoto from '../assets/Aniruddha.png';
 import { globalClients as clients } from '../data/clients';
 import LogoGrid from '../components/ui/LogoGrid';
 
@@ -120,6 +121,7 @@ const team = [
 const advisors = [
   { name: 'Venu Ganganna', role: 'Creative, Data & Tech Specialist', photo: venuPhoto, focus: 'Strategic advisor driving creative innovation, data intelligence, and technology transformation.' },
   { name: 'Lt General BK Repswal', role: 'Defence & Strategic Advisor', photo: repswalPhoto, focus: 'A trusted sounding board for Arinox, providing strategic counsel and deep defence domain expertise.' },
+  { name: 'Aniruddha Deswandikar', role: 'Chief Data Strategist', photo: aniruddhaPhoto, focus: 'Guides Arinox\'s data strategy, helping shape how enterprise data fuels intelligent, scalable AI outcomes.' },
   // { name: 'Advisor Name',  role: 'Technology Advisor', focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
   // { name: 'Advisor Name',  role: 'Industry Advisor',   focus: 'Placeholder bio   replace with advisor background and area of expertise.' },
 ];
@@ -406,7 +408,7 @@ const Home = () => {
             <p className="text-xs tracking-[0.2em] uppercase text-brand-primary mb-3 font-semibold">Advisory Board</p>
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Our <span className="text-gradient">Advisors</span></h2>
           </motion.div>
-          <motion.div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-6">
+          <motion.div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {advisors.map(({ name, role, focus, photo }, i) => (
               <motion.div
                 key={name}
