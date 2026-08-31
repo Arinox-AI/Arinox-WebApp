@@ -56,7 +56,7 @@ const rowStyle = `
 `;
 const labelStyle = `font-weight: 600; color: #FE6300; min-width: 110px; display: inline-block;`;
 
-const logoUrl = () => `${process.env.SITE_URL || 'https://www.arinox.ai'}/logo.png`;
+const logoUrl = () => 'https://www.arinox.ai/logo.png';
 
 const emailWrapper = (content) => `
 <html><body style="${baseStyle}">
