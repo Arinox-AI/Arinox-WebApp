@@ -32,9 +32,9 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
     ].filter(Boolean);
 app.use(cors({
   origin: (origin, cb) => {
-    // Vercel preview deployments get a *.vercel.app origin — allow those
-    // so preview links (and staging.arinox.ai) can hit the API.
-    if (!origin || allowedOrigins.includes(origin) || /^https:\/\/[\w-]+\.vercel\.app$/.test(origin)) {
+    // Vercel preview deployments for this project get *.vercel.app origins —
+    // allow ONLY our project's previews (arinox-website-*), not any Vercel app.
+    if (!origin || allowedOrigins.includes(origin) || /^https:\/\/arinox-website(?:-[\w-]+)?\.vercel\.app$/.test(origin)) {
       return cb(null, true);
     }
     cb(new Error('CORS blocked'));

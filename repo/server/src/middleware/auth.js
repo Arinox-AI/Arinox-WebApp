@@ -11,7 +11,7 @@ const protect = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Not authenticated.' });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const { data: user } = await supabase.from('Users').select('*').eq('id', decoded.id).maybeSingle();
+    const { data: user } = await supabase.from('Users').select('id, name, email, company, phone, role, createdAt, updatedAt, lastLogin, loginMethod').eq('id', decoded.id).maybeSingle();
     if (!user) return res.status(401).json({ success: false, message: 'User no longer exists.' });
 
     req.user = user;

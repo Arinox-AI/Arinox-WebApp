@@ -89,7 +89,7 @@ const checkEmail = async (req, res, next) => {
 
 const getMe = async (req, res, next) => {
   try {
-    const { data: user } = await supabase.from('Users').select('*').eq('id', req.user.id).maybeSingle();
+    const { data: user } = await supabase.from('Users').select('id, name, email, company, phone, role, createdAt, updatedAt, lastLogin, loginMethod').eq('id', req.user.id).maybeSingle();
     res.json({ success: true, user });
   } catch (err) { next(err); }
 };
