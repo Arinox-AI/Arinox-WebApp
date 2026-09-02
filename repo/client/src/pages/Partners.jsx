@@ -18,7 +18,7 @@ const siPartners = [
   { name: 'Nikom',        logo: '/logos/nikom.png',    lc: FC },
   { name: 'TechData',     logo: '/logos/techdata.svg', lc: FC },
   { name: 'HCL Tech',     logo: '/logos/hcltech.svg',  lc: FC },
-  { name: 'Acer',         logo: '/logos/acer.svg',     lc: FC },
+  { name: 'Altos by Acer', logo: '/logos/altos.svg',  lc: FC },
   { name: 'Dataquark',    logo: '/logos/dataquark.png', lc: FC },
 ];
 
