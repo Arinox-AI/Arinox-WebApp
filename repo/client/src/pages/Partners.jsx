@@ -15,9 +15,11 @@ const siPartners = [
   { name: 'IBM',          logo: '/logos/ibm.svg',      lc: FC },
   { name: 'HPE',          logo: '/logos/hpe.svg',      lc: FC },
   { name: 'Langoor',      logo: '/logos/langoor.png',  lc: FC },
+  { name: 'Nikom',        logo: '/logos/nikom.png',    lc: FC },
   { name: 'TechData',     logo: '/logos/techdata.svg', lc: FC },
   { name: 'HCL Tech',     logo: '/logos/hcltech.svg',  lc: FC },
   { name: 'Acer',         logo: '/logos/acer.svg',     lc: FC },
+  { name: 'Dataquark',    logo: '/logos/dataquark.png', lc: FC },
 ];
 
 const techPartners = [
@@ -152,13 +154,13 @@ const Partners = () => {
         </div>
       </section>
 
-      {/* System Integrators */}
+      {/* Partners */}
       <section className="py-20 bg-brand-surface border-t border-brand-border">
         <div className="container-wide">
           <div className="flex items-end justify-between mb-10">
             <div>
               <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-display font-bold text-white mb-2">
-                System Integrators
+                Partners
               </motion.h2>
               <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-sm text-brand-muted">
                 Delivered through world-class partners who bring enterprise relationships and deployment capability.
@@ -166,20 +168,20 @@ const Partners = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-brand-border/25 rounded-xl overflow-hidden">
-            {siPartners.map(({ name, logo, lc }, i) => (
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+            {siPartners.map(({ name, logo }, i) => (
               <motion.div
                 key={name}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.04 }}
-                className="bg-brand-bg flex flex-col items-center justify-center p-6 gap-2.5"
+                className="group w-[calc(50%-6px)] sm:w-[230px] rounded-xl border border-brand-border/40 bg-brand-card hover:border-brand-primary/40 transition-colors flex flex-col items-center justify-center p-6 gap-3"
               >
                 <div className="h-12 w-full flex items-center justify-center">
-                  <img src={logo} alt={name} className="max-h-8 max-w-[130px] w-auto object-contain opacity-70" style={{ filter: 'brightness(0) invert(1)' }} />
+                  <img src={logo} alt={name} loading="lazy" className="max-h-8 max-w-[130px] w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity logo-mono" />
                 </div>
-                <p className="text-xs text-brand-muted text-center">{name}</p>
+                <p className="text-xs text-brand-muted text-center group-hover:text-brand-text transition-colors">{name}</p>
               </motion.div>
             ))}
           </div>

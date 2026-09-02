@@ -52,12 +52,11 @@ const LogoGrid = ({ items }) => {
               <img
                 src={logo}
                 alt={name}
-                className="h-7 sm:h-9 max-w-[100px] sm:max-w-[140px] object-contain opacity-70 hover:opacity-100 transition-opacity"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                className="h-7 sm:h-9 max-w-[100px] sm:max-w-[140px] object-contain opacity-70 hover:opacity-100 transition-opacity logo-mono"
                 loading="lazy"
               />
             ) : (
-              <span className="text-sm font-semibold text-gray-400">{name}</span>
+              <span className="text-sm font-semibold text-brand-subtle">{name}</span>
             )}
           </div>
         ))}

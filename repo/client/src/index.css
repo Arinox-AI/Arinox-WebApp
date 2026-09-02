@@ -168,6 +168,17 @@ html.light-mode .logo-fullcolor {
   opacity: 0.80;
 }
 
+/* ─── Monochrome partner logos ───────────────────────────────
+   logo-mono: solid white on dark surfaces; solid near-black in
+   light mode so logos stay visible on the warm cream background.
+─────────────────────────────────────────────────────────────── */
+.logo-mono {
+  filter: brightness(0) invert(1);
+}
+html.light-mode .logo-mono {
+  filter: brightness(0);
+}
+
 /* ─── Buttons ─────────────────────────────────────────────── */
 .btn-primary {
   display: inline-flex;
