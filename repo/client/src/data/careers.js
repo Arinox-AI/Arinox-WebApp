@@ -2,7 +2,7 @@ export const perks = [
   { icon: 'Globe',       title: 'Impact at Scale', desc: 'Your work powers transformation across industries and continents.' },
   { icon: 'TrendingUp',  title: 'Fast Growth',      desc: "Develop tomorrow's skills today. We invest in your career." },
   { icon: 'Lightbulb',   title: 'Creative Freedom', desc: 'Bring your best ideas. We implement them.' },
-  { icon: 'House',       title: 'Flexible Work',    desc: 'Remote-friendly with offices across India.' },
+  { icon: 'Building2',   title: 'On-Site Collaboration', desc: 'Work side-by-side with the whole team at our office.' },
 ];
 
 export const roles = [
@@ -10,7 +10,7 @@ export const roles = [
     slug: 'ai-associate',
     title: 'AI Associate',
     department: 'Engineering',
-    location: 'Bangalore / Remote',
+    location: 'Bangalore / On-site',
     type: 'Full-time',
     jd: {
       tagline: "This is an entry-level role   but we're not looking for \"years on paper.\" We're looking for curiosity, builders, and people obsessed with figuring things out.",

@@ -6,7 +6,7 @@ import * as LucideIcons from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../hooks/useAuth';
 import AuthModal from '../components/ui/AuthModal';
-import { perks as perksData, roles as fallbackRoles } from '../data/careers';
+import { perks as perksData } from '../data/careers';
 
 /* ─── Helpers ────────────────────────────────────────────── */
 const getJdBySlug = (roles, role) => {
@@ -231,15 +231,12 @@ const Careers = () => {
 
   useEffect(() => {
     axios.get('/api/v1/careers')
-      .then(({ data }) => {
-        const apiRoles = data.data || [];
-        setCareers(apiRoles);
-      })
-      .catch(() => setCareers(fallbackRoles))
+      .then(({ data }) => setCareers(data.data || []))
+      .catch(() => setCareers([]))
       .finally(() => setLoading(false));
   }, []);
 
-  const list = careers.length ? careers : fallbackRoles;
+  const list = careers;
   const depts = ['All', ...new Set(list.map(j => j.department))];
   const filtered = list.filter(j => filter === 'All' || j.department === filter);
   const perks = perksData.map(p => ({ ...p, Icon: LucideIcons[p.icon] }));
@@ -253,45 +250,50 @@ const Careers = () => {
       />
 
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative pt-36 pb-12 grid-bg overflow-hidden">
+      <section className="relative pt-36 pb-24 grid-bg overflow-hidden">
         <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-0 right-0 -translate-y-1/4" />
-        <div className="container-wide relative">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4">Careers</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4">
+        <div className="container-wide relative text-center">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4 font-semibold">Careers</motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4 leading-[1.1]">
             Build What <span className="text-gradient">Matters.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="text-sm md:text-base text-brand-muted max-w-xl">
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="text-sm md:text-base text-brand-muted max-w-xl mx-auto leading-relaxed">
             We don't chase AI buzzwords. We build systems that transform how enterprises and governments work.
           </motion.p>
-          <motion.a initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }} href="#roles"
-            className="inline-flex mt-7 px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity">
-            Join Our Mission
-          </motion.a>
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }}>
+            <a href="#roles"
+              className="inline-flex mt-8 px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all">
+              See Open Roles ↓
+            </a>
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }} className="absolute bottom-6 left-1/2 -translate-x-1/2">
+            <motion.div animate={{ y: [0, 7, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }} className="w-px h-10 bg-gradient-to-b from-brand-primary to-transparent" />
+          </motion.div>
         </div>
       </section>
 
       {/* ── Why Join Arinox ──────────────────────────────── */}
-      <section className="py-12">
+      <section className="py-16">
         <div className="container-wide">
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Why <span className="text-gradient">Join Arinox?</span></h2>
+            <p className="text-sm text-brand-muted mt-3">What you can expect when you join the team.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-brand-border/25 rounded-xl overflow-hidden">
             {perks.map(({ Icon, title, desc }, i) => (
               <motion.div
                 key={title}
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="glass-card rounded-2xl p-5"
+                transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="bg-brand-bg hover:bg-brand-card transition-colors p-5 lg:p-6"
               >
-                <div className="w-9 h-9 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-3">
-                  <Icon />
+                <div className="w-9 h-9 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-4">
+                  <Icon size={18} strokeWidth={1.8} />
                 </div>
                 <h3 className="text-white font-bold mb-1.5 text-sm">{title}</h3>
-                <p className="text-sm text-brand-muted leading-relaxed">{desc}</p>
+                <p className="text-xs lg:text-sm text-brand-muted leading-relaxed">{desc}</p>
               </motion.div>
             ))}
           </div>
@@ -299,25 +301,46 @@ const Careers = () => {
       </section>
 
       {/* ── Open Roles ───────────────────────────────────── */}
-      <section id="roles" className="py-12 bg-brand-surface">
+      <section id="roles" className="py-16 border-t border-brand-border">
         <div className="container-wide">
           <div className="text-center mb-7">
             <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Open <span className="text-gradient">Positions</span></h2>
+            {!loading && list.length > 0 && (
+              <p className="text-sm text-brand-muted mt-3">{list.length} open {list.length === 1 ? 'role' : 'roles'}</p>
+            )}
           </div>
 
           {/* Filter tabs */}
-          <div className="flex flex-wrap gap-3 justify-center mb-6">
-            {depts.map(d => (
-              <button key={d} onClick={() => setFilter(d)}
-                className={`px-4 py-2 rounded-xl text-sm transition-all ${filter === d ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'glass border border-brand-border text-brand-muted hover:text-brand-text'}`}>
-                {d}
-              </button>
-            ))}
-          </div>
+          {depts.length > 1 && (
+            <div className="flex flex-wrap gap-3 justify-center mb-6">
+              {depts.map(d => (
+                <button key={d} onClick={() => setFilter(d)}
+                  className={`px-4 py-2 rounded-xl text-sm transition-all ${filter === d ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'glass border border-brand-border text-brand-muted hover:text-brand-text'}`}>
+                  {d}
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="space-y-4">
             {loading
               ? Array.from({ length: 4 }).map((_, i) => <div key={i} className="glass-card rounded-2xl h-20 animate-pulse" />)
+              : filtered.length === 0 ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  className="glass-card rounded-2xl px-6 py-14 text-center"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mx-auto mb-4">
+                    <LucideIcons.Inbox size={20} strokeWidth={1.8} />
+                  </div>
+                  <h3 className="text-white font-bold mb-2">No open roles right now</h3>
+                  <p className="text-sm text-brand-muted max-w-sm mx-auto leading-relaxed">
+                    We don't have any active positions at the moment, but we're always looking for exceptional people.
+                  </p>
+                </motion.div>
+              )
               : filtered.map((job, i) => (
                 <motion.div
                   key={i}
@@ -428,11 +451,20 @@ const Careers = () => {
             }
           </div>
 
-          <div className="text-center mt-7">
-            <p className="text-brand-muted text-sm mb-3">Don't see a role that fits? We still want to hear from you.</p>
-            <a href="mailto:assist@arinox.ai" className="text-brand-primary font-medium hover:underline text-sm">
-              Send your CV → assist@arinox.ai
-            </a>
+          {/* CTA */}
+          <div className="relative overflow-hidden line-grid rounded-2xl mt-12 px-6 py-12 text-center border border-brand-border/40">
+            <div className="orb w-[360px] h-[360px] bg-brand-primary/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            <div className="relative">
+              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3">
+                Don't see your role? <span className="text-gradient">We still want to hear from you.</span>
+              </h3>
+              <p className="text-sm text-brand-muted mb-6 max-w-md mx-auto">
+                Send your CV and tell us where you'd make a difference.
+              </p>
+              <a href="mailto:assist@arinox.ai" className="inline-flex px-7 py-3 rounded-xl bg-brand-primary text-white font-semibold text-sm hover:bg-brand-secondary transition-colors">
+                Send your CV → assist@arinox.ai
+              </a>
+            </div>
           </div>
         </div>
       </section>
