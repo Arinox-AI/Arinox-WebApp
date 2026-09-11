@@ -35,14 +35,19 @@ const tracks = [
 
 const techStack = [
   {
-    name: 'KOGO',
+    name: 'KOGO OS',
     tag: 'Agentic platform',
-    desc: 'The agentic layer we deploy for every engagement — agent building, orchestration, memory, and governance. An affiliated technology of the Arinox family, purpose-built for private enterprise AI.',
+    desc: 'The flagship private agentic AI platform built into every CommandCore unit — Agent Builder, Agent Store, Agentic Mesh orchestration, guardrails, red-teaming, and 500+ connectors, with zero dependence on cloud models. An affiliated technology of the Arinox family.',
   },
   {
     name: 'Altos by Acer',
     tag: 'Infrastructure',
     desc: 'Enterprise-grade server hardware purpose-built for on-premises sovereign AI deployments at scale.',
+  },
+  {
+    name: 'Compute accelerators',
+    tag: 'Hardware',
+    desc: 'CommandCore S, M, and XL are powered by NVIDIA AGX Jetson Orin, Grace Blackwell, and RTX PRO accelerators. Qualcomm Cloud AI options are supported for edge and PCIe-accelerated deployments.',
   },
 ];
 
@@ -123,19 +128,6 @@ const Partners = () => (
                 </div>
               </Reveal>
             ))}
-            <Reveal delay={0.15}>
-              <div className="card p-6 md:p-7">
-                <div className="flex items-center gap-2.5 mb-2">
-                  <h3 className="font-display font-bold text-[16px]">Compute accelerators</h3>
-                  <span className="chip">Hardware</span>
-                </div>
-                <p className="text-[13.5px] text-brand-muted leading-relaxed">
-                  CommandCore systems are engineered around leading GPU accelerators — selected per deployment for
-                  the right balance of performance, power, and environment. Exact silicon choices are part of every
-                  solution architecture.
-                </p>
-              </div>
-            </Reveal>
           </div>
         </div>
       </section>

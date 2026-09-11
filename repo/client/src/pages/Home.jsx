@@ -13,7 +13,7 @@ const problems = [
   {
     Icon: CloudOff,
     title: 'Your data walks out the door',
-    desc: 'Every cloud AI call sends your operational data to someone else\u2019s infrastructure. For regulated and IP-heavy businesses, that\u2019s not a trade-off \u2014 it\u2019s a liability.',
+    desc: 'Every cloud AI call sends your operational data to someone else’s infrastructure. For regulated and IP-heavy businesses, that’s not a trade-off — it’s a liability.',
   },
   {
     Icon: Receipt,
@@ -22,16 +22,16 @@ const problems = [
   },
   {
     Icon: ShieldCheck,
-    title: 'Compliance can\u2019t be retrofitted',
-    desc: 'Regulators across BFSI, healthcare, defence, and government expect data residency and auditability by design \u2014 not as an afterthought.',
+    title: 'Compliance can’t be retrofitted',
+    desc: 'Regulators across BFSI, healthcare, defence, and government expect data residency and auditability by design — not as an afterthought.',
   },
 ];
 
 const steps = [
-  { step: '01', title: 'Assess',      desc: 'We map where AI creates real advantage in your operations \u2014 workflows, data readiness, constraints, and compliance exposure.' },
+  { step: '01', title: 'Assess',      desc: 'We map where AI creates real advantage in your operations — workflows, data readiness, constraints, and compliance exposure.' },
   { step: '02', title: 'Architect',   desc: 'We design the private AI stack for your environment: hardware footprint, agents, integrations, and governance.' },
   { step: '03', title: 'Deploy',      desc: 'CommandCore is installed inside your perimeter. KOGO agents are configured with your rules and handed over with full training.' },
-  { step: '04', title: 'Run & scale', desc: 'We operate and measure with you \u2014 adding agents, workflows, and sites as your AI practice matures.' },
+  { step: '04', title: 'Run & scale', desc: 'We operate and measure with you — adding agents, workflows, and sites as your AI practice matures.' },
 ];
 
 const sectors = [
@@ -51,18 +51,18 @@ const Home = () => (
       canonical="https://www.arinox.ai/"
     />
 
-    {/* --- HERO --- */}
+    {/* ═══ HERO ═══ */}
     <section className="pt-32 md:pt-40 pb-16 md:pb-24">
       <div className="container-wide grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="overline">AI transformation � Built in India</p>
+            <p className="overline">AI transformation · Built in India</p>
             <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-display font-extrabold leading-[1.08] mb-6">
               Private AI,<br />
               <span className="text-gradient">working inside your company.</span>
             </h1>
             <p className="lead max-w-xl mb-8">
-              Arinox helps enterprises put AI to real work � on your own infrastructure, under your control.
+              Arinox helps enterprises put AI to real work — on your own infrastructure, under your control.
               Our platform, <strong className="text-brand-text">CommandCore</strong>, and the <strong className="text-brand-text">KOGO agentic layer</strong>{' '}
               turn AI ambition into production systems that respect your data, your compliance, and your economics.
             </p>
@@ -77,7 +77,7 @@ const Home = () => (
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-[13px] text-brand-muted">
               <span className="inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />Deployed with the Indian Army (DGIS)</span>
               <span className="inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />Recognised by Startup India (DPIIT)</span>
-              <span className="inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />Bengaluru � New Delhi</span>
+              <span className="inline-flex items-center gap-1.5"><span className="w-1.5 h-1.5 rounded-full bg-brand-primary" />Bengaluru · New Delhi</span>
             </div>
           </Reveal>
         </div>
@@ -90,7 +90,7 @@ const Home = () => (
             <div className="flex items-start gap-3 mt-4 px-1">
               <span className="w-2 h-2 rounded-sm bg-brand-primary mt-1.5 shrink-0" />
               <p className="text-xs text-brand-subtle leading-relaxed max-w-sm">
-                CommandCore � sovereign AI infrastructure running entirely within the customer�s premises.
+                CommandCore — sovereign AI infrastructure running entirely within the customer’s premises.
               </p>
             </div>
           </Reveal>
@@ -98,7 +98,7 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- WHO WE WORK WITH --- */}
+    {/* ═══ WHO WE WORK WITH ═══ */}
     <section className="border-y border-brand-border bg-brand-surface py-12 md:py-16">
       <div className="container-wide">
         <Reveal>
@@ -110,15 +110,15 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- 01 � WHY PRIVATE AI --- */}
+    {/* ═══ 01 · WHY PRIVATE AI ═══ */}
     <section className="section-padding">
       <div className="container-wide">
         <div className="grid lg:grid-cols-12 gap-10">
           <div className="lg:col-span-4">
             <SectionHead
-              overline="01 � Why private AI"
+              overline="01 · Why private AI"
               title="Cloud AI asks you to rent your intelligence."
-              lead="Sending every workflow through a shared cloud model means giving up control of your data, your margins, and your compliance story � forever."
+              lead="Sending every workflow through a shared cloud model means giving up control of your data, your margins, and your compliance story — forever."
             />
           </div>
           <div className="lg:col-span-8 grid md:grid-cols-3 gap-4">
@@ -138,13 +138,13 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- 02 � WHAT WE DO --- */}
+    {/* ═══ 02 · WHAT WE DO ═══ */}
     <section className="section-padding bg-brand-surface border-y border-brand-border">
       <div className="container-wide">
         <SectionHead
-          overline="02 � What we do"
+          overline="02 · What we do"
           title="We bring the expertise for the whole journey."
-          lead="Arinox is not a tool vendor. We take responsibility for the transformation � from first assessment to an AI practice that runs inside your company."
+          lead="Arinox is not a tool vendor. We take responsibility for the transformation — from first assessment to an AI practice that runs inside your company."
           align="center"
           className="mb-12"
         />
@@ -167,26 +167,26 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- 03 � COMMANDCORE --- */}
+    {/* ═══ 03 · COMMANDCORE ═══ */}
     <section className="section-padding">
       <div className="container-wide grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="overline">03 � The platform</p>
+            <p className="overline">03 · The platform</p>
             <h2 className="text-3xl md:text-4xl font-display font-extrabold leading-[1.15] mb-5">
-              CommandCore.<br />Sovereign AI infrastructure.
+              CommandCore.<br />Agentic AI, in a box.
             </h2>
             <p className="lead mb-7">
-              Our own product: AI compute engineered to live inside your walls � from compact edge units
-              to datacenter-grade systems. Models, prompts, and data never leave your perimeter. Air-gapped
-              operation supported end to end.
+              Our own product: a self-contained AI micro-datacenter engineered to live inside your walls —
+              from compact edge units to datacenter-grade systems. 100% AI, 0% internet. Models, prompts,
+              and data never leave your perimeter.
             </p>
             <ul className="space-y-3 mb-8">
               {[
                 'Runs on your hardware, in your network, under your governance',
-                'Purpose-built agents execute real workflows � not just answer questions',
+                'Purpose-built agents execute real workflows — not just answer questions',
                 'Role-based access and full audit trails on every AI decision',
-                'Deployment measured in weeks, not multi-year programmes',
+                'Plug-and-play deployment in weeks, not multi-year programmes',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-[14px] text-brand-muted">
                   <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-primary shrink-0" />
@@ -202,11 +202,11 @@ const Home = () => (
         <div className="lg:col-span-6">
           <Reveal delay={0.12}>
             <div className="grid grid-cols-2 gap-4">
-              <div className="img-frame aspect-[4/5]">
-                <img src={img('m-series')} alt="CommandCore M edge unit" loading="lazy" />
+              <div className="img-frame img-contain aspect-[4/5]">
+                <img src={img('commandcore-m')} alt="CommandCore M — Blackwell powered agents on your desktop" loading="lazy" />
               </div>
-              <div className="img-frame aspect-[4/5] mt-8">
-                <img src={img('xl-series')} alt="CommandCore XL datacenter-grade system" loading="lazy" />
+              <div className="img-frame img-contain aspect-[4/5] mt-8">
+                <img src={img('commandcore-xl')} alt="CommandCore XL — datacenter-grade private agentic AI" loading="lazy" />
               </div>
             </div>
           </Reveal>
@@ -214,25 +214,25 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- 04 � KOGO (ink band) --- */}
+    {/* ═══ 04 · KOGO (ink band) ═══ */}
     <section className="section-padding band-ink">
       <div className="container-wide grid lg:grid-cols-12 gap-12 items-center">
         <div className="lg:col-span-5">
           <Reveal>
-            <p className="overline" style={{ color: '#F07A2E' }}>04 � The agentic layer</p>
+            <p className="overline" style={{ color: '#F07A2E' }}>04 · The agentic layer</p>
             <h2 className="text-3xl md:text-4xl font-display font-extrabold leading-[1.15] mb-5">
               From infrastructure to intelligence.
             </h2>
             <p className="lead mb-7" style={{ color: 'rgba(242,239,233,0.72)' }}>
-              CommandCore�s intelligence comes from <strong className="text-white">KOGO</strong> � the agentic
-              platform we deploy on every engagement. KOGO turns compute into working AI: agents that build,
-              orchestrate, remember, and stay accountable.
+              CommandCore’s intelligence comes from <strong className="text-white">KOGO OS</strong> — the agentic
+              platform built into every unit. KOGO turns compute into working AI: agents that build, orchestrate,
+              remember, and stay accountable.
             </p>
             <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-2.5">
               {[
                 'Agent registry & lifecycle',
                 'Multi-agent orchestration',
-                'Governed RAG � cited to source',
+                'Governed RAG — cited to source',
                 'LLMOps: models, prompts, memory',
                 'Voice agents over telephony',
                 'Human-in-the-loop approvals',
@@ -248,21 +248,21 @@ const Home = () => (
         <div className="lg:col-span-7">
           <Reveal delay={0.12}>
             <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-              <img src={img('kogo')} alt="KOGO agentic layer" loading="lazy" className="w-full object-cover aspect-[16/9]" />
+              <img src={img('kogo')} alt="KOGO OS agentic layer" loading="lazy" className="w-full object-cover aspect-[16/9]" />
             </div>
           </Reveal>
         </div>
       </div>
     </section>
 
-    {/* --- 05 � SECTORS --- */}
+    {/* ═══ 05 · SECTORS ═══ */}
     <section className="section-padding">
       <div className="container-wide">
         <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
           <SectionHead
-            overline="05 � Where it works"
+            overline="05 · Where it works"
             title="Wherever AI must perform without compromise."
-            lead="Every engagement is engineered for the constraints of the domain � not a generic AI layer stretched to fit."
+            lead="Every engagement is engineered for the constraints of the domain — not a generic AI layer stretched to fit."
           />
           <Reveal delay={0.1}>
             <Link to="/solutions" className="btn btn-outline shrink-0">
@@ -296,11 +296,11 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- 06 � PROOF --- */}
+    {/* ═══ 06 · PROOF ═══ */}
     <section className="section-padding bg-brand-surface border-y border-brand-border">
       <div className="container-wide">
         <SectionHead
-          overline="06 � Proof"
+          overline="06 · Proof"
           title="Deployed where it matters most."
           lead="Our anchor deployment runs inside one of the most demanding environments in the country. The rest is delivered, measured, and expanding."
           align="center"
@@ -365,14 +365,14 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- 07 � LEADERSHIP --- */}
+    {/* ═══ 07 · LEADERSHIP ═══ */}
     <section className="section-padding">
       <div className="container-wide">
         <div className="flex flex-wrap items-end justify-between gap-6 mb-10">
           <SectionHead
-            overline="07 � Leadership"
+            overline="07 · Leadership"
             title="Architects of change."
-            lead="Operators who have run large-scale transformations � now building the private AI layer for enterprise India."
+            lead="Operators who have run large-scale transformations — now building the private AI layer for enterprise India."
           />
           <Reveal delay={0.1}>
             <Link to="/about" className="btn btn-outline shrink-0">
@@ -399,16 +399,16 @@ const Home = () => (
       </div>
     </section>
 
-    {/* --- CTA --- */}
+    {/* ═══ CTA ═══ */}
     <section className="band-ink">
       <div className="container-wide py-20 md:py-24 text-center max-w-3xl">
         <Reveal>
           <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-brand-primary mb-5" style={{ fontFamily: 'Manrope' }}>Ready?</p>
           <h2 className="text-3xl md:text-4xl font-display font-extrabold leading-[1.15] mb-5">
-            Start with a problem.<br />We�ll build the system.
+            Start with a problem.<br />We’ll build the system.
           </h2>
           <p className="lead mb-8" style={{ color: 'rgba(242,239,233,0.72)' }}>
-            A focused conversation where we map where private AI fits your operations, strategy, and compliance needs � no jargon, no commitment.
+            A focused conversation where we map where private AI fits your operations, strategy, and compliance needs — no jargon, no commitment.
           </p>
           <div className="flex flex-wrap gap-3 justify-center">
             <Link to="/contact" className="btn btn-on-dark">

@@ -40,6 +40,9 @@ const Footer = () => (
           <a href={`mailto:${company.email}`} className="block text-sm text-white/70 hover:text-white transition-colors mb-2">
             {company.email}
           </a>
+          <a href={`tel:${company.phone.replace(/\s/g, '')}`} className="block text-sm text-white/70 hover:text-white transition-colors mb-2">
+            {company.phone}
+          </a>
           <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="block text-sm text-white/70 hover:text-white transition-colors mb-4">
             LinkedIn
           </a>

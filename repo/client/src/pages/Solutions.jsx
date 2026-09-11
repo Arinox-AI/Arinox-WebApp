@@ -233,10 +233,10 @@ const Solutions = () => {
           <Reveal>
             <div className="card p-6 md:p-7 flex flex-col md:flex-row md:items-center gap-5">
               <div className="flex-1">
-                <span className="chip mb-2">KOGO</span>
-                <h3 className="font-display font-bold text-[16px] mb-1">Full-stack agentic layer</h3>
+                <span className="chip mb-2">KOGO OS</span>
+                <h3 className="font-display font-bold text-[16px] mb-1">Built-in agentic OS</h3>
                 <p className="text-[13.5px] text-brand-muted leading-relaxed">
-                  Agent registry · multi-agent orchestration · governed RAG · LLMOps — all running on your hardware, never on ours.
+                  Agent Builder · Agent Store · Agentic Mesh orchestration · guardrails · red-teaming · 500+ connectors — all running on your hardware, never on ours.
                 </p>
               </div>
               <Link to="/commandcore" className="btn btn-outline shrink-0">

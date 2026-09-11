@@ -199,8 +199,9 @@ const Contact = () => {
 
             <Reveal delay={0.12}>
               <div className="card p-5">
-                <p className="font-display font-bold text-sm mb-0.5">Email us</p>
-                <a href={`mailto:${company.email}`} className="text-brand-primary hover:underline text-sm">{company.email}</a>
+                <p className="font-display font-bold text-sm mb-2">Talk to us</p>
+                <a href={`mailto:${company.email}`} className="block text-brand-primary hover:underline text-sm mb-1">{company.email}</a>
+                <a href={`tel:${company.phone.replace(/\s/g, '')}`} className="block text-brand-muted hover:text-brand-text text-sm">{company.phone}</a>
               </div>
             </Reveal>
 
