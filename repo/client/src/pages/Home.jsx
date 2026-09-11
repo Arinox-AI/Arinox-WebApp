@@ -1,41 +1,64 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowRight, ShieldCheck, RefreshCw, Cpu, Network,
+  Compass, Code2, Boxes, Landmark, Building2, Scale, Activity,
+} from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import Reveal from '../components/ui/Reveal';
 import LogoWall from '../components/ui/LogoWall';
 import { img } from '../data/images';
 import { anchorDeployment, anonymisedStudies } from '../data/caseStudies';
-import { team } from '../data/site';
+import { team, values } from '../data/site';
 import { deliveryPartners } from '../data/clients';
 import { samplePosts } from './Blog';
 
-const services = [
+/* ── Why Arinox — the company's own differentiators ─────── */
+const why = [
   {
-    index: '01',
-    title: 'Strategy & roadmap',
-    desc: 'We find where AI actually pays off in your operations and sequence the path there — opportunity map, business case, data readiness, governance.',
-    tags: 'Assessment · Business case · Roadmap',
+    Icon: ShieldCheck,
+    title: 'Sovereign AI',
+    desc: 'Your data stays yours. Deploy on private cloud or on-premises, with compliance built in — not bolted on.',
   },
   {
-    index: '02',
-    title: 'Private AI implementation',
-    desc: 'We design, build, and deploy AI systems inside your environment — on your data, under your governance, with no public-cloud dependency.',
-    tags: 'Architecture · Deployment · Air-gapped',
+    Icon: RefreshCw,
+    title: 'AI that adapts',
+    desc: 'Enterprise-grade solutions that bend to your operations. Zero compromise on security.',
   },
   {
-    index: '03',
-    title: 'Integration & adoption',
-    desc: 'We connect AI to the systems you already run, redesign the workflows around it, and train the teams who will own it.',
-    tags: 'ERP / CRM · Workflows · Enablement',
+    Icon: Cpu,
+    title: 'Agents that fit',
+    desc: 'Seamless integration into your existing workflows. Real reasoning, real work — results from day one.',
   },
   {
-    index: '04',
-    title: 'Operate & scale',
-    desc: 'We run and improve the capability with you — measuring performance, hardening what matters, and expanding to new workflows and sites.',
-    tags: 'Managed ops · Observability · Expansion',
+    Icon: Network,
+    title: 'Ecosystem strength',
+    desc: 'A global partner network bringing best-in-class technology, infrastructure, and outcomes.',
   },
 ];
 
+/* ── What we do ──────────────────────────────────────────── */
+const services = [
+  {
+    index: '01',
+    Icon: Compass,
+    title: 'Strategy & roadmap',
+    desc: 'We solve with purpose. From roadmap to rollout, we decode how your enterprise runs today and redesign how it should operate tomorrow — strategy, systems, and scale.',
+  },
+  {
+    index: '02',
+    Icon: Code2,
+    title: 'Private AI implementation',
+    desc: 'We build and deploy AI systems inside your environment — on your data, under your governance, air-gapped where it matters, with no public-cloud dependency.',
+  },
+  {
+    index: '03',
+    Icon: Boxes,
+    title: 'Ecosystem & adoption',
+    desc: 'From discovery to delivery, we design and manage your AI ecosystem end to end — data readiness, implementation, and adoption that turns strategy into measurable business value.',
+  },
+];
+
+/* ── The journey ─────────────────────────────────────────── */
 const phases = [
   { n: '01', title: 'Assess',    desc: 'Current systems, data reality, compliance constraints — and where AI creates measurable advantage.', out: 'Opportunity map, business case' },
   { n: '02', title: 'Architect', desc: 'Target architecture, deployment model, integrations, and the governance that goes with them.',        out: 'Blueprint, deployment plan' },
@@ -43,13 +66,23 @@ const phases = [
   { n: '04', title: 'Run',       desc: 'Measured operations, continuous improvement, and a roadmap for the next set of workflows.',            out: 'A running AI capability' },
 ];
 
-const sectors = [
-  { label: 'BFSI',                 note: 'Compliance, risk & operations agents',   to: '/solutions#bfsi' },
-  { label: 'Defence',              note: 'Air-gapped intelligence & logistics',    to: '/solutions#defence' },
-  { label: 'Government',           note: 'Policy continuity & public analytics',   to: '/solutions#government' },
-  { label: 'Healthcare',           note: 'Triage, claims & clinical knowledge',    to: '/solutions#healthcare' },
-  { label: 'Manufacturing',        note: 'Forecasting, maintenance & throughput',  to: '/solutions#manufacturing' },
-  { label: 'Professional & legal', note: 'Knowledge, review & evidence work',      to: '/solutions' },
+/* ── Architecture stack ──────────────────────────────────── */
+const stack = [
+  { layer: 'Your teams & workflows',   note: 'Where the value shows up' },
+  { layer: 'AI agents',                note: 'Built for your operations, governed by your rules' },
+  { layer: 'KOGO OS',                  note: 'The agentic layer — builder, mesh, memory, guardrails' },
+  { layer: 'Models & knowledge',       note: 'Running locally, answers cited to source' },
+  { layer: 'CommandCore',              note: 'Sovereign AI infrastructure — S, M, XL' },
+  { layer: 'Your premises',            note: 'Your network. Your compliance boundary.' },
+];
+
+const industries = [
+  { Icon: Landmark,  label: 'Banking & finance',       note: 'Capital markets & compliance AI',   photo: 'banking',    to: '/solutions#bfsi' },
+  { Icon: ShieldCheck, label: 'Defence & army',        note: 'Sovereign military AI systems',     photo: 'defence',    to: '/solutions#defence' },
+  { Icon: Building2, label: 'Government',              note: 'Public sector intelligence',        photo: 'government', to: '/solutions#government' },
+  { Icon: Activity,  label: 'Healthcare',              note: 'Clinical AI & health compliance',   photo: 'healthcare', to: '/solutions#healthcare' },
+  { Icon: Cpu,       label: 'Technology & industry',   note: 'Enterprise platforms & OT AI',      photo: 'technology', to: '/solutions#manufacturing' },
+  { Icon: Scale,     label: 'Legal & professional',    note: 'AI-assisted legal intelligence',    photo: 'legal',      to: '/solutions' },
 ];
 
 const faqs = [
@@ -67,7 +100,7 @@ const faqs = [
   },
   {
     q: 'Where does CommandCore fit?',
-    a: 'CommandCore is the platform we deliver on — our own sovereign AI infrastructure, with the KOGO OS agentic layer built in. It is the engine behind the work, not the start of the conversation.',
+    a: 'CommandCore is the platform we deliver on — our own sovereign AI infrastructure, with the KOGO OS agentic layer built in. It is how we deliver the transformation, not what we lead with.',
   },
 ];
 
@@ -95,20 +128,21 @@ const Home = () => {
         <div className="container-wide grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-6">
             <Reveal>
-              <p className="mono-label mono-label-accent">AI transformation company</p>
-              <h1 className="text-[2.6rem] leading-[1.06] md:text-[3.4rem] font-display tracking-[-0.02em] mb-6">
-                We implement private AI inside your company.
+              <p className="mono-label mono-label-accent">AI transformation company · Built in India</p>
+              <h1 className="text-[2.6rem] leading-[1.05] md:text-[3.5rem] font-display tracking-[-0.02em] mb-6">
+                We make AI work<br />inside your company.
               </h1>
               <p className="text-[16.5px] text-brand-muted leading-relaxed max-w-xl mb-9">
-                Arinox is the AI transformation partner for large organisations — strategy, deployment,
-                integration, and operations, end to end. On your data, in your environment, under your governance.
+                Arinox is the AI transformation partner for large organisations. We bring the strategy,
+                the engineering, and the platform — and we stay until AI is running on your data,
+                in your environment, under your governance.
               </p>
               <div className="flex flex-wrap items-center gap-x-7 gap-y-4 mb-10">
                 <Link to="/contact" className="btn btn-primary">
                   Start a conversation
                 </Link>
-                <a href="#what-we-do" className="arrow-link">
-                  What we do <ArrowRight size={15} />
+                <a href="#why-arinox" className="arrow-link">
+                  Why Arinox <ArrowRight size={15} />
                 </a>
               </div>
               <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12.5px] text-brand-muted pt-6 border-t border-brand-border">
@@ -121,22 +155,28 @@ const Home = () => {
 
           <div className="lg:col-span-6">
             <Reveal delay={0.12}>
-              <div className="grid grid-cols-3 gap-4">
-                {[
-                  { key: 'commandcore-s', label: 'CommandCore S' },
-                  { key: 'commandcore-m', label: 'CommandCore M' },
-                  { key: 'commandcore-xl', label: 'CommandCore XL' },
-                ].map(({ key, label }) => (
-                  <div key={key}>
-                    <div className="img-frame img-contain aspect-square">
-                      <img src={img(key)} alt={label} fetchpriority="high" />
+              <div className="rounded-lg border border-brand-border bg-brand-surface p-6 md:p-7">
+                <div className="grid grid-cols-3 gap-4">
+                  {[
+                    { key: 'commandcore-s', label: 'CommandCore S' },
+                    { key: 'commandcore-m', label: 'CommandCore M' },
+                    { key: 'commandcore-xl', label: 'CommandCore XL' },
+                  ].map(({ key, label }) => (
+                    <div key={key}>
+                      <div className="img-frame img-contain aspect-square bg-white">
+                        <img src={img(key)} alt={label} fetchpriority="high" />
+                      </div>
+                      <p className="mono text-[9.5px] tracking-[0.1em] text-brand-subtle mt-2.5 text-center uppercase">{label}</p>
                     </div>
-                    <p className="mono text-[9.5px] tracking-[0.1em] text-brand-subtle mt-2.5 text-center uppercase">{label}</p>
-                  </div>
-                ))}
+                  ))}
+                </div>
+                <div className="flex items-center justify-between mt-5 pt-5 border-t border-brand-border gap-4">
+                  <span className="mono text-[10px] tracking-[0.14em] text-brand-subtle uppercase shrink-0">Powered by</span>
+                  <span className="text-[13px] font-medium text-right">KOGO OS — agentic layer, built in</span>
+                </div>
               </div>
               <p className="photo-caption text-center">
-                The infrastructure behind the work — sovereign AI systems we build and operate inside your premises.
+                CommandCore — the private AI platform we build and operate inside your premises.
               </p>
             </Reveal>
           </div>
@@ -148,19 +188,20 @@ const Home = () => {
         <div className="container-wide py-12 md:py-14">
           <Reveal>
             <p className="text-[12.5px] text-brand-muted text-center mb-10">
-              Delivered with partners who bring enterprise relationships and deployment capability.
+              Trusted by enterprises, governments, and defence — delivered with
+              world-class system integrators and technology partners.
             </p>
           </Reveal>
           <LogoWall items={deliveryPartners} cols="grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" />
         </div>
       </section>
 
-      {/* ═══ 01 · WHAT WE DO ═══ */}
-      <section className="section-padding" id="what-we-do">
+      {/* ═══ 01 · WHY ARINOX ═══ */}
+      <section className="section-padding" id="why-arinox">
         <div className="container-wide">
           <div className="rule-head mb-16">
             <span className="index">01</span>
-            <span className="label">What we do</span>
+            <span className="label">Why Arinox</span>
             <span className="line" />
           </div>
 
@@ -168,49 +209,99 @@ const Home = () => {
             <div className="lg:col-span-7">
               <Reveal>
                 <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em]">
-                  We make AI work<br />inside your company.
+                  Wherever AI must perform<br />without compromise.
                 </h2>
               </Reveal>
             </div>
             <div className="lg:col-span-5">
               <Reveal delay={0.1}>
                 <p className="text-[16px] text-brand-muted leading-relaxed">
-                  Most AI programmes stall between the pilot and production. Arinox exists to close that gap.
-                  We bring the expertise for the whole journey — and stay accountable for the outcome.
+                  We deploy across every industry where data integrity, regulatory compliance, and
+                  operational continuity are non-negotiable — engineered for the constraints of each
+                  domain, not a generic AI layer stretched to fit.
                 </p>
               </Reveal>
             </div>
           </div>
 
-          <div>
-            {services.map(({ index, title, desc, tags }, i) => (
-              <Reveal key={index} delay={i * 0.04}>
-                <div className="grid md:grid-cols-12 gap-x-8 gap-y-3 py-7 border-t border-brand-border">
-                  <div className="md:col-span-1">
-                    <span className="step-num text-[12px]">{index}</span>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {why.map(({ Icon, title, desc }, i) => (
+              <Reveal key={title} delay={i * 0.06}>
+                <div className="card card-hover p-7 h-full">
+                  <div className="w-10 h-10 rounded-md border border-brand-border flex items-center justify-center mb-5 bg-white">
+                    <Icon size={17} strokeWidth={1.8} className="text-brand-primary" />
                   </div>
-                  <div className="md:col-span-3">
-                    <h3 className="text-[19px] font-display tracking-[-0.01em]">{title}</h3>
-                  </div>
-                  <div className="md:col-span-5">
-                    <p className="text-[14.5px] text-brand-muted leading-relaxed">{desc}</p>
-                  </div>
-                  <div className="md:col-span-3 md:text-right">
-                    <span className="mono text-[10.5px] text-brand-subtle">{tags}</span>
-                  </div>
+                  <h3 className="text-[18px] font-display mb-2.5">{title}</h3>
+                  <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
                 </div>
               </Reveal>
             ))}
-            <div className="border-t border-brand-border" />
           </div>
         </div>
       </section>
 
-      {/* ═══ 02 · HOW WE WORK ═══ */}
+      {/* ═══ 02 · WHAT WE DO ═══ */}
       <section className="section-padding bg-brand-surface border-y border-brand-border">
         <div className="container-wide">
           <div className="rule-head mb-16">
             <span className="index">02</span>
+            <span className="label">What we do</span>
+            <span className="line" />
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 mb-14">
+            <div className="lg:col-span-7">
+              <Reveal>
+                <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em]">
+                  One partner for the<br />whole AI journey.
+                </h2>
+              </Reveal>
+            </div>
+            <div className="lg:col-span-5">
+              <Reveal delay={0.1}>
+                <p className="text-[16px] text-brand-muted leading-relaxed">
+                  Strategy, systems, and scale — we take responsibility for the path from first
+                  assessment to an AI capability that runs and improves inside your company.
+                </p>
+              </Reveal>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-5 mb-8">
+            {services.map(({ index, Icon, title, desc }, i) => (
+              <Reveal key={index} delay={i * 0.07}>
+                <div className="card card-hover p-7 h-full flex flex-col">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-10 h-10 rounded-md border border-brand-border flex items-center justify-center bg-white">
+                      <Icon size={17} strokeWidth={1.8} className="text-brand-primary" />
+                    </div>
+                    <span className="step-num text-[12px]">{index}</span>
+                  </div>
+                  <h3 className="text-[19px] font-display mb-2.5">{title}</h3>
+                  <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={0.15}>
+            <div className="rounded-lg border border-brand-border bg-white px-7 py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
+              <p className="text-[15px] font-display shrink-0">We don’t build everything — we curate the best.</p>
+              <p className="text-[13.5px] text-brand-muted leading-relaxed">
+                Through exclusive partnerships with AI pioneers, system integrators, and technology
+                majors, we deliver proven solutions that work in your context — including IBM, HPE,
+                HCLTech, Hitachi Systems, and more.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══ 03 · HOW WE WORK ═══ */}
+      <section className="section-padding" id="how-we-work">
+        <div className="container-wide">
+          <div className="rule-head mb-16">
+            <span className="index">03</span>
             <span className="label">How we work</span>
             <span className="line" />
           </div>
@@ -235,7 +326,8 @@ const Home = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
             {phases.map(({ n, title, desc, out }, i) => (
               <Reveal key={n} delay={i * 0.06}>
-                <div className="border-t border-brand-border pt-6">
+                <div className="border-t-2 border-brand-text/80 pt-6 relative">
+                  <span className="absolute -top-[5px] left-0 w-2 h-2 rounded-full bg-brand-primary" aria-hidden="true" />
                   <p className="step-num text-[12px] mb-5">{n}</p>
                   <h3 className="text-[19px] font-display mb-3">{title}</h3>
                   <p className="text-[13.5px] text-brand-muted leading-relaxed mb-6">{desc}</p>
@@ -247,19 +339,69 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══ 03 · WHERE IT WORKS ═══ */}
+      {/* ═══ 04 · THE PLATFORM ═══ */}
+      <section className="section-padding bg-brand-surface border-y border-brand-border">
+        <div className="container-wide">
+          <div className="rule-head mb-16">
+            <span className="index">04</span>
+            <span className="label">The platform</span>
+            <span className="line" />
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-14 items-start">
+            <div className="lg:col-span-5">
+              <Reveal>
+                <h2 className="text-3xl md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] mb-6">
+                  The engine behind<br />the work.
+                </h2>
+                <p className="text-[16px] text-brand-muted leading-relaxed mb-5">
+                  Every engagement runs on infrastructure we own and operate: <strong className="text-brand-text font-medium">CommandCore</strong>,
+                  our sovereign AI platform, with the <strong className="text-brand-text font-medium">KOGO OS</strong> agentic
+                  layer built in. Air-gapped, auditable, and entirely inside your perimeter.
+                </p>
+                <p className="text-[14px] text-brand-subtle leading-relaxed mb-8">
+                  It is how we deliver the transformation — not what we lead with.
+                </p>
+                <Link to="/commandcore" className="arrow-link">
+                  Explore the platform <ArrowRight size={15} />
+                </Link>
+              </Reveal>
+            </div>
+
+            <div className="lg:col-span-7">
+              <Reveal delay={0.1}>
+                <div className="rounded-lg border border-brand-border bg-white overflow-hidden">
+                  {stack.map(({ layer, note }, i) => (
+                    <div
+                      key={layer}
+                      className={`grid grid-cols-[40px_1fr_auto] md:grid-cols-[56px_1fr_auto] items-center gap-4 px-5 md:px-7 py-4 ${i > 0 ? 'border-t border-brand-border' : ''}`}
+                    >
+                      <span className="mono text-[10.5px] text-brand-subtle">{String(i + 1).padStart(2, '0')}</span>
+                      <span className={`text-[15px] ${i === 0 ? 'font-medium' : ''}`}>{layer}</span>
+                      <span className="mono text-[10px] text-brand-subtle text-right hidden sm:block">{note}</span>
+                    </div>
+                  ))}
+                </div>
+                <p className="photo-caption">One stack, entirely yours — from silicon to agents.</p>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 05 · WHERE WE WORK ═══ */}
       <section className="section-padding">
         <div className="container-wide">
           <div className="rule-head mb-16">
-            <span className="index">03</span>
-            <span className="label">Where it works</span>
+            <span className="index">05</span>
+            <span className="label">Where we work</span>
             <span className="line" />
           </div>
 
           <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
             <Reveal>
               <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em] max-w-2xl">
-                AI where the stakes are real.
+                Built for the industries<br />where failure isn’t an option.
               </h2>
             </Reveal>
             <Reveal delay={0.08}>
@@ -269,34 +411,37 @@ const Home = () => {
             </Reveal>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-x-16">
-            {sectors.map(({ label, note, to }, i) => (
-              <Reveal key={label} delay={(i % 2) * 0.05}>
-                <Link
-                  to={to}
-                  className="group flex items-baseline justify-between gap-6 py-6 border-t border-brand-border"
-                >
-                  <div className="flex items-baseline gap-6 min-w-0">
-                    <span className="mono text-[10.5px] text-brand-subtle shrink-0">{String(i + 1).padStart(2, '0')}</span>
-                    <div className="min-w-0">
-                      <h3 className="text-[19px] font-display group-hover:text-brand-primary transition-colors">{label}</h3>
-                      <p className="text-[13px] text-brand-muted mt-1">{note}</p>
-                    </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {industries.map(({ Icon, label, note, photo, to }, i) => (
+              <Reveal key={label} delay={(i % 3) * 0.06}>
+                <Link to={to} className="card card-hover block overflow-hidden group h-full">
+                  <div className="aspect-[16/10] overflow-hidden">
+                    <img
+                      src={img(photo)}
+                      alt={label}
+                      loading="lazy"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                    />
                   </div>
-                  <ArrowRight size={15} className="text-brand-border group-hover:text-brand-primary transition-colors shrink-0" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <Icon size={16} strokeWidth={1.8} className="text-brand-primary shrink-0" />
+                      <h3 className="text-[16px] group-hover:text-brand-primary transition-colors">{label}</h3>
+                    </div>
+                    <p className="text-[13px] text-brand-muted">{note}</p>
+                  </div>
                 </Link>
               </Reveal>
             ))}
-            <div className="border-t border-brand-border md:col-span-2" />
           </div>
         </div>
       </section>
 
-      {/* ═══ 04 · IN THE FIELD (dark band) ═══ */}
+      {/* ═══ 06 · IN THE FIELD (dark band) ═══ */}
       <section className="band-dark">
         <div className="container-wide py-20 md:py-28">
           <div className="rule-head mb-14" style={{ borderBottomColor: 'rgba(255,255,255,0.12)' }}>
-            <span className="index">04</span>
+            <span className="index">06</span>
             <span className="label">In the field</span>
             <span className="line" />
           </div>
@@ -337,7 +482,6 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Anonymised outcomes — inside the band, quiet */}
           <div className="mt-20">
             <Reveal>
               <p className="mono text-[10.5px] tracking-[0.16em] mb-6">ALSO DELIVERED — ANONYMISED</p>
@@ -364,61 +508,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══ 05 · THE PLATFORM (quiet) ═══ */}
+      {/* ═══ 07 · INSIGHTS ═══ */}
       <section className="section-padding">
         <div className="container-wide">
           <div className="rule-head mb-16">
-            <span className="index">05</span>
-            <span className="label">The platform</span>
-            <span className="line" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7">
-              <Reveal>
-                <h2 className="text-3xl md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] mb-6">
-                  The engine behind<br />the work.
-                </h2>
-                <p className="text-[16px] text-brand-muted leading-relaxed mb-5 max-w-xl">
-                  Every engagement runs on infrastructure we own and operate: <strong className="text-brand-text font-medium">CommandCore</strong>,
-                  our private AI platform, with the <strong className="text-brand-text font-medium">KOGO OS</strong> agentic
-                  layer built in. Air-gapped, auditable, and entirely inside your perimeter.
-                </p>
-                <p className="text-[14px] text-brand-subtle leading-relaxed mb-8 max-w-xl">
-                  It is how we deliver the transformation — not what we lead with.
-                </p>
-                <Link to="/commandcore" className="arrow-link">
-                  Explore the platform <ArrowRight size={15} />
-                </Link>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-5">
-              <Reveal delay={0.1}>
-                <ul>
-                  {[
-                    ['Deployment', 'On-premises, VPC, or fully air-gapped'],
-                    ['Agentic layer', 'KOGO OS — agent builder, mesh, guardrails'],
-                    ['Governance', 'Zero data egress, full audit on every decision'],
-                    ['Scale', 'From edge units to datacenter-grade systems'],
-                  ].map(([k, v], i) => (
-                    <li key={k} className="flex items-baseline justify-between gap-6 py-4 border-t border-brand-border">
-                      <span className="mono text-[10.5px] text-brand-subtle tracking-[0.1em] uppercase shrink-0">{k}</span>
-                      <span className="text-[13.5px] text-brand-muted text-right">{v}</span>
-                    </li>
-                  ))}
-                  <li className="border-t border-brand-border" />
-                </ul>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 06 · INSIGHTS ═══ */}
-      <section className="section-padding bg-brand-surface border-y border-brand-border">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">06</span>
+            <span className="index">07</span>
             <span className="label">Insights</span>
             <span className="line" />
           </div>
@@ -464,11 +558,11 @@ const Home = () => {
         </div>
       </section>
 
-      {/* ═══ 07 · WHO WE ARE ═══ */}
-      <section className="section-padding">
+      {/* ═══ 08 · WHO WE ARE ═══ */}
+      <section className="section-padding bg-brand-surface border-y border-brand-border">
         <div className="container-wide">
           <div className="rule-head mb-16">
-            <span className="index">07</span>
+            <span className="index">08</span>
             <span className="label">Who we are</span>
             <span className="line" />
           </div>
@@ -477,13 +571,16 @@ const Home = () => {
             <div className="lg:col-span-6">
               <Reveal>
                 <h2 className="text-3xl md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] mb-6">
-                  Operators, not theorists.
+                  Founded to make enterprise-grade<br />AI accessible to all.
                 </h2>
-                <p className="text-[15.5px] text-brand-muted leading-relaxed mb-6 max-w-xl">
-                  Arinox is built by people who have run large-scale transformations — across enterprise
-                  software, cloud platforms, and AI systems deployed in the most demanding environments
-                  in the country. We combine that operating experience with deep engineering, and we stay
-                  on the ground with you until AI is running.
+                <p className="text-[15.5px] text-brand-muted leading-relaxed mb-5 max-w-xl">
+                  We are pioneers in intelligent business transformation — decoding how enterprises run
+                  today and redesigning how they should operate tomorrow. We don’t just improve
+                  efficiency; we multiply it.
+                </p>
+                <p className="text-[15.5px] text-brand-muted leading-relaxed mb-8 max-w-xl">
+                  Headquartered in India with a presence across New Delhi and Bengaluru, connecting
+                  innovation to implementation for enterprises worldwide.
                 </p>
                 <Link to="/about" className="arrow-link">
                   Meet the company <ArrowRight size={15} />
@@ -504,14 +601,32 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+          {/* Values strip */}
+          <div className="mt-20">
+            <Reveal>
+              <p className="mono text-[10.5px] tracking-[0.16em] text-brand-subtle mb-6">WHAT WE STAND FOR</p>
+            </Reveal>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-6">
+              {values.map(({ letter, title, desc }, i) => (
+                <Reveal key={letter} delay={i * 0.05}>
+                  <div className="border-t border-brand-border pt-5">
+                    <p className="step-num text-[18px] mb-2">{letter}</p>
+                    <p className="text-[14px] font-display mb-1.5">{title}</p>
+                    <p className="text-[12px] text-brand-muted leading-relaxed">{desc}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ═══ 08 · FAQ ═══ */}
-      <section className="pb-20 md:pb-28">
+      {/* ═══ 09 · FAQ ═══ */}
+      <section className="section-padding">
         <div className="container-wide">
           <div className="rule-head mb-14">
-            <span className="index">08</span>
+            <span className="index">09</span>
             <span className="label">Common questions</span>
             <span className="line" />
           </div>
@@ -542,7 +657,7 @@ const Home = () => {
                 <Link to="/contact" className="btn btn-accent">
                   Start a conversation
                 </Link>
-                <a href="mailto:assist@arinox.ai" className="arrow-link">
+                <a href="mailto:assist@arinox.ai" className="text-[14px] transition-colors" style={{ color: 'rgba(242,237,230,0.7)' }}>
                   assist@arinox.ai
                 </a>
               </div>
