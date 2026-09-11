@@ -11,10 +11,11 @@ import sovereignLaunchImg from '../assets/severign_launch.jpeg';
 import hitachiSystemsImg  from '../assets/Hitachi_systems_event.jpeg';
 import indianGovImg       from '../assets/IndianGov.jpeg';
 import bharatDigitalImg   from '../assets/Bharat_digital_event.jpeg';
+import { img } from '../data/images';
 
-const AI_FINANCE_IMG   = 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?auto=format&fit=crop&w=800&q=80';
-const SERVER_ROOM_IMG  = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80';
-const FACTORY_AUTO_IMG = 'https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=800&q=80';
+const AI_FINANCE_IMG   = img('banking');
+const SERVER_ROOM_IMG  = img('commandcore-hero');
+const FACTORY_AUTO_IMG = img('technology');
 
 const samplePosts = [
   {

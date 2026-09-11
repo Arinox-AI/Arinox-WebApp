@@ -1,31 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import SEO from '../components/ui/SEO';
-
-gsap.registerPlugin(ScrollTrigger);
-
-const offices = [
-  {
-    region: 'India',
-    detail: 'New Delhi',
-    flags: [{ src: 'https://flagcdn.com/in.svg', alt: 'India' }],
-  },
-  {
-    region: 'India',
-    detail: 'Bangalore',
-    flags: [{ src: 'https://flagcdn.com/in.svg', alt: 'India' }],
-  },
-];
+import Reveal from '../components/ui/Reveal';
+import { company } from '../data/site';
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: (i = 0) => ({
     opacity: 1, y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 },
+    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1], delay: i * 0.07 },
   }),
 };
 
@@ -54,283 +39,201 @@ const Contact = () => {
     }
   };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.office-card', {
-        opacity: 0, y: 36,
-        stagger: 0.1, duration: 0.7, ease: 'back.out(1.3)',
-        scrollTrigger: { trigger: '.offices-grid', start: 'top 82%' },
-      });
-      gsap.from('.step-item', {
-        opacity: 0, x: -28,
-        stagger: 0.12, duration: 0.65, ease: 'power3.out',
-        scrollTrigger: { trigger: '.steps-list', start: 'top 84%' },
-      });
-    });
-    return () => ctx.revert();
-  }, []);
-
   const fields = [
     { name: 'name', placeholder: 'Full Name', required: true },
     { name: 'email', placeholder: 'Work Email', type: 'email', required: true },
     { name: 'company', placeholder: 'Company' },
-    { name: 'phone', placeholder: 'Phone Number' },
+    { name: 'phone', placeholder: 'Phone Number', type: 'tel' },
   ];
 
   return (
     <>
       <SEO
-        title="Contact Arinox AI | Get Started or Request a Demo"
-        description="Ready to transform your enterprise with AI? Contact Arinox AI for a free 15-min call, partnership inquiry, or demo request."
+        title="Contact Arinox AI | Start Your Private AI Journey"
+        description="Ready to implement private AI in your company? Talk to Arinox — a focused call to map where CommandCore and KOGO fit your operations, strategy, and compliance needs."
         canonical="https://www.arinox.ai/contact"
       />
 
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative pt-40 pb-14 grid-bg overflow-hidden">
-        <div className="orb w-[440px] h-[440px] bg-brand-primary/10 -top-20 left-1/2 -translate-x-1/2" />
-        <div className="orb w-[260px] h-[260px] bg-brand-primary/7 top-1/2 right-0 translate-x-1/3" />
-
-        <div className="container-wide relative">
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45 }}
-            className="text-xs tracking-widest uppercase text-brand-primary mb-3 font-semibold"
-          >
-            Contact
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 36 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-            className="text-2xl md:text-3xl font-display font-bold text-white mb-3 leading-tight"
-            style={{ transformOrigin: 'bottom center' }}
-          >
-            Let's Transform <span className="text-gradient">Together.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-sm md:text-base text-brand-muted max-w-md"
-          >
-            Empower your teams, evolve your business, and lead your industry with AI that actually works.
-          </motion.p>
-
+      {/* ── Hero ──────────────────────────────────────────────── */}
+      <section className="pt-32 md:pt-40 pb-14 border-b border-brand-border">
+        <div className="container-wide max-w-3xl">
+          <Reveal>
+            <p className="overline">Contact</p>
+            <h1 className="text-4xl md:text-5xl font-display font-extrabold leading-[1.08] mb-5">
+              Let&rsquo;s put AI to work <span className="text-gradient">inside your company.</span>
+            </h1>
+            <p className="lead">
+              Tell us where you want AI to create real advantage. We&rsquo;ll come back within one business day
+              with a concrete next step — no jargon, no commitment.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* ── Form + Info ──────────────────────────────────────── */}
-      <section className="py-14 relative overflow-hidden">
-        <motion.div
-          animate={{ x: [0, 24, 0], y: [0, -16, 0] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
-          className="orb w-[500px] h-[500px] bg-brand-primary/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        />
+      {/* ── Form + info ───────────────────────────────────────── */}
+      <section className="py-14 md:py-20">
+        <div className="container-wide grid lg:grid-cols-12 gap-12">
 
-        <div className="container-wide grid lg:grid-cols-2 gap-14 relative">
+          {/* Form */}
+          <div className="lg:col-span-7" ref={formRef}>
+            <Reveal>
+              <h2 className="text-xl font-display font-bold mb-6">Send us a message</h2>
 
-          {/* ── Form ─────────────────────────────────────────── */}
-          <motion.div
-            ref={formRef}
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <h2 className="text-xl font-display font-bold text-white mb-5">Send us a message</h2>
-
-            {sent ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: 'backOut' }}
-                className="glass-card rounded-2xl p-10 text-center"
-              >
+              {sent ? (
                 <motion.div
-                  initial={{ scale: 0, rotate: -20 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5, ease: 'backOut' }}
-                  className="w-14 h-14 rounded-full bg-brand-primary/15 border border-brand-primary/30 flex items-center justify-center mx-auto mb-3"
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="card p-10 text-center"
                 >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-7 h-7 text-brand-primary">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+                  <div className="w-14 h-14 rounded-full bg-brand-primary/12 border border-brand-primary/30 flex items-center justify-center mx-auto mb-4">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-7 h-7 text-brand-primary">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <h3 className="font-display font-bold text-lg mb-1.5">Message received</h3>
+                  <p className="text-brand-muted text-sm mb-5">Our team will reach out within one business day.</p>
+                  <button
+                    onClick={() => setSent(false)}
+                    className="text-brand-primary text-sm hover:underline py-2 px-3"
+                  >
+                    Send another message
+                  </button>
                 </motion.div>
-                <h3 className="text-white font-bold text-lg mb-1.5">Message Received!</h3>
-                <p className="text-brand-muted text-sm mb-5">Our team will reach out within 24 hours.</p>
-                <button
-                  onClick={() => setSent(false)}
-                  className="text-brand-primary text-sm hover:underline transition-colors py-2 px-3"
-                >
-                  Send another message
-                </button>
-              </motion.div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
-                  {fields.map(({ name, placeholder, type = 'text', required }, i) => (
-                    <motion.div
-                      key={name}
-                      custom={i}
-                      variants={fadeUp}
-                      initial="hidden"
-                      animate={formInView ? 'visible' : 'hidden'}
-                      className="relative"
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {fields.map(({ name, placeholder, type = 'text', required }, i) => (
+                      <motion.div
+                        key={name}
+                        custom={i}
+                        variants={fadeUp}
+                        initial="hidden"
+                        animate={formInView ? 'visible' : 'hidden'}
+                      >
+                        <input
+                          type={type}
+                          name={name}
+                          value={form[name]}
+                          onChange={handleChange}
+                          onFocus={() => setFocused(name)}
+                          onBlur={() => setFocused(null)}
+                          placeholder={placeholder}
+                          required={required}
+                          aria-label={placeholder}
+                          autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : name === 'phone' ? 'tel' : 'organization'}
+                          className={`w-full px-4 py-3.5 text-sm outline-none transition-all placeholder-brand-subtle ${
+                            focused === name ? 'border-brand-primary/70 ring-2 ring-brand-primary/10' : 'border-brand-border'
+                          } contact-input`}
+                        />
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <motion.select
+                    custom={4} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}
+                    name="subject"
+                    value={form.subject}
+                    onChange={handleChange}
+                    aria-label="Subject"
+                    className="w-full px-4 py-3.5 text-sm bg-brand-card text-brand-text outline-none contact-input"
+                  >
+                    {['Demo Request', 'General Inquiry', 'Partnership', 'Career', 'Media', 'Other'].map((s) => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </motion.select>
+
+                  <motion.textarea
+                    custom={5} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    onFocus={() => setFocused('message')}
+                    onBlur={() => setFocused(null)}
+                    rows={5}
+                    placeholder="Tell us about your challenge — or where you'd like AI to start creating value..."
+                    required
+                    aria-label="Message"
+                    className={`w-full px-4 py-3.5 text-sm resize-none outline-none transition-all placeholder-brand-subtle ${
+                      focused === 'message' ? 'border-brand-primary/70 ring-2 ring-brand-primary/10' : 'border-brand-border'
+                    } contact-input`}
+                  />
+
+                  <motion.div custom={6} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}>
+                    <motion.button
+                      type="submit"
+                      disabled={loading}
+                      className="btn btn-primary w-full !py-3.5 disabled:opacity-50"
                     >
-                      <input
-                        type={type}
-                        name={name}
-                        value={form[name]}
-                        onChange={handleChange}
-                        onFocus={() => setFocused(name)}
-                        onBlur={() => setFocused(null)}
-                        placeholder={placeholder}
-                        required={required}
-                        aria-label={placeholder}
-                        autoComplete={name === 'email' ? 'email' : name === 'name' ? 'name' : name === 'phone' ? 'tel' : name === 'company' ? 'organization' : undefined}
-                        className={`w-full px-4 py-3.5 rounded-xl glass border text-sm focus:outline-none transition-all duration-300 placeholder-brand-muted text-brand-text ${
-                          focused === name ? 'border-brand-primary/70 ring-2 ring-brand-primary/12' : 'border-brand-border'
-                        }`}
-                      />
-                    </motion.div>
+                      {loading ? (
+                        <span className="flex items-center justify-center gap-2">
+                          <motion.span
+                            animate={{ rotate: 360 }}
+                            transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
+                            className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full inline-block"
+                          />
+                          Sending...
+                        </span>
+                      ) : 'Send message →'}
+                    </motion.button>
+                  </motion.div>
+                </form>
+              )}
+            </Reveal>
+          </div>
+
+          {/* Info */}
+          <div className="lg:col-span-5 space-y-6">
+            <Reveal delay={0.08}>
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-primary mb-3" style={{ fontFamily: 'Manrope' }}>Our offices</p>
+                <div className="grid grid-cols-2 gap-3">
+                  {company.offices.map(({ city, note }) => (
+                    <div key={city} className="card card-hover p-4">
+                      <p className="font-display font-bold text-sm">{city}</p>
+                      <p className="text-brand-subtle text-xs mt-0.5">{note}</p>
+                    </div>
                   ))}
                 </div>
+              </div>
+            </Reveal>
 
-                <motion.select
-                  custom={4} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}
-                  name="subject"
-                  value={form.subject}
-                  onChange={handleChange}
-                  aria-label="Subject"
-                  className="w-full px-4 py-3.5 rounded-xl glass border border-brand-border text-white text-sm focus:outline-none focus:border-brand-primary transition-all duration-300 bg-brand-surface"
-                >
-                  {['Demo Request', 'General Inquiry', 'Partnership', 'Career', 'Media', 'Other'].map(s => (
-                    <option key={s} value={s}>{s}</option>
+            <Reveal delay={0.12}>
+              <div className="card p-5">
+                <p className="font-display font-bold text-sm mb-0.5">Email us</p>
+                <a href={`mailto:${company.email}`} className="text-brand-primary hover:underline text-sm">{company.email}</a>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.16}>
+              <div>
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-primary mb-4" style={{ fontFamily: 'Manrope' }}>What happens next</p>
+                <div className="space-y-3">
+                  {[
+                    'We review your message within one business day',
+                    'We schedule a focused 15-minute call',
+                    'We map your private AI opportunity — no commitment',
+                    'You get a tailored proposal within a week',
+                  ].map((step, i) => (
+                    <div key={step} className="flex items-start gap-3">
+                      <div className="w-6 h-6 rounded-full bg-brand-primary/12 border border-brand-primary/40 flex items-center justify-center text-[11px] text-brand-primary font-bold shrink-0 mt-0.5">
+                        {i + 1}
+                      </div>
+                      <p className="text-sm text-brand-muted leading-relaxed">{step}</p>
+                    </div>
                   ))}
-                </motion.select>
-
-                <motion.textarea
-                  custom={5} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  onFocus={() => setFocused('message')}
-                  onBlur={() => setFocused(null)}
-                  rows={4}
-                  placeholder="Tell us about your challenge or what you'd like to achieve with AI..."
-                  required
-                  aria-label="Message"
-                  className={`w-full px-4 py-3.5 rounded-xl glass border text-brand-text placeholder-brand-muted text-sm focus:outline-none transition-all duration-300 resize-none ${
-                    focused === 'message' ? 'border-brand-primary/70 ring-2 ring-brand-primary/12' : 'border-brand-border'
-                  }`}
-                />
-
-                <motion.div custom={6} variants={fadeUp} initial="hidden" animate={formInView ? 'visible' : 'hidden'}>
-                  <motion.button
-                    type="submit"
-                    disabled={loading}
-                    whileHover={{ scale: loading ? 1 : 1.012 }}
-                    whileTap={{ scale: loading ? 1 : 0.98 }}
-                    className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:shadow-xl hover:shadow-brand-primary/25 transition-all disabled:opacity-50 relative overflow-hidden"
-                  >
-                    {loading ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <motion.span
-                          animate={{ rotate: 360 }}
-                          transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                          className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full inline-block"
-                        />
-                        Sending...
-                      </span>
-                    ) : (
-                      <>
-                        Send Message →
-                        <motion.span
-                          className="absolute inset-0 bg-white/10"
-                          initial={{ x: '-100%' }}
-                          whileHover={{ x: '100%' }}
-                          transition={{ duration: 0.38 }}
-                        />
-                      </>
-                    )}
-                  </motion.button>
-                </motion.div>
-              </form>
-            )}
-          </motion.div>
-
-          {/* ── Info Panel ───────────────────────────────────── */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-            className="space-y-6"
-          >
-            {/* Offices */}
-            <div>
-              <p className="text-xs font-semibold tracking-widest uppercase text-brand-primary mb-3">Our Offices</p>
-              <div className="offices-grid grid grid-cols-2 gap-3">
-                {offices.map(({ region, detail, flags }) => (
-                  <motion.div
-                    key={`${region}-${detail}`}
-                    whileHover={{ scale: 1.03, transition: { duration: 0.2 } }}
-                    className="office-card glass-card rounded-xl p-4 cursor-default"
-                  >
-                    <div className="flex items-center gap-1.5 mb-1.5">
-                      {flags.map(({ src, alt }) => (
-                        <img
-                          key={alt}
-                          src={src}
-                          alt={alt}
-                          className="h-4 w-6 object-cover rounded-sm shadow-sm"
-                        />
-                      ))}
-                    </div>
-                    <p className="text-white font-semibold text-sm">{region}</p>
-                    <p className="text-brand-muted text-xs">{detail}</p>
-                  </motion.div>
-                ))}
+                </div>
               </div>
-            </div>
+            </Reveal>
 
-            {/* Email */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
-              className="glass-card rounded-2xl p-5"
-              style={{ transformStyle: 'preserve-3d' }}
-            >
-              <p className="text-white font-bold text-sm mb-0.5">Email Us</p>
-              <a href="mailto:assist@arinox.ai" className="text-brand-primary hover:underline text-sm transition-all">
-                assist@arinox.ai
-              </a>
-            </motion.div>
-
-            {/* What happens next */}
-            <div>
-              <p className="text-xs font-semibold tracking-widest uppercase text-brand-primary mb-4">What happens next</p>
-              <div className="steps-list space-y-3">
-                {[
-                  'We review your message within 24 hours',
-                  'Our team schedules a free 15-min call',
-                  'We map your AI opportunity, no commitment',
-                  'You get a tailored proposal within 5 days',
-                ].map((step, i) => (
-                  <div key={step} className="step-item flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-brand-primary/15 border border-brand-primary/50 flex items-center justify-center text-[11px] text-brand-primary font-bold flex-shrink-0 mt-0.5">
-                      {i + 1}
-                    </div>
-                    <p className="text-sm text-brand-muted leading-relaxed">{step}</p>
-                  </div>
-                ))}
+            <Reveal delay={0.2}>
+              <div className="card p-5">
+                <p className="text-[12px] text-brand-muted leading-relaxed">
+                  <strong className="text-brand-text">Arinox AI</strong> is {company.entity}, registered in Bengaluru,
+                  India — recognised by Startup India (DPIIT).
+                </p>
               </div>
-            </div>
-          </motion.div>
+            </Reveal>
+          </div>
         </div>
       </section>
     </>

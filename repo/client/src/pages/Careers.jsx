@@ -2,12 +2,14 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import * as LucideIcons from 'lucide-react';
+import { Globe, TrendingUp, Lightbulb, Building2, Inbox } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../hooks/useAuth';
 import AuthModal from '../components/ui/AuthModal';
 import GlyphIcon from '../components/ui/GlyphIcon';
 import { perks as perksData } from '../data/careers';
+
+const ICON_MAP = { Globe, TrendingUp, Lightbulb, Building2 };
 
 /* ─── Helpers ────────────────────────────────────────────── */
 const getJdBySlug = (roles, role) => {
@@ -191,7 +193,7 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                   disabled={loading}
                   whileHover={{ scale: loading ? 1 : 1.012 }}
                   whileTap={{ scale: loading ? 1 : 0.98 }}
-                  className="w-full py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:shadow-lg hover:shadow-brand-primary/25 transition-all disabled:opacity-50 relative overflow-hidden"
+                  className="w-full py-3.5 rounded-xl bg-brand-primary border border-brand-primary text-white font-semibold text-sm hover:bg-brand-secondary hover:border-brand-secondary transition-all disabled:opacity-50"
                 >
                   {loading ? (
                     <span className="flex items-center justify-center gap-2">
@@ -240,7 +242,7 @@ const Careers = () => {
   const list = careers;
   const depts = ['All', ...new Set(list.map(j => j.department))];
   const filtered = list.filter(j => filter === 'All' || j.department === filter);
-  const perks = perksData.map(p => ({ ...p, Icon: LucideIcons[p.icon] }));
+  const perks = perksData.map(p => ({ ...p, Icon: ICON_MAP[p.icon] }));
 
   return (
     <>
@@ -251,24 +253,19 @@ const Careers = () => {
       />
 
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative pt-40 pb-24 grid-bg overflow-hidden">
-        <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-0 right-0 -translate-y-1/4" />
-        <div className="container-wide relative text-center">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4 font-semibold">Careers</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4 leading-[1.1]">
-            Build What <span className="text-gradient">Matters.</span>
+      <section className="pt-32 md:pt-40 pb-16 md:pb-20 border-b border-brand-border">
+        <div className="container-wide text-center max-w-3xl">
+          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="overline" style={{ justifyContent: 'center' }}>Careers</motion.p>
+          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="text-4xl md:text-5xl font-display font-extrabold leading-[1.08] mb-5">
+            Build what <span className="text-gradient">matters.</span>
           </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.7 }} className="text-sm md:text-base text-brand-muted max-w-xl mx-auto leading-relaxed">
-            We don't chase AI buzzwords. We build systems that transform how enterprises and governments work.
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="lead">
+            We don&rsquo;t chase AI buzzwords. We build systems that transform how enterprises and governments work.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4, duration: 0.6 }}>
-            <a href="#roles"
-              className="inline-flex mt-8 px-7 py-3.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 hover:-translate-y-0.5 transition-all">
-              See Open Roles ↓
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+            <a href="#roles" className="btn btn-dark mt-8">
+              See open roles ↓
             </a>
-          </motion.div>
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }} className="absolute bottom-6 left-1/2 -translate-x-1/2">
-            <motion.div animate={{ y: [0, 7, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }} className="w-px h-10 bg-gradient-to-b from-brand-primary to-transparent" />
           </motion.div>
         </div>
       </section>
@@ -277,7 +274,7 @@ const Careers = () => {
       <section className="py-16">
         <div className="container-wide">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Why <span className="text-gradient">Join Arinox?</span></h2>
+            <h2 className="text-2xl md:text-3xl font-display font-extrabold">Why <span className="text-gradient">join Arinox?</span></h2>
             <p className="text-sm text-brand-muted mt-3">What you can expect when you join the team.</p>
           </div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-brand-border/25 rounded-xl overflow-hidden">
@@ -293,7 +290,7 @@ const Careers = () => {
                 <div className="mb-4">
                   <GlyphIcon Icon={Icon} />
                 </div>
-                <h3 className="text-white font-bold mb-1.5 text-sm">{title}</h3>
+                  <h3 className="font-display font-bold mb-1.5 text-sm">{title}</h3>
                 <p className="text-xs lg:text-sm text-brand-muted leading-relaxed">{desc}</p>
               </motion.div>
             ))}
@@ -305,7 +302,7 @@ const Careers = () => {
       <section id="roles" className="py-16 border-t border-brand-border">
         <div className="container-wide">
           <div className="text-center mb-7">
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Open <span className="text-gradient">Positions</span></h2>
+            <h2 className="text-2xl md:text-3xl font-display font-extrabold">Open <span className="text-gradient">positions</span></h2>
             {!loading && list.length > 0 && (
               <p className="text-sm text-brand-muted mt-3">{list.length} open {list.length === 1 ? 'role' : 'roles'}</p>
             )}
@@ -334,9 +331,9 @@ const Careers = () => {
                   className="glass-card rounded-2xl px-6 py-14 text-center"
                 >
                   <div className="w-11 h-11 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mx-auto mb-4">
-                    <LucideIcons.Inbox size={20} strokeWidth={1.8} />
+                    <Inbox size={20} strokeWidth={1.8} />
                   </div>
-                  <h3 className="text-white font-bold mb-2">No open roles right now</h3>
+                  <h3 className="font-display font-bold mb-2">No open roles right now</h3>
                   <p className="text-sm text-brand-muted max-w-sm mx-auto leading-relaxed">
                     We don't have any active positions at the moment, but we're always looking for exceptional people.
                   </p>
@@ -441,7 +438,7 @@ const Careers = () => {
                               </div>
                             )}
 
-                            <p className="text-sm text-white font-medium leading-relaxed border-l-2 border-brand-primary/40 pl-4">{jd.closing}</p>
+                            <p className="text-sm text-brand-text font-medium leading-relaxed border-l-2 border-brand-primary/40 pl-4">{jd.closing}</p>
                           </div>
                         </motion.div>
                       );
@@ -453,16 +450,15 @@ const Careers = () => {
           </div>
 
           {/* CTA */}
-          <div className="relative overflow-hidden line-grid rounded-2xl mt-12 px-6 py-12 text-center border border-brand-border/40">
-            <div className="orb w-[360px] h-[360px] bg-brand-primary/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-            <div className="relative">
-              <h3 className="text-xl md:text-2xl font-display font-bold text-white mb-3">
-                Don't see your role? <span className="text-gradient">We still want to hear from you.</span>
+          <div className="band-ink rounded-2xl mt-12 px-6 py-12 text-center">
+            <div className="max-w-xl mx-auto">
+              <h3 className="text-xl md:text-2xl font-display font-extrabold mb-3">
+                Don&rsquo;t see your role? <span className="text-gradient">We still want to hear from you.</span>
               </h3>
-              <p className="text-sm text-brand-muted mb-6 max-w-md mx-auto">
-                Send your CV and tell us where you'd make a difference.
+              <p className="text-sm mb-6" style={{ color: 'rgba(242,239,233,0.72)' }}>
+                Send your CV and tell us where you&rsquo;d make a difference.
               </p>
-              <a href="mailto:assist@arinox.ai" className="inline-flex px-7 py-3 rounded-xl bg-brand-primary text-white font-semibold text-sm hover:bg-brand-secondary transition-colors">
+              <a href="mailto:assist@arinox.ai" className="btn btn-on-dark">
                 Send your CV → assist@arinox.ai
               </a>
             </div>

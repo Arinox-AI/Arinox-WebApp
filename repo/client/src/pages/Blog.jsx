@@ -1,22 +1,22 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import axios from 'axios';
 import SEO from '../components/ui/SEO';
+import Reveal from '../components/ui/Reveal';
+import { img } from '../data/images';
 
-import aksImg           from '../assets/9th Nov- AKS Workshop Global.jpeg';
-import ansrImg          from '../assets/4th July - ANSR Tech Workshop_.jpg';
-import nvidiaImg        from '../assets/26th June- Nvidia Workshop.jpg';
-import hitachiImg       from '../assets/Hitachi_shori_2026.JPG';
-import aiSummitImg      from '../assets/ai_summit.jpg';
-import sovereignLaunchImg from '../assets/severign_launch.jpeg';
-import hitachiSystemsImg  from '../assets/Hitachi_systems_event.jpeg';
-import indianGovImg       from '../assets/IndianGov.jpeg';
-import bharatDigitalImg   from '../assets/Bharat_digital_event.jpeg';
+import aksImg              from '../assets/9th Nov- AKS Workshop Global.jpeg';
+import ansrImg             from '../assets/4th July - ANSR Tech Workshop_.jpg';
+import nvidiaImg           from '../assets/26th June- Nvidia Workshop.jpg';
+import hitachiImg          from '../assets/Hitachi_shori_2026.JPG';
+import aiSummitImg         from '../assets/ai_summit.jpg';
+import sovereignLaunchImg  from '../assets/severign_launch.jpeg';
+import hitachiSystemsImg   from '../assets/Hitachi_systems_event.jpeg';
+import indianGovImg        from '../assets/IndianGov.jpeg';
+import bharatDigitalImg    from '../assets/Bharat_digital_event.jpeg';
 
-const AI_FINANCE_IMG   = 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?auto=format&fit=crop&w=800&q=80';
-const SERVER_ROOM_IMG  = 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80';
-const FACTORY_AUTO_IMG = 'https://images.unsplash.com/photo-1647427060118-4911c9821b82?auto=format&fit=crop&w=800&q=80';
+const AI_FINANCE_IMG   = img('banking');
+const SERVER_ROOM_IMG  = img('commandcore-hero');
+const FACTORY_AUTO_IMG = img('technology');
 
 const samplePosts = [
   {
@@ -48,7 +48,7 @@ const samplePosts = [
     _id: 'e3',
     slug: 'nvidia-workshop-h100-enterprise-ai',
     title: 'NVIDIA Workshop: Unlocking H100 Performance for Enterprise Sovereign AI',
-    excerpt: 'Arinox AI partnered with NVIDIA to showcase how CommandCore harnesses H100 GPU clusters for real-time, on-premises AI inference, delivering hyperscaler performance without hyperscaler dependency.',
+    excerpt: 'Arinox AI joined NVIDIA\u2019s enterprise workshop to showcase how CommandCore harnesses H100 GPU clusters for real-time, on-premises AI inference — hyperscaler performance without hyperscaler dependency.',
     image: nvidiaImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
@@ -73,7 +73,7 @@ const samplePosts = [
     _id: 'e6',
     slug: 'langoor-arinox-sovereign-ai-launch',
     title: 'Langoor & Arinox Launch Sovereign AI: Marketing Transforms Into Autonomous Execution',
-    excerpt: 'In a landmark broadcast on AIM\'s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence, turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
+    excerpt: 'In a landmark broadcast on AIM\u2019s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence, turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
     image: sovereignLaunchImg,
     imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -86,7 +86,7 @@ const samplePosts = [
     _id: 'e7',
     slug: 'hitachi-systems-india-partnership',
     title: 'Hitachi Systems India: Expanding the Sovereign AI SI Network',
-    excerpt: 'Arinox AI formalised a strategic partnership with Hitachi Systems India, extending CommandCore™ sovereign AI deployments into manufacturing, logistics, and government enterprise sectors through one of India\'s most trusted system integration networks.',
+    excerpt: 'Arinox AI formalised a strategic partnership with Hitachi Systems India, extending CommandCore\u2122 sovereign AI deployments into manufacturing, logistics, and government enterprise sectors through one of India\u2019s most trusted system integration networks.',
     image: hitachiSystemsImg,
     imagePosition: 'center 35%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -98,8 +98,8 @@ const samplePosts = [
   {
     _id: 'e8',
     slug: 'government-engagement-sovereign-ai-india',
-    title: 'Government Engagement: Sovereign AI Briefing for India\'s Public Sector',
-    excerpt: 'Arinox AI engaged senior officials from India\'s central and state government agencies to present CommandCore™ as a sovereign AI platform for public sector digital transformation, with full data localisation, on-premises deployment, and compliance-ready agent governance.',
+    title: 'Government Engagement: Sovereign AI Briefing for India\u2019s Public Sector',
+    excerpt: 'Arinox AI engaged senior officials from India\u2019s central and state government agencies to present CommandCore\u2122 as a sovereign AI platform for public sector digital transformation, with full data localisation, on-premises deployment, and compliance-ready agent governance.',
     image: indianGovImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
@@ -110,8 +110,8 @@ const samplePosts = [
   {
     _id: 'e9',
     slug: 'bharat-digital-summit-bdia',
-    title: 'Bharat Digital Summit: Arinox at BDIA\'s Foundation Forum for India\'s Digital Future',
-    excerpt: 'Arinox AI joined India\'s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit, BDIA\'s Foundation Forum, contributing to the roadmap for India\'s sovereign digital infrastructure and AI-first public services.',
+    title: 'Bharat Digital Summit: Arinox at BDIA\u2019s Foundation Forum for India\u2019s Digital Future',
+    excerpt: 'Arinox AI joined India\u2019s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit, BDIA\u2019s Foundation Forum, contributing to the roadmap for India\u2019s sovereign digital infrastructure and AI-first public services.',
     image: bharatDigitalImg,
     imagePosition: 'center 55%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -124,7 +124,7 @@ const samplePosts = [
     _id: 'e5',
     slug: 'nvidia-inception-ai-summit-2025',
     title: 'NVIDIA Inception AI Summit: Arinox Showcases Sovereign AI to Indian Defence & Enterprises',
-    excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\'s defence leadership and enterprise innovators, demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
+    excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\u2019s defence leadership and enterprise innovators, demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
     image: aiSummitImg,
     imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -187,67 +187,52 @@ const Blog = () => {
     const params = category !== 'All' ? { category } : {};
     axios.get('/api/v1/blog', { params })
       .then(({ data }) => {
-        const apiPosts = (data.data || []).map(p => ({ ...p, image: p.image ?? p.coverImage }));
-        const sampleSlugs = new Set(samplePosts.map(p => p.slug));
-        const extras = apiPosts.filter(p => !sampleSlugs.has(p.slug));
+        const apiPosts = (data.data || []).map((p) => ({ ...p, image: p.image ?? p.coverImage }));
+        const sampleSlugs = new Set(samplePosts.map((p) => p.slug));
+        const extras = apiPosts.filter((p) => !sampleSlugs.has(p.slug));
         setPosts([...samplePosts, ...extras]);
       })
       .catch(() => setPosts(samplePosts))
       .finally(() => setLoading(false));
   }, [category]);
 
-  const filtered = category === 'All' ? posts : posts.filter(p => p.category === category);
+  const filtered = category === 'All' ? posts : posts.filter((p) => p.category === category);
 
   return (
     <>
       <SEO
         title="Blog & Research | Arinox AI"
-        description="Field notes from the AI transformation frontier. Strategy, case studies, technology insights, and research from the Arinox AI team and partners."
+        description="Field notes from the AI transformation frontier. Strategy, case studies, technology insights, and research from the Arinox AI team."
         canonical="https://www.arinox.ai/blog"
       />
 
       {/* Hero */}
-      <section className="relative pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 grid-bg overflow-hidden">
-        <div className="orb w-[300px] h-[300px] md:w-[400px] md:h-[400px] bg-brand-primary/10 top-0 left-1/3 -translate-y-1/4" />
-        <div className="container-wide relative px-4 sm:px-6">
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-[10px] sm:text-xs tracking-widest uppercase text-brand-primary mb-3 sm:mb-4"
-          >
-            Insights & Events
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-white mb-2 sm:mb-3"
-          >
-            Future-Forward <span className="text-gradient">Field Notes.</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-sm md:text-base text-brand-muted max-w-xl"
-          >
-            Real consulting war-stories, event recaps, and distilled 5-minute reads.
-          </motion.p>
+      <section className="pt-32 md:pt-40 pb-12 md:pb-16 border-b border-brand-border">
+        <div className="container-wide">
+          <Reveal>
+            <p className="overline">Insights &amp; events</p>
+            <h1 className="text-4xl md:text-5xl font-display font-extrabold leading-[1.08] mb-5">
+              Field notes from the <span className="text-gradient">transformation frontier.</span>
+            </h1>
+            <p className="lead max-w-xl">
+              Event recaps, strategy essays, and distilled five-minute reads from the frontier of private enterprise AI.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      <section className="section-padding py-10 sm:py-14 md:py-20">
-        <div className="container-wide px-4 sm:px-6">
-
-          {/* Filters - horizontal scroll on xs, wraps on sm+ */}
-          <div className="flex gap-2 sm:gap-3 mb-8 sm:mb-10 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap scrollbar-none">
-            {categories.map(c => (
+      <section className="py-10 md:py-14">
+        <div className="container-wide">
+          {/* Filters */}
+          <div className="flex gap-2 sm:gap-3 mb-8 md:mb-10 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap scrollbar-none">
+            {categories.map((c) => (
               <button
                 key={c}
                 onClick={() => setCategory(c)}
-                className={`flex-shrink-0 px-3 sm:px-4 py-3 sm:py-2 rounded-xl text-xs sm:text-sm transition-all whitespace-nowrap ${
+                className={`flex-shrink-0 px-3.5 py-2 rounded-lg text-[13px] font-semibold transition-all whitespace-nowrap ${
                   category === c
                     ? 'bg-brand-primary text-white'
-                    : 'glass border border-brand-border text-brand-muted hover:text-brand-text'
+                    : 'card text-brand-muted hover:text-brand-text hover:border-brand-primary/40'
                 }`}
               >
                 {c}
@@ -256,69 +241,48 @@ const Blog = () => {
           </div>
 
           {/* Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6 items-start">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 items-start">
             {loading
-              ? Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="glass-card rounded-2xl h-64 sm:h-72 animate-pulse" />
-                ))
+              ? Array.from({ length: 6 }).map((_, i) => <div key={i} className="skeleton h-72" />)
               : filtered.map((post, i) => (
-                  <motion.article
-                    key={post._id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.07 }}
-                  >
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      className="glass-card rounded-2xl group overflow-hidden flex flex-col h-full"
-                    >
-                      {/* Cover image */}
+                  <Reveal key={post._id} delay={(i % 3) * 0.06}>
+                    <Link to={`/blog/${post.slug}`} className="card card-hover group overflow-hidden flex flex-col h-full">
                       {(post.image ?? post.coverImage) && (
-                        <div className="h-44 sm:h-48 md:h-52 overflow-hidden flex-shrink-0">
+                        <div className="h-44 md:h-52 overflow-hidden flex-shrink-0 bg-brand-surface">
                           <img
                             src={post.image ?? post.coverImage}
                             alt={post.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                             style={post.imagePosition ? { objectPosition: post.imagePosition } : undefined}
                             loading="lazy"
                           />
                         </div>
                       )}
 
-                      <div className="p-4 sm:p-5 flex flex-col flex-1">
-                        {/* Category + domain + date */}
-                        <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3 flex-wrap">
-                          <span className="text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold">
-                            {post.category}
-                          </span>
-                          {post.domain && (
-                            <span className="text-[10px] sm:text-[11px] text-brand-muted">{post.domain}</span>
-                          )}
-                          <span className="text-[10px] sm:text-[11px] text-brand-muted ml-auto">
-                            {formatDate(post.publishedAt)}
-                          </span>
+                      <div className="p-5 flex flex-col flex-1">
+                        <div className="flex items-center gap-2 mb-2.5 flex-wrap">
+                          <span className="chip">{post.category}</span>
+                          {post.domain && <span className="text-[11px] text-brand-subtle">{post.domain}</span>}
+                          <span className="text-[11px] text-brand-subtle ml-auto">{formatDate(post.publishedAt)}</span>
                         </div>
 
-                        <h2 className="text-sm sm:text-base text-brand-text font-bold leading-snug mb-2 group-hover:text-brand-primary transition-colors line-clamp-2">
+                        <h2 className="text-[15px] text-brand-text font-display font-bold leading-snug mb-2 group-hover:text-brand-primary transition-colors line-clamp-2">
                           {post.title}
                         </h2>
-                        <p className="text-xs sm:text-sm text-brand-muted leading-relaxed mb-4 line-clamp-3 flex-1">
+                        <p className="text-[13px] text-brand-muted leading-relaxed mb-4 line-clamp-3 flex-1">
                           {post.excerpt}
                         </p>
 
-                        <div className="flex items-center justify-between pt-3 border-t border-brand-border/40 gap-2 min-w-0">
+                        <div className="flex items-center justify-between pt-3 border-t border-brand-border gap-2 min-w-0">
                           <div className="min-w-0">
                             <p className="text-xs text-brand-text font-medium truncate">{post.author?.name}</p>
-                            <p className="text-[10px] sm:text-[11px] text-brand-muted truncate">{post.author?.role}</p>
+                            <p className="text-[11px] text-brand-subtle truncate">{post.author?.role}</p>
                           </div>
-                          <span className="text-[10px] sm:text-[11px] text-brand-muted flex-shrink-0">
-                            {post.readTime} min read
-                          </span>
+                          <span className="text-[11px] text-brand-subtle flex-shrink-0">{post.readTime} min read</span>
                         </div>
                       </div>
                     </Link>
-                  </motion.article>
+                  </Reveal>
                 ))}
           </div>
         </div>

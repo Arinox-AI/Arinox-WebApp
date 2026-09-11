@@ -1,268 +1,205 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { SiNvidia, SiQualcomm } from '@icons-pack/react-simple-icons';
-import { Link2, Zap, Package } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { Link2, Zap, Package, ArrowRight } from 'lucide-react';
 import SEO from '../components/ui/SEO';
-import NetworkSphere from '../components/ui/NetworkSphere';
-import FloatingOrbs from '../components/ui/FloatingOrbs';
-import ErrorBoundary from '../components/ui/ErrorBoundary';
-import GlyphIcon from '../components/ui/GlyphIcon';
-import { LOGO_FC as FC } from '../utils/logos';
+import Reveal from '../components/ui/Reveal';
+import SectionHead from '../components/ui/SectionHead';
+import LogoWall from '../components/ui/LogoWall';
+import { deliveryPartners } from '../data/clients';
 
-const siPartners = [
-  { name: 'Coforge',      logo: '/logos/Coforge.png',  lc: FC },
-  { name: 'Hitachi Systems', logo: '/logos/hitachi.svg', lc: FC },
-  { name: 'IBM',          logo: '/logos/ibm.svg',      lc: FC },
-  { name: 'HPE',          logo: '/logos/hpe.svg',      lc: FC },
-  { name: 'Langoor',      logo: '/logos/langoor.png',  lc: FC },
-  { name: 'Nikom',        logo: '/logos/nikom.png',    lc: FC },
-  { name: 'TechData',     logo: '/logos/techdata.svg', lc: FC },
-  { name: 'HCL Tech',     logo: '/logos/hcltech.svg',  lc: FC },
-  { name: 'Altos by Acer', logo: '/logos/altos.svg',  lc: FC },
-  { name: 'Dataquark',    logo: '/logos/dataquark.png', lc: FC },
+const tracks = [
+  {
+    num: '01',
+    Icon: Link2,
+    label: 'For System Integrators',
+    title: 'Deploy with confidence.',
+    desc: 'Access pre-validated AI agents ready for enterprise deployment. Co-deliver with Arinox to expand your AI practice — faster go-to-market, larger wins, without building from the ground up.',
+    tags: ['Co-delivery', 'Pre-built agents', 'Faster GTM'],
+  },
+  {
+    num: '02',
+    Icon: Zap,
+    label: 'For Technology Partners',
+    title: 'Build where it lands.',
+    desc: 'Bring your AI models, hardware, or platform into real enterprise deployments. We co-create products on sovereign infrastructure, open SI channels, and place your technology at the centre of what enterprises are already buying.',
+    tags: ['Co-creation', 'Hardware & infra', 'GTM access'],
+  },
+  {
+    num: '03',
+    Icon: Package,
+    label: 'For Resellers & GTM',
+    title: 'Revenue that compounds.',
+    desc: 'Extend sovereign AI to markets where trusted local relationships matter. Resell Arinox under your brand with deal registration, margin protection, and full sales and technical enablement behind every conversation.',
+    tags: ['Deal registration', 'Margin protection', 'Sales enablement'],
+  },
 ];
 
-const techPartners = [
-  { name: 'Altos by Acer',     logo: '/logos/altos.svg', lc: FC, tag: 'Infrastructure', desc: 'Enterprise-grade server hardware by Acer   purpose-built for on-premises sovereign AI deployments at scale.' },
-  { name: 'NVIDIA & Qualcomm', icons: [SiNvidia, SiQualcomm], tag: 'AI Hardware',   desc: 'NVIDIA AI accelerators for data-centre inference and Qualcomm edge silicon for last-mile deployments   together covering the full compute stack for sovereign AI.' },
-  { name: 'Kogo.ai',           logo: '/logos/kogo.png', tag: 'Private AI OS',  desc: 'AI agentic platform enabling enterprises to build, deploy, and manage custom autonomous agents   the orchestration layer in Arinox\'s agentic stack.' },
+const techStack = [
+  {
+    name: 'KOGO',
+    tag: 'Agentic platform',
+    desc: 'The agentic layer we deploy for every engagement — agent building, orchestration, memory, and governance. An affiliated technology of the Arinox family, purpose-built for private enterprise AI.',
+  },
+  {
+    name: 'Altos by Acer',
+    tag: 'Infrastructure',
+    desc: 'Enterprise-grade server hardware purpose-built for on-premises sovereign AI deployments at scale.',
+  },
 ];
 
-const LogoBox = ({ Icon, logo, lc, alt, textLabel, boxClass, imgClass, fallback }) => {
-  const [failed, setFailed] = useState(false);
-  if (Icon) return (
-    <div className={`${boxClass} text-brand-muted`}>
-      <Icon style={{ width: '100%', height: '100%' }} />
-    </div>
-  );
-  if (textLabel) return (
-    <div className={boxClass}>
-      <span className="font-bold text-sm tracking-wide text-brand-muted">{textLabel}</span>
-    </div>
-  );
-  if (logo && !failed) return (
-    <div className={boxClass}>
-      <img src={logo} alt={alt} className={`${imgClass} ${lc || ''}`} onError={() => setFailed(true)} />
-    </div>
-  );
-  return fallback;
-};
-
-const Partners = () => {
-  return (
+const Partners = () => (
     <>
       <SEO
         title="Partners & Ecosystem | Arinox AI"
-        description="Arinox works with system integrators, technology partners, and resellers to bring sovereign AI to the organizations that need it most."
+        description="Arinox works with system integrators, technology partners, and resellers to deliver private AI to the organisations that need it most."
         canonical="https://www.arinox.ai/partners"
       />
 
-      {/* Hero */}
-      <section className="relative overflow-hidden grid-bg pt-40 pb-24">
-        <div className="container-wide">
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
-            <div>
-              <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4 font-semibold">
-                Our Ecosystem
-              </motion.p>
-              <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="text-3xl md:text-4xl font-display font-bold text-white mb-4 leading-tight">
-                Your AI<br /><span className="text-gradient">Force Multiplier.</span>
-              </motion.h1>
-              <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="text-base text-brand-muted leading-relaxed max-w-md">
-                We don't scale alone. Arinox works with a curated network of world-class system integrators, hardware innovators, and market-ready resellers   each chosen for their ability to take sovereign AI from proof-of-concept to enterprise production.
-              </motion.p>
-
-            </div>
-            <div className="hidden md:block h-[340px]">
-              <ErrorBoundary><NetworkSphere /></ErrorBoundary>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Partnership tracks */}
-      <section className="relative overflow-hidden py-20 border-t border-brand-border">
-        <FloatingOrbs preset="cool" />
-        <div className="container-wide">
-          <div className="max-w-3xl mb-16">
-            <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
-              Partnership models
-            </motion.h2>
-            <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-sm text-brand-muted leading-relaxed">
-              Three ways to work with Arinox. Each track is designed for a specific type of partner, with concrete benefits and a clear path to market.
-            </motion.p>
-          </div>
-
-          <div className="space-y-0 border-t border-brand-border/30">
-            {[
-              {
-                num: '01',
-                Icon: Link2,
-                label: 'For System Integrators',
-                title: 'Deploy with confidence.',
-                desc: 'Access pre-validated AI agents ready for enterprise deployment. Co-deliver with Arinox to expand your AI practice   faster go-to-market, larger wins, without building from the ground up.',
-                sectors: ['Co-Delivery', 'Pre-built Agents', 'Faster GTM'],
-              },
-              {
-                num: '02',
-                Icon: Zap,
-                label: 'For Technology Partners',
-                title: 'Build where it lands.',
-                desc: 'Bring your AI models, hardware, or platform into real enterprise deployments. We co-create products on sovereign infrastructure, open SI channels, and place your technology at the centre of what enterprises are already buying.',
-                sectors: ['Co-creation', 'Hardware & Infra', 'GTM Access'],
-              },
-              {
-                num: '03',
-                Icon: Package,
-                label: 'For Resellers & GTM',
-                title: 'Revenue that compounds.',
-                desc: 'Extend sovereign AI to markets where trusted local relationships matter. Resell Arinox under your brand with deal registration, margin protection, and full sales and technical enablement behind every conversation.',
-                sectors: ['Deal Registration', 'Margin Protection', 'Sales Enablement'],
-              },
-            ].map(({ num, Icon, label, title, desc, sectors }, i) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="grid md:grid-cols-12 gap-6 py-10 border-b border-brand-border/25"
-              >
-                <div className="md:col-span-1">
-                  <span className="text-3xl font-display font-bold text-brand-primary/20">{num}</span>
-                </div>
-                <div className="md:col-span-3">
-                  <div className="flex items-center gap-3 mb-2">
-                    <GlyphIcon Icon={Icon} />
-                    <p className="text-xs text-brand-primary font-semibold tracking-widest uppercase">{label}</p>
-                  </div>
-                  <h3 className="text-white font-bold text-lg">{title}</h3>
-                </div>
-                <div className="md:col-span-5">
-                  <p className="text-sm text-brand-muted leading-relaxed">{desc}</p>
-                </div>
-                <div className="md:col-span-3 flex flex-wrap gap-2 items-start">
-                  {sectors.map(s => (
-                    <span key={s} className="px-2.5 py-1 text-xs rounded-full bg-brand-primary/10 text-brand-primary font-medium">{s}</span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Partners */}
-      <section className="py-20 bg-brand-surface border-t border-brand-border">
-        <div className="container-wide">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <motion.h2 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} className="text-2xl md:text-3xl font-display font-bold text-white mb-2">
-                Partners
-              </motion.h2>
-              <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="text-sm text-brand-muted">
-                Delivered through world-class partners who bring enterprise relationships and deployment capability.
-              </motion.p>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-            {siPartners.map(({ name, logo }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.04 }}
-                className="group w-[calc(50%-6px)] sm:w-[230px] rounded-xl border border-brand-border/40 bg-brand-card hover:border-brand-primary/40 transition-colors flex flex-col items-center justify-center p-6 gap-3"
-              >
-                <div className="h-12 w-full flex items-center justify-center">
-                  <img src={logo} alt={name} loading="lazy" className="max-h-8 max-w-[130px] w-auto object-contain opacity-60 group-hover:opacity-100 transition-opacity logo-mono" />
-                </div>
-                <p className="text-xs text-brand-muted text-center group-hover:text-brand-text transition-colors">{name}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Technology Partners */}
-      <section className="relative overflow-hidden py-20 border-t border-brand-border">
-        <FloatingOrbs preset="warm" />
-        <div className="container-wide grid lg:grid-cols-5 gap-14">
-          <div className="lg:col-span-2">
-            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-              <p className="text-xs tracking-widest uppercase text-brand-primary mb-3 font-semibold">Technology Partners</p>
-              <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">The Stack Behind<br /><span className="text-gradient">Sovereign AI</span></h2>
-              <p className="text-sm text-brand-muted leading-relaxed">
-                Arinox co-creates with AI product builders, hardware innovators, and infrastructure providers. These are the companies whose technology we select, validate, and integrate   and with whom we build the next generation of enterprise AI products.
+      {/* ── Hero ──────────────────────────────────────────────── */}
+      <section className="pt-32 md:pt-40 pb-14 md:pb-16 border-b border-brand-border">
+        <div className="container-wide grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-7">
+            <Reveal>
+              <p className="overline">Ecosystem</p>
+              <h1 className="text-4xl md:text-5xl font-display font-extrabold leading-[1.08] mb-6 max-w-2xl">
+                Sovereign AI,<br /><span className="text-gradient">delivered together.</span>
+              </h1>
+              <p className="lead max-w-xl">
+                We don&rsquo;t scale alone. Arinox works with a curated network of system integrators, hardware
+                innovators, and market-ready resellers — each chosen for their ability to take private AI from
+                proof-of-concept to enterprise production.
               </p>
-            </motion.div>
+            </Reveal>
           </div>
-          <div className="lg:col-span-3 space-y-0">
-            {techPartners.map(({ name, desc, tag, Icon, icons, logo, lc }, i) => (
-              <motion.div
-                key={name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="flex gap-5 py-6 border-b border-brand-border/25 last:border-0"
-              >
-                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-white/[0.92] border border-white/20 flex items-center justify-center overflow-hidden p-2">
-                  {icons ? (
-                    <div className="flex items-center justify-center gap-1 w-full h-full text-gray-700">
-                      {icons.map((Ic, idx) => <Ic key={idx} style={{ width: '40%', height: '40%' }} />)}
-                    </div>
-                  ) : (
-                    <LogoBox
-                      Icon={Icon} logo={logo} lc={lc} alt={name}
-                      boxClass="w-full h-full flex items-center justify-center overflow-hidden"
-                      imgClass="max-w-full max-h-full object-contain"
-                      fallback={
-                        <span className="font-bold text-brand-text">{name[0]}</span>
-                      }
-                    />
-                  )}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-white font-bold text-sm">{name}</h3>
-                    <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary font-semibold uppercase tracking-wider">{tag}</span>
+          <div className="lg:col-span-5">
+            <Reveal delay={0.12}>
+              <div className="card p-6">
+                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-subtle mb-3" style={{ fontFamily: 'Manrope' }}>
+                  The model in one line
+                </p>
+                <p className="text-[14px] text-brand-muted leading-relaxed">
+                  <strong className="text-brand-text">Arinox</strong> owns the transformation journey.{' '}
+                  <strong className="text-brand-text">CommandCore</strong> is the platform.{' '}
+                  <strong className="text-brand-text">KOGO</strong> is the agentic layer.{' '}
+                  <strong className="text-brand-text">Partners</strong> take it to every enterprise that needs it.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Delivery partners ─────────────────────────────────── */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <SectionHead
+            overline="Delivery partners"
+            title="World-class delivery, on the ground."
+            lead="System integrators and infrastructure specialists who bring enterprise relationships and deployment capability to every engagement."
+            className="mb-10"
+          />
+          <LogoWall items={deliveryPartners} cols="grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" />
+        </div>
+      </section>
+
+      {/* ── Technology we build on ────────────────────────────── */}
+      <section className="section-padding bg-brand-surface border-y border-brand-border">
+        <div className="container-wide grid lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-4">
+            <SectionHead
+              overline="Technology we build on"
+              title="The stack behind private AI."
+              lead="The technologies we select, validate, and integrate into every CommandCore deployment."
+            />
+          </div>
+          <div className="lg:col-span-8 space-y-4">
+            {techStack.map(({ name, tag, desc }, i) => (
+              <Reveal key={name} delay={i * 0.07}>
+                <div className="card card-hover p-6 md:p-7">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <h3 className="font-display font-bold text-[16px]">{name}</h3>
+                    <span className="chip">{tag}</span>
                   </div>
-                  <p className="text-sm text-brand-muted leading-relaxed">{desc}</p>
+                  <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
                 </div>
-              </motion.div>
+              </Reveal>
+            ))}
+            <Reveal delay={0.15}>
+              <div className="card p-6 md:p-7">
+                <div className="flex items-center gap-2.5 mb-2">
+                  <h3 className="font-display font-bold text-[16px]">Compute accelerators</h3>
+                  <span className="chip">Hardware</span>
+                </div>
+                <p className="text-[13.5px] text-brand-muted leading-relaxed">
+                  CommandCore systems are engineered around leading GPU accelerators — selected per deployment for
+                  the right balance of performance, power, and environment. Exact silicon choices are part of every
+                  solution architecture.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Partnership models ────────────────────────────────── */}
+      <section className="section-padding">
+        <div className="container-wide">
+          <SectionHead
+            overline="Partnership models"
+            title="Three ways to work with Arinox."
+            lead="Each track is designed for a specific type of partner, with concrete benefits and a clear path to market."
+            className="mb-10"
+          />
+          <div className="border-t border-brand-border">
+            {tracks.map(({ num, Icon, label, title, desc, tags }, i) => (
+              <Reveal key={label} delay={i * 0.07}>
+                <div className="grid md:grid-cols-12 gap-6 py-8 border-b border-brand-border">
+                  <div className="md:col-span-1">
+                    <span className="step-num text-2xl">{num}</span>
+                  </div>
+                  <div className="md:col-span-3">
+                    <div className="flex items-center gap-2.5 mb-1.5">
+                      <div className="w-8 h-8 rounded-lg bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
+                        <Icon size={15} strokeWidth={1.8} className="text-brand-primary" />
+                      </div>
+                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-primary" style={{ fontFamily: 'Manrope' }}>{label}</p>
+                    </div>
+                    <h3 className="font-display font-bold text-lg">{title}</h3>
+                  </div>
+                  <div className="md:col-span-5">
+                    <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
+                  </div>
+                  <div className="md:col-span-3 flex flex-wrap gap-2 items-start">
+                    {tags.map((t) => <span key={t} className="chip">{t}</span>)}
+                  </div>
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative overflow-hidden line-grid py-24 border-t border-brand-border">
-        <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-        <div className="container-wide text-center">
-          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-3">
-              Ready to join the <span className="text-gradient">Arinox ecosystem?</span>
+      {/* ── CTA ───────────────────────────────────────────────── */}
+      <section className="band-ink">
+        <div className="container-wide py-20 text-center max-w-3xl">
+          <Reveal>
+            <h2 className="text-3xl md:text-4xl font-display font-extrabold leading-[1.15] mb-5">
+              Ready to join the Arinox ecosystem?
             </h2>
-            <p className="text-sm text-brand-muted mb-8 max-w-md mx-auto">
-              Whether you integrate, build, or sell   there's a partnership structure that accelerates your business and expands what's possible for your customers.
+            <p className="lead mb-8" style={{ color: 'rgba(242,239,233,0.72)' }}>
+              Whether you integrate, build, or sell — there&rsquo;s a partnership structure that accelerates your business and expands what&rsquo;s possible for your customers.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link to="/contact" className="px-7 py-3 rounded-xl bg-brand-primary text-white font-semibold text-sm hover:bg-brand-secondary transition-colors">
-                Become a Partner
+              <Link to="/contact" className="btn btn-on-dark">
+                Become a partner <ArrowRight size={16} />
               </Link>
-              <a href="mailto:assist@arinox.ai" className="px-5 py-3 text-sm text-brand-muted hover:text-brand-text transition-colors">
+              <a href="mailto:assist@arinox.ai" className="text-sm text-white/60 hover:text-white transition-colors px-4 py-2">
                 Or email us at assist@arinox.ai
               </a>
             </div>
-          </motion.div>
+          </Reveal>
         </div>
       </section>
     </>
   );
-};
 
 export default Partners;
