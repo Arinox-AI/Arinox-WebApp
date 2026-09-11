@@ -62,7 +62,7 @@ app.use('/api/v1/chat', require('./routes/chat'));
 // Sitemap XML (SEO)
 app.get('/sitemap.xml', (req, res) => {
   const base = process.env.SITE_URL || 'https://www.arinox.ai';
-  const pages = ['', '/about', '/partners', '/solutions', '/commandcore', '/careers', '/contact', '/blog', '/case-studies'];
+  const pages = ['', '/about', '/partners', '/solutions', '/commandcore', '/careers', '/contact', '/blog'];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(p => `  <url><loc>${base}${p}</loc><changefreq>weekly</changefreq><priority>${p === '' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
