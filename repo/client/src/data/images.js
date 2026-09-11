@@ -3,9 +3,9 @@
 
 import commandcoreHero    from '../assets/commandcore.jpg';
 import commandcoreWall    from '../assets/severeign-CommandCore-WP.avif';
-import mSeriesImg         from '../assets/M-series.jpg';
-import mSeriesProImg      from '../assets/m-series-pro.jpg';
-import xlSeriesImg        from '../assets/xl-series.jpg';
+import commandcoreS       from '../assets/commandcore-s.jpg';
+import commandcoreM       from '../assets/commandcore-m.jpg';
+import commandcoreXL      from '../assets/commandcore-xl.jpg';
 import kogoWall           from '../assets/KOGO-WP.avif';
 
 import ajayImg     from '../assets/Ajay-Kharbanda-CEO-of-Arinox-AI.jpg';
@@ -35,9 +35,9 @@ const technologyImg  = '/industries/technology.jpeg';
 export const IMAGES = {
   'commandcore-hero': commandcoreHero,
   'commandcore-wall': commandcoreWall,
-  'm-series':         mSeriesImg,
-  'm-series-pro':     mSeriesProImg,
-  'xl-series':        xlSeriesImg,
+  'commandcore-s':    commandcoreS,
+  'commandcore-m':    commandcoreM,
+  'commandcore-xl':   commandcoreXL,
   'kogo':             kogoWall,
 
   ajay:      ajayImg,

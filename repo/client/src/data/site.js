@@ -16,6 +16,7 @@ export const company = {
   entityNote: 'Registered in Bengaluru, Karnataka, India',
   recognition: 'Recognised by Startup India (DPIIT)',
   email: 'assist@arinox.ai',
+  phone: '+91 86976 78792',
   linkedin: 'https://www.linkedin.com/company/arinox-ai',
   offices: [
     { city: 'Bengaluru', note: 'Headquarters · Karnataka' },
