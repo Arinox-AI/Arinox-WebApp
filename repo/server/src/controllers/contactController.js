@@ -29,7 +29,7 @@ const submitContact = async (req, res, next) => {
       }),
       sendMail({
         to: email,
-        subject: `We received your message — Arinox AI`,
+        subject: `We received your message - Arinox AI`,
         html: contactAutoReply({ name, subject }),
       }),
     ]);

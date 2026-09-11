@@ -7,6 +7,7 @@ import SEO from '../components/ui/SEO';
 import NetworkSphere from '../components/ui/NetworkSphere';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
+import GlyphIcon from '../components/ui/GlyphIcon';
 import { LOGO_FC as FC } from '../utils/logos';
 
 const siPartners = [
@@ -133,9 +134,7 @@ const Partners = () => {
                 </div>
                 <div className="md:col-span-3">
                   <div className="flex items-center gap-3 mb-2">
-                    <div className="w-9 h-9 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center flex-shrink-0">
-                      <Icon size={18} strokeWidth={1.8} />
-                    </div>
+                    <GlyphIcon Icon={Icon} />
                     <p className="text-xs text-brand-primary font-semibold tracking-widest uppercase">{label}</p>
                   </div>
                   <h3 className="text-white font-bold text-lg">{title}</h3>

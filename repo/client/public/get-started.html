@@ -4,12 +4,12 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#E8590C" />
-  <title>Arinox AI — Book Your Free AI Strategy Call</title>
-  <meta name="description" content="Tell us about your business and our team will reach out within 24 hours with a tailored AI plan — no commitment." />
+  <title>Arinox AI | Book Your Free AI Strategy Call</title>
+  <meta name="description" content="Tell us about your business and our team will reach out within 24 hours with a tailored AI plan, no commitment." />
 
-  <!-- Paid landing page — keep out of the organic index -->
+  <!-- Paid landing page - keep out of the organic index -->
   <meta name="robots" content="noindex, nofollow" />
-  <meta property="og:title" content="Arinox AI — Book Your Free AI Strategy Call" />
+  <meta property="og:title" content="Arinox AI | Book Your Free AI Strategy Call" />
   <meta property="og:description" content="Tell us about your business and our team will reach out within 24 hours." />
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/png" href="/logo.png" />
@@ -53,7 +53,7 @@
   -->
 
   <style>
-    /* Avenir LT W01 35 Light — same font as arinox.ai */
+    /* Avenir LT W01 35 Light - same font as arinox.ai */
     @font-face {
       font-family: 'avenir-lt-w01_35-light1475496';
       src: url('https://static.parastorage.com/fonts/v2/af36905f-3c92-4ef9-b0c1-f91432f16ac1/v1/avenir-lt-w01_35-light1475496.woff2') format('woff2');
@@ -99,7 +99,7 @@
       border: 1px solid rgba(232,89,12,0.2); letter-spacing: 0.12em; text-transform: uppercase;
     }
 
-    /* Inputs — mirrors .contact-input on the site */
+    /* Inputs - mirrors .contact-input on the site */
     .contact-input {
       background: rgba(22,22,23,0.75); border: 1px solid #252526; color: #F0F0F0;
       transition: border-color .25s ease, box-shadow .25s ease;
@@ -153,7 +153,7 @@
       <div class="lg:pt-6 lg:sticky lg:top-10">
         <span class="tag mb-5">Free AI Strategy Call</span>
         <h1 class="text-3xl md:text-[2.4rem] leading-tight mb-5">
-          Put AI to work in your business — <span class="text-gradient font-bold">without the guesswork.</span>
+          Put AI to work in your business, <span class="text-gradient font-bold">without the guesswork.</span>
         </h1>
         <p class="text-brand-muted text-base leading-relaxed mb-8 max-w-md">
           Tell us about your business. Our team maps your highest-impact AI opportunity and sends a tailored plan within 24 hours. No jargon, no commitment.
@@ -170,7 +170,7 @@
           </li>
           <li class="flex items-start gap-3">
             <span class="mt-0.5 w-5 h-5 rounded-full bg-brand-primary/15 border border-brand-primary/40 flex items-center justify-center text-brand-primary text-xs flex-shrink-0">✓</span>
-            <span class="text-sm text-brand-muted">Clear next steps and pricing — zero pressure</span>
+            <span class="text-sm text-brand-muted">Clear next steps and pricing, zero pressure</span>
           </li>
         </ul>
 
@@ -295,9 +295,9 @@
             <div>
               <label class="label">Do you currently use AI in your business?</label>
               <div class="flex flex-wrap gap-2" id="usesAiGroup">
-                <label class="chip"><input type="radio" name="usesAi" value="Yes — actively using" /><span>Yes — actively using</span></label>
+                <label class="chip"><input type="radio" name="usesAi" value="Yes, actively using" /><span>Yes, actively using</span></label>
                 <label class="chip"><input type="radio" name="usesAi" value="Piloting / exploring" /><span>Piloting / exploring</span></label>
-                <label class="chip"><input type="radio" name="usesAi" value="No — not yet" /><span>No — not yet</span></label>
+                <label class="chip"><input type="radio" name="usesAi" value="No, not yet" /><span>No, not yet</span></label>
               </div>
             </div>
 
@@ -390,7 +390,7 @@
 
   <script>
     // ── Configuration ──────────────────────────────────────────────
-    // Served from the Arinox server, so the API is same-origin — a
+    // Served from the Arinox server, so the API is same-origin - a
     // relative path avoids CORS entirely. Posts to the dedicated leads
     // endpoint, which stores each answer as a structured column.
     const API_ENDPOINT = '/api/v1/leads';
@@ -413,7 +413,7 @@
     const toolsBlock = document.getElementById('toolsBlock');
     document.querySelectorAll('input[name="usesAi"]').forEach(r => {
       r.addEventListener('change', () => {
-        const show = r.value !== 'No — not yet';
+        const show = r.value !== 'No, not yet';
         toolsBlock.classList.toggle('hidden', !show);
       });
     });
@@ -438,7 +438,7 @@
       e.preventDefault();
       errEl.classList.add('hidden');
 
-      // Honeypot — if filled, it's a bot; fake success silently
+      // Honeypot - if filled, it's a bot; fake success silently
       if (document.getElementById('website').value) {
         form.classList.add('hidden');
         document.getElementById('successView').classList.remove('hidden');

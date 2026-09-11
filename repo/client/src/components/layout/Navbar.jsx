@@ -11,7 +11,7 @@ const navLinks = [
   { label: 'About', to: '/' },
   { label: 'CommandCore', to: '/commandcore' },
   { label: 'Partners', to: '/partners' },
-  { label: 'Solutions', to: '/solutions' },
+  { label: 'Case Studies', to: '/solutions' },
   { label: 'Blog', to: '/blog' },
   { label: 'Careers', to: '/careers' },
   { label: 'Contact', to: '/contact' },

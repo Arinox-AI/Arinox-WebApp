@@ -80,13 +80,13 @@ const Contact = () => {
   return (
     <>
       <SEO
-        title="Contact Arinox AI — Get Started or Request a Demo"
+        title="Contact Arinox AI | Get Started or Request a Demo"
         description="Ready to transform your enterprise with AI? Contact Arinox AI for a free 15-min call, partnership inquiry, or demo request."
         canonical="https://www.arinox.ai/contact"
       />
 
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative pt-36 pb-14 grid-bg overflow-hidden">
+      <section className="relative pt-40 pb-14 grid-bg overflow-hidden">
         <div className="orb w-[440px] h-[440px] bg-brand-primary/10 -top-20 left-1/2 -translate-x-1/2" />
         <div className="orb w-[260px] h-[260px] bg-brand-primary/7 top-1/2 right-0 translate-x-1/3" />
 
@@ -318,7 +318,7 @@ const Contact = () => {
                 {[
                   'We review your message within 24 hours',
                   'Our team schedules a free 15-min call',
-                  'We map your AI opportunity — no commitment',
+                  'We map your AI opportunity, no commitment',
                   'You get a tailored proposal within 5 days',
                 ].map((step, i) => (
                   <div key={step} className="step-item flex items-start gap-3">

@@ -23,7 +23,7 @@ const samplePosts = [
     _id: 'e1',
     slug: 'aks-workshop-global-sovereign-ai',
     title: 'AKS Workshop Global: Sovereign AI for Kubernetes-Native Enterprises',
-    excerpt: 'Arinox AI joined global CIOs and cloud architects at the AKS Workshop Global to demonstrate how Kubernetes-native deployments can achieve full data sovereignty without sacrificing performance — using CommandCore™ as the on-premises AI substrate.',
+    excerpt: 'Arinox AI joined global CIOs and cloud architects at the AKS Workshop Global to demonstrate how Kubernetes-native deployments can achieve full data sovereignty without sacrificing performance, using CommandCore™ as the on-premises AI substrate.',
     image: aksImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
@@ -35,7 +35,7 @@ const samplePosts = [
     _id: 'e2',
     slug: 'ansr-tech-workshop-agentic-ai-gcc',
     title: 'ANSR Tech Workshop: Agentic AI Meets Global Capability Centre Operations',
-    excerpt: 'At the ANSR Tech Workshop in July, Arinox AI explored how agentic AI systems are redefining the role of Global Capability Centres — shifting them from cost arbitrage hubs to autonomous intelligence factories.',
+    excerpt: 'At the ANSR Tech Workshop in July, Arinox AI explored how agentic AI systems are redefining the role of Global Capability Centres, shifting them from cost arbitrage hubs to autonomous intelligence factories.',
     image: ansrImg,
     imagePosition: 'center 35%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -48,7 +48,7 @@ const samplePosts = [
     _id: 'e3',
     slug: 'nvidia-workshop-h100-enterprise-ai',
     title: 'NVIDIA Workshop: Unlocking H100 Performance for Enterprise Sovereign AI',
-    excerpt: 'Arinox AI partnered with NVIDIA to showcase how CommandCore harnesses H100 GPU clusters for real-time, on-premises AI inference — delivering hyperscaler performance without hyperscaler dependency.',
+    excerpt: 'Arinox AI partnered with NVIDIA to showcase how CommandCore harnesses H100 GPU clusters for real-time, on-premises AI inference, delivering hyperscaler performance without hyperscaler dependency.',
     image: nvidiaImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
@@ -60,7 +60,7 @@ const samplePosts = [
     _id: 'e4',
     slug: 'hitachi-shori-2026-industrial-ai',
     title: 'Hitachi Shori 2026: Industrial Intelligence at the Sovereign Edge',
-    excerpt: 'Arinox AI was featured at Hitachi Shori 2026 — an elite gathering of industrial leaders — to present how sovereign AI and agentic automation are transforming manufacturing, supply chain, and operational technology environments.',
+    excerpt: 'Arinox AI was featured at Hitachi Shori 2026, an elite gathering of industrial leaders, to present how sovereign AI and agentic automation are transforming manufacturing, supply chain, and operational technology environments.',
     image: hitachiImg,
     imagePosition: 'top',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -73,7 +73,7 @@ const samplePosts = [
     _id: 'e6',
     slug: 'langoor-arinox-sovereign-ai-launch',
     title: 'Langoor & Arinox Launch Sovereign AI: Marketing Transforms Into Autonomous Execution',
-    excerpt: 'In a landmark broadcast on AIM\'s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence — turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
+    excerpt: 'In a landmark broadcast on AIM\'s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence, turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
     image: sovereignLaunchImg,
     imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -99,7 +99,7 @@ const samplePosts = [
     _id: 'e8',
     slug: 'government-engagement-sovereign-ai-india',
     title: 'Government Engagement: Sovereign AI Briefing for India\'s Public Sector',
-    excerpt: 'Arinox AI engaged senior officials from India\'s central and state government agencies to present CommandCore™ as a sovereign AI platform for public sector digital transformation — with full data localisation, on-premises deployment, and compliance-ready agent governance.',
+    excerpt: 'Arinox AI engaged senior officials from India\'s central and state government agencies to present CommandCore™ as a sovereign AI platform for public sector digital transformation, with full data localisation, on-premises deployment, and compliance-ready agent governance.',
     image: indianGovImg,
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
     category: 'Events',
@@ -111,7 +111,7 @@ const samplePosts = [
     _id: 'e9',
     slug: 'bharat-digital-summit-bdia',
     title: 'Bharat Digital Summit: Arinox at BDIA\'s Foundation Forum for India\'s Digital Future',
-    excerpt: 'Arinox AI joined India\'s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit — BDIA\'s Foundation Forum — contributing to the roadmap for India\'s sovereign digital infrastructure and AI-first public services.',
+    excerpt: 'Arinox AI joined India\'s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit, BDIA\'s Foundation Forum, contributing to the roadmap for India\'s sovereign digital infrastructure and AI-first public services.',
     image: bharatDigitalImg,
     imagePosition: 'center 55%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -124,7 +124,7 @@ const samplePosts = [
     _id: 'e5',
     slug: 'nvidia-inception-ai-summit-2025',
     title: 'NVIDIA Inception AI Summit: Arinox Showcases Sovereign AI to Indian Defence & Enterprises',
-    excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\'s defence leadership and enterprise innovators — demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
+    excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\'s defence leadership and enterprise innovators, demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
     image: aiSummitImg,
     imagePosition: 'center 25%',
     author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
@@ -137,7 +137,7 @@ const samplePosts = [
     _id: '1',
     slug: 'beyond-offshoring-ai-shoring',
     title: 'Beyond Offshoring: The Macroeconomics of AI-Shoring',
-    excerpt: 'Why CFOs will reclassify cloud savings as growth CAPEX — and how the 30-30-30 loop turns theory into cashflow in 90 days.',
+    excerpt: 'Why CFOs will reclassify cloud savings as growth CAPEX, and how the 30-30-30 loop turns theory into cashflow in 90 days.',
     image: AI_FINANCE_IMG,
     author: { name: 'Praveer Kochhar', role: 'Co-Founder, KOGO AI' },
     category: 'AI Strategy',
@@ -201,7 +201,7 @@ const Blog = () => {
   return (
     <>
       <SEO
-        title="Blog & Research — Arinox AI"
+        title="Blog & Research | Arinox AI"
         description="Field notes from the AI transformation frontier. Strategy, case studies, technology insights, and research from the Arinox AI team and partners."
         canonical="https://www.arinox.ai/blog"
       />
@@ -238,7 +238,7 @@ const Blog = () => {
       <section className="section-padding py-10 sm:py-14 md:py-20">
         <div className="container-wide px-4 sm:px-6">
 
-          {/* Filters — horizontal scroll on xs, wraps on sm+ */}
+          {/* Filters - horizontal scroll on xs, wraps on sm+ */}
           <div className="flex gap-2 sm:gap-3 mb-8 sm:mb-10 overflow-x-auto pb-2 sm:pb-0 sm:flex-wrap scrollbar-none">
             {categories.map(c => (
               <button

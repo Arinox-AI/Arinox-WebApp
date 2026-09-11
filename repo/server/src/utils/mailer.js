@@ -13,7 +13,7 @@ const getTransporter = () =>
 
 const sendMail = async (options) => {
   if (!isConfigured()) {
-    console.warn('[mailer] EMAIL_USER / EMAIL_PASS not set — skipping email');
+    console.warn('[mailer] EMAIL_USER / EMAIL_PASS not set - skipping email');
     return;
   }
   const transporter = getTransporter();
@@ -27,7 +27,7 @@ const verifyMailer = () => {
   if (!isConfigured()) return;
   getTransporter().verify((err) => {
     if (err) console.error('[mailer] SMTP connection failed:', err.responseCode ?? '', err.message);
-    else console.log('[mailer] SMTP ready — emails will deliver to', process.env.EMAIL_TO || 'assist@arinox.ai');
+    else console.log('[mailer] SMTP ready - emails will deliver to', process.env.EMAIL_TO || 'assist@arinox.ai');
   });
 };
 
@@ -83,8 +83,8 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
       <p style="color:#555;font-size:14px;margin-bottom:20px;">You have a new message from the Arinox website contact form.</p>
       <div style="${rowStyle}"><span style="${labelStyle}">Name:</span> ${name}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Email:</span> <a href="mailto:${email}" style="color:#FE6300;">${email}</a></div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Company:</span> ${company || '—'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Phone:</span> ${phone || '—'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Company:</span> ${company || 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone:</span> ${phone || 'N/A'}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Subject:</span> ${subject || 'General Inquiry'}</div>
       <div style="padding-top:16px;">
         <span style="${labelStyle}">Message:</span>
@@ -127,12 +127,12 @@ const leadNotification = (lead) => {
     utmSource, utmMedium, utmCampaign, utmTerm, utmContent, gclid, gadSource, referrer, landingPage,
   } = lead;
   const row = (label, value) =>
-    `<div style="${rowStyle}"><span style="${labelStyle}">${label}:</span> ${value || '—'}</div>`;
+    `<div style="${rowStyle}"><span style="${labelStyle}">${label}:</span> ${value || 'N/A'}</div>`;
   const hasCampaign = utmSource || utmMedium || utmCampaign || gclid || gadSource;
   return emailWrapper(`
     <div style="${headerStyle}">
       <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
-      <h2 style="color:#fff;margin:0;font-size:20px;">New Lead — Google Ads</h2>
+      <h2 style="color:#fff;margin:0;font-size:20px;">New Lead - Google Ads</h2>
       <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:13px;">Submitted via /get-started</p>
     </div>
     <div style="${bodyStyle}">
@@ -185,11 +185,11 @@ const applicationNotification = ({ fullName, email, phone, role, department, lin
       <p style="color:#555;font-size:14px;margin-bottom:20px;">A new application has been submitted via the Arinox Careers page.</p>
       <div style="${rowStyle}"><span style="${labelStyle}">Name:</span> ${fullName}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Email:</span> <a href="mailto:${email}" style="color:#FE6300;">${email}</a></div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Phone:</span> ${phone || '—'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone:</span> ${phone || 'N/A'}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Role:</span> ${role}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Department:</span> ${department || '—'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Department:</span> ${department || 'N/A'}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Resume:</span> ${resumeName || 'Not provided'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">LinkedIn:</span> ${linkedIn ? `<a href="${linkedIn}" style="color:#FE6300;">${linkedIn}</a>` : '—'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">LinkedIn:</span> ${linkedIn ? `<a href="${linkedIn}" style="color:#FE6300;">${linkedIn}</a>` : 'N/A'}</div>
       ${coverNote ? `<div style="padding-top:16px;"><span style="${labelStyle}">Cover Note:</span><p style="margin-top:8px;font-size:14px;color:#444;line-height:1.7;background:#faf7f4;padding:14px;border-radius:8px;">${coverNote.replace(/\n/g, '<br>')}</p></div>` : ''}
     </div>`);
 
@@ -213,7 +213,7 @@ const applicationAutoReply = ({ fullName, role }) =>
         <a href="https://www.arinox.ai" style="color:#FE6300;">www.arinox.ai</a>.
       </p>
       <div style="background:linear-gradient(135deg,#FE6300,#ff7a1a);border-radius:8px;padding:16px 20px;color:#fff;font-size:13px;line-height:1.6;">
-        <strong>Arinox AI</strong> — Building intelligent systems that transform how enterprises operate.<br>
+        <strong>Arinox AI</strong> - Building intelligent systems that transform how enterprises operate.<br>
         We look forward to potentially working together!
       </div>
     </div>`);

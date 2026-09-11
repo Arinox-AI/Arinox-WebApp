@@ -42,7 +42,7 @@ const submitLead = async (req, res, next) => {
     if (!validator.isEmail(lead.email))
       return res.status(400).json({ success: false, message: 'Invalid email address.' });
 
-    // Save structured lead — log but don't fail the request if the DB hiccups
+    // Save structured lead - log but don't fail the request if the DB hiccups
     let saved = null;
     try {
       const now = new Date().toISOString();
@@ -62,13 +62,13 @@ const submitLead = async (req, res, next) => {
     const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
-        subject: `[Arinox Lead] ${lead.name}${lead.company ? ' — ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
+        subject: `[Arinox Lead] ${lead.name}${lead.company ? ' - ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
         html: leadNotification(lead),
         replyTo: lead.email,
       }),
       sendMail({
         to: lead.email,
-        subject: 'We received your request — Arinox AI',
+        subject: 'We received your request - Arinox AI',
         html: contactAutoReply({ name: lead.name, subject: 'your AI strategy call' }),
       }),
     ]);

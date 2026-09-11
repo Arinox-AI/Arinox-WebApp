@@ -1,9 +1,9 @@
 import { Component } from 'react';
 
 /**
- * Wraps decorative widgets (WebGL/3D scenes) so a failure — e.g. WebGL
+ * Wraps decorative widgets (WebGL/3D scenes) so a failure - e.g. WebGL
  * blocked by Brave Shields, disabled hardware acceleration, or a GPU
- * blocklist — degrades to "no animation" instead of blanking the page.
+ * blocklist - degrades to "no animation" instead of blanking the page.
  */
 class ErrorBoundary extends Component {
   state = { hasError: false };

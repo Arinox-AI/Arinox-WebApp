@@ -7,7 +7,7 @@ const { resumeToPdf } = require('../utils/resumeToPdf');
 const RESUME_BUCKET = 'resumes';
 
 // In-memory storage: the file buffer is uploaded to Supabase Storage AND
-// attached to the notification email — no reliance on ephemeral local disk.
+// attached to the notification email - no reliance on ephemeral local disk.
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },
@@ -73,7 +73,7 @@ const submitApplication = async (req, res, next) => {
     const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
-        subject: `[Arinox Careers] New Application — ${role} from ${fullName}`,
+        subject: `[Arinox Careers] New Application - ${role} from ${fullName}`,
         html: applicationNotification({
           fullName, email, phone, role, department,
           linkedIn, coverNote,
@@ -83,7 +83,7 @@ const submitApplication = async (req, res, next) => {
       }),
       sendMail({
         to: email,
-        subject: `Application received — ${role} at Arinox AI`,
+        subject: `Application received - ${role} at Arinox AI`,
         html: applicationAutoReply({ fullName, role }),
       }),
     ]);

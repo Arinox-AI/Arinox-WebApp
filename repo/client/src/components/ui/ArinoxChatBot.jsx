@@ -16,7 +16,7 @@ const SUGGESTED = [
 
 const KidBotIcon = ({ size = 22 }) => (
   <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Top head bumps — teal, like reference image */}
+    {/* Top head bumps - teal, like reference image */}
     <rect x="13" y="1.5" width="8" height="11" rx="4" fill="#1db8aa" />
     <rect x="27" y="1.5" width="8" height="11" rx="4" fill="#1db8aa" />
 
@@ -39,14 +39,14 @@ const KidBotIcon = ({ size = 22 }) => (
     {/* Visor top gloss */}
     <ellipse cx="18.5" cy="17.5" rx="4.5" ry="2" fill="white" fillOpacity="0.15" transform="rotate(-18 18.5 17.5)" />
 
-    {/* Left eye — glow halo */}
+    {/* Left eye - glow halo */}
     <path d="M14 22 Q18 15.5 22 22" stroke="#4d7aff" strokeWidth="4.5" strokeLinecap="round" fill="none" strokeOpacity="0.65" />
-    {/* Left eye — white crescent */}
+    {/* Left eye - white crescent */}
     <path d="M14 22 Q18 15.5 22 22" stroke="white" strokeWidth="2.4" strokeLinecap="round" fill="none" />
 
-    {/* Right eye — glow halo */}
+    {/* Right eye - glow halo */}
     <path d="M26 22 Q30 15.5 34 22" stroke="#4d7aff" strokeWidth="4.5" strokeLinecap="round" fill="none" strokeOpacity="0.65" />
-    {/* Right eye — white crescent */}
+    {/* Right eye - white crescent */}
     <path d="M26 22 Q30 15.5 34 22" stroke="white" strokeWidth="2.4" strokeLinecap="round" fill="none" />
 
     {/* Body */}

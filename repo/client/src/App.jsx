@@ -36,7 +36,7 @@ const Loader = () => (
   </div>
 );
 
-// Scroll to top on route change — disable browser scroll restoration so it can't override us
+// Scroll to top on route change - disable browser scroll restoration so it can't override us
 if (typeof window !== 'undefined') window.history.scrollRestoration = 'manual';
 const ScrollReset = () => {
   const { pathname } = useLocation();

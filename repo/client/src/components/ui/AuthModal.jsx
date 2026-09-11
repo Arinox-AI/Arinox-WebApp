@@ -59,7 +59,7 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }) => {
       const { data: emailCheck } = await axios.post('/api/v1/auth/check-email', { email: form.email });
       if (!emailCheck.exists) {
         setMode('register');
-        toast('No account found — create one below!', { icon: '👋' });
+        toast('No account found. Create one below!', { icon: '👋' });
         return;
       }
 

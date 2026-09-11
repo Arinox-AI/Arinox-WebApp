@@ -32,7 +32,7 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
     ].filter(Boolean);
 app.use(cors({
   origin: (origin, cb) => {
-    // Vercel preview deployments for this project get *.vercel.app origins —
+    // Vercel preview deployments for this project get *.vercel.app origins - 
     // allow ONLY our project's previews (arinox-website-*), not any Vercel app.
     if (!origin || allowedOrigins.includes(origin) || /^https:\/\/arinox-website(?:-[\w-]+)?\.vercel\.app$/.test(origin)) {
       return cb(null, true);
@@ -85,7 +85,7 @@ if (process.env.NODE_ENV === 'production') {
 
   if (fs.existsSync(clientBuild)) {
 
-  // Standalone Google Ads lead-capture landing page — clean URL alias so
+  // Standalone Google Ads lead-capture landing page - clean URL alias so
   // the ad can point at /get-started (the file ships as get-started.html).
   app.get('/get-started', (req, res) => res.sendFile(path.join(clientBuild, 'get-started.html')));
 

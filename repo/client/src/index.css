@@ -11,7 +11,7 @@
   font-display: swap;
 }
 
-/* ─── Brand Guide Tokens (Arinox AI — March 2026) ──────────
+/* ─── Brand Guide Tokens (Arinox AI - March 2026) ──────────
    Primary orange   : #E8590C  →  232 89 12
    Secondary (dark) : #D0500A  →  208 80 10
    Ink Black        : #1F1A12  →   31 26 18
@@ -40,7 +40,7 @@
   --color-subtle:    160 152 144;
 }
 
-/* Light mode — exact brand guide warm palette */
+/* Light mode - exact brand guide warm palette */
 html.light-mode {
   --color-bg:      242 239 233;
   --color-surface: 253 232 220;
@@ -514,7 +514,7 @@ html.light-mode h3,
 html.light-mode h4 {
   color: rgb(var(--color-text)) !important;
 }
-/* Hero (.grid-bg) has a dark Three.js canvas — keep white */
+/* Hero (.grid-bg) has a dark Three.js canvas - keep white */
 html.light-mode .grid-bg h1,
 html.light-mode .grid-bg h2,
 html.light-mode .grid-bg h3 {
@@ -534,7 +534,7 @@ html.light-mode .glass:not(a):not(button):hover,
 html.light-mode .glass-card:not(a):not(button):hover {
   color: inherit;
 }
-/* Partner chips in light mode — allow brand-primary text + lift shadow on hover */
+/* Partner chips in light mode - allow brand-primary text + lift shadow on hover */
 html.light-mode .partner-chip:hover {
   color: rgb(var(--color-primary)) !important;
   box-shadow: 0 4px 16px rgba(232, 89, 12, 0.18), 0 1px 4px rgba(0,0,0,0.07);
@@ -627,4 +627,32 @@ html.light-mode .contact-input:focus {
 .logo-marquee-mask {
   mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
+}
+
+/* ─── Deployment feed marquee (Solutions) ────────────────── */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 80s linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+}
+.feed-marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+}
+
+/* ─── Ghost display text (Solutions panels) ──────────────── */
+.text-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(240, 240, 240, 0.07);
+}
+html.light-mode .text-ghost {
+  -webkit-text-stroke: 1.5px rgba(31, 26, 18, 0.09);
 }

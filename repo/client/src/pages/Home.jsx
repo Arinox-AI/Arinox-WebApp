@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+﻿import { useEffect, useRef } from 'react';
 import { Landmark, ShieldCheck, Building2, Scale, Activity, Cpu, RefreshCw, Network, Zap, ChevronRight, Target, Factory, ClipboardList, Monitor } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import DemoLink from '../components/ui/DemoLink';
@@ -9,6 +9,7 @@ import ThreeScene from '../components/ui/ThreeScene';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
 import SEO from '../components/ui/SEO';
 import MouseTilt from '../components/ui/MouseTilt';
+import GlyphIcon from '../components/ui/GlyphIcon';
 import FloatingOrbs from '../components/ui/FloatingOrbs';
 import ajayPhoto from '../assets/Ajay-Kharbanda-CEO-of-Arinox-AI.png';
 import chytraPhoto from '../assets/chytraD.jpeg';
@@ -134,7 +135,7 @@ const Home = () => {
   const heroY = useTransform(scrollY, [0, 500], [0, -80]);
   const heroOpacity = useTransform(scrollY, [0, 350], [1, 0]);
 
-  /* GSAP: typing tagline — pauses when hero is out of view */
+  /* GSAP: typing tagline - pauses when hero is out of view */
   useEffect(() => {
     if (!taglineRef.current || !heroRef.current) return;
     const phrases = ['Shape Nations', 'Move Markets', 'Save Lives', 'Define the Future'];
@@ -210,7 +211,7 @@ const Home = () => {
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
               <Link to="/solutions" className="btn-primary w-full sm:w-auto px-7 py-3 rounded-xl text-white font-semibold text-sm text-center">
-                Explore Solutions →
+                Explore Case Studies →
               </Link>
               <DemoLink className="w-full sm:w-auto px-7 py-3 rounded-xl bg-brand-primary text-white font-semibold hover:bg-brand-primary/90 hover:-translate-y-0.5 transition-all duration-300 text-sm text-center shadow-lg shadow-brand-primary/30">
                 Request Demo →
@@ -271,11 +272,8 @@ const Home = () => {
                     {/* Content */}
                     <div className="absolute inset-0 flex flex-col justify-between p-3">
                       {/* Icon top-left */}
-                      <motion.div
-                        style={{ translateZ: 30 }}
-                        className="w-8 h-8 rounded-lg flex items-center justify-center backdrop-blur-sm self-start text-brand-primary bg-brand-primary/20 border border-brand-primary/40"
-                      >
-                        <Icon size={16} strokeWidth={1.8} />
+                      <motion.div style={{ translateZ: 30 }} className="self-start">
+                        <GlyphIcon Icon={Icon} size="sm" className="backdrop-blur-sm" />
                       </motion.div>
                       {/* Text bottom */}
                       <div>
@@ -306,8 +304,8 @@ const Home = () => {
             {whyCards.map(({ Icon, title, desc }, i) => (
               <motion.div key={title} variants={springCard} className={`why-card ${i === 0 ? 'col-span-2 sm:col-span-1' : ''}`}>
                 <MouseTilt className="glass-card rounded-2xl p-5 h-full" intensity={10}>
-                  <motion.div style={{ translateZ: 30 }} className="w-9 h-9 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-3">
-                    <Icon />
+                  <motion.div style={{ translateZ: 30 }} className="mb-3">
+                    <GlyphIcon Icon={Icon} />
                   </motion.div>
                   <motion.h3 style={{ translateZ: 20 }} className="text-brand-text font-bold mb-1 text-sm">{title}</motion.h3>
                   <motion.p style={{ translateZ: 10 }} className="text-xs text-brand-muted leading-relaxed">{desc}</motion.p>
@@ -448,8 +446,8 @@ const Home = () => {
           <motion.div variants={springGrid} initial="hidden" whileInView="visible" viewport={{ once: true }} className="grid md:grid-cols-3 gap-5">
             {[
               { tag: 'WHAT', title: 'We Solve with Purpose', desc: 'We build AI solutions that drive business transformation. From roadmap to rollout   strategy, systems, and scale.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises. Governments. Global System Integrators. IBM, HPE, Defence, NVIDIA, HCL Tech, Hitachi Systems, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
-              { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'We unite tech vendors and system integrators to deliver high-impact AI   fast. Pre-built use cases. Real adoption.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'WHO', title: 'Trusted by Leaders', desc: 'Enterprises, governments, defence, and global system integrators trust us to deliver. We work with industry leaders including IBM, HPE, HCL Tech, Hitachi Systems, and more across every industry worldwide.', grad: 'from-brand-primary to-brand-secondary' },
+              { tag: 'HOW', title: 'The Arinox Ecosystem', desc: 'From discovery to delivery, we design and manage your AI ecosystem end-to-end. Our team builds the right roadmap of data readiness, implementation, and adoption, bringing the right expertise and technology together to turn strategy into measurable business value.', grad: 'from-brand-primary to-brand-secondary' },
             ].map(({ tag, title, desc, grad }, i) => (
               <motion.div key={tag} variants={springCard}>
                 <MouseTilt className="glass-card rounded-2xl p-7 cursor-default h-full" intensity={11}>

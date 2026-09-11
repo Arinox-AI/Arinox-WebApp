@@ -30,7 +30,7 @@ async function resumeToPdf(buffer, originalName, mimetype) {
     }
   }
 
-  // .doc or unknown — no reliable pure-JS converter; attach original.
+  // .doc or unknown - no reliable pure-JS converter; attach original.
   return { filename: originalName, content: buffer };
 }
 

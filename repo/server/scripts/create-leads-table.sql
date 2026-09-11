@@ -4,7 +4,7 @@
 -- and segmented (employees, industry, AI usage, timeline, campaign source...).
 --
 -- Run once: paste into the Supabase dashboard → SQL Editor → Run.
--- Safe to re-run — uses CREATE TABLE IF NOT EXISTS / CREATE INDEX IF NOT EXISTS.
+-- Safe to re-run - uses CREATE TABLE IF NOT EXISTS / CREATE INDEX IF NOT EXISTS.
 -- ----------------------------------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS "Leads" (

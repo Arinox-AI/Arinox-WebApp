@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Cookie is sent automatically — no localStorage needed
+    // Cookie is sent automatically - no localStorage needed
     axios.get('/api/v1/auth/me')
       .then(({ data }) => setUser(data.user))
       .catch(() => setUser(null))

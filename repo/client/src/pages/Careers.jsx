@@ -6,6 +6,7 @@ import * as LucideIcons from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { useAuth } from '../hooks/useAuth';
 import AuthModal from '../components/ui/AuthModal';
+import GlyphIcon from '../components/ui/GlyphIcon';
 import { perks as perksData } from '../data/careers';
 
 /* ─── Helpers ────────────────────────────────────────────── */
@@ -250,7 +251,7 @@ const Careers = () => {
       />
 
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative pt-36 pb-24 grid-bg overflow-hidden">
+      <section className="relative pt-40 pb-24 grid-bg overflow-hidden">
         <div className="orb w-[500px] h-[500px] bg-brand-primary/10 top-0 right-0 -translate-y-1/4" />
         <div className="container-wide relative text-center">
           <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs tracking-widest uppercase text-brand-primary mb-4 font-semibold">Careers</motion.p>
@@ -289,8 +290,8 @@ const Careers = () => {
                 transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                 className="bg-brand-bg hover:bg-brand-card transition-colors p-5 lg:p-6"
               >
-                <div className="w-9 h-9 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center mb-4">
-                  <Icon size={18} strokeWidth={1.8} />
+                <div className="mb-4">
+                  <GlyphIcon Icon={Icon} />
                 </div>
                 <h3 className="text-white font-bold mb-1.5 text-sm">{title}</h3>
                 <p className="text-xs lg:text-sm text-brand-muted leading-relaxed">{desc}</p>
