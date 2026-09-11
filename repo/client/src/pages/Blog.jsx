@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import SEO from '../components/ui/SEO';
 import Reveal from '../components/ui/Reveal';
 import { img } from '../data/images';
@@ -18,7 +19,7 @@ const AI_FINANCE_IMG   = img('banking');
 const SERVER_ROOM_IMG  = img('commandcore-hero');
 const FACTORY_AUTO_IMG = img('technology');
 
-const samplePosts = [
+export const samplePosts = [
   {
     _id: 'e1',
     slug: 'aks-workshop-global-sovereign-ai',

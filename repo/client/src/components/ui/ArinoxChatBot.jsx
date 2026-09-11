@@ -76,7 +76,7 @@ export default function ArinoxChatBot() {
   // Show popup once on first load (per session)
   useEffect(() => {
     if (sessionStorage.getItem('arinox_chat_popup_dismissed')) return;
-    const t = setTimeout(() => setPopup(true), 2500);
+    const t = setTimeout(() => setPopup(true), 9000);
     return () => clearTimeout(t);
   }, []);
 

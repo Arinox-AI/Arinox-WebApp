@@ -23,6 +23,7 @@ import aiSummitImg          from '../assets/ai_summit.jpg';
 import bharatDigitalImg     from '../assets/Bharat_digital_event.jpeg';
 import aksImg               from '../assets/9th Nov- AKS Workshop Global.jpeg';
 import ansrImg              from '../assets/4th July - ANSR Tech Workshop_.jpg';
+import indianGovImg         from '../assets/IndianGov.jpeg';
 
 /* Sector photography (/public/industries — plain URLs) */
 const bankingImg     = '/industries/banking.jpeg';
@@ -55,6 +56,7 @@ export const IMAGES = {
   'bharat-digital':   bharatDigitalImg,
   'aks-workshop':     aksImg,
   'ansr-workshop':    ansrImg,
+  'indian-gov':       indianGovImg,
 
   banking:     bankingImg,
   defence:     defenceImg,

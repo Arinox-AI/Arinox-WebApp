@@ -1,13 +1,12 @@
 /* ─── Site-wide narrative data ────────────────────────────── */
 
 export const nav = [
-  { label: 'Platform',    to: '/commandcore' },
-  { label: 'Solutions',   to: '/solutions' },
-  { label: 'Company',     to: '/about' },
-  { label: 'Partners',    to: '/partners' },
-  { label: 'Careers',     to: '/careers' },
-  { label: 'Blog',        to: '/blog' },
-  { label: 'Contact',     to: '/contact' },
+  { label: 'Solutions', to: '/solutions' },
+  { label: 'Platform',  to: '/commandcore' },
+  { label: 'Company',   to: '/about' },
+  { label: 'Partners',  to: '/partners' },
+  { label: 'Insights',  to: '/blog' },
+  { label: 'Careers',   to: '/careers' },
 ];
 
 export const company = {

@@ -1,13 +1,13 @@
 import Reveal from './Reveal';
 
-/* Static logo wall — no marquee, no motion theatre. */
+/* Quiet, boxless logo row — logos in ink, names in mono micro-label. */
 const LogoWall = ({ items, cols = 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5', className = '' }) => (
-  <div className={`grid ${cols} gap-3 ${className}`}>
+  <div className={`grid ${cols} gap-x-8 gap-y-9 items-center ${className}`}>
     {items.map(({ name, logo }) => (
-      <Reveal key={name} delay={0}>
-        <div className="logo-wall-item card card-hover flex flex-col items-center justify-center gap-2.5 px-5 py-6 h-full">
-          <img src={logo} alt={name} title={name} loading="lazy" className="h-8 max-w-[120px] w-auto object-contain" />
-          <span className="text-[11px] text-brand-muted text-center leading-tight">{name}</span>
+      <Reveal key={name}>
+        <div className="logo-wall-item flex flex-col items-center gap-2">
+          <img src={logo} alt={name} title={name} loading="lazy" className="h-6 md:h-7 max-w-[110px] w-auto object-contain" />
+          <span className="mono text-[9px] tracking-[0.14em] text-brand-subtle uppercase text-center leading-tight">{name}</span>
         </div>
       </Reveal>
     ))}
