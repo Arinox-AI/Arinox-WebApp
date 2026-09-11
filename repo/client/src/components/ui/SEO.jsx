@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-  title = 'Arinox AI | Sovereign AI Infrastructure for Enterprises',
-  description = 'Arinox AI delivers sovereign, private AI infrastructure and intelligent agents for enterprises across BFSI, Healthcare, Manufacturing, Defense, and Government.',
+  title = 'Arinox AI | Private AI, Implemented End-to-End',
+  description = 'Arinox is an AI transformation company. We help enterprises implement private AI on their own infrastructure through CommandCore and the KOGO agentic layer. Built in India.',
   canonical = 'https://www.arinox.ai',
   image = 'https://www.arinox.ai/og-image.jpg',
   type = 'website',
-  keywords = 'sovereign AI, enterprise AI, on-premises AI, CommandCore, AI agents, private AI infrastructure, BFSI AI, defence AI, government AI, India AI platform',
+  keywords = 'AI transformation, private AI, enterprise AI, on-premises AI, CommandCore, KOGO, agentic AI, AI consulting, sovereign AI, India AI company',
   jsonLd,
 }) => {
   const fullTitle = title.includes('Arinox') ? title : `${title} | Arinox AI`;

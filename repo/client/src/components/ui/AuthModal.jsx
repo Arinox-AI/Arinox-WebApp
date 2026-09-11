@@ -7,7 +7,7 @@ import { useAuth } from '../../hooks/useAuth.jsx';
 import arinoxLogo from '../../assets/img.png';
 
 const INPUT = 'w-full px-4 py-2.5 rounded-xl bg-brand-surface border border-brand-border text-brand-text placeholder-brand-muted text-sm focus:outline-none focus:border-brand-primary transition-colors';
-const BTN_PRIMARY = 'w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-primary to-brand-secondary text-white font-bold text-sm hover:opacity-90 transition-opacity disabled:opacity-50';
+const BTN_PRIMARY = 'w-full py-2.5 rounded-xl bg-brand-primary border border-brand-primary text-white font-semibold text-sm hover:bg-brand-secondary hover:border-brand-secondary transition-all disabled:opacity-50';
 
 const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }) => {
   const [mode, setMode] = useState(defaultMode);
@@ -91,14 +91,14 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }) => {
           aria-modal="true"
           aria-label="Sign in or create account"
         >
-          <div className="absolute inset-0 bg-brand-bg/85 backdrop-blur-2xl" />
+          <div className="absolute inset-0 bg-[#1F1A12]/45 backdrop-blur-sm" />
 
           <motion.div
             initial={{ scale: 0.88, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.88, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 24, stiffness: 300 }}
-            className="relative w-full max-w-xs bg-brand-card rounded-2xl p-4 sm:p-5 text-center border border-brand-border shadow-2xl shadow-black/30 overflow-y-auto max-h-[90dvh]"
+            className="relative w-full max-w-xs bg-brand-card rounded-2xl p-4 sm:p-5 text-center border border-brand-border shadow-2xl shadow-black/25 overflow-y-auto max-h-[90dvh]"
           >
             <button
               onClick={handleClose}
@@ -108,7 +108,7 @@ const AuthModal = ({ isOpen, onClose, defaultMode = 'login' }) => {
             <img
               src={arinoxLogo}
               alt="Arinox AI"
-              className="h-7 w-auto object-contain mx-auto mb-3 drop-shadow-[0_0_8px_rgba(254,99,0,0.4)]"
+              className="h-7 w-auto object-contain mx-auto mb-3"
             />
 
             <h2 className="text-base font-display font-bold text-brand-text mb-1">

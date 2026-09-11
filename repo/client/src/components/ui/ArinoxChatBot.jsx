@@ -178,7 +178,7 @@ export default function ArinoxChatBot() {
             <div style={{
               display: 'flex', alignItems: 'center', gap: '10px',
               padding: '12px 16px',
-              background: 'linear-gradient(135deg, #FE6300 0%, #E55A00 100%)',
+              background: 'linear-gradient(135deg, #E8590C 0%, #D0500A 100%)',
               flexShrink: 0,
             }}>
               <div style={{
@@ -191,7 +191,7 @@ export default function ArinoxChatBot() {
                 <span style={{
                   position: 'absolute', bottom: '1px', right: '1px',
                   width: '9px', height: '9px', borderRadius: '50%',
-                  background: '#4ade80', border: '2px solid #E55A00',
+                  background: '#4ade80', border: '2px solid #D0500A',
                 }} />
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
@@ -216,7 +216,7 @@ export default function ArinoxChatBot() {
                   {m.role === 'assistant' && (
                     <div style={{
                       width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
-                      background: 'linear-gradient(135deg, #FE6300, #E55A00)',
+                      background: 'linear-gradient(135deg, #E8590C, #D0500A)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
                       boxShadow: '0 2px 8px rgba(254,99,0,0.3)',
                     }}>
@@ -230,7 +230,7 @@ export default function ArinoxChatBot() {
                     fontSize: '13.5px',
                     lineHeight: '1.55',
                     ...(m.role === 'user'
-                      ? { background: 'linear-gradient(135deg, #FE6300, #E55A00)', color: '#fff' }
+                      ? { background: 'linear-gradient(135deg, #E8590C, #D0500A)', color: '#fff' }
                       : { background: '#ffffff', color: '#1a1a1a', boxShadow: '0 1px 4px rgba(0,0,0,0.1)' }
                     ),
                   }}>
@@ -243,7 +243,7 @@ export default function ArinoxChatBot() {
                 <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end', gap: '7px' }}>
                   <div style={{
                     width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
-                    background: 'linear-gradient(135deg, #FE6300, #E55A00)',
+                    background: 'linear-gradient(135deg, #E8590C, #D0500A)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     boxShadow: '0 2px 8px rgba(254,99,0,0.3)',
                   }}>
@@ -251,7 +251,7 @@ export default function ArinoxChatBot() {
                   </div>
                   <div style={{ display: 'flex', gap: '5px', alignItems: 'center', padding: '10px 14px', background: '#ffffff', borderRadius: '4px 16px 16px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.1)' }}>
                     {[0, 1, 2].map(i => (
-                      <motion.span key={i} style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', background: '#FE6300' }}
+                      <motion.span key={i} style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', background: '#E8590C' }}
                         animate={{ opacity: [0.3, 1, 0.3], y: [0, -4, 0] }}
                         transition={{ duration: 0.85, delay: i * 0.17, repeat: Infinity }}
                       />
@@ -275,11 +275,11 @@ export default function ArinoxChatBot() {
                 {SUGGESTED.map(s => (
                   <button key={s} onClick={() => send(s)} style={{
                     fontSize: '13px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer',
-                    background: '#fff', color: '#FE6300',
+                    background: '#fff', color: '#E8590C',
                     border: '1px solid rgba(254,99,0,0.35)', transition: 'background 0.15s',
                   }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#FE6300'; e.currentTarget.style.color = '#fff'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#FE6300'; }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#E8590C'; e.currentTarget.style.color = '#fff'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#E8590C'; }}
                   >{s}</button>
                 ))}
               </div>
@@ -307,7 +307,7 @@ export default function ArinoxChatBot() {
                   disabled={!input.trim() || loading || streaming}
                   style={{
                     flexShrink: 0, width: '44px', height: '44px', borderRadius: '11px', border: 'none',
-                    background: input.trim() && !loading && !streaming ? 'linear-gradient(135deg, #FE6300, #E55A00)' : '#e5e5e5',
+                    background: input.trim() && !loading && !streaming ? 'linear-gradient(135deg, #E8590C, #D0500A)' : '#e5e5e5',
                     cursor: input.trim() && !loading && !streaming ? 'pointer' : 'not-allowed',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s',
                   }}
@@ -320,7 +320,7 @@ export default function ArinoxChatBot() {
               </div>
               <p style={{ margin: '6px 2px 0', fontSize: '10px', color: '#999', lineHeight: '1.4', textAlign: 'center' }}>
                 By messaging, you agree this chat may be monitored, recorded, and used for personalization and other business services per our{' '}
-                <a href="/privacy" style={{ color: '#FE6300', textDecoration: 'none' }}>Privacy Policy</a>.
+                <a href="/privacy" style={{ color: '#E8590C', textDecoration: 'none' }}>Privacy Policy</a>.
               </p>
             </div>
           </motion.div>
@@ -360,12 +360,12 @@ export default function ArinoxChatBot() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
               <div style={{
                 width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
-                background: 'linear-gradient(135deg, #FE6300, #E55A00)',
+                background: 'linear-gradient(135deg, #E8590C, #D0500A)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}><KidBotIcon size={22} /></div>
               <div>
                 <p style={{ margin: 0, fontWeight: 700, fontSize: '13px', color: '#1a1a1a' }}>Arin</p>
-                <p style={{ margin: 0, fontSize: '10.5px', color: '#FE6300', fontWeight: 600 }}>Arinox AI</p>
+                <p style={{ margin: 0, fontSize: '10.5px', color: '#E8590C', fontWeight: 600 }}>Arinox AI</p>
               </div>
             </div>
             <p style={{ margin: 0, fontSize: '12.5px', color: '#444', lineHeight: 1.55 }}>
@@ -391,7 +391,7 @@ export default function ArinoxChatBot() {
         aria-label="Chat with Arin"
         style={{
           width: '50px', height: '50px', borderRadius: '50%', border: 'none', cursor: 'pointer',
-          background: 'linear-gradient(135deg, #FE6300, #E55A00)',
+          background: 'linear-gradient(135deg, #E8590C, #D0500A)',
           display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
           boxShadow: '0 8px 30px rgba(254,99,0,0.45)',
         }}
@@ -412,7 +412,7 @@ export default function ArinoxChatBot() {
         {!open && (
           <motion.span style={{
             position: 'absolute', inset: 0, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #FE6300, #E55A00)', opacity: 0.5,
+            background: 'linear-gradient(135deg, #E8590C, #D0500A)', opacity: 0.5,
           }}
             animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
             transition={{ duration: 1.8, repeat: Infinity }}
