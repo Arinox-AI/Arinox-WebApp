@@ -79,7 +79,7 @@ const submitLead = async (req, res, next) => {
       }
     });
 
-    res.status(201).json({ success: true, message: "Thank you! We'll be in touch within 24 hours.", id: saved?.id });
+    res.status(201).json({ success: true, message: "Thank you! We'll get back to you soon.", id: saved?.id });
   } catch (err) { next(err); }
 };
 

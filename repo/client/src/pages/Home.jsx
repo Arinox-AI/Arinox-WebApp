@@ -1,672 +1,496 @@
-import { Link } from 'react-router-dom';
-import {
-  ArrowRight, ShieldCheck, RefreshCw, Cpu, Network,
-  Compass, Code2, Boxes, Landmark, Building2, Scale, Activity,
-} from 'lucide-react';
-import SEO from '../components/ui/SEO';
-import Reveal from '../components/ui/Reveal';
-import LogoWall from '../components/ui/LogoWall';
-import { img } from '../data/images';
-import { anchorDeployment, anonymisedStudies } from '../data/caseStudies';
-import { team, values } from '../data/site';
-import { deliveryPartners } from '../data/clients';
-import { samplePosts } from './Blog';
+import { useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { MapTrifold, RocketLaunch, StackSimple, Target, ShieldCheck, Stack } from '@phosphor-icons/react'
+import SEO from '../components/ui/SEO'
+import { useBookCta, BOOK_CTA_TRANSITION } from '../components/site/BookCtaContext'
+import { Button } from '../components/site/Button'
+import { Section } from '../components/site/Section'
+import { Label } from '../components/site/Layout'
+import { CtaBand } from '../components/site/Shell'
+import { AsciiGlobe } from '../components/site/AsciiGlobe'
+import { ComplianceStrip } from '../components/site/ComplianceStrip'
+import { LayerStack } from '../components/site/LayerStack'
+import { team, advisors } from '../data/site'
+import { samplePosts } from './Blog'
 
-/* ── Why Arinox — the company's own differentiators ─────── */
-const why = [
+const moves = [
   {
+    n: '01',
+    Icon: MapTrifold,
+    t: 'Map',
+    d: 'One free working session. We find the workflows worth transforming first, by cost, risk, and payback speed. You keep the map either way.',
+    tag: 'One session',
+  },
+  {
+    n: '02',
+    Icon: StackSimple,
+    t: 'Build',
+    d: 'We assemble agents on a proven agentic operating system, documents, voice, vision, decisions, wired into the tools your teams already use.',
+    tag: 'Built on KOGO OS',
+  },
+  {
+    n: '03',
+    Icon: RocketLaunch,
+    t: 'Run',
+    d: 'You choose where it lives: your cloud, your infrastructure, or a CommandCore appliance in your building. Governed end to end.',
+    tag: 'Inside your perimeter',
+  },
+]
+
+const deploy = [
+  {
+    t: 'Your public cloud',
+    d: 'Dedicated, isolated compute that slots into the estate you already run.',
+    li: ['Deploys into your cloud', 'Isolated tenancy', 'Scales as adoption spreads'],
+  },
+  {
+    t: 'Your private infrastructure',
+    d: 'On your metal, your network, your terms. Existing investments, new capability.',
+    li: ['Runs on your private estate', 'BFSI and healthcare floors', 'Compliance as architecture'],
+  },
+  {
+    t: 'CommandCore™',
+    d: 'The machine itself, air-gapped, in your building, answering to nobody’s cloud.',
+    li: ['Zero data egress', 'Full audit trails', 'Remote and tactical sites'],
+    sovereign: true,
+  },
+]
+
+const model = [
+  {
+    n: '01',
+    k: 'What',
+    Icon: Target,
+    title: 'We solve with purpose',
+    desc: 'We build AI that drives business transformation, from roadmap to rollout: strategy, systems, and scale.',
+    tags: ['Strategy', 'Systems', 'Scale'],
+  },
+  {
+    n: '02',
+    k: 'Who',
     Icon: ShieldCheck,
-    title: 'Sovereign AI',
-    desc: 'Your data stays yours. Deploy on private cloud or on-premises, with compliance built in — not bolted on.',
+    title: 'Trusted by the regulated',
+    desc: 'Enterprises, governments, defence, and global system integrators, environments where AI has to survive the security review.',
+    tags: ['BFSI', 'Healthcare', 'Defence', 'Government'],
   },
   {
-    Icon: RefreshCw,
-    title: 'AI that adapts',
-    desc: 'Enterprise-grade solutions that bend to your operations. Zero compromise on security.',
+    n: '03',
+    k: 'How',
+    Icon: Stack,
+    title: 'An end-to-end ecosystem',
+    desc: 'Data readiness, implementation, and adoption, managed end to end so strategy becomes measurable value.',
+    tags: ['Data readiness', 'Implementation', 'Adoption'],
   },
-  {
-    Icon: Cpu,
-    title: 'Agents that fit',
-    desc: 'Seamless integration into your existing workflows. Real reasoning, real work — results from day one.',
-  },
-  {
-    Icon: Network,
-    title: 'Ecosystem strength',
-    desc: 'A global partner network bringing best-in-class technology, infrastructure, and outcomes.',
-  },
-];
+]
 
-/* ── What we do ──────────────────────────────────────────── */
-const services = [
-  {
-    index: '01',
-    Icon: Compass,
-    title: 'Strategy & roadmap',
-    desc: 'We solve with purpose. From roadmap to rollout, we decode how your enterprise runs today and redesign how it should operate tomorrow — strategy, systems, and scale.',
-  },
-  {
-    index: '02',
-    Icon: Code2,
-    title: 'Private AI implementation',
-    desc: 'We build and deploy AI systems inside your environment — on your data, under your governance, air-gapped where it matters, with no public-cloud dependency.',
-  },
-  {
-    index: '03',
-    Icon: Boxes,
-    title: 'Ecosystem & adoption',
-    desc: 'From discovery to delivery, we design and manage your AI ecosystem end to end — data readiness, implementation, and adoption that turns strategy into measurable business value.',
-  },
-];
+const marquee = [
+  'Any cloud, your estate',
+  'Air-gapped option',
+  'RBAC by default',
+  'Full audit trails',
+  'Scales with demand',
+  'Zero data egress',
+  'BFSI · Healthcare · Defence',
+]
 
-/* ── The journey ─────────────────────────────────────────── */
-const phases = [
-  { n: '01', title: 'Assess',    desc: 'Current systems, data reality, compliance constraints — and where AI creates measurable advantage.', out: 'Opportunity map, business case' },
-  { n: '02', title: 'Architect', desc: 'Target architecture, deployment model, integrations, and the governance that goes with them.',        out: 'Blueprint, deployment plan' },
-  { n: '03', title: 'Deploy',    desc: 'Systems installed inside your perimeter, connected to your workflows, tested with your teams.',        out: 'Production AI in your environment' },
-  { n: '04', title: 'Run',       desc: 'Measured operations, continuous improvement, and a roadmap for the next set of workflows.',            out: 'A running AI capability' },
-];
+const trustedLogos = [
+  { src: '/images/logos/ibm.svg', alt: 'IBM', h: 'h-9' },
+  { src: '/images/logos/hpe.svg', alt: 'HPE', h: 'h-8' },
+  { src: '/images/logos/hcltech.svg', alt: 'HCL Tech', h: 'h-7' },
+  { src: '/images/logos/hitachi.svg', alt: 'Hitachi Systems', h: 'h-7' },
+  { src: '/images/logos/Coforge.webp', alt: 'Coforge', h: 'h-8' },
+  { src: '/images/logos/minera.svg', alt: 'Minera Steel and Power', h: 'h-8' },
+  { src: '/images/logos/blackberrys.png', alt: 'Blackberrys', h: 'h-6' },
+  { src: '/images/logos/lsdigital.png', alt: 'LS Digital', h: 'h-14' },
+  { src: '/images/logos/hul.svg', alt: 'Hindustan Unilever', h: 'h-9' },
+  { src: '/images/logos/centuryply.svg', alt: 'Century Ply', h: 'h-10' },
+  { src: '/images/logos/innocean.png', alt: 'Innocean', h: 'h-7' },
+  { src: '/images/logos/celkon.webp', alt: 'Celkon Mobile', h: 'h-7' },
+  { src: '/images/logos/nikom.png', alt: 'Nikom', h: 'h-7' },
+  { src: '/images/logos/langoor.png', alt: 'Langoor', h: 'h-12' },
+  { src: '/images/logos/indian-army.png', alt: 'Indian Army', h: 'h-12' },
+]
 
-/* ── Architecture stack ──────────────────────────────────── */
-const stack = [
-  { layer: 'Your teams & workflows',   note: 'Where the value shows up' },
-  { layer: 'AI agents',                note: 'Built for your operations, governed by your rules' },
-  { layer: 'KOGO OS',                  note: 'The agentic layer — builder, mesh, memory, guardrails' },
-  { layer: 'Models & knowledge',       note: 'Running locally, answers cited to source' },
-  { layer: 'CommandCore',              note: 'Sovereign AI infrastructure — S, M, XL' },
-  { layer: 'Your premises',            note: 'Your network. Your compliance boundary.' },
-];
-
-const industries = [
-  { Icon: Landmark,  label: 'Banking & finance',       note: 'Capital markets & compliance AI',   photo: 'banking',    to: '/solutions#bfsi' },
-  { Icon: ShieldCheck, label: 'Defence & army',        note: 'Sovereign military AI systems',     photo: 'defence',    to: '/solutions#defence' },
-  { Icon: Building2, label: 'Government',              note: 'Public sector intelligence',        photo: 'government', to: '/solutions#government' },
-  { Icon: Activity,  label: 'Healthcare',              note: 'Clinical AI & health compliance',   photo: 'healthcare', to: '/solutions#healthcare' },
-  { Icon: Cpu,       label: 'Technology & industry',   note: 'Enterprise platforms & OT AI',      photo: 'technology', to: '/solutions#manufacturing' },
-  { Icon: Scale,     label: 'Legal & professional',    note: 'AI-assisted legal intelligence',    photo: 'legal',      to: '/solutions' },
-];
-
-const faqs = [
-  {
-    q: 'What does “private AI” mean?',
-    a: 'AI systems that run entirely inside your own environment — your hardware, your network, your governance. Your data, prompts, and outputs never leave your perimeter.',
-  },
-  {
-    q: 'Do we have to move to the cloud?',
-    a: 'No. That is the point. We deploy inside your existing infrastructure, including fully air-gapped environments with no external connectivity.',
-  },
-  {
-    q: 'How long does an engagement take?',
-    a: 'Discovery runs in weeks. The first production agents typically go live inside a quarter, depending on data readiness and integration scope.',
-  },
-  {
-    q: 'Where does CommandCore fit?',
-    a: 'CommandCore is the platform we deliver on — our own sovereign AI infrastructure, with the KOGO OS agentic layer built in. It is how we deliver the transformation, not what we lead with.',
-  },
-];
-
-const featuredSlugs = [
-  'langoor-arinox-sovereign-ai-launch',
-  'bharat-digital-summit-bdia',
-  'aks-workshop-global-sovereign-ai',
-];
+function PersonGroup({ label, people }) {
+  return (
+    <div>
+      <div className="mb-8 flex items-center gap-4">
+        <span className="eyebrow text-ember-deep">{label}</span>
+        <span className="h-px flex-1 bg-line" aria-hidden />
+      </div>
+      <div className="grid max-w-4xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {people.map((p) => (
+          <div key={p.name} className="group overflow-hidden card-light">
+            <div className="aspect-[4/4.2] overflow-hidden bg-paper-2">
+              <img
+                src={p.photo}
+                alt={p.name}
+                loading="lazy"
+                className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              />
+            </div>
+            <div className="p-5">
+              <p className="font-display text-[18px] leading-tight tracking-[-0.01em]">{p.name}</p>
+              <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ember-deep">{p.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const Home = () => {
-  const insights = featuredSlugs
-    .map((slug) => samplePosts.find((p) => p.slug === slug))
-    .filter(Boolean);
+  const heroRef = useRef(null)
+  const ctaSlotRef = useRef(null)
+  const { passed, setPassed, setHasHero } = useBookCta()
+
+  useEffect(() => {
+    setHasHero(true)
+    return () => {
+      setHasHero(false)
+      setPassed(false)
+    }
+  }, [setHasHero, setPassed])
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = ctaSlotRef.current
+      if (!el) return
+      setPassed(el.getBoundingClientRect().bottom < 76)
+    }
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [setPassed])
+
+  const onHeroMove = (e) => {
+    const el = heroRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+    el.style.setProperty('--my', `${e.clientY - r.top}px`)
+  }
+
+  const [featured, ...more] = samplePosts
 
   return (
     <>
       <SEO
         title="Arinox AI | AI Transformation, Implemented End-to-End"
-        description="Arinox is an AI transformation company. We help large organisations implement private AI inside their own environment — strategy, deployment, integration, and operations. Deployed with the Indian Army. Built in India."
+        description="Arinox is an AI transformation company. We build, deploy, and run private AI, on our CommandCore appliance or in your own infrastructure, orchestrated by KOGO, with zero data egress. Built in India."
         canonical="https://www.arinox.ai/"
       />
 
-      {/* ═══ HERO ═══ */}
-      <section className="pt-28 md:pt-36 pb-16 md:pb-24">
-        <div className="container-wide grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          <div className="lg:col-span-6">
-            <Reveal>
-              <p className="mono-label mono-label-accent">AI transformation company · Built in India</p>
-              <h1 className="text-[2.6rem] leading-[1.05] md:text-[3.5rem] font-display tracking-[-0.02em] mb-6">
-                We make AI work<br />inside your company.
-              </h1>
-              <p className="text-[16.5px] text-brand-muted leading-relaxed max-w-xl mb-9">
-                Arinox is the AI transformation partner for large organisations. We bring the strategy,
-                the engineering, and the platform — and we stay until AI is running on your data,
-                in your environment, under your governance.
-              </p>
-              <div className="flex flex-wrap items-center gap-x-7 gap-y-4 mb-10">
-                <Link to="/contact" className="btn btn-primary">
-                  Start a conversation
-                </Link>
-                <a href="#why-arinox" className="arrow-link">
-                  Why Arinox <ArrowRight size={15} />
-                </a>
-              </div>
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-[12.5px] text-brand-muted pt-6 border-t border-brand-border">
-                <span>Deployed with the Indian Army (DGIS)</span>
-                <span aria-hidden="true" className="text-brand-border">·</span>
-                <span>Recognised by Startup India (DPIIT)</span>
-              </div>
-            </Reveal>
-          </div>
-
-          <div className="lg:col-span-6">
-            <Reveal delay={0.12}>
-              <div className="rounded-lg border border-brand-border bg-brand-surface p-6 md:p-7">
-                <div className="grid grid-cols-3 gap-4">
-                  {[
-                    { key: 'commandcore-s', label: 'CommandCore S' },
-                    { key: 'commandcore-m', label: 'CommandCore M' },
-                    { key: 'commandcore-xl', label: 'CommandCore XL' },
-                  ].map(({ key, label }) => (
-                    <div key={key}>
-                      <div className="img-frame img-contain aspect-square bg-white">
-                        <img src={img(key)} alt={label} fetchpriority="high" />
-                      </div>
-                      <p className="mono text-[9.5px] tracking-[0.1em] text-brand-subtle mt-2.5 text-center uppercase">{label}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex items-center justify-between mt-5 pt-5 border-t border-brand-border gap-4">
-                  <span className="mono text-[10px] tracking-[0.14em] text-brand-subtle uppercase shrink-0">Powered by</span>
-                  <span className="text-[13px] font-medium text-right">KOGO OS — agentic layer, built in</span>
-                </div>
-              </div>
-              <p className="photo-caption text-center">
-                CommandCore — the private AI platform we build and operate inside your premises.
-              </p>
-            </Reveal>
-          </div>
+      {/* Hero */}
+      <section
+        ref={heroRef}
+        onMouseMove={onHeroMove}
+        className="relative isolate overflow-hidden px-7 pb-20 pt-16 md:pt-24"
+        style={{ '--mx': '50%', '--my': '32%' }}
+      >
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden>
+          <div className="hero-vignette absolute inset-0" />
+          <div className="hero-light absolute inset-0" />
         </div>
-      </section>
 
-      {/* ═══ TRUST ═══ */}
-      <section className="border-y border-brand-border">
-        <div className="container-wide py-12 md:py-14">
-          <Reveal>
-            <p className="text-[12.5px] text-brand-muted text-center mb-10">
-              Trusted by enterprises, governments, and defence — delivered with
-              world-class system integrators and technology partners.
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8">
+          <div className="text-center lg:text-left">
+            <Label className="justify-center lg:justify-start">AI transformation company</Label>
+            <h1 className="mt-5 font-display text-[44px] leading-[1.02] font-normal tracking-[-0.02em] md:text-[64px] lg:text-[68px]">
+              We transform how your
+              <br />
+              enterprise <span className="italic text-ember">works.</span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-[560px] text-[17px] leading-relaxed text-ink-soft md:text-lg lg:mx-0">
+              From agentic automation and voice AI to sovereign on-premises compute and real-time
+              decision intelligence, Arinox delivers enterprise AI across every industry and domain, entirely within your environment.
             </p>
-          </Reveal>
-          <LogoWall items={deliveryPartners} cols="grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" />
+            <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
+              <motion.div
+                ref={ctaSlotRef}
+                initial={false}
+                animate={{
+                  opacity: passed ? 0 : 1,
+                  y: passed ? -18 : 0,
+                  scale: passed ? 0.94 : 1,
+                }}
+                transition={BOOK_CTA_TRANSITION}
+                style={{ pointerEvents: passed ? 'none' : 'auto' }}
+                aria-hidden={passed}
+              >
+                <Button to="/contact" variant="ember">Book a discovery session</Button>
+              </motion.div>
+              <Button to="/case-studies" variant="ghost">Explore case studies</Button>
+            </div>
+            <p className="num mt-6 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
+              Free discovery session · you keep the map · zero egress
+            </p>
+          </div>
+
+          <div className="relative mx-auto w-full max-w-[540px]">
+            <div className="relative aspect-square w-full">
+              <AsciiGlobe fontSize={13} speed={4} tilt={20} scale={0.98} landOpacity={0.66} oceanOpacity={0.5} />
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* ═══ 01 · WHY ARINOX ═══ */}
-      <section className="section-padding" id="why-arinox">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">01</span>
-            <span className="label">Why Arinox</span>
-            <span className="line" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-8 mb-16">
-            <div className="lg:col-span-7">
-              <Reveal>
-                <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em]">
-                  Wherever AI must perform<br />without compromise.
-                </h2>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-5">
-              <Reveal delay={0.1}>
-                <p className="text-[16px] text-brand-muted leading-relaxed">
-                  We deploy across every industry where data integrity, regulatory compliance, and
-                  operational continuity are non-negotiable — engineered for the constraints of each
-                  domain, not a generic AI layer stretched to fit.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {why.map(({ Icon, title, desc }, i) => (
-              <Reveal key={title} delay={i * 0.06}>
-                <div className="card card-hover p-7 h-full">
-                  <div className="w-10 h-10 rounded-md border border-brand-border flex items-center justify-center mb-5 bg-white">
-                    <Icon size={17} strokeWidth={1.8} className="text-brand-primary" />
-                  </div>
-                  <h3 className="text-[18px] font-display mb-2.5">{title}</h3>
-                  <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
-                </div>
-              </Reveal>
+      {/* Trust carousel */}
+      <section className="border-t border-line py-12">
+        <div className="mb-9 flex justify-center">
+          <Label>Trusted by leaders</Label>
+        </div>
+        <div className="group relative overflow-hidden">
+          <div className="marquee-track flex w-max items-center">
+            {[...trustedLogos, ...trustedLogos].map((l, i) => (
+              <img
+                key={`${l.alt}-${i}`}
+                src={l.src}
+                alt={l.alt}
+                loading="lazy"
+                aria-hidden={i >= trustedLogos.length}
+                className={`mr-20 w-auto shrink-0 object-contain opacity-55 transition-opacity duration-200 hover:opacity-90 ${l.h}`}
+              />
             ))}
           </div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-paper to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-paper to-transparent" />
         </div>
       </section>
 
-      {/* ═══ 02 · WHAT WE DO ═══ */}
-      <section className="section-padding bg-brand-surface border-y border-brand-border">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">02</span>
-            <span className="label">What we do</span>
-            <span className="line" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-8 mb-14">
-            <div className="lg:col-span-7">
-              <Reveal>
-                <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em]">
-                  One partner for the<br />whole AI journey.
-                </h2>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-5">
-              <Reveal delay={0.1}>
-                <p className="text-[16px] text-brand-muted leading-relaxed">
-                  Strategy, systems, and scale — we take responsibility for the path from first
-                  assessment to an AI capability that runs and improves inside your company.
-                </p>
-              </Reveal>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-5 mb-8">
-            {services.map(({ index, Icon, title, desc }, i) => (
-              <Reveal key={index} delay={i * 0.07}>
-                <div className="card card-hover p-7 h-full flex flex-col">
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-10 h-10 rounded-md border border-brand-border flex items-center justify-center bg-white">
-                      <Icon size={17} strokeWidth={1.8} className="text-brand-primary" />
-                    </div>
-                    <span className="step-num text-[12px]">{index}</span>
-                  </div>
-                  <h3 className="text-[19px] font-display mb-2.5">{title}</h3>
-                  <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal delay={0.15}>
-            <div className="rounded-lg border border-brand-border bg-white px-7 py-6 flex flex-col md:flex-row md:items-center gap-4 md:gap-8">
-              <p className="text-[15px] font-display shrink-0">We don’t build everything — we curate the best.</p>
-              <p className="text-[13.5px] text-brand-muted leading-relaxed">
-                Through exclusive partnerships with AI pioneers, system integrators, and technology
-                majors, we deliver proven solutions that work in your context — including IBM, HPE,
-                HCLTech, Hitachi Systems, and more.
-              </p>
-            </div>
-          </Reveal>
+      {/* Our model */}
+      <Section border>
+        <Label>Our model</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+            One partner for the whole AI journey.
+          </h2>
+          <p className="max-w-xs text-[15px] leading-relaxed text-ink-soft">
+            Assessment, architecture, deployment, and operations, held together by one accountable
+            team.
+          </p>
         </div>
-      </section>
 
-      {/* ═══ 03 · HOW WE WORK ═══ */}
-      <section className="section-padding" id="how-we-work">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">03</span>
-            <span className="label">How we work</span>
-            <span className="line" />
-          </div>
+        <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-3">
+          {model.map((m) => (
+            <div key={m.k} className="group">
+              <div className="flex items-center gap-3 border-t border-ink/80 pt-6">
+                <span className="num font-mono text-[12px] text-ember-deep">{m.n}</span>
+                <span className="eyebrow text-ink-faint">{m.k}</span>
+                <span
+                  className="ml-auto h-px w-8 bg-line transition-all duration-300 group-hover:w-14 group-hover:bg-ember"
+                  aria-hidden
+                />
+              </div>
 
-          <div className="grid lg:grid-cols-12 gap-8 mb-16">
-            <div className="lg:col-span-7">
-              <Reveal>
-                <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em]">
-                  From ambition to<br />production, in four moves.
-                </h2>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-5">
-              <Reveal delay={0.1}>
-                <p className="text-[16px] text-brand-muted leading-relaxed">
-                  The same operating method on every engagement — scaled to the size of the problem.
-                </p>
-              </Reveal>
-            </div>
-          </div>
+              <div className="mt-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-ember/10 text-ember-deep">
+                <m.Icon size={28} weight="duotone" />
+              </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
-            {phases.map(({ n, title, desc, out }, i) => (
-              <Reveal key={n} delay={i * 0.06}>
-                <div className="border-t-2 border-brand-text/80 pt-6 relative">
-                  <span className="absolute -top-[5px] left-0 w-2 h-2 rounded-full bg-brand-primary" aria-hidden="true" />
-                  <p className="step-num text-[12px] mb-5">{n}</p>
-                  <h3 className="text-[19px] font-display mb-3">{title}</h3>
-                  <p className="text-[13.5px] text-brand-muted leading-relaxed mb-6">{desc}</p>
-                  <p className="mono text-[10.5px] text-brand-subtle leading-relaxed">{out}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+              <h3 className="mt-6 font-display text-[27px] leading-tight tracking-[-0.01em]">{m.title}</h3>
+              <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">{m.desc}</p>
 
-      {/* ═══ 04 · THE PLATFORM ═══ */}
-      <section className="section-padding bg-brand-surface border-y border-brand-border">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">04</span>
-            <span className="label">The platform</span>
-            <span className="line" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-14 items-start">
-            <div className="lg:col-span-5">
-              <Reveal>
-                <h2 className="text-3xl md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] mb-6">
-                  The engine behind<br />the work.
-                </h2>
-                <p className="text-[16px] text-brand-muted leading-relaxed mb-5">
-                  Every engagement runs on infrastructure we own and operate: <strong className="text-brand-text font-medium">CommandCore</strong>,
-                  our sovereign AI platform, with the <strong className="text-brand-text font-medium">KOGO OS</strong> agentic
-                  layer built in. Air-gapped, auditable, and entirely inside your perimeter.
-                </p>
-                <p className="text-[14px] text-brand-subtle leading-relaxed mb-8">
-                  It is how we deliver the transformation — not what we lead with.
-                </p>
-                <Link to="/commandcore" className="arrow-link">
-                  Explore the platform <ArrowRight size={15} />
-                </Link>
-              </Reveal>
-            </div>
-
-            <div className="lg:col-span-7">
-              <Reveal delay={0.1}>
-                <div className="rounded-lg border border-brand-border bg-white overflow-hidden">
-                  {stack.map(({ layer, note }, i) => (
-                    <div
-                      key={layer}
-                      className={`grid grid-cols-[40px_1fr_auto] md:grid-cols-[56px_1fr_auto] items-center gap-4 px-5 md:px-7 py-4 ${i > 0 ? 'border-t border-brand-border' : ''}`}
-                    >
-                      <span className="mono text-[10.5px] text-brand-subtle">{String(i + 1).padStart(2, '0')}</span>
-                      <span className={`text-[15px] ${i === 0 ? 'font-medium' : ''}`}>{layer}</span>
-                      <span className="mono text-[10px] text-brand-subtle text-right hidden sm:block">{note}</span>
-                    </div>
-                  ))}
-                </div>
-                <p className="photo-caption">One stack, entirely yours — from silicon to agents.</p>
-              </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 05 · WHERE WE WORK ═══ */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">05</span>
-            <span className="label">Where we work</span>
-            <span className="line" />
-          </div>
-
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-14">
-            <Reveal>
-              <h2 className="text-3xl md:text-[2.75rem] leading-[1.12] tracking-[-0.02em] max-w-2xl">
-                Built for the industries<br />where failure isn’t an option.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <Link to="/solutions" className="arrow-link shrink-0">
-                Solutions by sector <ArrowRight size={15} />
-              </Link>
-            </Reveal>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {industries.map(({ Icon, label, note, photo, to }, i) => (
-              <Reveal key={label} delay={(i % 3) * 0.06}>
-                <Link to={to} className="card card-hover block overflow-hidden group h-full">
-                  <div className="aspect-[16/10] overflow-hidden">
-                    <img
-                      src={img(photo)}
-                      alt={label}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-2.5 mb-2">
-                      <Icon size={16} strokeWidth={1.8} className="text-brand-primary shrink-0" />
-                      <h3 className="text-[16px] group-hover:text-brand-primary transition-colors">{label}</h3>
-                    </div>
-                    <p className="text-[13px] text-brand-muted">{note}</p>
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 06 · IN THE FIELD (dark band) ═══ */}
-      <section className="band-dark">
-        <div className="container-wide py-20 md:py-28">
-          <div className="rule-head mb-14" style={{ borderBottomColor: 'rgba(255,255,255,0.12)' }}>
-            <span className="index">06</span>
-            <span className="label">In the field</span>
-            <span className="line" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-6">
-              <Reveal>
-                <p className="mono text-[10.5px] tracking-[0.16em] mb-4" style={{ color: '#FF8A4A' }}>
-                  {anchorDeployment.client.toUpperCase()} · {anchorDeployment.label.toUpperCase()}
-                </p>
-                <h2 className="text-2xl md:text-[2.1rem] leading-[1.2] tracking-[-0.02em] mb-6">
-                  {anchorDeployment.headline}
-                </h2>
-                {anchorDeployment.body.map((para) => (
-                  <p key={para.slice(0, 24)} className="text-[15px] leading-relaxed mb-4">
-                    {para}
-                  </p>
-                ))}
-                <ul className="mt-7 space-y-2.5">
-                  {anchorDeployment.capabilities.map((c) => (
-                    <li key={c} className="flex items-start gap-3 text-[13.5px]">
-                      <span className="mt-[9px] w-1 h-1 rounded-full shrink-0" style={{ background: '#FF8A4A' }} />
-                      {c}
-                    </li>
-                  ))}
-                </ul>
-                <p className="mono text-[10px] mt-8">
-                  EXACT FIGURES AVAILABLE UNDER APPROPRIATE CLEARANCES
-                </p>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-6">
-              <Reveal delay={0.1}>
-                <div className="img-frame aspect-[4/3]">
-                  <img src={img('indian-gov')} alt="Arinox with government leadership" loading="lazy" />
-                </div>
-              </Reveal>
-            </div>
-          </div>
-
-          <div className="mt-20">
-            <Reveal>
-              <p className="mono text-[10.5px] tracking-[0.16em] mb-6">ALSO DELIVERED — ANONYMISED</p>
-            </Reveal>
-            {anonymisedStudies.map((s, i) => (
-              <Reveal key={s.title} delay={i * 0.05}>
-                <div
-                  className="grid md:grid-cols-12 gap-x-8 gap-y-3 py-6"
-                  style={{ borderTop: '1px solid rgba(255,255,255,0.12)' }}
-                >
-                  <div className="md:col-span-2">
-                    <span className="mono text-[10.5px] tracking-[0.12em]">{s.domain.toUpperCase()}</span>
-                  </div>
-                  <div className="md:col-span-3">
-                    <h3 className="text-[16px]" style={{ color: '#F2EDE6' }}>{s.title}</h3>
-                  </div>
-                  <div className="md:col-span-7">
-                    <p className="text-[14px] leading-relaxed">{s.outcome}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 07 · INSIGHTS ═══ */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">07</span>
-            <span className="label">Insights</span>
-            <span className="line" />
-          </div>
-
-          <div className="flex flex-wrap items-end justify-between gap-6 mb-12">
-            <Reveal>
-              <h2 className="text-3xl md:text-[2.5rem] leading-[1.12] tracking-[-0.02em]">
-                Field notes.
-              </h2>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <Link to="/blog" className="arrow-link shrink-0">
-                All insights <ArrowRight size={15} />
-              </Link>
-            </Reveal>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
-            {insights.map((post, i) => (
-              <Reveal key={post._id} delay={(i % 3) * 0.05}>
-                <Link to={`/blog/${post.slug}`} className="group block">
-                  <div className="img-frame aspect-[16/10]">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      loading="lazy"
-                      style={post.imagePosition ? { objectPosition: post.imagePosition } : undefined}
-                      className="transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <p className="mono text-[10px] text-brand-subtle mt-4 mb-2">
-                    {new Date(post.publishedAt).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).toUpperCase()}
-                    {' · '}{post.readTime} MIN
-                  </p>
-                  <h3 className="text-[17px] leading-snug mb-2 group-hover:text-brand-primary transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-[13px] text-brand-muted leading-relaxed line-clamp-2">{post.excerpt}</p>
-                </Link>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ 08 · WHO WE ARE ═══ */}
-      <section className="section-padding bg-brand-surface border-y border-brand-border">
-        <div className="container-wide">
-          <div className="rule-head mb-16">
-            <span className="index">08</span>
-            <span className="label">Who we are</span>
-            <span className="line" />
-          </div>
-
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-6">
-              <Reveal>
-                <h2 className="text-3xl md:text-[2.5rem] leading-[1.12] tracking-[-0.02em] mb-6">
-                  Founded to make enterprise-grade<br />AI accessible to all.
-                </h2>
-                <p className="text-[15.5px] text-brand-muted leading-relaxed mb-5 max-w-xl">
-                  We are pioneers in intelligent business transformation — decoding how enterprises run
-                  today and redesigning how they should operate tomorrow. We don’t just improve
-                  efficiency; we multiply it.
-                </p>
-                <p className="text-[15.5px] text-brand-muted leading-relaxed mb-8 max-w-xl">
-                  Headquartered in India with a presence across New Delhi and Bengaluru, connecting
-                  innovation to implementation for enterprises worldwide.
-                </p>
-                <Link to="/about" className="arrow-link">
-                  Meet the company <ArrowRight size={15} />
-                </Link>
-              </Reveal>
-            </div>
-            <div className="lg:col-span-6">
-              <div className="grid grid-cols-3 gap-5">
-                {team.map(({ name, role, photo }, i) => (
-                  <Reveal key={name} delay={i * 0.06}>
-                    <div className="img-frame aspect-[3/4]">
-                      <img src={img(photo)} alt={name} loading="lazy" className="object-[center_top]" />
-                    </div>
-                    <p className="text-[13px] mt-3 leading-snug">{name}</p>
-                    <p className="mono text-[9.5px] text-brand-subtle mt-1 tracking-[0.08em]">{role.toUpperCase()}</p>
-                  </Reveal>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {m.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft"
+                  >
+                    {t}
+                  </span>
                 ))}
               </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </Section>
 
-          {/* Values strip */}
-          <div className="mt-20">
-            <Reveal>
-              <p className="mono text-[10.5px] tracking-[0.16em] text-brand-subtle mb-6">WHAT WE STAND FOR</p>
-            </Reveal>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-x-8 gap-y-6">
-              {values.map(({ letter, title, desc }, i) => (
-                <Reveal key={letter} delay={i * 0.05}>
-                  <div className="border-t border-brand-border pt-5">
-                    <p className="step-num text-[18px] mb-2">{letter}</p>
-                    <p className="text-[14px] font-display mb-1.5">{title}</p>
-                    <p className="text-[12px] text-brand-muted leading-relaxed">{desc}</p>
-                  </div>
-                </Reveal>
-              ))}
+      {/* The problem, dark statement, hairline rows */}
+      <Section dark border={false}>
+        <Label dark>The problem</Label>
+        <h2 className="mt-5 max-w-3xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[52px]">
+          Most AI never leaves the demo stage.
+        </h2>
+        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">
+          Three questions decide whether AI ships: where the data goes, who owns the model, and what
+          happens at the security review. We answer all three before we build.
+        </p>
+        <div className="mt-14 grid gap-x-16 gap-y-10 md:grid-cols-3">
+          {[
+            ['The data can’t move', 'Regulated data can’t be shipped to a vendor’s cloud, so the pilot never survives compliance. We run the models where the data already lives.'],
+            ['The pilot never ends', 'Six months of “evaluation” and nothing in production. We deploy in days and expand workflow by workflow, with results at each step.'],
+            ['Nobody can audit it', 'A model that can’t explain its decisions will never pass review. Every agent decision is logged, every time.'],
+          ].map(([t, d]) => (
+            <div key={t} className="border-t border-white/20 pt-6">
+              <h3 className="font-display text-[22px] leading-tight tracking-[-0.01em] text-phos">{t}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d}</p>
             </div>
-          </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* The method, big numerals, no tiles */}
+      <Section border={false}>
+        <Label>The method</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+            Three moves. That’s the whole method.
+          </h2>
+        </div>
+        <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-3">
+          {moves.map((m) => (
+            <div key={m.n} className="border-t border-ink/80 pt-7">
+              <p className="num font-display text-[48px] leading-none tracking-[-0.03em] text-ink">{m.n}</p>
+              <h3 className="mt-6 font-display text-[24px] tracking-[-0.01em]">{m.t}</h3>
+              <p className="mt-3 text-[15.5px] leading-relaxed text-ink-soft">{m.d}</p>
+              <p className="mt-6 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{m.tag}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Marquee */}
+      <section className="overflow-hidden border-y border-line bg-paper-2 py-5" aria-hidden>
+        <div className="flex w-max animate-[marquee_36s_linear_infinite] gap-10">
+          {[...marquee, ...marquee].map((m, i) => (
+            <span key={i} className="num whitespace-nowrap font-mono text-[13px] text-ink-soft">
+              {m} <span className="ml-10 text-ember">·</span>
+            </span>
+          ))}
         </div>
       </section>
 
-      {/* ═══ 09 · FAQ ═══ */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <div className="rule-head mb-14">
-            <span className="index">09</span>
-            <span className="label">Common questions</span>
-            <span className="line" />
+      {/* The stack */}
+      <Section border>
+        <Label>The stack</Label>
+        <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+          The transformation stack, mapped.
+        </h2>
+        <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">
+          Agents that learn your context, an AI layer that runs on your hardware, and every existing
+          system stays in its home. No rip-and-replace.
+        </p>
+        <div className="mt-12">
+          <LayerStack />
+        </div>
+      </Section>
+
+      {/* The fork, vertical rules, no cards */}
+      <Section dark border={false}>
+        <Label dark>Deployment</Label>
+        <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
+          Where it runs is your call.
+        </h2>
+        <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
+          {deploy.map((d) => (
+            <div key={d.t} className="border-t border-white/20 pt-7">
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="font-display text-[22px] tracking-[-0.01em] text-phos">{d.t}</h3>
+                {d.sovereign && (
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ember">Max sovereignty</span>
+                )}
+              </div>
+              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d.d}</p>
+              <ul className="mt-6">
+                {d.li.map((l) => (
+                  <li key={l} className="border-b border-white/10 py-2.5 text-sm text-ghost last:border-b-0">{l}</li>
+                ))}
+              </ul>
+              {d.sovereign && (
+                <Button to="/commandcore" variant="ghostDark" size="sm" className="mt-7">See the machine</Button>
+              )}
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Compliance, quiet, two groups */}
+      <Section border>
+        <Label>Compliance</Label>
+        <div className="mt-6 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
+          <div>
+            <h2 className="max-w-md font-display text-[28px] leading-tight tracking-[-0.01em] md:text-[38px]">
+              Certified to run inside the wire.
+            </h2>
+            <p className="mt-4 max-w-sm text-[15.5px] leading-relaxed text-ink-soft">
+              Both the machine and the platform are built for regulated environments.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 gap-x-16 gap-y-12">
-            {faqs.map(({ q, a }, i) => (
-              <Reveal key={q} delay={i * 0.05}>
-                <h3 className="text-[18px] font-display mb-3">{q}</h3>
-                <p className="text-[14px] text-brand-muted leading-relaxed">{a}</p>
-              </Reveal>
+          <ComplianceStrip className="self-center" />
+        </div>
+      </Section>
+
+      {/* People */}
+      <Section border>
+        <Label>People</Label>
+        <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
+          Operators, not evangelists.
+        </h2>
+        <div className="mt-12 space-y-16">
+          <PersonGroup label="Leadership" people={team} />
+          <PersonGroup label="Advisors" people={advisors} />
+        </div>
+      </Section>
+
+      {/* Insights, one feature + compact list */}
+      <Section border>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <Label>Insights</Label>
+            <h2 className="mt-5 font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">Field notes.</h2>
+          </div>
+          <Button to="/blog" variant="ghost" size="sm">All insights</Button>
+        </div>
+
+        <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
+          <Link to={`/blog/${featured.slug}`} className="group block">
+            <div className="img-frame aspect-[16/10] overflow-hidden rounded-2xl border border-line">
+              <img
+                src={featured.image}
+                alt={featured.title}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+              />
+            </div>
+            <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{featured.category}</p>
+            <h3 className="mt-2 font-display text-[24px] leading-snug tracking-[-0.01em] group-hover:text-ember-deep transition-colors">
+              {featured.title}
+            </h3>
+            <p className="mt-2.5 max-w-xl text-[15px] leading-relaxed text-ink-soft line-clamp-2">{featured.excerpt}</p>
+          </Link>
+
+          <div className="border-t border-line">
+            {more.slice(0, 4).map((p) => (
+              <Link key={p._id} to={`/blog/${p.slug}`} className="group flex flex-col gap-2 border-b border-line py-6">
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">{p.category} · {p.readTime} min</span>
+                <span className="font-display text-[18px] leading-snug tracking-[-0.01em] group-hover:text-ember-deep transition-colors">
+                  {p.title}
+                </span>
+              </Link>
             ))}
           </div>
         </div>
-      </section>
+      </Section>
 
-      {/* ═══ CTA (dark band) ═══ */}
-      <section className="band-dark">
-        <div className="container-wide py-24 md:py-32">
-          <Reveal>
-            <div className="max-w-2xl">
-              <h2 className="text-3xl md:text-[2.75rem] leading-[1.1] tracking-[-0.02em] mb-6">
-                Start with a problem.<br />We’ll build the system.
-              </h2>
-              <p className="text-[16px] leading-relaxed mb-9 max-w-xl">
-                A focused conversation about where private AI fits your operations, strategy, and
-                compliance needs — no jargon, no commitment.
-              </p>
-              <div className="flex flex-wrap items-center gap-x-7 gap-y-4">
-                <Link to="/contact" className="btn btn-accent">
-                  Start a conversation
-                </Link>
-                <a href="mailto:assist@arinox.ai" className="text-[14px] transition-colors" style={{ color: 'rgba(242,237,230,0.7)' }}>
-                  assist@arinox.ai
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      <CtaBand
+        title="Deploy your first AI solution today."
+        offer={
+          <>
+            See results in hours, not months. Free session:{' '}
+            <b className="font-medium text-white">
+              we map where intelligent AI fits your organisation's operations, strategy, and compliance needs.
+            </b>
+          </>
+        }
+      />
     </>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

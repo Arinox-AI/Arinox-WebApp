@@ -1,6 +1,6 @@
 import Reveal from './Reveal';
 
-/* Quiet, boxless logo row — logos in ink, names in mono micro-label. */
+/* Quiet, boxless logo row, logos in ink, names in mono micro-label. */
 const LogoWall = ({ items, cols = 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5', className = '' }) => (
   <div className={`grid ${cols} gap-x-8 gap-y-9 items-center ${className}`}>
     {items.map(({ name, logo }) => (

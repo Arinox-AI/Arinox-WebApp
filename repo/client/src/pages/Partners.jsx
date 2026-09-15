@@ -1,197 +1,172 @@
-import { Link } from 'react-router-dom';
-import { Link2, Zap, Package, ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from '@phosphor-icons/react';
 import SEO from '../components/ui/SEO';
-import Reveal from '../components/ui/Reveal';
-import SectionHead from '../components/ui/SectionHead';
-import LogoWall from '../components/ui/LogoWall';
-import { deliveryPartners } from '../data/clients';
+import { Section } from '../components/site/Section';
+import { Label } from '../components/site/Layout';
+import { Button } from '../components/site/Button';
+import { HalftoneBackground } from '../components/site/HalftoneBackground';
+import { CtaBand } from '../components/site/Shell';
+import { company } from '../data/site';
+
+/* Quiet inline row, the parts, not a trophy wall. */
+/* Grouped, but quietly: clusters are separated by a hairline and a very
+   light mono label, so the roles read without being announced. */
+const partnerGroups = [
+  {
+    label: 'Compute',
+    items: [
+      { name: 'E2E Networks', logo: '/images/logos/e2e-networks.png' },
+      { name: 'Altos', logo: '/images/logos/altos.svg' },
+      { name: 'HP', logo: '/images/logos/hp.svg' },
+      { name: 'IBM', logo: '/images/logos/ibm.svg' },
+    ],
+  },
+  {
+    label: 'Silicon',
+    items: [
+      { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg' },
+      { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg' },
+    ],
+  },
+  {
+    label: 'Distribution',
+    items: [
+      { name: 'TechData', logo: '/images/logos/techdata.svg' },
+      { name: 'Redington', logo: '/images/logos/redington.svg' },
+    ],
+  },
+  {
+    label: 'Data',
+    items: [{ name: 'Dataquark', logo: '/images/logos/dataquark.png' }],
+  },
+];
 
 const tracks = [
   {
     num: '01',
-    Icon: Link2,
     label: 'For System Integrators',
     title: 'Deploy with confidence.',
-    desc: 'Access pre-validated AI agents ready for enterprise deployment. Co-deliver with Arinox to expand your AI practice — faster go-to-market, larger wins, without building from the ground up.',
+    desc: 'Access pre-validated AI agents ready for enterprise deployment. Co-deliver with Arinox to expand your AI practice, faster go-to-market, larger wins, without building from the ground up.',
     tags: ['Co-delivery', 'Pre-built agents', 'Faster GTM'],
   },
   {
     num: '02',
-    Icon: Zap,
     label: 'For Technology Partners',
     title: 'Build where it lands.',
-    desc: 'Bring your AI models, hardware, or platform into real enterprise deployments. We co-create products on sovereign infrastructure, open SI channels, and place your technology at the centre of what enterprises are already buying.',
+    desc: 'Bring your AI models, hardware, or platform into real enterprise deployments. We co-create on sovereign infrastructure and open SI channels.',
     tags: ['Co-creation', 'Hardware & infra', 'GTM access'],
   },
   {
     num: '03',
-    Icon: Package,
     label: 'For Resellers & GTM',
     title: 'Revenue that compounds.',
-    desc: 'Extend sovereign AI to markets where trusted local relationships matter. Resell Arinox under your brand with deal registration, margin protection, and full sales and technical enablement behind every conversation.',
+    desc: 'Extend sovereign AI to markets where trusted local relationships matter. Resell under your brand with deal registration, margin protection, and enablement.',
     tags: ['Deal registration', 'Margin protection', 'Sales enablement'],
   },
 ];
 
-const techStack = [
-  {
-    name: 'KOGO OS',
-    tag: 'Agentic platform',
-    desc: 'The flagship private agentic AI platform built into every CommandCore unit — Agent Builder, Agent Store, Agentic Mesh orchestration, guardrails, red-teaming, and 500+ connectors, with zero dependence on cloud models. An affiliated technology of the Arinox family.',
-  },
-  {
-    name: 'Altos by Acer',
-    tag: 'Infrastructure',
-    desc: 'Enterprise-grade server hardware purpose-built for on-premises sovereign AI deployments at scale.',
-  },
-  {
-    name: 'Compute accelerators',
-    tag: 'Hardware',
-    desc: 'CommandCore S, M, and XL are powered by NVIDIA AGX Jetson Orin, Grace Blackwell, and RTX PRO accelerators. Qualcomm Cloud AI options are supported for edge and PCIe-accelerated deployments.',
-  },
-];
-
 const Partners = () => (
-    <>
-      <SEO
-        title="Partners & Ecosystem | Arinox AI"
-        description="Arinox works with system integrators, technology partners, and resellers to deliver private AI to the organisations that need it most."
-        canonical="https://www.arinox.ai/partners"
-      />
+  <>
+    <SEO
+      title="Partners | Sovereign AI, Delivered Together | Arinox AI"
+      description="Arinox assembles a focused stack, infrastructure, hardware, silicon and data, into one governed system that runs inside your perimeter."
+      canonical="https://www.arinox.ai/partners"
+    />
 
-      {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="pt-32 md:pt-40 pb-14 md:pb-16 border-b border-brand-border">
-        <div className="container-wide grid lg:grid-cols-12 gap-10 items-end">
-          <div className="lg:col-span-7">
-            <Reveal>
-              <p className="overline">Ecosystem</p>
-              <h1 className="text-4xl md:text-5xl font-display font-extrabold leading-[1.08] mb-6 max-w-2xl">
-                Sovereign AI,<br /><span className="text-gradient">delivered together.</span>
-              </h1>
-              <p className="lead max-w-xl">
-                We don&rsquo;t scale alone. Arinox works with a curated network of system integrators, hardware
-                innovators, and market-ready resellers — each chosen for their ability to take private AI from
-                proof-of-concept to enterprise production.
-              </p>
-            </Reveal>
-          </div>
-          <div className="lg:col-span-5">
-            <Reveal delay={0.12}>
-              <div className="card p-6">
-                <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-brand-subtle mb-3" style={{ fontFamily: 'Manrope' }}>
-                  The model in one line
-                </p>
-                <p className="text-[14px] text-brand-muted leading-relaxed">
-                  <strong className="text-brand-text">Arinox</strong> owns the transformation journey.{' '}
-                  <strong className="text-brand-text">CommandCore</strong> is the platform.{' '}
-                  <strong className="text-brand-text">KOGO</strong> is the agentic layer.{' '}
-                  <strong className="text-brand-text">Partners</strong> take it to every enterprise that needs it.
-                </p>
-              </div>
-            </Reveal>
-          </div>
+    <section className="relative overflow-hidden border-b border-line px-7 pb-12 pt-20 md:pt-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
+        <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
+      </div>
+      <div className="relative mx-auto max-w-6xl">
+        <Label>Partners</Label>
+        <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
+          One stack, assembled around <span className="italic text-ember">your constraint.</span>
+        </h1>
+        <p className="mt-6 max-w-[600px] text-lg leading-relaxed text-ink-soft">
+          We don&apos;t collect vendors. Every deployment is built from a small, deliberate set of
+          parts, and orchestrated by us, so what you run is one governed system.
+        </p>
+        <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
+          <Button href="mailto:assist@arinox.ai" variant="dark">
+            Partner with us <ArrowUpRight size={14} weight="bold" />
+          </Button>
+          <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">
+            LinkedIn <ArrowUpRight size={14} weight="bold" />
+          </a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      {/* ── Delivery partners ─────────────────────────────────── */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <SectionHead
-            overline="Delivery partners"
-            title="World-class delivery, on the ground."
-            lead="System integrators and infrastructure specialists who bring enterprise relationships and deployment capability to every engagement."
-            className="mb-10"
-          />
-          <LogoWall items={deliveryPartners} cols="grid-cols-2 sm:grid-cols-3 lg:grid-cols-5" />
-        </div>
-      </section>
+    <Section border={false}>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
+        <p className="eyebrow text-ink-faint">Built with</p>
+        <p className="max-w-sm text-[14px] leading-relaxed text-ink-faint">
+          A small, deliberate stack, assembled and governed by us.
+        </p>
+      </div>
 
-      {/* ── Technology we build on ────────────────────────────── */}
-      <section className="section-padding bg-brand-surface border-y border-brand-border">
-        <div className="container-wide grid lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <SectionHead
-              overline="Technology we build on"
-              title="The stack behind private AI."
-              lead="The technologies we select, validate, and integrate into every CommandCore deployment."
-            />
-          </div>
-          <div className="lg:col-span-8 space-y-4">
-            {techStack.map(({ name, tag, desc }, i) => (
-              <Reveal key={name} delay={i * 0.07}>
-                <div className="card card-hover p-6 md:p-7">
-                  <div className="flex items-center gap-2.5 mb-2">
-                    <h3 className="font-display font-bold text-[16px]">{name}</h3>
-                    <span className="chip">{tag}</span>
-                  </div>
-                  <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Partnership models ────────────────────────────────── */}
-      <section className="section-padding">
-        <div className="container-wide">
-          <SectionHead
-            overline="Partnership models"
-            title="Three ways to work with Arinox."
-            lead="Each track is designed for a specific type of partner, with concrete benefits and a clear path to market."
-            className="mb-10"
-          />
-          <div className="border-t border-brand-border">
-            {tracks.map(({ num, Icon, label, title, desc, tags }, i) => (
-              <Reveal key={label} delay={i * 0.07}>
-                <div className="grid md:grid-cols-12 gap-6 py-8 border-b border-brand-border">
-                  <div className="md:col-span-1">
-                    <span className="step-num text-2xl">{num}</span>
-                  </div>
-                  <div className="md:col-span-3">
-                    <div className="flex items-center gap-2.5 mb-1.5">
-                      <div className="w-8 h-8 rounded-lg bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
-                        <Icon size={15} strokeWidth={1.8} className="text-brand-primary" />
-                      </div>
-                      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-primary" style={{ fontFamily: 'Manrope' }}>{label}</p>
-                    </div>
-                    <h3 className="font-display font-bold text-lg">{title}</h3>
-                  </div>
-                  <div className="md:col-span-5">
-                    <p className="text-[13.5px] text-brand-muted leading-relaxed">{desc}</p>
-                  </div>
-                  <div className="md:col-span-3 flex flex-wrap gap-2 items-start">
-                    {tags.map((t) => <span key={t} className="chip">{t}</span>)}
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="band-ink">
-        <div className="container-wide py-20 text-center max-w-3xl">
-          <Reveal>
-            <h2 className="text-3xl md:text-4xl font-display font-extrabold leading-[1.15] mb-5">
-              Ready to join the Arinox ecosystem?
-            </h2>
-            <p className="lead mb-8" style={{ color: 'rgba(242,239,233,0.72)' }}>
-              Whether you integrate, build, or sell — there&rsquo;s a partnership structure that accelerates your business and expands what&rsquo;s possible for your customers.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link to="/contact" className="btn btn-on-dark">
-                Become a partner <ArrowRight size={16} />
-              </Link>
-              <a href="mailto:assist@arinox.ai" className="text-sm text-white/60 hover:text-white transition-colors px-4 py-2">
-                Or email us at assist@arinox.ai
-              </a>
+      <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {partnerGroups.map((g) => (
+          <div key={g.label} className="border-t border-ink/80 pt-5">
+            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">{g.label}</p>
+            <div className="mt-6 flex min-h-[76px] flex-wrap content-start items-center gap-x-8 gap-y-6">
+              {g.items.map((s) => (
+                <img
+                  key={s.name}
+                  src={s.logo}
+                  alt={s.name}
+                  loading="lazy"
+                  className="h-9 w-auto max-w-[120px] object-contain opacity-70 transition-opacity duration-200 hover:opacity-100"
+                />
+              ))}
             </div>
-          </Reveal>
-        </div>
-      </section>
-    </>
-  );
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section border>
+      <Label>Working with us</Label>
+      <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[44px]">
+        Three ways to partner.
+      </h2>
+      <div className="mt-12 border-t border-ink/80">
+        {tracks.map(({ num, label, title, desc, tags }) => (
+          <div key={label} className="grid gap-6 border-b border-line py-8 md:grid-cols-12">
+            <div className="md:col-span-1">
+              <span className="num font-mono text-2xl text-ink-faint">{num}</span>
+            </div>
+            <div className="md:col-span-3">
+              <p className="eyebrow text-ember-deep">{label}</p>
+              <h3 className="mt-2 font-display text-lg tracking-[-0.01em]">{title}</h3>
+            </div>
+            <div className="md:col-span-5">
+              <p className="text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
+            </div>
+            <div className="flex flex-wrap items-start gap-2 md:col-span-3">
+              {tags.map((t) => (
+                <span key={t} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft">{t}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="mt-10">
+        <a href="mailto:assist@arinox.ai" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
+          Start a partnership conversation <ArrowUpRight size={14} weight="bold" />
+        </a>
+      </div>
+    </Section>
+
+    <CtaBand
+      title="Partner with Arinox."
+      offer={
+        <>
+          Bring your practice, platform, or channel.{' '}
+          <b className="font-medium text-white">It starts with a conversation.</b>
+        </>
+      }
+    />
+  </>
+);
 
 export default Partners;

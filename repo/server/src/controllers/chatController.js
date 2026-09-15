@@ -161,7 +161,7 @@ AI transformation is the process of fundamentally redesigning how an organizatio
 A chatbot is an AI-powered software that simulates conversation with users through text or voice. Modern AI chatbots powered by LLMs can understand context, answer complex questions, and take actions. Arinox builds enterprise-grade AI chatbots and agents.
 
 ### How long does AI implementation take?
-Enterprise AI implementation timelines vary by scope. A focused use case (like a document processor or chatbot) may take 4–12 weeks. Large-scale transformation programs can take 6–18 months. Arinox's curated approach - using proven AI components - significantly reduces implementation time.
+Enterprise AI implementation timelines vary by scope. A focused use case (like a document processor or chatbot) may take 4-12 weeks. Large-scale transformation programs can take 6-18 months. Arinox's curated approach - using proven AI components - significantly reduces implementation time.
 
 ### Is AI safe for enterprises?
 Yes, when implemented responsibly. Arinox prioritizes data sovereignty (on-prem deployment), explainable AI (no black boxes), and human oversight in all implementations. Safety and compliance are core to every Arinox deployment.

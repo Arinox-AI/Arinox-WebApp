@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-/* Subtle editorial reveal — the only motion pattern on the site. */
+/* Subtle editorial reveal, the only motion pattern on the site. */
 const Reveal = ({ children, delay = 0, y = 20, className = '', once = true }) => (
   <motion.div
     initial={{ opacity: 0, y }}

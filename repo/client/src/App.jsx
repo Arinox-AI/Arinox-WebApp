@@ -1,21 +1,21 @@
 ﻿import { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { AuthProvider } from './hooks/useAuth';
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
+import { Nav } from './components/site/Nav';
+import { Footer } from './components/site/Shell';
+import { BookCtaProvider } from './components/site/BookCtaContext';
 import ConsentBanner from './components/ui/ConsentBanner';
 import ArinoxChatBot from './components/ui/ArinoxChatBot';
 
 const Home = lazy(() => import('./pages/Home'));
-const Partners = lazy(() => import('./pages/Partners'));
-const Solutions = lazy(() => import('./pages/Solutions'));
+const Platform = lazy(() => import('./pages/Platform'));
 const CommandCore = lazy(() => import('./pages/CommandCore'));
-const About = lazy(() => import('./pages/About'));
-const Careers = lazy(() => import('./pages/Careers'));
-const Contact = lazy(() => import('./pages/Contact'));
+const CaseStudies = lazy(() => import('./pages/CaseStudies'));
+const Partners = lazy(() => import('./pages/Partners'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
+const Careers = lazy(() => import('./pages/Careers'));
+const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
 
@@ -32,7 +32,7 @@ const PageTransition = ({ children }) => (
 
 const Loader = () => (
   <div className="min-h-screen flex items-center justify-center">
-    <div className="w-9 h-9 border-2 border-brand-primary border-t-transparent rounded-full animate-spin" />
+    <div className="w-9 h-9 border-2 border-ember border-t-transparent rounded-full animate-spin" />
   </div>
 );
 
@@ -48,26 +48,29 @@ const AppInner = () => {
   const location = useLocation();
 
   return (
-    <AuthProvider>
+    <BookCtaProvider>
       <ScrollReset />
-      <Navbar />
+      <Nav />
       <main>
         <Suspense fallback={<Loader />}>
           <AnimatePresence mode="wait" initial={false}>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-              <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-              <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
-              <Route path="/solutions" element={<PageTransition><Solutions /></PageTransition>} />
+              <Route path="/platform" element={<PageTransition><Platform /></PageTransition>} />
               <Route path="/commandcore" element={<PageTransition><CommandCore /></PageTransition>} />
-              <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
-              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+              <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
+              <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
-              <Route path="/case-studies" element={<Navigate to="/solutions" replace />} />
-              <Route path="/case-studies/:slug" element={<Navigate to="/solutions" replace />} />
+              <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
+              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+              {/* Legacy URL redirects */}
+              <Route path="/solutions" element={<Navigate to="/platform" replace />} />
+              <Route path="/about" element={<Navigate to="/" replace />} />
+              <Route path="/company" element={<Navigate to="/" replace />} />
+              <Route path="/case-studies/:slug" element={<Navigate to="/case-studies" replace />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </AnimatePresence>
@@ -76,7 +79,7 @@ const AppInner = () => {
       <Footer />
       <ConsentBanner />
       <ArinoxChatBot />
-    </AuthProvider>
+    </BookCtaProvider>
   );
 };
 

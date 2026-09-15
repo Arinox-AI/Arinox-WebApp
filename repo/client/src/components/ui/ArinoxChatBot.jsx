@@ -69,7 +69,7 @@ export default function ArinoxChatBot() {
   const [loading, setLoading] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState('');
-  const bottomRef = useRef(null);
+  const messagesRef = useRef(null);
   const inputRef = useRef(null);
   const streamRef = useRef(null);
 
@@ -81,11 +81,16 @@ export default function ArinoxChatBot() {
   }, []);
 
   useEffect(() => {
-    if (open) {
-      setTimeout(() => bottomRef.current?.scrollIntoView({ behavior: 'smooth' }), 50);
-      inputRef.current?.focus();
-    }
-  }, [open, messages]);
+    if (open) inputRef.current?.focus();
+  }, [open]);
+
+  // Pin the conversation to the bottom by setting scrollTop directly. Using
+  // scrollIntoView({behavior:'smooth'}) on every update restarted a smooth
+  // scroll on each streamed word, which read as jitter/blinking.
+  useEffect(() => {
+    const el = messagesRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, [messages, loading, open]);
 
   // Clean up streaming timer on unmount
   useEffect(() => () => { if (streamRef.current) clearTimeout(streamRef.current); }, []);
@@ -210,7 +215,7 @@ export default function ArinoxChatBot() {
             </div>
 
             {/* Messages */}
-            <div style={{ flex: 1, overflowY: 'auto', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px', minHeight: 0, background: '#f7f7f8' }}>
+            <div ref={messagesRef} style={{ flex: 1, overflowY: 'auto', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px', minHeight: 0, background: '#f7f7f8' }}>
               {messages.map((m, i) => (
                 <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start', alignItems: 'flex-end', gap: '7px' }}>
                   {m.role === 'assistant' && (
@@ -265,10 +270,7 @@ export default function ArinoxChatBot() {
                   {error}
                 </div>
               )}
-
-              <div ref={bottomRef} />
             </div>
-
             {/* Suggestions */}
             {messages.length === 1 && (
               <div style={{ padding: '10px 14px 8px', display: 'flex', flexWrap: 'wrap', gap: '6px', background: '#f7f7f8', borderTop: '1px solid #ebebeb' }}>
@@ -396,26 +398,37 @@ export default function ArinoxChatBot() {
           boxShadow: '0 8px 30px rgba(254,99,0,0.45)',
         }}
       >
-        <AnimatePresence mode="wait">
-          {open ? (
-            <motion.svg key="x" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.15 }}
-              width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
+        <div style={{ position: 'relative', width: '30px', height: '30px' }}>
+          <motion.div
+            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            initial={false}
+            animate={{ opacity: open ? 0 : 1, scale: open ? 0.7 : 1, rotate: open ? -90 : 0 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            <KidBotIcon size={30} />
+          </motion.div>
+          <motion.div
+            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            initial={false}
+            animate={{ opacity: open ? 1 : 0, scale: open ? 1 : 0.7, rotate: open ? 0 : 90 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
               <path d="M18 6 6 18M6 6l12 12" />
-            </motion.svg>
-          ) : (
-            <motion.div key="bot" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.15 }}>
-              <KidBotIcon size={30} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            </svg>
+          </motion.div>
+        </div>
 
         {!open && (
-          <motion.span style={{
-            position: 'absolute', inset: 0, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #E8590C, #D0500A)', opacity: 0.5,
-          }}
-            animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
-            transition={{ duration: 1.8, repeat: Infinity }}
+          <motion.span
+            aria-hidden
+            style={{
+              position: 'absolute', inset: 0, borderRadius: '50%',
+              background: 'linear-gradient(135deg, #E8590C, #D0500A)',
+              pointerEvents: 'none',
+            }}
+            animate={{ scale: [1, 1.55], opacity: [0, 0.45, 0] }}
+            transition={{ duration: 2.2, ease: 'easeOut', times: [0, 0.15, 1], repeat: Infinity, repeatDelay: 0.15 }}
           />
         )}
       </motion.button>

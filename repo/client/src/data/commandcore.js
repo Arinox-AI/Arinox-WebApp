@@ -7,13 +7,13 @@ export const commandCoreIntro = {
   overline: 'The Platform',
   product: 'CommandCore™',
   tagline: 'Agentic AI in a box',
-  title: 'CommandCore — agentic AI, in a box.',
-  lead: 'CommandCore is Arinox’s own product: a self-contained AI micro-datacenter that brings compute, models, agentic intelligence, and governance inside your perimeter. 100% AI, 0% internet — fully air-gapped, sovereign, and on-premises.',
+  title: 'CommandCore, agentic AI, in a box.',
+  lead: 'CommandCore is Arinox’s own product: a self-contained AI micro-datacenter that brings compute, models, agentic intelligence, and governance inside your perimeter. 100% AI, 0% internet, fully air-gapped, sovereign, and on-premises.',
   badges: ['Agentic AI in a box', '100% AI · 0% internet', 'Fully air-gapped', 'Edge to datacenter'],
   claim: 'India’s first fully sovereign implementation of AI-in-a-Box.',
 };
 
-/* Three headline claims from the brochure — used as an impact strip */
+/* Three headline claims from the brochure, used as an impact strip */
 export const headlineClaims = [
   { big: '100% AI.', small: '0% Internet.', note: 'Runs advanced AI with zero external connectivity.' },
   { big: '100% Secure.', small: '0% Risk.', note: 'Air-gapped, zero-egress architecture by design.' },
@@ -23,7 +23,7 @@ export const headlineClaims = [
 export const whatItIs = [
   {
     title: 'Infrastructure you own',
-    desc: 'AI compute that lives in your server room, branch office, or plant floor — not in someone else’s cloud. Nothing to lease back from a hyperscaler.',
+    desc: 'AI compute that lives in your server room, branch office, or plant floor, not in someone else’s cloud. Nothing to lease back from a hyperscaler.',
   },
   {
     title: 'Intelligence that stays home',
@@ -31,7 +31,7 @@ export const whatItIs = [
   },
   {
     title: 'Work, not chat',
-    desc: 'Built-in KOGO OS runs purpose-built agents that execute real workflows — reviewing, reconciling, scheduling, deciding — with every action logged.',
+    desc: 'Built-in KOGO OS runs purpose-built agents that execute real workflows, reviewing, reconciling, scheduling, deciding, with every action logged.',
   },
   {
     title: 'Deploy in weeks, not years',
@@ -39,12 +39,12 @@ export const whatItIs = [
   },
 ];
 
-/* Architecture stack — top to bottom */
+/* Architecture stack, top to bottom */
 export const stack = [
-  { layer: 'Your AI agents',       desc: 'Purpose-built agents for your workflows — configured with your rules, your data, your approvals.' },
+  { layer: 'Your AI agents',       desc: 'Purpose-built agents for your workflows, configured with your rules, your data, your approvals.' },
   { layer: 'KOGO OS',              desc: 'The built-in agentic OS: agent builder, pre-built agent store, Agentic Mesh orchestration, memory, and governance.' },
-  { layer: 'Models & knowledge',   desc: 'Open-weight LLMs and your governed knowledge base (RAG) — running locally, cited and auditable.' },
-  { layer: 'CommandCore hardware', desc: 'Sovereign compute engineered for on-premises deployment — from edge units to datacenter-grade systems.' },
+  { layer: 'Models & knowledge',   desc: 'Open-weight LLMs and your governed knowledge base (RAG), running locally, cited and auditable.' },
+  { layer: 'CommandCore hardware', desc: 'Sovereign compute engineered for on-premises deployment, from edge units to datacenter-grade systems.' },
   { layer: 'Your premises',        desc: 'Your network, your security perimeter, your compliance boundary. Nothing crosses it.' },
 ];
 
@@ -55,7 +55,7 @@ export const tiers = [
     tagline: 'Agentic edge AI',
     img: 'commandcore-s',
     accelerator: 'NVIDIA AGX Jetson Orin',
-    desc: 'Jetson Orin brings real-time AI to the edge — ideal for disconnected, mobile, and tactical environments.',
+    desc: 'Jetson Orin brings real-time AI to the edge, ideal for disconnected, mobile, and tactical environments.',
     bestFor: [
       'Batch processing of audio, video, image & sentiment',
       'Video analytics & computer vision',
@@ -97,7 +97,7 @@ export const tiers = [
     tagline: 'Datacenter-grade meets private agentic AI',
     img: 'commandcore-xl',
     accelerator: '2× NVIDIA RTX PRO 6000 Blackwell',
-    desc: 'Built for large-scale, mission-critical AI workloads requiring maximum performance, reliability, and compliance — capable of running large models, multi-agent workflows, analytics pipelines, and AI governance systems, fully air-gapped.',
+    desc: 'Built for large-scale, mission-critical AI workloads requiring maximum performance, reliability, and compliance, capable of running large models, multi-agent workflows, analytics pipelines, and AI governance systems, fully air-gapped.',
     highlight: true,
     bestFor: [
       'Secure AI operations hub',
@@ -118,7 +118,7 @@ export const tiers = [
   },
 ];
 
-/* What CommandCore powers — from the brochure use-case map */
+/* What CommandCore powers, from the brochure use-case map */
 export const powerUseCases = [
   { sector: 'Government & public sector', items: ['Secure analytics & dashboards', 'Citizen data intelligence', 'Policy simulation & planning', 'Offline AI for critical departments'] },
   { sector: 'BFSI', items: ['Fraud detection & compliance', 'Risk analytics', 'Secure AI copilots'] },
@@ -128,33 +128,33 @@ export const powerUseCases = [
 
 export const governance = [
   { title: 'Air-gapped by design',   desc: 'Zero-egress architecture. Advanced AI runs with no internet access at any layer.' },
-  { title: 'Full audit coverage',    desc: 'Every agent decision logged and reviewable — governance on by default, not bolted on.' },
+  { title: 'Full audit coverage',    desc: 'Every agent decision logged and reviewable, governance on by default, not bolted on.' },
   { title: 'Least-privilege access', desc: 'Role-based and attribute-based controls with customer-managed keys (KMS/HSM).' },
   { title: 'Red-teamed & hardened',  desc: 'Adversarial testing, refusal suites, PII controls, and prompt hardening baked in.' },
 ];
 
 export const deploymentSteps = [
-  { step: '01', title: 'Assess',      desc: 'We map where AI creates real advantage in your operations — constraints, data readiness, compliance needs.' },
-  { step: '02', title: 'Architect',   desc: 'We design the private AI stack for your environment — hardware footprint, agents, integrations, governance.' },
+  { step: '01', title: 'Assess',      desc: 'We map where AI creates real advantage in your operations, constraints, data readiness, compliance needs.' },
+  { step: '02', title: 'Architect',   desc: 'We design the private AI stack for your environment, hardware footprint, agents, integrations, governance.' },
   { step: '03', title: 'Deploy',      desc: 'CommandCore is installed inside your perimeter; KOGO OS agents are configured, tested, and handed over.' },
-  { step: '04', title: 'Run & scale', desc: 'We operate, measure, and expand — new agents, new workflows, new sites — as your AI practice matures.' },
+  { step: '04', title: 'Run & scale', desc: 'We operate, measure, and expand, new agents, new workflows, new sites, as your AI practice matures.' },
 ];
 
-/* KOGO OS — the agentic layer (built into CommandCore) */
+/* KOGO OS, the agentic layer (built into CommandCore) */
 export const kogo = {
   name: 'KOGO OS',
   role: 'The agentic layer',
-  desc: 'CommandCore’s intelligence comes from KOGO OS — the flagship private agentic AI platform built into every unit. KOGO turns infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable.',
-  badges: ['Built-in', '500+ connectors', '0 cloud dependence'],
+  desc: 'CommandCore’s intelligence comes from KOGO OS, the flagship private agentic AI platform built into every unit. KOGO turns infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable.',
+  badges: ['Built-in', '100+ connectors', '0 cloud dependence'],
   points: [
-    'Agent Builder — low/no-code drag-and-drop workflows',
-    'Agent Store — ready agents for video, audio, text & OCR',
-    'Agentic Mesh — plan-act-learn multi-agent swarms',
+    'Agent Builder, low/no-code drag-and-drop workflows',
+    'Agent Store, ready agents for video, audio, text & OCR',
+    'Agentic Mesh, plan-act-learn multi-agent swarms',
     'Policy & guardrails with PII controls',
     'Red-team & evaluation harness',
     'Live runs, replay & full observability',
-    'Unified memory — governed retrieval across agents',
-    'Model manager — host, fine-tune & route open models',
+    'Unified memory, governed retrieval across agents',
+    'Model manager, host, fine-tune & route open models',
   ],
   security: [
     'Air-gapped, zero-egress stack',

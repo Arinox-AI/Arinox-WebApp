@@ -31,43 +31,84 @@ const verifyMailer = () => {
   });
 };
 
+/* ═══════════════════════════════════════════════════════════
+   Email theme, mirrors the site design system
+   paper #f2f2f0 · card #fff · line #e2e1dd · void #0b0b0d
+   ink #17171a · soft #5b5b60 · faint #8a8a93
+   ember #ff6301 · ember-deep #ea5a00 · tint #ffe8d9
+   Georgia (display) · Arial (body) · Courier New (labels)
+   ═══════════════════════════════════════════════════════════ */
+
+const FONT_DISPLAY = "Georgia, 'Times New Roman', serif";
+const FONT_BODY = "Arial, Helvetica, sans-serif";
+const FONT_MONO = "'Courier New', Courier, monospace";
+
 const baseStyle = `
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-  background: #f9f6f2;
+  font-family: ${FONT_BODY};
+  background: #f2f2f0;
   margin: 0; padding: 0;
 `;
 const cardStyle = `
-  max-width: 560px; margin: 32px auto; background: #fff;
-  border-radius: 12px; overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  max-width: 560px; margin: 32px auto; background: #ffffff;
+  border: 1px solid #e2e1dd; border-radius: 12px; overflow: hidden;
 `;
+const accentBar = `<div style="height:3px;background:linear-gradient(90deg,#ff6301,#ea5a00);"></div>`;
 const headerStyle = `
-  background: linear-gradient(135deg, #FE6300 0%, #ff7a1a 100%);
-  padding: 32px 32px 24px; text-align: center;
+  background: #0b0b0d; padding: 30px 32px 26px; text-align: center;
 `;
-const bodyStyle = `padding: 32px;`;
+const headerTitleStyle = `
+  color: #f4ede8; margin: 0; font-family: ${FONT_DISPLAY};
+  font-size: 21px; font-weight: 400; letter-spacing: -0.01em;
+`;
+const headerSubStyle = `color: #a39d99; margin: 8px 0 0; font-size: 13px; line-height: 1.5;`;
+const bodyStyle = `padding: 32px; font-family: ${FONT_BODY};`;
 const footerStyle = `
-  background: #f3ede6; padding: 20px 32px; text-align: center;
-  font-size: 12px; color: #888;
+  background: #f2f2f0; border-top: 1px solid #e2e1dd;
+  padding: 20px 32px; text-align: center;
+  font-family: ${FONT_MONO}; font-size: 11px; color: #8a8a93; line-height: 1.7;
 `;
 const rowStyle = `
-  padding: 10px 0; border-bottom: 1px solid #f0ebe4;
-  font-size: 14px; color: #333; line-height: 1.5;
+  padding: 11px 0; border-bottom: 1px solid #e2e1dd;
+  font-size: 14px; color: #17171a; line-height: 1.5;
 `;
-const labelStyle = `font-weight: 600; color: #FE6300; min-width: 110px; display: inline-block;`;
+const labelStyle = `
+  font-family: ${FONT_MONO}; text-transform: uppercase; letter-spacing: 1px;
+  font-size: 11px; color: #8a8a93; min-width: 118px; display: inline-block;
+`;
+const eyebrowStyle = `
+  font-family: ${FONT_MONO}; text-transform: uppercase; letter-spacing: 1.4px;
+  font-size: 11px; color: #ea5a00; margin: 22px 0 8px;
+`;
+const noteBoxStyle = `
+  background: #ffe8d9; border: 1px solid rgba(255,99,1,0.22); border-radius: 8px;
+  padding: 16px 20px; color: #17171a; font-size: 13px; line-height: 1.7;
+`;
+const quoteBoxStyle = `
+  margin-top: 8px; font-size: 14px; color: #5b5b60; line-height: 1.7;
+  background: #f8f7f5; border: 1px solid #e2e1dd; padding: 14px; border-radius: 8px;
+`;
+const linkStyle = `color:#ea5a00;text-decoration:none;font-weight:bold;`;
 
-const logoUrl = () =>
-  `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://www.arinox.ai'}/logos/Arinox%20Logo%20Black%20on%20Transparent%20BG.png`;
+const logoUrl = (name = 'logo-white.png') =>
+  `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://www.arinox.ai'}/images/brand/${name}`;
+
+const header = (title, sub) => `
+    ${accentBar}
+    <div style="${headerStyle}">
+      <img src="${logoUrl()}" alt="Arinox" style="height:26px;margin-bottom:14px;" onerror="this.style.display='none'"/>
+      <h2 style="${headerTitleStyle}">${title}</h2>
+      ${sub ? `<p style="${headerSubStyle}">${sub}</p>` : ''}
+    </div>`;
 
 const emailWrapper = (content) => `
 <html><body style="${baseStyle}">
   <div style="${cardStyle}">
     ${content}
     <div style="${footerStyle}">
-      Arinox AI · New Delhi &amp; Bangalore, India<br>
-      <a href="https://www.arinox.ai" style="color:#FE6300;text-decoration:none;">www.arinox.ai</a>
+      Arinox AI · New Delhi &amp; Bengaluru, India<br>
+      <a href="https://www.arinox.ai" style="${linkStyle}">www.arinox.ai</a>
       &nbsp;·&nbsp;
-      <a href="mailto:assist@arinox.ai" style="color:#FE6300;text-decoration:none;">assist@arinox.ai</a>
+      <a href="mailto:assist@arinox.ai" style="${linkStyle}">assist@arinox.ai</a>
     </div>
   </div>
 </body></html>`;
@@ -75,47 +116,41 @@ const emailWrapper = (content) => `
 /* ── Contact notification to Arinox team ── */
 const contactNotification = ({ name, email, company, phone, subject, message }) =>
   emailWrapper(`
-    <div style="${headerStyle}">
-      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
-      <h2 style="color:#fff;margin:0;font-size:20px;">New Contact Form Submission</h2>
-    </div>
+    ${header('New contact form submission', 'Via the Arinox website')}
     <div style="${bodyStyle}">
-      <p style="color:#555;font-size:14px;margin-bottom:20px;">You have a new message from the Arinox website contact form.</p>
-      <div style="${rowStyle}"><span style="${labelStyle}">Name:</span> ${name}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Email:</span> <a href="mailto:${email}" style="color:#FE6300;">${email}</a></div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Company:</span> ${company || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Phone:</span> ${phone || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Subject:</span> ${subject || 'General Inquiry'}</div>
+      <p style="color:#5b5b60;font-size:14px;margin:0 0 18px;">You have a new message from the contact form.</p>
+      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${name}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${email}" style="${linkStyle}">${email}</a></div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Company</span> ${company || 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone || 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Subject</span> ${subject || 'General Inquiry'}</div>
       <div style="padding-top:16px;">
-        <span style="${labelStyle}">Message:</span>
-        <p style="margin-top:8px;font-size:14px;color:#444;line-height:1.7;background:#faf7f4;padding:14px;border-radius:8px;">${message.replace(/\n/g, '<br>')}</p>
+        <span style="${labelStyle}">Message</span>
+        <p style="${quoteBoxStyle}">${message.replace(/\n/g, '<br>')}</p>
       </div>
     </div>`);
 
 /* ── Contact auto-reply to user ── */
 const contactAutoReply = ({ name, subject }) =>
   emailWrapper(`
-    <div style="${headerStyle}">
-      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
-      <h2 style="color:#fff;margin:0;font-size:20px;">We've Received Your Message</h2>
-    </div>
+    ${header("We've received your message", subject || 'Arinox AI')}
     <div style="${bodyStyle}">
-      <p style="font-size:16px;font-weight:600;color:#1c160e;margin-bottom:8px;">Hi ${name},</p>
-      <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:16px;">
-        Thank you for reaching out to <strong>Arinox AI</strong>. We've received your message
-        regarding <em>"${subject || 'your inquiry'}"</em> and our team will get back to you
-        within <strong>24 hours</strong>.
+      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 10px;">Hi ${name},</p>
+      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 16px;">
+        Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
+        message regarding <em>"${subject || 'your inquiry'}"</em> and we will get back to you
+        <strong style="color:#17171a;">soon</strong>.
       </p>
-      <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;">
-        In the meantime, feel free to explore our solutions at
-        <a href="https://www.arinox.ai" style="color:#FE6300;">www.arinox.ai</a>
-        or reply directly to this email if you have anything to add.
+      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 24px;">
+        In the meantime, explore the platform at
+        <a href="https://www.arinox.ai" style="${linkStyle}">www.arinox.ai</a>,
+        or reply directly to this email.
       </p>
-      <div style="background:linear-gradient(135deg,#FE6300,#ff7a1a);border-radius:8px;padding:16px 20px;color:#fff;font-size:13px;line-height:1.6;">
-        <strong>What happens next?</strong><br>
-        1. Our team reviews your message within 2 hours<br>
-        2. We schedule a free 15-min discovery call<br>
-        3. You get a tailored proposal within 5 days
+      <div style="${noteBoxStyle}">
+        <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">What happens next</span><br>
+        <span style="display:inline-block;margin-top:8px;">1. Our team reviews your message<br>
+        2. We schedule a free discovery call<br>
+        3. You get a tailored plan</span>
       </div>
     </div>`);
 
@@ -127,37 +162,33 @@ const leadNotification = (lead) => {
     utmSource, utmMedium, utmCampaign, utmTerm, utmContent, gclid, gadSource, referrer, landingPage,
   } = lead;
   const row = (label, value) =>
-    `<div style="${rowStyle}"><span style="${labelStyle}">${label}:</span> ${value || 'N/A'}</div>`;
+    `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value || 'N/A'}</div>`;
   const hasCampaign = utmSource || utmMedium || utmCampaign || gclid || gadSource;
   return emailWrapper(`
-    <div style="${headerStyle}">
-      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
-      <h2 style="color:#fff;margin:0;font-size:20px;">New Lead - Google Ads</h2>
-      <p style="color:rgba(255,255,255,0.9);margin:6px 0 0;font-size:13px;">Submitted via /get-started</p>
-    </div>
+    ${header('New lead', 'Submitted via /get-started')}
     <div style="${bodyStyle}">
-      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:0 0 8px;">Contact</p>
+      <p style="${eyebrowStyle}">Contact</p>
       ${row('Name', name)}
-      ${row('Email', `<a href="mailto:${email}" style="color:#FE6300;">${email}</a>`)}
+      ${row('Email', `<a href="mailto:${email}" style="${linkStyle}">${email}</a>`)}
       ${row('Phone', phone)}
       ${row('Company', company)}
       ${row('Role', role)}
 
-      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:22px 0 8px;">Firmographics (ICP)</p>
+      <p style="${eyebrowStyle}">Firmographics (ICP)</p>
       ${row('Employees', companySize)}
       ${row('Company type', companyType)}
       ${row('Industry / domain', domain)}
 
-      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:22px 0 8px;">AI profile</p>
+      <p style="${eyebrowStyle}">AI profile</p>
       ${row('Uses AI today', usesAi)}
       ${row('AI tools used', aiTools)}
       ${row('Wants AI for', useCases)}
       ${row('Timeline', timeline)}
 
-      ${message ? `<div style="padding-top:16px;"><span style="${labelStyle}">Message:</span><p style="margin-top:8px;font-size:14px;color:#444;line-height:1.7;background:#faf7f4;padding:14px;border-radius:8px;">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
+      ${message ? `<div style="padding-top:16px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
 
       ${hasCampaign ? `
-      <p style="color:#FE6300;font-weight:600;font-size:12px;letter-spacing:1px;text-transform:uppercase;margin:22px 0 8px;">Campaign attribution</p>
+      <p style="${eyebrowStyle}">Campaign attribution</p>
       ${row('Source', utmSource)}
       ${row('Medium', utmMedium)}
       ${row('Campaign', utmCampaign)}
@@ -176,45 +207,38 @@ const leadNotification = (lead) => {
 /* ── Application notification to Arinox team ── */
 const applicationNotification = ({ fullName, email, phone, role, department, linkedIn, coverNote, resumeName }) =>
   emailWrapper(`
-    <div style="${headerStyle}">
-      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
-      <h2 style="color:#fff;margin:0;font-size:20px;">New Job Application</h2>
-      <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:14px;">${role}</p>
-    </div>
+    ${header('New job application', role)}
     <div style="${bodyStyle}">
-      <p style="color:#555;font-size:14px;margin-bottom:20px;">A new application has been submitted via the Arinox Careers page.</p>
-      <div style="${rowStyle}"><span style="${labelStyle}">Name:</span> ${fullName}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Email:</span> <a href="mailto:${email}" style="color:#FE6300;">${email}</a></div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Phone:</span> ${phone || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Role:</span> ${role}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Department:</span> ${department || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Resume:</span> ${resumeName || 'Not provided'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">LinkedIn:</span> ${linkedIn ? `<a href="${linkedIn}" style="color:#FE6300;">${linkedIn}</a>` : 'N/A'}</div>
-      ${coverNote ? `<div style="padding-top:16px;"><span style="${labelStyle}">Cover Note:</span><p style="margin-top:8px;font-size:14px;color:#444;line-height:1.7;background:#faf7f4;padding:14px;border-radius:8px;">${coverNote.replace(/\n/g, '<br>')}</p></div>` : ''}
+      <p style="color:#5b5b60;font-size:14px;margin:0 0 18px;">A new application was submitted via the Careers page.</p>
+      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${fullName}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${email}" style="${linkStyle}">${email}</a></div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone || 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Role</span> ${role}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Department</span> ${department || 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Resume</span> ${resumeName || 'Not provided'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">LinkedIn</span> ${linkedIn ? `<a href="${linkedIn}" style="${linkStyle}">${linkedIn}</a>` : 'N/A'}</div>
+      ${coverNote ? `<div style="padding-top:16px;"><span style="${labelStyle}">Cover note</span><p style="${quoteBoxStyle}">${coverNote.replace(/\n/g, '<br>')}</p></div>` : ''}
     </div>`);
 
 /* ── Application auto-reply to applicant ── */
 const applicationAutoReply = ({ fullName, role }) =>
   emailWrapper(`
-    <div style="${headerStyle}">
-      <img src="${logoUrl()}" alt="Arinox AI" style="height:32px;margin-bottom:12px;" onerror="this.style.display='none'"/>
-      <h2 style="color:#fff;margin:0;font-size:20px;">Application Received</h2>
-      <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:14px;">${role}</p>
-    </div>
+    ${header('Application received', role)}
     <div style="${bodyStyle}">
-      <p style="font-size:16px;font-weight:600;color:#1c160e;margin-bottom:8px;">Hi ${fullName},</p>
-      <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:16px;">
-        Thank you for applying for the <strong>${role}</strong> position at <strong>Arinox AI</strong>.
-        We've received your application and our hiring team will review it carefully.
+      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 10px;">Hi ${fullName},</p>
+      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 16px;">
+        Thank you for applying for the <strong style="color:#17171a;">${role}</strong> position at
+        <strong style="color:#17171a;">Arinox AI</strong>. We've received your application and our
+        hiring team will review it carefully.
       </p>
-      <p style="font-size:14px;color:#555;line-height:1.7;margin-bottom:24px;">
-        We'll be in touch within <strong>5 business days</strong> if your profile matches what we're
-        looking for. In the meantime, learn more about us at
-        <a href="https://www.arinox.ai" style="color:#FE6300;">www.arinox.ai</a>.
+      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 24px;">
+        We'll be in touch within <strong style="color:#17171a;">5 business days</strong> if your profile
+        matches what we're looking for. In the meantime, learn more about us at
+        <a href="https://www.arinox.ai" style="${linkStyle}">www.arinox.ai</a>.
       </p>
-      <div style="background:linear-gradient(135deg,#FE6300,#ff7a1a);border-radius:8px;padding:16px 20px;color:#fff;font-size:13px;line-height:1.6;">
-        <strong>Arinox AI</strong> - Building intelligent systems that transform how enterprises operate.<br>
-        We look forward to potentially working together!
+      <div style="${noteBoxStyle}">
+        <span style="font-family:${FONT_DISPLAY};font-size:15px;color:#17171a;">Arinox AI</span><br>
+        <span style="display:inline-block;margin-top:6px;">Building intelligent systems that transform how enterprises operate. We look forward to potentially working together.</span>
       </div>
     </div>`);
 

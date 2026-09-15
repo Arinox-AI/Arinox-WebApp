@@ -4,6 +4,22 @@ export default {
   theme: {
     extend: {
       colors: {
+        /* Handoff v3 — paper + void + ember */
+        paper: '#f2f2f0',
+        'paper-2': '#e8e7e4',
+        ink: '#17171a',
+        'ink-soft': '#5b5b60',
+        'ink-faint': '#67676f',
+        line: '#e2e1dd',
+        void: '#0b0b0d',
+        'void-2': '#17171a',
+        carbon: '#212125',
+        phos: '#f4ede8',
+        ember: '#ff6301',
+        'ember-deep': '#b84300',
+        tint: '#ffe8d9',
+        ghost: '#a39d99',
+        /* Legacy tokens kept for pages not yet migrated */
         brand: {
           bg:        'rgb(var(--color-bg) / <alpha-value>)',
           surface:   'rgb(var(--color-surface) / <alpha-value>)',
@@ -21,9 +37,14 @@ export default {
         },
       },
       fontFamily: {
-        sans:    ['Geist', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['"Source Serif 4"', 'Georgia', 'serif'],
+        body:    ['Switzer', 'system-ui', '-apple-system', 'sans-serif'],
+        sans:    ['Switzer', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['Newsreader', 'Georgia', 'serif'],
         mono:    ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+      },
+      borderRadius: {
+        card: '8px',
+        btn:  '12px',
       },
     },
   },

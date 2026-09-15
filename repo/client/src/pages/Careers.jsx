@@ -1,17 +1,16 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Globe, TrendingUp, Lightbulb, Building2, Inbox } from 'lucide-react';
+import { ArrowUpRight, EnvelopeSimple, Tray, Plus, Minus } from '@phosphor-icons/react';
 import SEO from '../components/ui/SEO';
-import { useAuth } from '../hooks/useAuth';
-import AuthModal from '../components/ui/AuthModal';
-import GlyphIcon from '../components/ui/GlyphIcon';
+import { Label } from '../components/site/Layout';
+import { Button } from '../components/site/Button';
+import { HalftoneBackground } from '../components/site/HalftoneBackground';
+import { CtaBand } from '../components/site/Shell';
 import { perks as perksData } from '../data/careers';
 
-const ICON_MAP = { Globe, TrendingUp, Lightbulb, Building2 };
-
-/* ─── Helpers ────────────────────────────────────────────── */
 const getJdBySlug = (roles, role) => {
   const match = roles.find(r => r.slug === role.slug || r.title === role.title);
   return match?.jd || null;
@@ -19,7 +18,6 @@ const getJdBySlug = (roles, role) => {
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
 
-/* ─── Apply Modal ────────────────────────────────────────── */
 const ApplyModal = ({ job, onClose, onDone }) => {
   const [form, setForm] = useState(emptyApp);
   const [resume, setResume] = useState(null);
@@ -42,13 +40,13 @@ const ApplyModal = ({ job, onClose, onDone }) => {
     setLoading(true);
     try {
       const fd = new FormData();
-      fd.append('fullName',   form.fullName);
-      fd.append('email',      form.email);
-      fd.append('phone',      form.phone);
-      fd.append('role',       job.title);
+      fd.append('fullName', form.fullName);
+      fd.append('email', form.email);
+      fd.append('phone', form.phone);
+      fd.append('role', job.title);
       fd.append('department', job.department || '');
-      fd.append('linkedIn',   form.linkedIn);
-      fd.append('coverNote',  form.coverNote);
+      fd.append('linkedIn', form.linkedIn);
+      fd.append('coverNote', form.coverNote);
       if (resume) fd.append('resume', resume);
       await axios.post('/api/v1/careers/apply', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       setDone(true);
@@ -63,146 +61,51 @@ const ApplyModal = ({ job, onClose, onDone }) => {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
         className="fixed inset-0 z-[300] flex items-center justify-center p-4"
         onClick={(e) => { if (e.target === e.currentTarget) { if (done) onDone(job.title); onClose(); } }}
-        role="dialog"
-        aria-modal="true"
-        aria-label="Apply for position"
+        role="dialog" aria-modal="true" aria-label="Apply for position"
       >
-        {/* Backdrop */}
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-
+        <div className="absolute inset-0 bg-void/70 backdrop-blur-sm" />
         <motion.div
-          initial={{ opacity: 0, scale: 0.92, y: 24 }}
+          initial={{ opacity: 0, scale: 0.94, y: 18 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          exit={{ opacity: 0, scale: 0.94, y: 12 }}
-          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto glass-card rounded-2xl p-7 shadow-2xl"
+          exit={{ opacity: 0, scale: 0.96, y: 10 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto card-light p-8"
         >
-          {/* Close */}
           <button
             onClick={() => { if (done) onDone(job.title); onClose(); }}
-            className="absolute top-5 right-5 w-10 h-10 rounded-full flex items-center justify-center text-brand-muted hover:text-brand-text hover:bg-brand-border/30 transition-all"
+            className="absolute right-5 top-5 text-2xl leading-none text-ink-faint hover:text-ink"
             aria-label="Close"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-              <path d="M18 6 6 18M6 6l12 12"/>
-            </svg>
+            ×
           </button>
 
           {done ? (
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-              className="py-10 text-center"
-            >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.1, duration: 0.4, ease: 'backOut' }}
-                className="w-14 h-14 rounded-full bg-brand-primary/15 border border-brand-primary/30 flex items-center justify-center mx-auto mb-5"
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-brand-primary">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </motion.div>
-              <h3 className="text-brand-text font-bold text-lg mb-2">Application Received</h3>
-              <p className="text-brand-muted text-sm mb-6">We'll review your profile and be in touch within 5 business days.</p>
-              <button
-                onClick={() => { onDone(job.title); onClose(); }}
-                className="px-6 py-2.5 rounded-xl bg-brand-primary/10 border border-brand-primary/30 text-brand-primary text-sm font-semibold hover:bg-brand-primary hover:text-white transition-all"
-              >
-                Close
-              </button>
-            </motion.div>
+            <div className="py-8 text-center">
+              <h3 className="font-display text-2xl tracking-[-0.01em]">Application received</h3>
+              <p className="mt-3 text-sm text-ink-soft">We&apos;ll review your profile and be in touch within 5 business days.</p>
+            </div>
           ) : (
             <>
-              <div className="mb-6">
-                <p className="text-xs tracking-widest uppercase text-brand-primary font-semibold mb-1">Apply for</p>
-                <h2 className="text-xl font-display font-bold text-brand-text">{job.title}</h2>
-                <p className="text-xs text-brand-muted mt-0.5">{job.department} · {job.location}</p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-4">
-                {/* Name + Email */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <input
-                    name="fullName" value={form.fullName} onChange={handleChange}
-                    placeholder="Full Name" required
-                    aria-label="Full Name"
-                    autoComplete="name"
-                    className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
-                  />
-                  <input
-                    name="email" type="email" value={form.email} onChange={handleChange}
-                    placeholder="Email Address" required
-                    aria-label="Email Address"
-                    autoComplete="email"
-                    className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
-                  />
-                </div>
-
-                {/* Phone */}
-                <input
-                  name="phone" type="tel" value={form.phone} onChange={handleChange}
-                  placeholder="Contact Number" required
-                  aria-label="Contact Number"
-                  autoComplete="tel"
-                  className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
-                />
-
-                {/* Resume upload */}
+              <p className="eyebrow text-ember-deep">Apply · {job.department}</p>
+              <h3 className="mt-3 font-display text-2xl tracking-[-0.01em]">{job.title}</h3>
+              <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+                <input name="fullName" value={form.fullName} onChange={handleChange} required placeholder="Full name" className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
+                <input type="email" name="email" value={form.email} onChange={handleChange} required placeholder="Work email" className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
+                <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
+                <input name="linkedIn" value={form.linkedIn} onChange={handleChange} placeholder="LinkedIn / portfolio URL" className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
+                <textarea name="coverNote" value={form.coverNote} onChange={handleChange} rows={3} placeholder="Anything we should know?" className="w-full resize-y rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
                 <div>
-                  <button
-                    type="button"
-                    onClick={() => fileRef.current?.click()}
-                    aria-label="Upload Resume or CV"
-                    className="w-full px-4 py-3 rounded-xl border-2 border-dashed border-brand-border hover:border-brand-primary/50 text-brand-muted hover:text-brand-text text-sm transition-all flex items-center justify-center gap-2"
-                  >
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-                    </svg>
-                    {resume ? resume.name : 'Upload Resume / CV (PDF, DOC, DOCX · max 5 MB)'}
-                  </button>
-                  <input ref={fileRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFile} className="hidden" aria-label="Resume file upload" />
+                  <input ref={fileRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFile} className="hidden" />
+                  <Button type="button" variant="ghost" size="sm" onClick={() => fileRef.current?.click()}>
+                    {resume ? resume.name : 'Attach resume (PDF/DOC)'}
+                  </Button>
                 </div>
-
-                {/* LinkedIn */}
-                <input
-                  name="linkedIn" value={form.linkedIn} onChange={handleChange}
-                  placeholder="LinkedIn Profile URL (optional)"
-                  aria-label="LinkedIn Profile URL"
-                  className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none"
-                />
-
-                {/* Cover note */}
-                <textarea
-                  name="coverNote" value={form.coverNote} onChange={handleChange}
-                  rows={3}
-                  placeholder="Why do you want to join Arinox? (optional)"
-                  aria-label="Cover letter"
-                  className="contact-input w-full px-4 py-3 rounded-xl text-sm focus:outline-none resize-none"
-                />
-
-                <motion.button
-                  type="submit"
-                  disabled={loading}
-                  whileHover={{ scale: loading ? 1 : 1.012 }}
-                  whileTap={{ scale: loading ? 1 : 0.98 }}
-                  className="w-full py-3.5 rounded-xl bg-brand-primary border border-brand-primary text-white font-semibold text-sm hover:bg-brand-secondary hover:border-brand-secondary transition-all disabled:opacity-50"
-                >
-                  {loading ? (
-                    <span className="flex items-center justify-center gap-2">
-                      <motion.span animate={{ rotate: 360 }} transition={{ duration: 0.8, repeat: Infinity, ease: 'linear' }}
-                        className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full inline-block" />
-                      Submitting…
-                    </span>
-                  ) : 'Submit Application →'}
-                </motion.button>
+                <Button type="submit" variant="ember" disabled={loading} className="mt-2 w-full">
+                  {loading ? 'Submitting…' : 'Submit application'}
+                </Button>
               </form>
             </>
           )}
@@ -212,25 +115,16 @@ const ApplyModal = ({ job, onClose, onDone }) => {
   );
 };
 
-/* ─── Careers page ───────────────────────────────────────── */
 const Careers = () => {
-  const { user } = useAuth();
   const [careers, setCareers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('All');
   const [applyJob, setApplyJob] = useState(null);
   const [appliedJobs, setAppliedJobs] = useState(new Set());
   const [expandedJD, setExpandedJD] = useState(null);
-  const [showAuth, setShowAuth] = useState(false);
 
-  const handleApplyClick = (job) => {
-    if (!user) { setShowAuth(true); return; }
-    setApplyJob(job);
-  };
-
-  const handleApplyDone = (jobTitle) => {
-    setAppliedJobs(prev => new Set([...prev, jobTitle]));
-  };
+  const handleApplyClick = (job) => setApplyJob(job);
+  const handleApplyDone = (jobTitle) => setAppliedJobs(prev => new Set([...prev, jobTitle]));
 
   useEffect(() => {
     axios.get('/api/v1/careers')
@@ -240,9 +134,9 @@ const Careers = () => {
   }, []);
 
   const list = careers;
-  const depts = ['All', ...new Set(list.map(j => j.department))];
+  const depts = ['All', ...new Set(list.map(j => j.department).filter(Boolean))];
   const filtered = list.filter(j => filter === 'All' || j.department === filter);
-  const perks = perksData.map(p => ({ ...p, Icon: ICON_MAP[p.icon] }));
+  const perks = perksData;
 
   return (
     <>
@@ -252,231 +146,180 @@ const Careers = () => {
         canonical="https://www.arinox.ai/careers"
       />
 
-      {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="pt-32 md:pt-40 pb-16 md:pb-20 border-b border-brand-border">
-        <div className="container-wide text-center max-w-3xl">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="overline" style={{ justifyContent: 'center' }}>Careers</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }} className="text-4xl md:text-5xl font-display font-extrabold leading-[1.08] mb-5">
-            Build what <span className="text-gradient">matters.</span>
-          </motion.h1>
-          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="lead">
-            We don&rsquo;t chase AI buzzwords. We build systems that transform how enterprises and governments work.
-          </motion.p>
-          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
-            <a href="#roles" className="btn btn-dark mt-8">
-              See open roles ↓
-            </a>
-          </motion.div>
+      <section className="relative overflow-hidden border-b border-line px-7 pb-12 pt-20 md:pt-28">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
+          <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
+        </div>
+        <div className="relative mx-auto max-w-6xl">
+          <Label>Careers</Label>
+          <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
+            Build systems that <span className="italic text-ember">have to work.</span>
+          </h1>
+          <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-ink-soft">
+            We are a small team of operators shipping sovereign AI into banks, hospitals, factories,
+            and government networks. If production is the part you enjoy, talk to us.
+          </p>
         </div>
       </section>
 
-      {/* ── Why Join Arinox ──────────────────────────────── */}
-      <section className="py-16">
-        <div className="container-wide">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-display font-extrabold">Why <span className="text-gradient">join Arinox?</span></h2>
-            <p className="text-sm text-brand-muted mt-3">What you can expect when you join the team.</p>
-          </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-px bg-brand-border/25 rounded-xl overflow-hidden">
-            {perks.map(({ Icon, title, desc }, i) => (
-              <motion.div
-                key={title}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="bg-brand-bg hover:bg-brand-card transition-colors p-5 lg:p-6"
-              >
-                <div className="mb-4">
-                  <GlyphIcon Icon={Icon} />
-                </div>
-                  <h3 className="font-display font-bold mb-1.5 text-sm">{title}</h3>
-                <p className="text-xs lg:text-sm text-brand-muted leading-relaxed">{desc}</p>
-              </motion.div>
+      {/* Why join */}
+      <section className="py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-7">
+          <Label>How we work</Label>
+          <h2 className="mt-5 font-display text-3xl tracking-[-0.01em] md:text-[40px]">What we look for.</h2>
+          <div className="mt-10 grid gap-x-16 gap-y-8 border-t border-ink/80 sm:grid-cols-2">
+            {perks.map(({ title, desc }) => (
+              <div key={title} className="border-b border-line pt-6">
+                <h3 className="font-display text-[20px] tracking-[-0.01em]">{title}</h3>
+                <p className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Open Roles ───────────────────────────────────── */}
-      <section id="roles" className="py-16 border-t border-brand-border">
-        <div className="container-wide">
-          <div className="text-center mb-7">
-            <h2 className="text-2xl md:text-3xl font-display font-extrabold">Open <span className="text-gradient">positions</span></h2>
-            {!loading && list.length > 0 && (
-              <p className="text-sm text-brand-muted mt-3">{list.length} open {list.length === 1 ? 'role' : 'roles'}</p>
-            )}
-          </div>
+      {/* Open roles */}
+      <section id="roles" className="border-t border-line py-16 md:py-20">
+        <div className="mx-auto max-w-6xl px-7">
+          <Label>Open roles</Label>
+          <h2 className="mt-5 font-display text-3xl tracking-[-0.01em] md:text-[40px]">Where you could land.</h2>
 
-          {/* Filter tabs */}
           {depts.length > 1 && (
-            <div className="flex flex-wrap gap-3 justify-center mb-6">
+            <div className="mt-8 flex flex-wrap gap-2">
               {depts.map(d => (
-                <button key={d} onClick={() => setFilter(d)}
-                  className={`px-4 py-2 rounded-xl text-sm transition-all ${filter === d ? 'bg-brand-primary text-white shadow-lg shadow-brand-primary/30' : 'glass border border-brand-border text-brand-muted hover:text-brand-text'}`}>
+                <button
+                  key={d} onClick={() => setFilter(d)}
+                  className={`chip rounded-full border px-3.5 py-1.5 transition-colors ${filter === d ? 'border-ember bg-ember text-white' : 'border-line text-ink-soft hover:border-ink hover:text-ink'}`}
+                >
                   {d}
                 </button>
               ))}
             </div>
           )}
 
-          <div className="space-y-4">
-            {loading
-              ? Array.from({ length: 4 }).map((_, i) => <div key={i} className="glass-card rounded-2xl h-20 animate-pulse" />)
-              : filtered.length === 0 ? (
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="glass-card rounded-2xl px-6 py-14 text-center"
-                >
-                  <div className="w-11 h-11 rounded-xl bg-brand-primary/10 text-brand-primary flex items-center justify-center mx-auto mb-4">
-                    <Inbox size={20} strokeWidth={1.8} />
-                  </div>
-                  <h3 className="font-display font-bold mb-2">No open roles right now</h3>
-                  <p className="text-sm text-brand-muted max-w-sm mx-auto leading-relaxed">
-                    We don't have any active positions at the moment, but we're always looking for exceptional people.
-                  </p>
-                </motion.div>
-              )
-              : filtered.map((job, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.06 }}
-                  className="glass-card rounded-2xl overflow-hidden group"
-                >
-                  {/* Row header */}
-                  <div className="p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                      <h3 className="text-brand-text font-bold text-lg mb-1">{job.title}</h3>
-                      <div className="flex flex-wrap gap-3">
-                        <span className="text-xs text-brand-primary">{job.department}</span>
-                        <span className="text-xs text-brand-muted">📍 {job.location}</span>
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-brand-primary/10 text-brand-primary">{job.type}</span>
+          <div className="mt-8 card-light overflow-hidden">
+            {loading ? (
+              Array.from({ length: 3 }).map((_, i) => <div key={i} className="skeleton h-20 border-b border-line last:border-b-0" />)
+            ) : filtered.length === 0 ? (
+              <div className="px-6 py-16 text-center">
+                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-ember/10 text-ember">
+                  <Tray size={20} weight="duotone" />
+                </div>
+                <h3 className="font-display text-xl">No open roles right now</h3>
+                <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
+                  We don&apos;t have active positions at the moment, but we&apos;re always looking for exceptional people.
+                </p>
+                <Link to="/contact" className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
+                  Get in touch <ArrowUpRight size={14} weight="bold" />
+                </Link>
+              </div>
+            ) : (
+              filtered.map((job, i) => {
+                const key = job.slug || job.title || i;
+                const jd = getJdBySlug(list, job);
+                const open = expandedJD === key;
+                return (
+                  <div key={key} className="border-b border-line last:border-b-0">
+                    <div className="grid items-center gap-3 px-6 py-6 md:grid-cols-[1.6fr_1fr_1fr_auto] md:gap-6 md:px-8">
+                      <div>
+                        <span className="font-display text-[20px] tracking-[-0.01em]">{job.title}</span>
+                      </div>
+                      <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-ink-faint">{job.department}</span>
+                      <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-ink-faint">{job.location} · {job.type}</span>
+                      <div className="flex items-center gap-4">
+                        {jd && (
+                          <button
+                            onClick={() => setExpandedJD(open ? null : key)}
+                            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink"
+                          >
+                            {open ? <Minus size={14} weight="bold" /> : <Plus size={14} weight="bold" />}
+                            Role
+                          </button>
+                        )}
+                        {appliedJobs.has(job.title) ? (
+                          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">Applied</span>
+                        ) : (
+                          <button
+                            onClick={() => handleApplyClick(job)}
+                            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ember-deep"
+                          >
+                            Apply <ArrowUpRight size={14} weight="bold" />
+                          </button>
+                        )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-3 flex-shrink-0">
-                      {getJdBySlug(list, job) && (
-                        <button
-                          onClick={() => setExpandedJD(expandedJD === (job.slug || job.title) ? null : (job.slug || job.title))}
-                          className="px-4 py-2.5 rounded-xl border border-brand-border text-brand-muted hover:border-brand-primary/50 hover:text-brand-text text-sm transition-all flex items-center gap-1.5"
-                        >
-                          {expandedJD === (job.slug || job.title) ? 'Hide JD' : 'View Role'}
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={`transition-transform ${expandedJD === (job.slug || job.title) ? 'rotate-180' : ''}`}><polyline points="6 9 12 15 18 9"/></svg>
-                        </button>
-                      )}
-                      {appliedJobs.has(job.title) ? (
-                        <span className="px-6 py-2.5 rounded-xl border border-brand-primary/40 bg-brand-primary/8 text-brand-primary text-sm font-semibold flex items-center gap-2">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                          Applied
-                        </span>
-                      ) : (
-                        <button
-                          onClick={() => handleApplyClick(job)}
-                          className="px-6 py-2.5 rounded-xl border border-brand-border text-brand-muted group-hover:border-brand-primary group-hover:text-brand-text text-sm transition-all"
-                        >
-                          Apply Now →
-                        </button>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Expandable JD */}
-                  <AnimatePresence>
-                    {expandedJD === (job.slug || job.title) && (() => {
-                      const jd = getJdBySlug(list, job);
-                      if (!jd) return null;
-                      return (
+                    <AnimatePresence initial={false}>
+                      {open && jd && (
                         <motion.div
-                          key="jd"
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                          className="overflow-hidden border-t border-brand-border/40"
+                          initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                          className="overflow-hidden"
                         >
-                          <div className="px-6 py-6 space-y-5">
-                            <p className="text-sm text-brand-muted leading-relaxed italic">{jd.tagline}</p>
-
-                            {jd.responsibilities && (
-                              <div>
-                                <p className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">{jd.responsibilitiesLabel}</p>
-                                <ul className="space-y-2">
-                                  {jd.responsibilities.map((item, idx) => (
-                                    <li key={idx} className="flex items-start gap-2.5 text-sm text-brand-muted leading-relaxed">
-                                      <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-primary/60 shrink-0" />
-                                      {item}
+                          <div className="border-t border-line px-6 py-7 md:px-8">
+                            {jd.tagline && <p className="max-w-3xl text-[15px] leading-relaxed text-ink-soft">{jd.tagline}</p>}
+                            {jd.responsibilities?.length > 0 && (
+                              <div className="mt-6">
+                                <p className="eyebrow text-ember-deep">{jd.responsibilitiesLabel || "What you'll do"}</p>
+                                <ul className="mt-3 grid gap-2 md:grid-cols-2">
+                                  {jd.responsibilities.map((r) => (
+                                    <li key={r} className="flex gap-3 text-[14px] leading-relaxed text-ink-soft">
+                                      <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-ember" />{r}
                                     </li>
                                   ))}
                                 </ul>
                               </div>
                             )}
-
-                            <div>
-                              <p className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">{jd.fitLabel}</p>
-                              <ul className="space-y-2">
-                                {jd.fit.map((item, idx) => (
-                                  <li key={idx} className="flex items-start gap-2.5 text-sm text-brand-muted leading-relaxed">
-                                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-primary/60 shrink-0" />
-                                    {item}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-
-                            {jd.bring && (
-                              <div>
-                                <p className="text-sm text-brand-muted leading-relaxed mb-3">{jd.bringLabel}</p>
-                                <div className="flex flex-wrap gap-2">
-                                  {jd.bring.map(b => (
-                                    <span key={b} className="px-3 py-1.5 rounded-lg bg-brand-primary/10 text-brand-primary text-xs font-semibold">{b}</span>
+                            {jd.fit?.length > 0 && (
+                              <div className="mt-6">
+                                <p className="eyebrow text-ember-deep">{jd.fitLabel || "You'd be a great fit if you…"}</p>
+                                <ul className="mt-3 grid gap-2 md:grid-cols-2">
+                                  {jd.fit.map((r) => (
+                                    <li key={r} className="flex gap-3 text-[14px] leading-relaxed text-ink-soft">
+                                      <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-ember" />{r}
+                                    </li>
                                   ))}
-                                </div>
+                                </ul>
                               </div>
                             )}
-
-                            <p className="text-sm text-brand-text font-medium leading-relaxed border-l-2 border-brand-primary/40 pl-4">{jd.closing}</p>
+                            {jd.bring?.length > 0 && (
+                              <p className="mt-6 text-[14px] leading-relaxed text-ink-soft">
+                                {jd.bringLabel} <b className="font-medium text-ink">{jd.bring.join(' · ')}</b>
+                              </p>
+                            )}
+                            {jd.closing && <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-ink-faint">{jd.closing}</p>}
                           </div>
                         </motion.div>
-                      );
-                    })()}
-                  </AnimatePresence>
-                </motion.div>
-              ))
-            }
+                      )}
+                    </AnimatePresence>
+                  </div>
+                );
+              })
+            )}
           </div>
 
-          {/* CTA */}
-          <div className="band-ink rounded-2xl mt-12 px-6 py-12 text-center">
-            <div className="max-w-xl mx-auto">
-              <h3 className="text-xl md:text-2xl font-display font-extrabold mb-3">
-                Don&rsquo;t see your role? <span className="text-gradient">We still want to hear from you.</span>
-              </h3>
-              <p className="text-sm mb-6" style={{ color: 'rgba(242,239,233,0.72)' }}>
-                Send your CV and tell us where you&rsquo;d make a difference.
-              </p>
-              <a href="mailto:assist@arinox.ai" className="btn btn-on-dark">
-                Send your CV → assist@arinox.ai
-              </a>
-            </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Button href="mailto:careers@arinox.ai" variant="dark">
+              <EnvelopeSimple size={17} weight="bold" />
+              careers@arinox.ai
+            </Button>
+            <span className="text-sm text-ink-faint">No matching role? Send your work anyway.</span>
           </div>
         </div>
       </section>
 
-      {/* Apply modal */}
-      {applyJob && (
-        <ApplyModal
-          job={applyJob}
-          onClose={() => setApplyJob(null)}
-          onDone={handleApplyDone}
-        />
-      )}
+      <CtaBand
+        title="Not looking for a job, but need the work done?"
+        offer={
+          <>
+            We deploy sovereign AI for enterprises and governments.{' '}
+            <b className="font-medium text-white">Start with a discovery session.</b>
+          </>
+        }
+      />
 
-      {/* Login prompt */}
-      <AuthModal isOpen={showAuth} onClose={() => setShowAuth(false)} defaultMode="register" />
+      {applyJob && (
+        <ApplyModal job={applyJob} onClose={() => setApplyJob(null)} onDone={handleApplyDone} />
+      )}
     </>
   );
 };

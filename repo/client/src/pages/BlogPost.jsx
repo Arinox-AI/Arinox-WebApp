@@ -1,17 +1,18 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { ArrowLeft } from '@phosphor-icons/react';
 import SEO from '../components/ui/SEO';
-
-import aksImg           from '../assets/9th Nov- AKS Workshop Global.jpeg';
-import ansrImg          from '../assets/4th July - ANSR Tech Workshop_.jpg';
-import nvidiaImg        from '../assets/26th June- Nvidia Workshop.jpg';
-import hitachiImg       from '../assets/Hitachi_shori_2026.JPG';
-import aiSummitImg      from '../assets/ai_summit.jpg';
-import sovereignLaunchImg from '../assets/severign_launch.jpeg';
-import hitachiSystemsImg  from '../assets/Hitachi_systems_event.jpeg';
-import indianGovImg       from '../assets/IndianGov.jpeg';
-import bharatDigitalImg   from '../assets/Bharat_digital_event.jpeg';
 import { img } from '../data/images';
+
+const aksImg             = img('aks-workshop');
+const ansrImg            = img('ansr-workshop');
+const nvidiaImg          = img('nvidia-workshop');
+const hitachiImg         = img('hitachi-shori');
+const aiSummitImg        = img('ai-summit');
+const sovereignLaunchImg = img('sovereign-launch');
+const hitachiSystemsImg  = img('hitachi-systems');
+const indianGovImg       = img('indian-gov');
+const bharatDigitalImg   = img('bharat-digital');
 
 const AI_FINANCE_IMG   = img('banking');
 const SERVER_ROOM_IMG  = img('commandcore-hero');
@@ -41,7 +42,7 @@ const samplePosts = [
     category: 'Events', domain: 'GCC & Outsourcing', publishedAt: '2025-07-04', readTime: 6,
     body: [
       'The ANSR Tech Workshop in Bangalore brought together GCC leaders, enterprise transformation heads, and AI practitioners to explore a fundamental shift in how Global Capability Centres create value. Arinox AI presented a core thesis: GCCs are no longer cost arbitrage vehicles   they are becoming autonomous intelligence factories. The workshop showcased how CommandCore-powered agents, running entirely within the GCC\'s own infrastructure, can handle end-to-end operational workflows with minimal human intervention.',
-      'Live demonstrations showed agentic workflows across finance, procurement, and customer operations   achieving 75–80% AI agent utilisation from day one, with full audit trail coverage on every decision. For GCC operators, the business case is clear: sovereign AI running on-premises eliminates per-token cloud costs, removes data governance risk, and positions the GCC to offer IP-protected AI services that cannot be replicated through shared public model access.',
+      'Live demonstrations showed agentic workflows across finance, procurement, and customer operations   achieving 75-80% AI agent utilisation from day one, with full audit trail coverage on every decision. For GCC operators, the business case is clear: sovereign AI running on-premises eliminates per-token cloud costs, removes data governance risk, and positions the GCC to offer IP-protected AI services that cannot be replicated through shared public model access.',
       'The workshop also addressed the strategic repositioning that agentic AI enables for GCC organisations. When routine operations are handled autonomously, GCC talent shifts to higher-value work   AI oversight, model governance, and innovation delivery. This transforms the GCC\'s value proposition from headcount efficiency to intelligent capability, commanding higher margin and stronger strategic relevance within the enterprise.',
       'Do your own research: GCC AI adoption rates, automation outcomes, and ROI vary significantly by industry, geography, and organisational maturity. The performance figures cited reflect specific deployment contexts. Consult NASSCOM\'s GCC Council reports and independent analyst research (Everest Group, ISG) for sector-specific GCC AI benchmarks and transformation frameworks.',
     ],
@@ -155,7 +156,7 @@ const samplePosts = [
     body: [
       'For three decades, offshoring was the enterprise CFO\'s primary lever for labour cost arbitrage. AI-shoring is the next evolution   and it operates on an entirely different economic logic. Where offshoring moved work to cheaper human labour, AI-shoring moves work to on-premises AI agents, converting recurring operational expenditure into a one-time infrastructure investment that compounds over time.',
       'The 30-30-30 loop is the framework we use to make this concrete: 30% cloud cost reduction in the first 30 days, reinvested into on-prem AI infrastructure over the next 30 days, generating measurable ROI within the 90-day window. In practice, this means deploying CommandCore agents on existing or procured GPU infrastructure, eliminating per-token cloud AI spend, and immediately redirecting that saving toward agent capability expansion and model fine-tuning.',
-      'The macroeconomic case is compelling. At scale, the total cost of on-premises AI inference is 60–80% lower than equivalent sustained hyperscaler AI spend. For enterprises running thousands of AI inference calls per day   document processing, customer service, compliance review   this delta is measured in millions of dollars annually. CFOs who understand this are reclassifying AI infrastructure CAPEX as a growth investment, not an IT cost.',
+      'The macroeconomic case is compelling. At scale, the total cost of on-premises AI inference is 60-80% lower than equivalent sustained hyperscaler AI spend. For enterprises running thousands of AI inference calls per day   document processing, customer service, compliance review   this delta is measured in millions of dollars annually. CFOs who understand this are reclassifying AI infrastructure CAPEX as a growth investment, not an IT cost.',
       'Do your own research: The financial projections and savings estimates in this article are based on specific deployment scenarios and should not be taken as guaranteed outcomes. AI infrastructure economics vary significantly by workload type, volume, hardware generation, and negotiated cloud pricing. Commission an independent TCO analysis using your actual workload data before making infrastructure investment decisions.',
     ],
   },
@@ -167,7 +168,7 @@ const samplePosts = [
     author: { name: 'P.N. Sudarshan', role: 'Global CTO, HPE' },
     category: 'Technology', domain: 'BFSI', publishedAt: '2025-04-20', readTime: 9,
     body: [
-      'Most enterprise HPC clusters spend 60–70% of their operational life underutilised. For a major Tier-1 bank we worked with, a DGX A100 cluster   procured at significant capital expense for a risk modelling initiative   was running at less than 20% utilisation six months after deployment. The risk models were built. The hardware sat idle. The depreciation clock kept ticking.',
+      'Most enterprise HPC clusters spend 60-70% of their operational life underutilised. For a major Tier-1 bank we worked with, a DGX A100 cluster   procured at significant capital expense for a risk modelling initiative   was running at less than 20% utilisation six months after deployment. The risk models were built. The hardware sat idle. The depreciation clock kept ticking.',
       'The intervention was straightforward: deploy CommandCore across the idle DGX nodes and redirect the available GPU capacity to AI agent workloads   document review, regulatory compliance checking, transaction anomaly detection, and customer query processing. Within 45 days, the cluster was running at 78% average utilisation. The AI agent workloads generated measurable cost savings against the alternative of cloud-based AI processing: $2.3M annualised, against a hardware amortisation schedule of $1.8M over the remaining asset life. The cluster went from cost centre to net positive within two quarters.',
       'The edge-to-core architecture that made this possible is straightforward: CommandCore agents running at the data centre core handle high-volume inference workloads, while lightweight edge nodes handle latency-sensitive operations at the branch or point-of-decision. This tiered architecture means the DGX cluster\'s capacity is always efficiently allocated   core agents handle batch processing and complex multi-step reasoning; edge agents handle real-time response with sub-100ms latency requirements.',
       'Do your own research: The financial outcomes described in this case study reflect a specific deployment context and should not be taken as indicative of typical results. GPU utilisation improvements, cost savings, and amortisation timelines vary significantly based on existing hardware, workload profiles, and organisational readiness. Commission independent infrastructure assessments before repositioning existing HPC assets for AI workloads.',
@@ -244,8 +245,8 @@ const BlogPost = () => {
 
         {/* Back */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <Link to="/blog" className="inline-flex items-center gap-1.5 text-brand-muted hover:text-brand-primary text-sm mb-6 transition-colors">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="M12 5l-7 7 7 7"/></svg>
+          <Link to="/blog" className="mb-6 inline-flex items-center gap-1.5 text-sm text-ink-soft transition-colors hover:text-ember-deep">
+            <ArrowLeft size={14} weight="bold" />
             Back to Blog
           </Link>
         </motion.div>

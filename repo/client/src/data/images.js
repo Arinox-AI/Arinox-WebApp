@@ -1,69 +1,53 @@
-/* Central image registry — every page references photos by key,
-   so swapping/adding photography is a one-file change. */
+/* ═══════════════════════════════════════════════════════════
+   Image registry, everything lives under /public/images/<group>/
+   so a swap is just replacing the file, no code change.
 
-import commandcoreHero    from '../assets/commandcore.jpg';
-import commandcoreWall    from '../assets/severeign-CommandCore-WP.avif';
-import commandcoreS       from '../assets/commandcore-s.jpg';
-import commandcoreM       from '../assets/commandcore-m.jpg';
-import commandcoreXL      from '../assets/commandcore-xl.jpg';
-import kogoWall           from '../assets/KOGO-WP.avif';
+   Folders:
+     brand/         logos & the Arinox "A" mark        (Nav, Footer)
+     team/          leadership + advisors portraits     (Home, Company)
+     commandcore/   product renders                     (CommandCore, Home)
+     events/        launches, summits, workshops        (Home insights, Blog, BlogPost, Company gallery)
+     industries/    sector photography                  (Home sectors, Solutions)
+     logos/         partner & client marks              (Home trust strip, Ecosystem, Partners)
+     logos/apps/    integration marks                   (Home layer stack)
 
-import ajayImg     from '../assets/Ajay-Kharbanda-CEO-of-Arinox-AI.jpg';
-import chytraImg   from '../assets/chytraD.jpeg';
-import udayImg     from '../assets/Uday bhaskar.png';
-import venuImg     from '../assets/venu.jpg';
-import repswalImg  from '../assets/repswal.jpg';
-import aniruddhaImg from '../assets/Aniruddha.jpg';
-
-import sovereignLaunchImg   from '../assets/severign_launch.jpeg';
-import hitachiShoriImg      from '../assets/Hitachi_shori_2026.JPG';
-import hitachi2026Img       from '../assets/Hitachi_2026.jpeg';
-import hitachiSystemsImg    from '../assets/Hitachi_systems_event.jpeg';
-import aiSummitImg          from '../assets/ai_summit.jpg';
-import bharatDigitalImg     from '../assets/Bharat_digital_event.jpeg';
-import aksImg               from '../assets/9th Nov- AKS Workshop Global.jpeg';
-import ansrImg              from '../assets/4th July - ANSR Tech Workshop_.jpg';
-import indianGovImg         from '../assets/IndianGov.jpeg';
-
-/* Sector photography (/public/industries — plain URLs) */
-const bankingImg     = '/industries/banking.jpeg';
-const defenceImg     = '/industries/defence.jpeg';
-const governmentImg  = '/industries/government.jpeg';
-const healthcareImg  = '/industries/healthcare.jpeg';
-const legalImg       = '/industries/legal.jpeg';
-const technologyImg  = '/industries/technology.jpeg';
+   The key strings below are the stable IDs used by pages.
+   ═══════════════════════════════════════════════════════════ */
 
 export const IMAGES = {
-  'commandcore-hero': commandcoreHero,
-  'commandcore-wall': commandcoreWall,
-  'commandcore-s':    commandcoreS,
-  'commandcore-m':    commandcoreM,
-  'commandcore-xl':   commandcoreXL,
-  'kogo':             kogoWall,
+  /* commandcore/, CommandCore product renders */
+  'commandcore-hero': '/images/commandcore/commandcore-xl2.webp',
+  'commandcore-s':    '/images/commandcore/commandcore-s1.webp',
+  'commandcore-m':    '/images/commandcore/commandcore-m1.webp',
+  'commandcore-xl':   '/images/commandcore/commandcore-xl2.webp',
 
-  ajay:      ajayImg,
-  chytra:    chytraImg,
-  uday:      udayImg,
-  venu:      venuImg,
-  repswal:   repswalImg,
-  aniruddha: aniruddhaImg,
+  /* team/, leadership + advisors */
+  ajay:      '/images/team/ajay.jpg',
+  chytra:    '/images/team/chytra.webp',
+  uday:      '/images/team/uday.webp',
+  venu:      '/images/team/venu.webp',
+  repswal:   '/images/team/repswal.webp',
+  aniruddha: '/images/team/aniruddha.webp',
 
-  'sovereign-launch': sovereignLaunchImg,
-  'hitachi-shori':    hitachiShoriImg,
-  'hitachi-2026':     hitachi2026Img,
-  'hitachi-systems':  hitachiSystemsImg,
-  'ai-summit':        aiSummitImg,
-  'bharat-digital':   bharatDigitalImg,
-  'aks-workshop':     aksImg,
-  'ansr-workshop':    ansrImg,
-  'indian-gov':       indianGovImg,
+  /* events/, field photos & event recaps */
+  'sovereign-launch': '/images/events/sovereign-launch.jpeg',
+  'hitachi-shori':    '/images/events/hitachi-shori-2026.JPG',
+  'hitachi-2026':     '/images/events/hitachi-2026.jpeg',
+  'hitachi-systems':  '/images/events/hitachi-systems-event.jpeg',
+  'ai-summit':        '/images/events/ai-summit.jpg',
+  'bharat-digital':   '/images/events/bharat-digital-summit.jpeg',
+  'aks-workshop':     '/images/events/aks-workshop-global.jpeg',
+  'ansr-workshop':    '/images/events/ansr-tech-workshop.jpg',
+  'nvidia-workshop':  '/images/events/nvidia-workshop.jpg',
+  'indian-gov':       '/images/events/indian-government.jpeg',
 
-  banking:     bankingImg,
-  defence:     defenceImg,
-  government:  governmentImg,
-  healthcare:  healthcareImg,
-  legal:       legalImg,
-  technology:  technologyImg,
+  /* industries/, sector photography */
+  banking:    '/images/industries/banking.jpeg',
+  defence:    '/images/industries/defence.jpeg',
+  government: '/images/industries/government.jpeg',
+  healthcare: '/images/industries/healthcare.jpeg',
+  legal:      '/images/industries/legal.jpeg',
+  technology: '/images/industries/technology.jpeg',
 };
 
 export const img = (key) => IMAGES[key] || IMAGES['commandcore-hero'];

@@ -1,20 +1,20 @@
 /* ─── Proof & solutions data ────────────────────────────────
-   Outcomes are deliberately QUALITATIVE — precise metrics are
+   Outcomes are deliberately QUALITATIVE, precise metrics are
    only added once they can be attributed and defended.
-   The Indian Army (DGIS) deployment is verified and used as
+   The National Data Centre (NDC) deployment is verified and used as
    the anchor story.
    ──────────────────────────────────────────────────────────── */
 
 export const anchorDeployment = {
-  client: 'Indian Army (DGIS)',
+  client: 'National Data Centre (NDC)',
   label: 'Verified deployment',
   headline: 'Sovereign AI in service of national security.',
   body: [
-    'Inside the Indian Army\u2019s Directorate General of Information Systems environment, Arinox deployed a fully sovereign AI system on CommandCore infrastructure \u2014 air-gapped, open-source models only, zero cloud dependency at any layer.',
-    'Multi-source intelligence feeds are fused into a single operational picture. Alerts are triaged against context and surfaced to decision-makers as ranked, explainable summaries \u2014 turning what took hours of manual effort into minutes, with every inference auditable.',
+    'Inside a National Data Centre (NDC) environment, Arinox deployed a fully sovereign AI system on CommandCore infrastructure, air-gapped, open-source models only, zero cloud dependency at any layer.',
+    'Multi-source intelligence feeds are fused into a single operational picture. Alerts are triaged against context and surfaced to decision-makers as ranked, explainable summaries, turning what took hours of manual effort into minutes, with every inference auditable.',
   ],
   /* VERIFIED_METRIC_SLOT: add the approved triage-time metric here when cleared for publication */
-  metricSlot: { label: 'Alert-triage time', note: 'Reduced dramatically \u2014 exact figure on request' },
+  metricSlot: { label: 'Alert-triage time', note: 'Reduced dramatically, exact figure on request' },
   capabilities: ['Multi-source alert fusion & de-duplication', 'Context-ranked triage with explainable rationale', 'Natural-language querying of the operational picture', 'Fully air-gapped; open-weight LLMs only'],
 };
 
@@ -23,7 +23,7 @@ export const anonymisedStudies = [
     title: 'Fortune 500 manufacturer',
     domain: 'Manufacturing',
     challenge: 'A spiralling cloud bill and no visibility into resource utilisation across regions.',
-    what: 'On-prem FinOps and forecasting agents on CommandCore \u2014 usage made visible, waste flagged, spend brought under control.',
+    what: 'On-prem FinOps and forecasting agents on CommandCore, usage made visible, waste flagged, spend brought under control.',
     outcome: 'Cloud spend materially reduced within the first year, with full visibility into every resource.',
   },
   {
@@ -38,7 +38,7 @@ export const anonymisedStudies = [
     domain: 'Operations',
     challenge: 'Ticket backlogs and expensive cloud costs in high-volume operations.',
     what: 'A helpdesk agent mesh running on-premises, resolving and routing tickets autonomously.',
-    outcome: 'Meaningfully higher ticket capacity at lower operating cost \u2014 with every resolution logged.',
+    outcome: 'Meaningfully higher ticket capacity at lower operating cost, with every resolution logged.',
   },
 ];
 
@@ -54,7 +54,7 @@ export const sectors = [
         problem: 'QA teams manually review a fraction of calls. Compliance gaps accumulate undetected across branches.',
         agent: 'VoiceIQ Agent',
         agentNote: 'Air-gapped · RBI data-residency compliant',
-        outcome: '100% of branch and contact-centre calls reviewed instead of a sample \u2014 flagged within minutes of hang-up, ranked by risk. Compliance incidents fell meaningfully in a 90-day pilot.',
+        outcome: '100% of branch and contact-centre calls reviewed instead of a sample, flagged within minutes of hang-up, ranked by risk. Compliance incidents fell meaningfully in a 90-day pilot.',
         how: 'VoiceIQ ingests every call stream on-premises. Speech-to-text runs inside your perimeter; the agent transcribes, diarises, and scores each interaction against your compliance rulebook in near real time.',
         capabilities: ['Full call coverage with automatic risk scoring', 'Rulebooks mapped to RBI, SEBI, and internal policy', 'Speaker diarisation, sentiment, interruption detection', 'Automated daily MIS reports for compliance teams'],
         integrations: 'Runs beside your existing telephony and call-recording stack; recordings never leave your network.',
@@ -64,7 +64,7 @@ export const sectors = [
         problem: 'Manual incentive calculation across thousands of field agents takes weeks and generates payment disputes.',
         agent: 'IncentiveOps Agent',
         agentNote: 'On-prem · immutable audit trail',
-        outcome: 'Payout cycles dramatically faster, with disputes eliminated over a multi-month production run \u2014 every computation fully auditable.',
+        outcome: 'Payout cycles dramatically faster, with disputes eliminated over a multi-month production run, every computation fully auditable.',
         how: 'IncentiveOps reads incentive schemes, payout rules, and attendance data from your systems, computes payouts agent-by-agent, and produces a fully auditable computation trail.',
         capabilities: ['Scheme-rule engine encoding slab, target, clawback rules', 'Per-agent computation trail with immutable audit log', 'Anomaly detection before disbursal', 'One-click disbursal files for payroll/banking'],
         integrations: 'On-premises deployment; connects to ERP/HRMS and banking files without cloud dependency.',
@@ -91,7 +91,7 @@ export const sectors = [
         problem: 'Long front-desk wait times; routine appointment and follow-up queries overwhelming staff.',
         agent: 'CarePath Agent',
         agentNote: 'On-prem · HIPAA/DPDP compliant',
-        outcome: 'First-touch patient queries handled by AI inside the hospital network \u2014 triage time cut by more than half, staff freed for complex care.',
+        outcome: 'First-touch patient queries handled by AI inside the hospital network, triage time cut by more than half, staff freed for complex care.',
         how: 'CarePath answers first-touch patient queries over voice and chat, checks doctor availability, books and reschedules appointments, and escalates red-flag symptoms to staff immediately.',
         capabilities: ['Symptom-aware routing with red-flag escalation', 'Appointment orchestration & reminders', 'Follow-up and no-show recovery workflows', 'Full conversation log for clinical audit'],
         integrations: 'On-premises; interfaces with HMS scheduling and telephony, zero PHI outside the facility.',
@@ -128,7 +128,7 @@ export const sectors = [
         problem: 'Surplus inventory ties up working capital while stockouts disrupt production schedules and SLAs.',
         agent: 'DemandSense Agent',
         agentNote: 'On-prem · ERP/SCADA/MES integration',
-        outcome: 'Double-digit inventory reduction with materially better forecast accuracy \u2014 planners approve, systems execute.',
+        outcome: 'Double-digit inventory reduction with materially better forecast accuracy, planners approve, systems execute.',
         how: 'DemandSense fuses historical consumption, order books, and seasonality from your ERP to forecast demand at SKU level, then converts forecasts into reorder points and safety stock per line.',
         capabilities: ['SKU-level forecasts with confidence intervals', 'Automatic reorder-point & safety-stock recommendations', 'Slow-mover and dead-stock identification', 'Planner override with full forecast version history'],
         integrations: 'On-prem; reads ERP/MES/SCADA data without cloud dependency.',
@@ -138,7 +138,7 @@ export const sectors = [
         problem: 'Reactive repairs cause recurring unplanned downtime across the plant floor.',
         agent: 'PlantGuard Agent',
         agentNote: 'Edge-deployed · air-gapped OT network',
-        outcome: 'Maintenance shifts from reactive to planned \u2014 machines flag drift before failure, work orders ranked by risk.',
+        outcome: 'Maintenance shifts from reactive to planned, machines flag drift before failure, work orders ranked by risk.',
         how: 'PlantGuard learns the normal vibration, temperature, and cycle signatures of each machine from your OT network, flags drift before failure, and issues work orders ranked by production impact.',
         capabilities: ['Per-machine anomaly baselining with drift detection', 'Remaining-useful-life estimates', 'Work-order generation to your maintenance system', 'Edge-deployed inference, air-gapped from IT'],
         integrations: 'Runs at the edge on plant hardware; legacy SCADA and sensor streams supported.',
@@ -148,7 +148,7 @@ export const sectors = [
         problem: 'Disconnected ERP, MES, and SCADA systems create scheduling bottlenecks and idle capacity.',
         agent: 'FloorOps Agent',
         agentNote: 'Sovereign · legacy SCADA compatible',
-        outcome: 'Constraint-aware scheduling that re-plans in minutes when a line breaks down \u2014 throughput up meaningfully in a 90-day pilot.',
+        outcome: 'Constraint-aware scheduling that re-plans in minutes when a line breaks down, throughput up meaningfully in a 90-day pilot.',
         how: 'FloorOps builds the production schedule from live machine states, material availability, and order priorities pulled from ERP/MES, resolving conflicts automatically.',
         capabilities: ['Constraint-aware scheduling across machines & shifts', 'Automatic re-planning on breakdowns or rush orders', 'Bottleneck detection with throughput projections', 'What-if simulation before committing a plan'],
         integrations: 'Sovereign deployment; compatible with legacy SCADA/MES versions.',
@@ -164,10 +164,10 @@ export const sectors = [
       {
         title: 'Situational Awareness',
         problem: 'Intelligence silos across branches block real-time decision-making and coordinated response.',
-        agent: 'DGIS Sovereign Agent',
-        agentNote: 'Deployed with Indian Army (DGIS) · air-gapped · open-weight LLMs',
+        agent: 'NDC Sovereign Agent',
+        agentNote: 'Deployed with National Data Centre (NDC) · air-gapped · open-weight LLMs',
         outcome: 'Deployed within the classified network: multi-source intelligence fused into one operational picture, alert triage cut dramatically, zero cloud dependency at any layer.',
-        how: 'The DGIS agent fuses multi-source intelligence feeds into a single operational picture, triages alerts against context, and presents ranked, explainable summaries to decision-makers.',
+        how: 'The NDC agent fuses multi-source intelligence feeds into a single operational picture, triages alerts against context, and presents ranked, explainable summaries to decision-makers.',
         capabilities: ['Multi-source alert fusion & de-duplication', 'Context-ranked triage with explainable rationale', 'Natural-language querying of the operational picture', 'Fully air-gapped; open-weight LLMs only'],
         integrations: 'Air-gapped deployment on sovereign hardware; zero external connectivity.',
       },
@@ -176,7 +176,7 @@ export const sectors = [
         problem: 'Manual satellite data processing takes days; terrain analysis bottlenecks field operations.',
         agent: 'GeoSense Agent',
         agentNote: 'Edge-deployed · classified-network safe',
-        outcome: 'Days of manual imagery processing compressed to near-real-time \u2014 automated change detection at scale, pushed straight into existing GIS workflows.',
+        outcome: 'Days of manual imagery processing compressed to near-real-time, automated change detection at scale, pushed straight into existing GIS workflows.',
         how: 'GeoSense processes satellite and sentinel imagery on deployed edge hardware, detects changes against baseline scenes, and produces analyst-ready overlays.',
         capabilities: ['Automated change detection against baseline imagery', 'Terrain & infrastructure feature extraction', 'Time-series comparison across revisit cycles', 'Edge inference on classified-network-safe hardware'],
         integrations: 'Edge-deployed; outputs plug into existing GIS toolchains.',
@@ -186,7 +186,7 @@ export const sectors = [
         problem: 'Manual asset tracking for critical equipment creates accountability and audit gaps.',
         agent: 'SupplyOps Agent',
         agentNote: 'Sovereign · full audit trail · no cloud',
-        outcome: 'A live, self-reconciling ledger of critical assets \u2014 manual stock-takes eliminated, every custody change stamped into an immutable audit trail.',
+        outcome: 'A live, self-reconciling ledger of critical assets, manual stock-takes eliminated, every custody change stamped into an immutable audit trail.',
         how: 'SupplyOps builds a live, queryable asset registry covering location, custody, movement, and service state, reconciled automatically.',
         capabilities: ['Live asset registry with custody tracking', 'Automatic reconciliation of stock-takes', 'Service-state & maintenance-flag monitoring', 'Immutable audit trail for accountability reviews'],
         integrations: 'Sovereign, no-cloud deployment with full audit logging.',
@@ -213,7 +213,7 @@ export const sectors = [
         problem: 'Institutional knowledge erodes with every officer transfer; policy continuity breaks down.',
         agent: 'PolicyMem Agent',
         agentNote: 'Air-gapped · full audit log · sovereign',
-        outcome: 'Zero knowledge loss on officer rotation \u2014 incoming officers query precedents in natural language and draft briefs significantly faster, always cited to source.',
+        outcome: 'Zero knowledge loss on officer rotation, incoming officers query precedents in natural language and draft briefs significantly faster, always cited to source.',
         how: 'PolicyMem preserves institutional memory: circulars, precedents, file-noting history, and departmental SOPs become a governed knowledge base.',
         capabilities: ['Circular, precedent & file-noting ingestion with versioning', 'Cited natural-language answers', 'Brief and noting drafts generated from precedent', 'Full audit log of every query and response'],
         integrations: 'Air-gapped; operates entirely within government infrastructure.',
@@ -237,10 +237,10 @@ export const sectors = [
     useCases: [
       {
         title: 'Demand Forecasting & Replenishment',
-        problem: 'SKU-level forecasting is manual and fragmented \u2014 stockouts on fast-movers and dead stock on slow-movers simultaneously.',
+        problem: 'SKU-level forecasting is manual and fragmented, stockouts on fast-movers and dead stock on slow-movers simultaneously.',
         agent: 'DemandSense FMCG Agent',
         agentNote: 'On-prem · ERP/WMS integration · retailer feeds',
-        outcome: 'Stockouts down sharply, inventory carrying costs materially lower \u2014 plans respect MOQs and warehouse capacity automatically.',
+        outcome: 'Stockouts down sharply, inventory carrying costs materially lower, plans respect MOQs and warehouse capacity automatically.',
         how: 'DemandSense forecasts demand at SKU-location level from sales history, distributor feeds, and the promotions calendar, then converts forecasts into replenishment plans.',
         capabilities: ['SKU-location forecasts with promotion effects', 'Replenishment respecting MOQs & capacity', 'Fast-mover stockout and dead-stock alerts', 'Planner overrides with version history'],
         integrations: 'On-prem; connects to ERP/WMS and distributor feeds.',
@@ -250,7 +250,7 @@ export const sectors = [
         problem: 'Field sales teams lack real-time visibility into distributor stock and secondary sales.',
         agent: 'RouteIQ Agent',
         agentNote: 'Edge-deployed · offline-capable · distributor portal sync',
-        outcome: 'Live distributor visibility \u2014 even offline \u2014 with secondary sales up double digits across most pilot regions.',
+        outcome: 'Live distributor visibility, even offline, with secondary sales up double digits across most pilot regions.',
         how: 'RouteIQ syncs distributor portals and field data into a live view of stock, coverage, and secondary sales, then tells field teams exactly where to act next.',
         capabilities: ['Distributor stock & secondary-sales visibility', 'Offline-capable edge sync for field operations', 'Beat & coverage planning with gap alerts', 'Target tracking by region, distributor, SKU'],
         integrations: 'Edge-deployed; syncs distributor portals without cloud dependency.',
@@ -260,7 +260,7 @@ export const sectors = [
         problem: 'Identifying out-of-stocks and planogram violations across thousands of outlets requires slow, costly field audits.',
         agent: 'ShelfAI Agent',
         agentNote: 'On-prem · image models · retail imagery stays local',
-        outcome: 'Monthly audits became daily, outlet-level signals \u2014 out-of-stocks caught faster, planogram compliance up.',
+        outcome: 'Monthly audits became daily, outlet-level signals, out-of-stocks caught faster, planogram compliance up.',
         how: 'ShelfAI runs image models on field photographs to detect out-of-stocks, planogram violations, and share-of-shelf movement.',
         capabilities: ['OOS & planogram-violation detection from field images', 'Share-of-shelf tracking by SKU & category', 'Outlet-level compliance scoring', 'Image inference on-prem; imagery never uploaded externally'],
         integrations: 'On-prem inference; integrates with field-force apps and retail data.',

@@ -3,7 +3,6 @@ const express = require('express');
 const http = require('http');
 const helmet = require('helmet');
 const cors = require('cors');
-const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const { connectDB } = require('./models');
 const { verifyMailer } = require('./utils/mailer');
@@ -44,14 +43,12 @@ app.use(cors({
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
 }));
 app.options('*', cors()); // pre-flight for all routes
-app.use(cookieParser());
 app.use(express.json({ limit: '10kb' }));
 
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: process.env.NODE_ENV === 'development' ? 2000 : 100, message: 'Too many requests.' });
 app.use('/api', limiter);
 
 // Routes
-app.use('/api/v1/auth', require('./routes/auth'));
 app.use('/api/v1/blog', require('./routes/blog'));
 app.use('/api/v1/case-studies', require('./routes/caseStudies'));
 app.use('/api/v1/careers', require('./routes/careers'));
@@ -59,19 +56,31 @@ app.use('/api/v1/contact', require('./routes/contact'));
 app.use('/api/v1/leads', require('./routes/leads'));
 app.use('/api/v1/chat', require('./routes/chat'));
 
+// Canonical origin used in SEO output. Guards against a misconfigured
+// SITE_URL (e.g. the staging host leaking into the production
+// sitemap.xml / robots.txt), which is exactly what would devalue the
+// live domain in search.
+const PROD_ORIGIN = 'https://www.arinox.ai';
+const seoOrigin = () => {
+  const configured = (process.env.SITE_URL || '').replace(/\/+$/, '');
+  const looksNonProd = /staging|preview|localhost|127\.0\.0\.1|\.vercel\.app/i.test(configured);
+  return configured && !looksNonProd ? configured : PROD_ORIGIN;
+};
+
 // Sitemap XML (SEO)
 app.get('/sitemap.xml', (req, res) => {
-  const base = process.env.SITE_URL || 'https://www.arinox.ai';
-  const pages = ['', '/about', '/partners', '/solutions', '/commandcore', '/careers', '/contact', '/blog'];
+  const base = seoOrigin();
+  const lastmod = new Date().toISOString().split('T')[0];
+  const pages = ['', '/platform', '/commandcore', '/case-studies', '/partners', '/blog', '/careers', '/contact'];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(p => `  <url><loc>${base}${p}</loc><changefreq>weekly</changefreq><priority>${p === '' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
+${pages.map(p => `  <url><loc>${base}${p}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${p === '' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
 </urlset>`;
   res.header('Content-Type', 'application/xml').send(xml);
 });
 
 app.get('/robots.txt', (req, res) => {
-  const base = process.env.SITE_URL || 'https://www.arinox.ai';
+  const base = seoOrigin();
   res.type('text/plain').send(`User-agent: *\nAllow: /\nSitemap: ${base}/sitemap.xml\n`);
 });
 

@@ -21,7 +21,7 @@ export const roles = [
         "Like making AI actually useful   not just demo-worthy",
         "Can explain what you built, why you built it, and what problem it solves",
         "Thrive in fast-moving, slightly ambiguous environments",
-        "Are a fresher or have 1–2 years of experience working on AI, agents, automations, or related systems",
+        "Are a fresher or have 1-2 years of experience working on AI, agents, automations, or related systems",
       ],
       bringLabel: "If you've been building AI agents in your spare time, experimenting with workflows, or shipping side projects   you're already the kind of person we want to talk to. Bring your:",
       bring: ['GitHub', 'Demos', 'Experiments', 'Projects (even unfinished ones)'],
