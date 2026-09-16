@@ -1,6 +1,7 @@
 ﻿import { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { Nav } from './components/site/Nav';
 import { Footer } from './components/site/Shell';
 import { BookCtaProvider } from './components/site/BookCtaContext';
@@ -77,6 +78,7 @@ const AppInner = () => {
       <Footer />
       <ConsentBanner />
       <ArinoxChatBot />
+      <Analytics route={location.pathname} />
     </BookCtaProvider>
   );
 };
