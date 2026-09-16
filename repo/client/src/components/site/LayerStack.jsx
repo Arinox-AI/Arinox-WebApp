@@ -2,24 +2,14 @@ import { HardDrives, Robot, SquaresFour, Stack } from '@phosphor-icons/react'
 
 const layers = [
   {
-    n: '04',
-    label: 'Layer 4',
-    name: 'AI Agents',
-    role: 'What your teams touch',
-    desc: 'Document, voice, vision, and governance agents, wired into the tools you already run, from SAP to Salesforce to plain email.',
-    chips: ['Document', 'Voice', 'Vision', 'Governance'],
-    Icon: Robot,
-    tone: 'dark',
-  },
-  {
-    n: '03',
-    label: 'Layer 3',
-    name: 'Business applications',
-    role: 'Included in the OS',
-    desc: 'ERP, HRMS, CRM, Accounting, Legal, SCM and CLM are built in, not stitched on, and every module is agent-addressable.',
-    chips: ['ERP', 'HRMS', 'CRM', 'Accounting', 'Legal', 'SCM', 'CLM'],
-    Icon: SquaresFour,
-    tone: 'app',
+    n: '01',
+    label: 'Layer 1',
+    name: 'Your estate',
+    role: 'Where it runs',
+    desc: 'CommandCore™ appliance, private cloud, or your own on-premises estate. The connection targets stay yours.',
+    chips: ['Public cloud', 'Private cloud', 'CommandCore™'],
+    Icon: HardDrives,
+    tone: 'light',
   },
   {
     n: '02',
@@ -32,14 +22,24 @@ const layers = [
     tone: 'ember',
   },
   {
-    n: '01',
-    label: 'Layer 1',
-    name: 'Your estate',
-    role: 'Where it runs',
-    desc: 'CommandCore™ appliance, private cloud, or your own on-premises estate. The connection targets stay yours.',
-    chips: ['Public cloud', 'Private cloud', 'CommandCore™'],
-    Icon: HardDrives,
-    tone: 'light',
+    n: '03',
+    label: 'Layer 3',
+    name: 'Business applications',
+    role: 'Included in the OS',
+    desc: 'ERP, HRMS, CRM, Accounting, Legal, SCM and CLM are built in, not stitched on, and every module is agent-addressable.',
+    chips: ['ERP', 'HRMS', 'CRM', 'Accounting', 'Legal', 'SCM', 'CLM'],
+    Icon: SquaresFour,
+    tone: 'app',
+  },
+  {
+    n: '04',
+    label: 'Layer 4',
+    name: 'AI Agents',
+    role: 'What your teams touch',
+    desc: 'Document, voice, vision, and governance agents, wired into the tools you already run, from SAP to Salesforce to plain email.',
+    chips: ['Document', 'Voice', 'Vision', 'Governance'],
+    Icon: Robot,
+    tone: 'dark',
   },
 ]
 
@@ -69,7 +69,7 @@ export function LayerStack({ className = '' }) {
       />
 
       <div className="relative space-y-6">
-        {layers.map((l, i) => (
+        {layers.map((l) => (
           <div key={l.name} className="group relative">
             {/* Sheet peeking above each card, the stacked-paper cue */}
             <span
@@ -107,7 +107,7 @@ export function LayerStack({ className = '' }) {
                 </div>
                 <p className="mt-2.5 text-[15px] leading-relaxed text-ink-soft">{l.desc}</p>
 
-                {i === 0 && (
+                {l.n === '04' && (
                   <div className="mt-5 flex flex-wrap items-center gap-2">
                     {tools.map((t) => (
                       <span

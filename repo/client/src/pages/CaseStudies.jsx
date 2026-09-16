@@ -159,11 +159,11 @@ const CaseStudies = () => {
                 onClick={() => setActive(i)}
                 className={`group flex items-center justify-between gap-2 rounded-card border px-4 py-3.5 text-left transition-all duration-200 ${
                   on
-                    ? 'border-ember bg-ember text-ink shadow-[0_10px_30px_-12px_rgba(255,99,1,0.65)]'
+                    ? 'border-ember bg-ember text-white shadow-[0_10px_30px_-12px_rgba(255,99,1,0.65)]'
                     : 'border-line bg-white text-ink hover:border-ink/25 hover:bg-paper-2'
                 }`}
               >
-                <span className={`num shrink-0 font-mono text-[11px] ${on ? 'text-ink/70' : 'text-ink-faint'}`}>
+                <span className={`num shrink-0 font-mono text-[11px] ${on ? 'text-white/70' : 'text-ink-faint'}`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <span className="min-w-0 text-right font-display text-[16px] leading-tight tracking-[-0.01em]">{s.label}</span>

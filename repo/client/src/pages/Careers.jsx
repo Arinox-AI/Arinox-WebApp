@@ -252,11 +252,11 @@ const Careers = () => {
                     aria-selected={on}
                     onClick={() => setFilter(d)}
                     className={`chip inline-flex items-center gap-2 rounded-full border px-3.5 py-2 transition-colors ${
-                      on ? 'border-ember bg-ember text-ink' : 'border-line text-ink-soft hover:border-ink/40 hover:text-ink'
+                      on ? 'border-ember bg-ember text-white' : 'border-line text-ink-soft hover:border-ink/40 hover:text-ink'
                     }`}
                   >
                     {d}
-                    <span className={`num text-[10px] ${on ? 'text-ink/60' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
+                    <span className={`num text-[10px] ${on ? 'text-white/60' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
                   </button>
                 );
               })}

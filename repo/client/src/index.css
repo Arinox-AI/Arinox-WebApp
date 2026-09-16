@@ -239,7 +239,7 @@
 
 .btn-accent {
   background: #E8590C;
-  color: #17171a;
+  color: #ffffff;
   border: 1px solid #E8590C;
 }
 .btn-accent:hover { background: #D0500A; border-color: #D0500A; }
@@ -693,8 +693,7 @@ h1, h2, h3, h4, h5, h6 {
    reaches 2.66:1. Deep ember #b84300 clears AA (4.88:1 on paper,
    5.47:1 on white). On void/carbon panels the bright accent is
    used instead (#ff8a4a = 8.4:1).
-   White text on an ember fill is 2.98:1, so ember fills always
-   carry ink text (5.99:1).
+   Ember fills carry white text by brand direction.
    ═══════════════════════════════════════════════════════════ */
 .text-ember { color: #b84300; }
 .bg-void .text-ember,
@@ -702,6 +701,6 @@ h1, h2, h3, h4, h5, h6 {
 .band-dark .text-ember,
 .product-stage .text-ember { color: #ff8a4a; }
 
-.bg-ember { color: #17171a; }
+.bg-ember { color: #ffffff; }
 .bg-ember:hover { color: #ffffff; }
-.bg-ember .text-white { color: #17171a; }
+.bg-ember .text-white { color: #ffffff; }

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
    Single source of button styling for the whole site. */
 const styles = {
   dark: 'bg-ink text-white hover:bg-black shadow-[0_14px_30px_-14px_rgba(23,23,26,0.55)]',
-  ember: 'bg-ember text-ink hover:bg-ember-deep hover:text-white btn-ember-glow',
+  ember: 'bg-ember text-white hover:bg-ember-deep hover:text-white btn-ember-glow',
   ghost: 'bg-white text-ink border border-ink/20 hover:border-ink/60 hover:bg-paper-2',
   ghostDark: 'bg-transparent text-white border border-white/25 hover:border-white/70 hover:bg-white/5',
 }

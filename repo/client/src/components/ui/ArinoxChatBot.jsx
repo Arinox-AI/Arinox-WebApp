@@ -496,7 +496,7 @@ export default function ArinoxChatBot() {
                     disabled={!input.trim()}
                     className={`chip shrink-0 rounded-btn px-4 py-2.5 leading-none transition-colors ${
                       input.trim()
-                        ? 'bg-ember text-ink hover:bg-ember-deep hover:text-white'
+                        ? 'bg-ember text-white hover:bg-ember-deep hover:text-white'
                         : 'cursor-not-allowed border border-line bg-white text-ink-faint'
                     }`}
                   >

@@ -86,7 +86,7 @@ const Partners = () => (
           parts, and orchestrated by us, so what you run is one governed system.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <Button href="mailto:assist@arinox.ai" variant="dark">
+          <Button to="/contact" variant="dark">
             Partner with us <ArrowUpRight size={14} weight="bold" />
           </Button>
           <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">
@@ -149,11 +149,6 @@ const Partners = () => (
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-10">
-        <a href="mailto:assist@arinox.ai" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
-          Start a partnership conversation <ArrowUpRight size={14} weight="bold" />
-        </a>
       </div>
     </Section>
 
