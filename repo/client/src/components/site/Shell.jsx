@@ -39,9 +39,6 @@ export function Footer() {
             <p className="max-w-[260px] text-sm text-ink-soft">
               Enterprise AI that runs the work, not the deck.
             </p>
-            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep">
-              Sovereign · on-prem · yours
-            </p>
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Product</h5>
