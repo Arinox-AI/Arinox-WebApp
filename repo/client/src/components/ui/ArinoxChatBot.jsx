@@ -1,82 +1,120 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import axios from 'axios';
+import { useState, useRef, useEffect, useCallback } from 'react';
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 
 const WELCOME = {
   role: 'assistant',
-  content: "Hey! I'm Arin. How may I assist you?",
+  content: "Hey, I'm Arin. Ask me anything about Arinox or AI.",
 };
 
 const SUGGESTED = [
   'What is Arinox?',
-  'What is Agentic AI?',
-  'Who leads Arinox?',
+  'What is CommandCore?',
+  'What is agentic AI?',
   'Where are your offices?',
 ];
 
-const KidBotIcon = ({ size = 22 }) => (
-  <svg width={size} height={size} viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Top head bumps - teal, like reference image */}
-    <rect x="13" y="1.5" width="8" height="11" rx="4" fill="#1db8aa" />
-    <rect x="27" y="1.5" width="8" height="11" rx="4" fill="#1db8aa" />
+const EASE = [0.22, 1, 0.36, 1];
 
-    {/* Side ear left */}
-    <circle cx="4" cy="23" r="5.5" fill="#dcdcec" />
-    <circle cx="4" cy="23" r="2.8" fill="#1db8aa" />
-    {/* Side ear right */}
-    <circle cx="44" cy="23" r="5.5" fill="#dcdcec" />
-    <circle cx="44" cy="23" r="2.8" fill="#1db8aa" />
+/* Mono micro-label, the site's instrument chrome. Written explicitly rather
+   than via .eyebrow so the size can drop without a specificity fight. */
+const Label = ({ children, className = '' }) => (
+  <span className={`font-mono uppercase tracking-[0.14em] ${className}`}>{children}</span>
+);
 
-    {/* Head */}
-    <circle cx="24" cy="22" r="17.5" fill="#e6e6f2" />
-    {/* Head highlight (soft sheen top-left) */}
-    <circle cx="16" cy="14" r="7" fill="white" fillOpacity="0.4" />
+/* Arin's mark is the Arinox "A", not a mascot. */
+const ArinMark = ({ size = 18, className = '' }) => (
+  <img
+    src="/images/brand/arinox-a-orange.png"
+    alt=""
+    aria-hidden
+    className={`select-none object-contain ${className}`}
+    style={{ width: size, height: size }}
+  />
+);
 
-    {/* Dark visor face */}
-    <ellipse cx="24" cy="24" rx="13.5" ry="10.5" fill="#06061e" />
-    {/* Visor blue inner glow */}
-    <ellipse cx="24" cy="25" rx="10.5" ry="7.5" fill="#0f22cc" fillOpacity="0.5" />
-    {/* Visor top gloss */}
-    <ellipse cx="18.5" cy="17.5" rx="4.5" ry="2" fill="white" fillOpacity="0.15" transform="rotate(-18 18.5 17.5)" />
+/* Group plain-text replies into paragraphs and "- " bullet lists. */
+function renderRich(text) {
+  const blocks = [];
+  let list = null;
+  for (const raw of text.split('\n')) {
+    const bullet = /^\s*[-•]\s+(.*)$/.exec(raw);
+    if (bullet) {
+      if (!list) {
+        list = [];
+        blocks.push({ type: 'list', items: list });
+      }
+      list.push(bullet[1]);
+    } else if (raw.trim() === '') {
+      list = null;
+      blocks.push({ type: 'gap' });
+    } else {
+      list = null;
+      blocks.push({ type: 'p', text: raw });
+    }
+  }
+  return blocks;
+}
 
-    {/* Left eye - glow halo */}
-    <path d="M14 22 Q18 15.5 22 22" stroke="#4d7aff" strokeWidth="4.5" strokeLinecap="round" fill="none" strokeOpacity="0.65" />
-    {/* Left eye - white crescent */}
-    <path d="M14 22 Q18 15.5 22 22" stroke="white" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+function MessageBody({ text }) {
+  return (
+    <div className="break-words">
+      {renderRich(text).map((b, i) => {
+        if (b.type === 'gap') return <div key={i} className="h-2.5" />;
+        if (b.type === 'list') {
+          return (
+            <ul key={i} className="my-1.5 space-y-1.5">
+              {b.items.map((item, j) => (
+                <li key={j} className="flex gap-2.5">
+                  <span className="mt-[9px] h-px w-3 shrink-0 bg-ember" aria-hidden />
+                  <span className="flex-1">{item}</span>
+                </li>
+              ))}
+            </ul>
+          );
+        }
+        return (
+          <p key={i} className="whitespace-pre-wrap">
+            {b.text}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
 
-    {/* Right eye - glow halo */}
-    <path d="M26 22 Q30 15.5 34 22" stroke="#4d7aff" strokeWidth="4.5" strokeLinecap="round" fill="none" strokeOpacity="0.65" />
-    {/* Right eye - white crescent */}
-    <path d="M26 22 Q30 15.5 34 22" stroke="white" strokeWidth="2.4" strokeLinecap="round" fill="none" />
+const Caret = () => (
+  <span
+    aria-hidden
+    className="ml-0.5 inline-block h-[12px] w-[2px] translate-y-[1px] bg-ember"
+    style={{ animation: 'blink 1s steps(1) infinite' }}
+  />
+);
 
-    {/* Body */}
-    <ellipse cx="24" cy="42" rx="11.5" ry="8" fill="#d0d0e4" />
-    {/* Teal chest panel */}
-    <ellipse cx="24" cy="43" rx="7.5" ry="5.5" fill="#1db8aa" />
-
-    {/* Left arm */}
-    <ellipse cx="10" cy="39" rx="4" ry="7.5" fill="#d0d0e4" transform="rotate(-18 10 39)" />
-    {/* Right arm */}
-    <ellipse cx="38" cy="39" rx="4" ry="7.5" fill="#d0d0e4" transform="rotate(18 38 39)" />
+const CloseIcon = ({ size = 16 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+    <path d="M18 6 6 18M6 6l12 12" />
   </svg>
 );
 
 export default function ArinoxChatBot() {
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [popup, setPopup] = useState(false);
   const [messages, setMessages] = useState([WELCOME]);
   const [input, setInput] = useState('');
-  const [loading, setLoading] = useState(false);
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState('');
+  const [lastSent, setLastSent] = useState('');
+
   const messagesRef = useRef(null);
   const inputRef = useRef(null);
-  const streamRef = useRef(null);
+  const abortRef = useRef(null);
 
-  // Show popup once on first load (per session)
   useEffect(() => {
-    if (sessionStorage.getItem('arinox_chat_popup_dismissed')) return;
-    const t = setTimeout(() => setPopup(true), 9000);
+    try {
+      if (sessionStorage.getItem('arinox_chat_popup_dismissed')) return;
+    } catch { /* storage blocked — still show the popup */ }
+    const t = setTimeout(() => setPopup(true), 4000);
     return () => clearTimeout(t);
   }, []);
 
@@ -84,354 +122,398 @@ export default function ArinoxChatBot() {
     if (open) inputRef.current?.focus();
   }, [open]);
 
-  // Pin the conversation to the bottom by setting scrollTop directly. Using
-  // scrollIntoView({behavior:'smooth'}) on every update restarted a smooth
-  // scroll on each streamed word, which read as jitter/blinking.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => { if (e.key === 'Escape') setOpen(false); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
+  // Pin to the bottom directly; a smooth scroll per token reads as jitter.
   useEffect(() => {
     const el = messagesRef.current;
     if (el) el.scrollTop = el.scrollHeight;
-  }, [messages, loading, open]);
+  }, [messages, streaming, open]);
 
-  // Clean up streaming timer on unmount
-  useEffect(() => () => { if (streamRef.current) clearTimeout(streamRef.current); }, []);
+  useEffect(() => () => abortRef.current?.abort(), []);
+
+  const dismissPopup = useCallback(() => {
+    try { sessionStorage.setItem('arinox_chat_popup_dismissed', 'true'); } catch { /* ignore */ }
+    setPopup(false);
+  }, []);
+
+  const autoGrow = (el) => {
+    if (!el) return;
+    el.style.height = 'auto';
+    el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
+  };
+
+  const stop = () => {
+    abortRef.current?.abort();
+    abortRef.current = null;
+  };
 
   const send = async (text) => {
     const content = (text ?? input).trim();
-    if (!content || loading || streaming) return;
+    if (!content || streaming) return;
+
     setInput('');
     setError('');
+    setLastSent(content);
+    requestAnimationFrame(() => autoGrow(inputRef.current));
 
-    const userMsg = { role: 'user', content };
-    const next = [...messages, userMsg];
-    setMessages(next);
-    setLoading(true);
+    const history = [...messages, { role: 'user', content }];
+    setMessages([...history, { role: 'assistant', content: '' }]);
+    setStreaming(true);
+
+    const payload = history.filter((m) => m.role !== 'system' && m.content);
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    const appendDelta = (delta) =>
+      setMessages((prev) => {
+        const next = [...prev];
+        const last = next[next.length - 1];
+        next[next.length - 1] = { ...last, content: last.content + delta };
+        return next;
+      });
+
+    const replaceLast = (value) =>
+      setMessages((prev) => {
+        const next = [...prev];
+        next[next.length - 1] = { role: 'assistant', content: value };
+        return next;
+      });
 
     try {
-      const payload = next.filter(m => m.role !== 'system');
-      const { data } = await axios.post('/api/v1/chat', { messages: payload });
-      const fullReply = data.reply;
-      setLoading(false);
+      const res = await fetch('/api/v1/chat/stream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ messages: payload }),
+        signal: controller.signal,
+      });
 
-      // Typewriter effect: reveal one word at a time.
-      // Pauses 450ms at sentence endings (. ! ?) for a natural rhythm.
-      setMessages(prev => [...prev, { role: 'assistant', content: '' }]);
-      setStreaming(true);
+      if (!res.ok || !res.body) throw new Error('bad response');
 
-      const words = fullReply.trim().split(/\s+/);
-      let wordIdx = 0;
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      let finished = false;
 
-      const typeNext = () => {
-        wordIdx++;
-        const word = words[wordIdx - 1] ?? '';
-        setMessages(prev => {
-          const updated = [...prev];
-          updated[updated.length - 1] = {
-            role: 'assistant',
-            content: words.slice(0, wordIdx).join(' '),
-          };
-          return updated;
-        });
+      while (!finished) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
 
-        if (wordIdx >= words.length) {
-          streamRef.current = null;
-          setStreaming(false);
-          return;
+        const frames = buffer.split('\n\n');
+        buffer = frames.pop() || '';
+
+        for (const frame of frames) {
+          const line = frame.split('\n').find((l) => l.startsWith('data:'));
+          if (!line) continue;
+          let data;
+          try { data = JSON.parse(line.slice(5).trim()); } catch { continue; }
+
+          if (data.delta) appendDelta(data.delta);
+          else if (data.replace) replaceLast(data.replace);
+          else if (data.error) setError(data.error);
+          else if (data.done) finished = true;
         }
-
-        // Short pause after sentence-ending punctuation
-        const delay = /[.!?]$/.test(word) ? 450 : 75;
-        streamRef.current = setTimeout(typeNext, delay);
-      };
-
-      typeNext();
+      }
     } catch (err) {
-      const msg = err.response?.data?.message || err.response?.data?.error;
-      setError(msg || 'Could not reach Arin. Please try again.');
-      setLoading(false);
+      if (err.name !== 'AbortError') setError('Could not reach Arin. Please try again.');
+    } finally {
+      abortRef.current = null;
+      setStreaming(false);
+      setMessages((prev) => {
+        const last = prev[prev.length - 1];
+        if (last?.role === 'assistant' && !last.content) return prev.slice(0, -1);
+        return prev;
+      });
     }
   };
 
   const handleKey = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
   };
 
+  // Container morph sizes. The shell starts as the compact chip and grows to
+  // the panel; measured so the open size tracks the viewport.
+  const [dims, setDims] = useState({ w: 420, h: 620 });
+  useEffect(() => {
+    const measure = () => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      setDims({ w: Math.min(420, vw - 24), h: Math.min(620, vh - 104) });
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+  const CLOSED = { w: 136, h: 48 };
+
+  // Open overshoots slightly (bouncy); close settles calmly. The content waits
+  // for the box to be most of the way there before blurring in, so text never
+  // reflows on screen mid-resize.
+  const shellTransition = reduce
+    ? 'none'
+    : open
+      ? 'width 460ms cubic-bezier(0.34, 1.2, 0.64, 1), height 460ms cubic-bezier(0.34, 1.2, 0.64, 1), border-radius 460ms cubic-bezier(0.34, 1.2, 0.64, 1), border-color 300ms ease'
+      : 'width 300ms cubic-bezier(0.22, 1, 0.36, 1), height 300ms cubic-bezier(0.22, 1, 0.36, 1), border-radius 300ms cubic-bezier(0.22, 1, 0.36, 1), border-color 300ms ease';
+
+  const contentParent = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.05, delayChildren: reduce ? 0 : 0.24 } },
+  };
+  const contentItem = reduce
+    ? { hidden: { opacity: 0 }, show: { opacity: 1 } }
+    : {
+        hidden: { opacity: 0, y: 10, filter: 'blur(6px)' },
+        show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { type: 'spring', stiffness: 380, damping: 30 } },
+      };
+
+  const lastMsg = messages[messages.length - 1];
+  const waitingFirstToken = streaming && !lastMsg?.content;
+
+  const openChat = () => { if (popup) dismissPopup(); setOpen(true); };
+
   return (
-    <div
-      data-chatbot
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-[50] flex flex-col items-end gap-3"
-    >
-      {/* Chat panel */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, y: 16, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 16, scale: 0.96 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+    <div data-chatbot className="fixed bottom-4 right-4 z-[50] sm:bottom-6 sm:right-6">
+      <div className="relative">
+        {/* Popup — restrained card, eyebrow rule, no speech tail */}
+        <AnimatePresence>
+          {popup && !open && (
+            <motion.div
+              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10, filter: 'blur(6px)' }}
+              animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={reduce ? { opacity: 0 } : { opacity: 0, y: 10, filter: 'blur(6px)' }}
+              transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              onClick={openChat}
+              className="absolute bottom-[68px] right-0 w-[236px] cursor-pointer rounded-lg border border-line bg-white p-4 shadow-[0_20px_50px_-24px_rgba(11,11,13,0.38)]"
+            >
+              <button
+                onClick={(e) => { e.stopPropagation(); dismissPopup(); }}
+                aria-label="Dismiss"
+                className="absolute right-2 top-2 rounded p-1.5 text-ink-faint transition-colors hover:text-ink"
+              >
+                <CloseIcon size={13} />
+              </button>
+              <span className="block h-px w-6 bg-ember" aria-hidden />
+              <Label className="mt-3 block text-[9px] text-ink-faint">Arin · Arinox AI</Label>
+              <p className="mt-2 pr-3 font-display text-[15px] leading-snug text-ink">
+                Ask me anything about Arinox or AI.
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* One element that is the launcher when closed and the panel when open:
+            it morphs in size, radius and border while the two faces cross-blur. */}
+        <div
+          role={open ? 'dialog' : undefined}
+          aria-label={open ? 'Chat with Arin' : undefined}
+          className="absolute bottom-0 right-0 overflow-hidden border bg-white shadow-[0_28px_70px_-28px_rgba(11,11,13,0.45)]"
+          style={{
+            width: open ? dims.w : CLOSED.w,
+            height: open ? dims.h : CLOSED.h,
+            borderRadius: open ? 8 : 12,
+            borderColor: open ? '#e2e1dd' : '#17171a',
+            transition: shellTransition,
+            willChange: 'width, height',
+          }}
+        >
+          {/* Closed face — the ink chip, blurring out as the panel unfolds */}
+          <button
+            type="button"
+            onClick={openChat}
+            aria-label="Chat with Arin"
+            aria-expanded={open}
+            aria-hidden={open}
+            tabIndex={open ? -1 : 0}
+            className="chip absolute inset-0 flex items-center justify-center gap-2.5 bg-ink leading-none text-phos transition-colors hover:bg-black"
             style={{
-              width: 'min(420px, calc(100vw - 24px))',
-              maxHeight: 'min(600px, calc(100dvh - 100px))',
-              display: 'flex',
-              flexDirection: 'column',
-              borderRadius: '16px',
-              overflow: 'hidden',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.08)',
-              background: '#ffffff',
+              opacity: open ? 0 : 1,
+              filter: open ? 'blur(8px)' : 'blur(0px)',
+              transform: open ? 'scale(0.92)' : 'scale(1)',
+              pointerEvents: open ? 'none' : 'auto',
+              transition: reduce ? 'none' : open
+                ? 'opacity 140ms ease, filter 140ms ease, transform 180ms ease'
+                : 'opacity 180ms ease 130ms, filter 180ms ease 130ms, transform 180ms ease 130ms',
             }}
           >
-            {/* Header */}
-            <div style={{
-              display: 'flex', alignItems: 'center', gap: '10px',
-              padding: '12px 16px',
-              background: 'linear-gradient(135deg, #E8590C 0%, #D0500A 100%)',
-              flexShrink: 0,
-            }}>
-              <div style={{
-                width: '42px', height: '42px', borderRadius: '50%',
-                background: 'rgba(255,255,255,0.2)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0, position: 'relative',
-              }}>
-                <KidBotIcon size={30} />
-                <span style={{
-                  position: 'absolute', bottom: '1px', right: '1px',
-                  width: '9px', height: '9px', borderRadius: '50%',
-                  background: '#4ade80', border: '2px solid #D0500A',
-                }} />
-              </div>
-              <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ color: '#fff', fontWeight: 700, fontSize: '15px', lineHeight: 1.2, margin: 0 }}>Arin</p>
-                <p style={{ color: 'rgba(255,255,255,0.75)', fontSize: '11px', margin: '2px 0 0 0' }}>Arinox AI • Online</p>
+            <ArinMark size={15} />
+            Ask Arin
+          </button>
+
+          {/* Open face — mounted only while open so its controls never sit in the
+              tab order, and blur-faded in once the box has settled. */}
+          <AnimatePresence>
+            {open && (
+              <motion.div
+                key="panel"
+                variants={contentParent}
+                initial="hidden"
+                animate="show"
+                exit={{ opacity: 0, transition: { duration: 0.12, ease: EASE } }}
+                className="absolute inset-0 flex flex-col"
+              >
+                {/* Header — eyebrow rule + display name + mono status */}
+                <motion.header variants={contentItem} className="flex shrink-0 items-center gap-3 border-b border-line px-4 py-3.5">
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[6px] border border-line bg-paper">
+                <ArinMark size={17} />
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="font-display text-[16px] leading-none text-ink">Arin</p>
+                <Label className="mt-1.5 flex items-center gap-1.5 text-[9px] text-ink-faint">
+                  <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
+                  Arinox AI · Online
+                </Label>
               </div>
               <button
                 onClick={() => setOpen(false)}
-                style={{ color: 'rgba(255,255,255,0.8)', background: 'none', border: 'none', cursor: 'pointer', padding: '10px', flexShrink: 0 }}
-                aria-label="Close"
+                aria-label="Close chat"
+                className="shrink-0 rounded-md p-2 text-ink-faint transition-colors hover:bg-paper-2 hover:text-ink"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M18 6 6 18M6 6l12 12" />
-                </svg>
+                <CloseIcon />
               </button>
-            </div>
+            </motion.header>
 
-            {/* Messages */}
-            <div ref={messagesRef} style={{ flex: 1, overflowY: 'auto', padding: '14px', display: 'flex', flexDirection: 'column', gap: '10px', minHeight: 0, background: '#f7f7f8' }}>
-              {messages.map((m, i) => (
-                <div key={i} style={{ display: 'flex', justifyContent: m.role === 'user' ? 'flex-end' : 'flex-start', alignItems: 'flex-end', gap: '7px' }}>
-                  {m.role === 'assistant' && (
-                    <div style={{
-                      width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
-                      background: 'linear-gradient(135deg, #E8590C, #D0500A)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      boxShadow: '0 2px 8px rgba(254,99,0,0.3)',
-                    }}>
-                      <KidBotIcon size={18} />
+            {/* Messages — editorial rows, not speech bubbles */}
+            <motion.div
+              variants={contentItem}
+              ref={messagesRef}
+              aria-live="polite"
+              className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto bg-paper px-4 py-5"
+            >
+              {messages.map((m, i) => {
+                const isLast = i === messages.length - 1;
+                const isStreamingThis = streaming && isLast && m.role === 'assistant';
+                // An empty assistant turn has nothing to show; the thinking row
+                // below covers that state, so rendering it here caused a double.
+                if (m.role === 'assistant' && !m.content) return null;
+
+                if (m.role === 'user') {
+                  return (
+                    <div key={i} className="flex justify-end">
+                      <div className="max-w-[86%]">
+                        <Label className="block text-right text-[9px] text-ink-faint">You</Label>
+                        <div className="mt-1.5 rounded-[6px] bg-tint px-3.5 py-2.5 text-[14px] leading-[1.6] text-ink">
+                          <p className="whitespace-pre-wrap break-words">{m.content}</p>
+                        </div>
+                      </div>
                     </div>
-                  )}
-                  <div style={{
-                    maxWidth: '78%',
-                    padding: '9px 13px',
-                    borderRadius: m.role === 'user' ? '16px 16px 4px 16px' : '4px 16px 16px 16px',
-                    fontSize: '13.5px',
-                    lineHeight: '1.55',
-                    ...(m.role === 'user'
-                      ? { background: 'linear-gradient(135deg, #E8590C, #D0500A)', color: '#fff' }
-                      : { background: '#ffffff', color: '#1a1a1a', boxShadow: '0 1px 4px rgba(0,0,0,0.1)' }
-                    ),
-                  }}>
-                    {m.content}
-                  </div>
-                </div>
-              ))}
+                  );
+                }
 
-              {loading && (
-                <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end', gap: '7px' }}>
-                  <div style={{
-                    width: '28px', height: '28px', borderRadius: '50%', flexShrink: 0,
-                    background: 'linear-gradient(135deg, #E8590C, #D0500A)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    boxShadow: '0 2px 8px rgba(254,99,0,0.3)',
-                  }}>
-                    <KidBotIcon size={18} />
+                return (
+                  <div key={i} className="flex gap-2.5">
+                    <span className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-[4px] border border-line bg-white">
+                      <ArinMark size={12} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <Label className="text-[9px] text-ember-deep">Arin</Label>
+                      <div className="mt-1.5 text-[14.5px] leading-[1.68] text-ink">
+                        <MessageBody text={m.content} />
+                        {isStreamingThis && <Caret />}
+                      </div>
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', gap: '5px', alignItems: 'center', padding: '10px 14px', background: '#ffffff', borderRadius: '4px 16px 16px 16px', boxShadow: '0 1px 4px rgba(0,0,0,0.1)' }}>
-                    {[0, 1, 2].map(i => (
-                      <motion.span key={i} style={{ display: 'block', width: '6px', height: '6px', borderRadius: '50%', background: '#E8590C' }}
-                        animate={{ opacity: [0.3, 1, 0.3], y: [0, -4, 0] }}
-                        transition={{ duration: 0.85, delay: i * 0.17, repeat: Infinity }}
-                      />
-                    ))}
-                  </div>
+                );
+              })}
+
+              {waitingFirstToken && (
+                <div className="flex items-center gap-2.5">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-[4px] border border-line bg-white">
+                    <ArinMark size={12} />
+                  </span>
+                  <Label className="flex items-center gap-2 text-[9px] text-ink-faint">
+                    Arin is thinking
+                    <Caret />
+                  </Label>
                 </div>
               )}
 
               {error && (
-                <div style={{ textAlign: 'center', fontSize: '12px', color: '#cc2200', padding: '6px 10px', background: '#fff0ee', borderRadius: '8px', border: '1px solid #ffccc7' }}>
-                  {error}
+                <div className="border-l-2 border-ember bg-white px-3.5 py-3">
+                  <p className="text-[13px] leading-relaxed text-ember-deep">{error}</p>
+                  {lastSent && (
+                    <button
+                      onClick={() => send(lastSent)}
+                      className="mt-2 border-b border-ember/40 pb-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep transition-colors hover:border-ember-deep"
+                    >
+                      Try again
+                    </button>
+                  )}
                 </div>
               )}
-            </div>
-            {/* Suggestions */}
+            </motion.div>
+
+            {/* Suggested prompts — numbered hairline rows */}
             {messages.length === 1 && (
-              <div style={{ padding: '10px 14px 8px', display: 'flex', flexWrap: 'wrap', gap: '6px', background: '#f7f7f8', borderTop: '1px solid #ebebeb' }}>
-                {SUGGESTED.map(s => (
-                  <button key={s} onClick={() => send(s)} style={{
-                    fontSize: '13px', padding: '8px 16px', borderRadius: '20px', cursor: 'pointer',
-                    background: '#fff', color: '#E8590C',
-                    border: '1px solid rgba(254,99,0,0.35)', transition: 'background 0.15s',
-                  }}
-                    onMouseEnter={e => { e.currentTarget.style.background = '#E8590C'; e.currentTarget.style.color = '#fff'; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#E8590C'; }}
-                  >{s}</button>
+              <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white px-4 py-1">
+                {SUGGESTED.map((s, i) => (
+                  <button
+                    key={s}
+                    onClick={() => send(s)}
+                    className="group flex w-full items-center gap-3 border-b border-line py-2.5 text-left last:border-b-0"
+                  >
+                    <span className="num font-mono text-[10px] text-ember-deep">
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[13px] text-ink-soft transition-colors group-hover:text-ink">{s}</span>
+                    <span className="ml-auto h-px w-5 shrink-0 bg-line transition-all duration-300 group-hover:w-9 group-hover:bg-ember" aria-hidden />
+                  </button>
                 ))}
-              </div>
+              </motion.div>
             )}
 
-            {/* Input */}
-            <div style={{ padding: '10px 14px 12px', flexShrink: 0, borderTop: '1px solid #ebebeb', background: '#fff' }}>
-              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', background: '#f4f4f5', border: '1.5px solid #e5e5e5', borderRadius: '14px', padding: '10px 12px' }}>
+            {/* Composer — hairline underline + chip button */}
+            <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white px-4 pb-3 pt-3.5">
+              <div className="flex items-end gap-3">
                 <textarea
                   ref={inputRef}
-                  rows={2}
+                  rows={1}
                   value={input}
-                  onChange={e => setInput(e.target.value)}
+                  onChange={(e) => { setInput(e.target.value); autoGrow(e.target); }}
                   onKeyDown={handleKey}
                   placeholder="Ask Arin about Arinox or AI"
-                  disabled={loading || streaming}
-                  style={{
-                    flex: 1, background: 'transparent', border: 'none', outline: 'none', resize: 'none',
-                    color: '#1a1a1a', fontSize: '13.5px', lineHeight: '1.55', maxHeight: '120px',
-                    overflowY: 'auto', fontFamily: 'inherit', cursor: 'text',
-                  }}
+                  disabled={streaming}
+                  className="max-h-[120px] flex-1 resize-none border-b border-line bg-transparent pb-2 text-[14px] leading-[1.55] text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-ember disabled:opacity-60"
                 />
-                <button
-                  onClick={() => send()}
-                  disabled={!input.trim() || loading || streaming}
-                  style={{
-                    flexShrink: 0, width: '44px', height: '44px', borderRadius: '11px', border: 'none',
-                    background: input.trim() && !loading && !streaming ? 'linear-gradient(135deg, #E8590C, #D0500A)' : '#e5e5e5',
-                    cursor: input.trim() && !loading && !streaming ? 'pointer' : 'not-allowed',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s',
-                  }}
-                  aria-label="Send"
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z" />
-                  </svg>
-                </button>
+                {streaming ? (
+                  <button
+                    onClick={stop}
+                    className="chip shrink-0 rounded-btn border border-ink/20 bg-white px-4 py-2.5 leading-none text-ink transition-colors hover:border-ink/60"
+                  >
+                    Stop
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => send()}
+                    disabled={!input.trim()}
+                    className={`chip shrink-0 rounded-btn px-4 py-2.5 leading-none transition-colors ${
+                      input.trim()
+                        ? 'bg-ember text-ink hover:bg-ember-deep hover:text-white'
+                        : 'cursor-not-allowed border border-line bg-white text-ink-faint'
+                    }`}
+                  >
+                    Send
+                  </button>
+                )}
               </div>
-              <p style={{ margin: '6px 2px 0', fontSize: '10px', color: '#999', lineHeight: '1.4', textAlign: 'center' }}>
-                By messaging, you agree this chat may be monitored, recorded, and used for personalization and other business services per our{' '}
-                <a href="/privacy" style={{ color: '#E8590C', textDecoration: 'none' }}>Privacy Policy</a>.
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Popup speech bubble */}
-      <AnimatePresence>
-        {popup && !open && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.85, y: 10 }}
-            transition={{ type: 'spring', stiffness: 300, damping: 24 }}
-            style={{
-              position: 'relative',
-              background: '#fff',
-              borderRadius: '16px 16px 4px 16px',
-              padding: '12px 14px 12px 14px',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.18)',
-              maxWidth: 'min(220px, calc(100vw - 80px))',
-              cursor: 'pointer',
-              border: '1.5px solid rgba(254,99,0,0.18)',
-            }}
-            onClick={() => { sessionStorage.setItem('arinox_chat_popup_dismissed', 'true'); setPopup(false); setOpen(true); }}
-          >
-            <button
-              onClick={e => { e.stopPropagation(); sessionStorage.setItem('arinox_chat_popup_dismissed', 'true'); setPopup(false); }}
-              style={{
-                position: 'absolute', top: '8px', right: '8px',
-                background: 'none', border: 'none', cursor: 'pointer',
-                color: '#aaa', fontSize: '14px', lineHeight: 1, padding: '10px',
-              }}
-              aria-label="Dismiss popup"
-            >×</button>
-
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '6px' }}>
-              <div style={{
-                width: '34px', height: '34px', borderRadius: '50%', flexShrink: 0,
-                background: 'linear-gradient(135deg, #E8590C, #D0500A)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-              }}><KidBotIcon size={22} /></div>
-              <div>
-                <p style={{ margin: 0, fontWeight: 700, fontSize: '13px', color: '#1a1a1a' }}>Arin</p>
-                <p style={{ margin: 0, fontSize: '10.5px', color: '#E8590C', fontWeight: 600 }}>Arinox AI</p>
-              </div>
-            </div>
-            <p style={{ margin: 0, fontSize: '12.5px', color: '#444', lineHeight: 1.55 }}>
-              Hey! I'm Arin, how may I assist you?
-            </p>
-
-            <div style={{
-              position: 'absolute', bottom: '-10px', right: '22px',
-              width: 0, height: 0,
-              borderLeft: '10px solid transparent',
-              borderTop: '10px solid #fff',
-              filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.08))',
-            }} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Floating toggle button */}
-      <motion.button
-        onClick={() => setOpen(o => !o)}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.92 }}
-        aria-label="Chat with Arin"
-        style={{
-          width: '50px', height: '50px', borderRadius: '50%', border: 'none', cursor: 'pointer',
-          background: 'linear-gradient(135deg, #E8590C, #D0500A)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative',
-          boxShadow: '0 8px 30px rgba(254,99,0,0.45)',
-        }}
-      >
-        <div style={{ position: 'relative', width: '30px', height: '30px' }}>
-          <motion.div
-            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            initial={false}
-            animate={{ opacity: open ? 0 : 1, scale: open ? 0.7 : 1, rotate: open ? -90 : 0 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
-          >
-            <KidBotIcon size={30} />
-          </motion.div>
-          <motion.div
-            style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            initial={false}
-            animate={{ opacity: open ? 1 : 0, scale: open ? 1 : 0.7, rotate: open ? 0 : 90 }}
-            transition={{ duration: 0.18, ease: 'easeOut' }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-              <path d="M18 6 6 18M6 6l12 12" />
-            </svg>
-          </motion.div>
+              <Label className="mt-2.5 block text-center text-[8.5px] tracking-[0.1em] text-ink-faint">
+                Arin can make mistakes. For anything important, contact{' '}
+                <a href="/contact" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>
+              </Label>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         </div>
-
-        {!open && (
-          <motion.span
-            aria-hidden
-            style={{
-              position: 'absolute', inset: 0, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #E8590C, #D0500A)',
-              pointerEvents: 'none',
-            }}
-            animate={{ scale: [1, 1.55], opacity: [0, 0.45, 0] }}
-            transition={{ duration: 2.2, ease: 'easeOut', times: [0, 0.15, 1], repeat: Infinity, repeatDelay: 0.15 }}
-          />
-        )}
-      </motion.button>
+      </div>
     </div>
   );
 }

@@ -7,16 +7,121 @@ import { Button } from '../components/site/Button';
 import { CtaBand } from '../components/site/Shell';
 import { sectors as sectorData, anchorDeployment } from '../data/caseStudies';
 
+/* Provenance for every metric, so a figure is never read as a client result
+   unless it is one. Keys must match `basis` in data/caseStudies.js. */
+const BASIS = {
+  published: { tag: 'Client outcome', title: 'Outcome published on this site' },
+  prior: { tag: 'Earlier figure', title: 'Published on an earlier version of the site' },
+  system: { tag: 'Platform capability', title: 'Structural capability, not a client outcome' },
+  benchmark: { tag: 'Industry benchmark', title: 'Industry reference figure, not a client result' },
+  'on-request': { tag: 'On request', title: 'Figure not cleared for publication' },
+};
+
+/* Word-values ("SKU-level", "On request") would overflow the numeric scale. */
+const valueSize = (value) =>
+  String(value).length > 6 ? 'text-[20px] md:text-[24px]' : 'text-[30px] md:text-[36px]';
+
+const Architecture = ({ items }) => (
+  <div className="mt-8 border-t border-line pt-6">
+    <p className="eyebrow text-ink-faint">Capability architecture</p>
+    <div className="mt-5 space-y-6">
+      {items.map((a, i) => (
+        <div key={a.title} className="grid grid-cols-[auto_1fr] gap-x-4">
+          <span className="num pt-1 font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
+          <div>
+            <h4 className="font-display text-[17px] tracking-[-0.01em]">{a.title}</h4>
+            <ul className="mt-2.5 space-y-1.5">
+              {a.points.map((p) => (
+                <li key={p} className="flex gap-2.5 text-[14px] leading-relaxed text-ink-soft">
+                  <span className="mt-[8px] h-1 w-1 shrink-0 rounded-full bg-ember" aria-hidden />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const UseCase = ({ index, useCase: c }) => {
+  const hasRail = (c.metrics?.length ?? 0) > 0 || (c.architecture?.length ?? 0) > 0;
+  return (
+    <article className={index > 0 ? 'mt-14 border-t border-line pt-12' : ''}>
+      <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+        <span className="num font-mono text-[12px] text-ink-faint">{String(index + 1).padStart(2, '0')}</span>
+        <h3 className="font-display text-[26px] tracking-[-0.01em] md:text-[32px]">{c.title}</h3>
+        {c.agent && (
+          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep">{c.agent}</span>
+        )}
+      </div>
+
+      {c.agentNote && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {c.agentNote.split(' · ').map((d) => (
+            <span key={d} className="rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[10.5px] text-ink-soft">{d}</span>
+          ))}
+        </div>
+      )}
+
+      <div className={`mt-8 grid gap-10 ${hasRail ? 'lg:grid-cols-[1.1fr_0.9fr] lg:gap-16' : 'max-w-3xl'}`}>
+        <div>
+          <p className="eyebrow text-ink-faint">The challenge</p>
+          <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">{c.problem}</p>
+          <div className="mt-8 border-t border-ink/80 pt-5">
+            <p className="eyebrow text-ember-deep">Outcome</p>
+            <p className="mt-2 text-[15.5px] leading-relaxed text-ink">{c.outcome}</p>
+          </div>
+        </div>
+
+        {hasRail && (
+          <div>
+            {c.metrics?.length > 0 && (
+              <div className="border-t border-line pt-6">
+                <p className="eyebrow text-ink-faint">Metrics</p>
+                <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-7">
+                  {c.metrics.map((m) => {
+                    const basis = BASIS[m.basis];
+                    return (
+                      <div key={m.label}>
+                        <p className={`num break-words font-display leading-[1.05] tracking-[-0.02em] text-ink ${valueSize(m.value)}`}>{m.value}</p>
+                        <p className="mt-2 font-mono text-[10.5px] uppercase leading-snug tracking-[0.1em] text-ink-faint">{m.label}</p>
+                        {basis && (
+                          <p className="mt-1.5 font-mono text-[9px] uppercase leading-none tracking-[0.14em] text-ink-faint/70" title={basis.title}>
+                            {basis.tag}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {c.architecture?.length > 0 && <Architecture items={c.architecture} />}
+          </div>
+        )}
+      </div>
+
+      {c.proofNote && (
+        <p className="mt-8 border-t border-line pt-5 font-mono text-[11.5px] leading-relaxed tracking-[0.02em] text-ink-faint">
+          {c.proofNote}
+        </p>
+      )}
+    </article>
+  );
+};
+
 const CaseStudies = () => {
   const [active, setActive] = useState(0);
   const sector = sectorData[active];
-  const [lead, ...others] = sector.useCases;
+  const hasCases = sector.useCases.length > 0;
 
   return (
     <>
       <SEO
         title="Case Studies | Private AI in Production | Arinox AI"
-        description="Deployed inside the perimeter. Private AI case studies across BFSI, Healthcare, Manufacturing, Defence, Government, and FMCG, verified where published."
+        description="Deployed inside the perimeter. Private AI case studies across BFSI, Healthcare, Manufacturing, Defence, Government, FMCG, and Retail, verified where published."
         canonical="https://www.arinox.ai/case-studies"
       />
 
@@ -43,7 +148,7 @@ const CaseStudies = () => {
       </section>
 
       <Section border={false} className="pt-6">
-        <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-6" role="tablist" aria-label="Sectors">
+        <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4" role="tablist" aria-label="Sectors">
           {sectorData.map((s, i) => {
             const on = i === active;
             return (
@@ -58,10 +163,10 @@ const CaseStudies = () => {
                     : 'border-line bg-white text-ink hover:border-ink/25 hover:bg-paper-2'
                 }`}
               >
-                <span className={`num font-mono text-[11px] ${on ? 'text-ink/70' : 'text-ink-faint'}`}>
+                <span className={`num shrink-0 font-mono text-[11px] ${on ? 'text-ink/70' : 'text-ink-faint'}`}>
                   {String(i + 1).padStart(2, '0')}
                 </span>
-                <span className="font-display text-[17px] tracking-[-0.01em]">{s.label}</span>
+                <span className="min-w-0 text-right font-display text-[16px] leading-tight tracking-[-0.01em]">{s.label}</span>
               </button>
             );
           })}
@@ -74,38 +179,27 @@ const CaseStudies = () => {
               <p className="mt-1.5 font-mono text-[12.5px] uppercase tracking-[0.08em] text-ember-deep">{sector.regHook}</p>
             </div>
             <p className="num font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
-              {sector.useCases.length} deployments
+              {hasCases ? `${sector.useCases.length} deployments` : 'Use cases coming soon'}
             </p>
           </div>
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
-            {/* Lead case */}
-            <div>
-              <h3 className="font-display text-[26px] tracking-[-0.01em]">{lead.title}</h3>
-              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{lead.agent}</p>
-              <p className="mt-5 max-w-md text-[16px] leading-relaxed text-ink-soft">{lead.problem}</p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {[lead.agentNote].filter(Boolean).map((d) => (
-                  <span key={d} className="rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[10.5px] text-ink-soft">{d}</span>
-                ))}
-              </div>
-              <div className="mt-8 border-t border-ink/80 pt-5">
-                <p className="eyebrow text-ember-deep">Outcome</p>
-                <p className="mt-2 max-w-md text-[15.5px] leading-relaxed text-ink">{lead.outcome}</p>
-              </div>
-            </div>
-
-            {/* Supporting cases */}
-            <div className="border-t border-line">
-              {others.map((c) => (
-                <div key={c.agent} className="border-b border-line py-6">
-                  <h3 className="font-display text-[20px] tracking-[-0.01em]">{c.title}</h3>
-                  <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{c.agent}</p>
-                  <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{c.outcome}</p>
-                </div>
+          {hasCases ? (
+            <div className="mt-10">
+              {sector.useCases.map((c, i) => (
+                <UseCase key={c.title} index={i} useCase={c} />
               ))}
             </div>
-          </div>
+          ) : (
+            <div className="mt-10 border-t border-line pt-8">
+              <p className="max-w-xl text-[16px] leading-relaxed text-ink-soft">
+                Use cases for this sector are being finalised. In the meantime, tell us your
+                constraint and we&apos;ll map it to a concrete on-premises deployment.
+              </p>
+              <div className="mt-5">
+                <Button to="/contact" variant="dark" size="sm">Talk to us</Button>
+              </div>
+            </div>
+          )}
         </div>
       </Section>
 

@@ -5,10 +5,9 @@ import { Nav } from './components/site/Nav';
 import { Footer } from './components/site/Shell';
 import { BookCtaProvider } from './components/site/BookCtaContext';
 import ConsentBanner from './components/ui/ConsentBanner';
-// import ArinoxChatBot from './components/ui/ArinoxChatBot'; // chatbot disabled for now
+import ArinoxChatBot from './components/ui/ArinoxChatBot';
 
 const Home = lazy(() => import('./pages/Home'));
-const Platform = lazy(() => import('./pages/Platform'));
 const CommandCore = lazy(() => import('./pages/CommandCore'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const Partners = lazy(() => import('./pages/Partners'));
@@ -56,7 +55,6 @@ const AppInner = () => {
           <AnimatePresence mode="wait" initial={false}>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-              <Route path="/platform" element={<PageTransition><Platform /></PageTransition>} />
               <Route path="/commandcore" element={<PageTransition><CommandCore /></PageTransition>} />
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
@@ -67,7 +65,7 @@ const AppInner = () => {
               <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
               {/* Legacy URL redirects */}
-              <Route path="/solutions" element={<Navigate to="/platform" replace />} />
+              <Route path="/solutions" element={<Navigate to="/commandcore" replace />} />
               <Route path="/about" element={<Navigate to="/" replace />} />
               <Route path="/company" element={<Navigate to="/" replace />} />
               <Route path="/case-studies/:slug" element={<Navigate to="/case-studies" replace />} />
@@ -78,7 +76,7 @@ const AppInner = () => {
       </main>
       <Footer />
       <ConsentBanner />
-      {/* <ArinoxChatBot /> */}
+      <ArinoxChatBot />
     </BookCtaProvider>
   );
 };

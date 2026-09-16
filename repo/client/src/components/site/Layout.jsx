@@ -10,32 +10,6 @@ export function Label({ children, dark = false, className = '' }) {
   )
 }
 
-/** Hairline spec table, label / value / note rows. */
-export function SpecTable({ rows, dark = false, className = '' }) {
-  return (
-    <div className={`border-t ${dark ? 'border-white/20' : 'border-ink/80'} ${className}`}>
-      {rows.map((r, i) => (
-        <div
-          key={r.k || i}
-          className={`grid gap-2 border-b py-6 md:grid-cols-[minmax(140px,0.7fr)_1.6fr] md:gap-10 ${
-            dark ? 'border-white/10' : 'border-line'
-          }`}
-        >
-          <span className={`eyebrow pt-1 ${dark ? 'text-ghost' : 'text-ink-faint'}`}>{r.k}</span>
-          <div>
-            <p className={`font-display text-[21px] leading-snug tracking-[-0.01em] ${dark ? 'text-phos' : 'text-ink'}`}>
-              {r.v}
-            </p>
-            {r.note && (
-              <p className={`mt-1.5 text-[14.5px] leading-relaxed ${dark ? 'text-ghost' : 'text-ink-soft'}`}>{r.note}</p>
-            )}
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
 /** A single hero metric with context, replaces rows of repeated big numbers. */
 export function StatBand({ value, label, note, dark = false, className = '' }) {
   return (

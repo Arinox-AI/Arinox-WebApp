@@ -71,7 +71,7 @@ const seoOrigin = () => {
 app.get('/sitemap.xml', (req, res) => {
   const base = seoOrigin();
   const lastmod = new Date().toISOString().split('T')[0];
-  const pages = ['', '/platform', '/commandcore', '/case-studies', '/partners', '/blog', '/careers', '/contact'];
+  const pages = ['', '/commandcore', '/case-studies', '/partners', '/blog', '/careers', '/contact'];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${pages.map(p => `  <url><loc>${base}${p}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${p === '' ? '1.0' : '0.8'}</priority></url>`).join('\n')}

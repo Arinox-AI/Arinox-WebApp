@@ -3,20 +3,47 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { ArrowUpRight, EnvelopeSimple, Tray, Plus, Minus } from '@phosphor-icons/react';
+import {
+  ArrowUpRight, EnvelopeSimple, Tray, Plus, Minus,
+  Globe, TrendUp, Lightbulb, Buildings, MapPin, Clock,
+} from '@phosphor-icons/react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Button } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
-import { perks as perksData } from '../data/careers';
+import { perks as perksData, roles as rolesData } from '../data/careers';
 
+// Prefer a match that actually carries a JD, so API roles (which may not store
+// one) still fall back to the structured JD held in data/careers.js.
 const getJdBySlug = (roles, role) => {
-  const match = roles.find(r => r.slug === role.slug || r.title === role.title);
+  const match = roles.find(r => (r.slug === role.slug || r.title === role.title) && r.jd);
   return match?.jd || null;
 };
 
+const PERK_ICONS = { Globe, TrendUp, Lightbulb, Buildings, TrendingUp: TrendUp, Building2: Buildings };
+
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
+
+const Chip = ({ children }) => (
+  <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">
+    {children}
+  </span>
+);
+
+const JDBlock = ({ label, items }) => (
+  <div>
+    <p className="eyebrow text-ember-deep">{label}</p>
+    <ul className="mt-3 space-y-2.5">
+      {items.map((it) => (
+        <li key={it} className="flex gap-3 text-[14.5px] leading-relaxed text-ink-soft">
+          <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-ember" aria-hidden />
+          {it}
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 const ApplyModal = ({ job, onClose, onDone }) => {
   const [form, setForm] = useState(emptyApp);
@@ -128,13 +155,25 @@ const Careers = () => {
 
   useEffect(() => {
     axios.get('/api/v1/careers')
-      .then(({ data }) => setCareers(data.data || []))
-      .catch(() => setCareers([]))
+      // Roles live in Supabase, but until they are published there the site
+      // falls back to the structured list in data/careers.js.
+      .then(({ data }) => {
+        const apiRoles = data.data || [];
+        setCareers(apiRoles.length ? apiRoles : rolesData);
+      })
+      .catch(() => setCareers(rolesData))
       .finally(() => setLoading(false));
   }, []);
 
   const list = careers;
-  const depts = ['All', ...new Set(list.map(j => j.department).filter(Boolean))];
+  const jdSources = [...list, ...rolesData];
+
+  const deptCounts = list.reduce((acc, j) => {
+    if (!j.department) return acc;
+    acc[j.department] = (acc[j.department] || 0) + 1;
+    return acc;
+  }, {});
+  const depts = ['All', ...Object.keys(deptCounts)];
   const filtered = list.filter(j => filter === 'All' || j.department === filter);
   const perks = perksData;
 
@@ -162,47 +201,74 @@ const Careers = () => {
         </div>
       </section>
 
-      {/* Why join */}
-      <section className="py-16 md:py-20">
+      {/* How we work */}
+      <section className="py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-7">
           <Label>How we work</Label>
           <h2 className="mt-5 font-display text-3xl tracking-[-0.01em] md:text-[40px]">What we look for.</h2>
-          <div className="mt-10 grid gap-x-16 gap-y-8 border-t border-ink/80 sm:grid-cols-2">
-            {perks.map(({ title, desc }) => (
-              <div key={title} className="border-b border-line pt-6">
-                <h3 className="font-display text-[20px] tracking-[-0.01em]">{title}</h3>
-                <p className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
-              </div>
-            ))}
+          <div className="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2">
+            {perks.map(({ icon, title, desc }) => {
+              const Icon = PERK_ICONS[icon] || Globe;
+              return (
+                <div key={title} className="flex gap-4 border-t border-ink/80 pt-6">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-white text-ember-deep">
+                    <Icon size={19} weight="duotone" />
+                  </span>
+                  <div>
+                    <h3 className="font-display text-[20px] tracking-[-0.01em]">{title}</h3>
+                    <p className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Open roles */}
-      <section id="roles" className="border-t border-line py-16 md:py-20">
+      <section id="roles" className="border-t border-line py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-7">
-          <Label>Open roles</Label>
-          <h2 className="mt-5 font-display text-3xl tracking-[-0.01em] md:text-[40px]">Where you could land.</h2>
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <Label>Open roles</Label>
+              <h2 className="mt-5 font-display text-3xl tracking-[-0.01em] md:text-[40px]">Where you could land.</h2>
+            </div>
+            {!loading && filtered.length > 0 && (
+              <p className="num font-mono text-[12px] uppercase tracking-[0.08em] text-ink-faint">
+                {String(filtered.length).padStart(2, '0')} open {filtered.length === 1 ? 'role' : 'roles'}
+              </p>
+            )}
+          </div>
 
           {depts.length > 1 && (
-            <div className="mt-8 flex flex-wrap gap-2">
-              {depts.map(d => (
-                <button
-                  key={d} onClick={() => setFilter(d)}
-                  className={`chip rounded-full border px-3.5 py-1.5 transition-colors ${filter === d ? 'border-ember bg-ember text-white' : 'border-line text-ink-soft hover:border-ink hover:text-ink'}`}
-                >
-                  {d}
-                </button>
-              ))}
+            <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter roles by department">
+              {depts.map((d) => {
+                const on = filter === d;
+                const count = d === 'All' ? list.length : deptCounts[d];
+                return (
+                  <button
+                    key={d}
+                    role="tab"
+                    aria-selected={on}
+                    onClick={() => setFilter(d)}
+                    className={`chip inline-flex items-center gap-2 rounded-full border px-3.5 py-2 transition-colors ${
+                      on ? 'border-ember bg-ember text-ink' : 'border-line text-ink-soft hover:border-ink/40 hover:text-ink'
+                    }`}
+                  >
+                    {d}
+                    <span className={`num text-[10px] ${on ? 'text-ink/60' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
+                  </button>
+                );
+              })}
             </div>
           )}
 
-          <div className="mt-8 card-light overflow-hidden">
+          <div className="mt-8 space-y-3">
             {loading ? (
-              Array.from({ length: 3 }).map((_, i) => <div key={i} className="skeleton h-20 border-b border-line last:border-b-0" />)
+              Array.from({ length: 2 }).map((_, i) => <div key={i} className="skeleton h-24 rounded-lg" />)
             ) : filtered.length === 0 ? (
-              <div className="px-6 py-16 text-center">
-                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-ember/10 text-ember">
+              <div className="card-light px-6 py-16 text-center">
+                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-ember/10 text-ember-deep">
                   <Tray size={20} weight="duotone" />
                 </div>
                 <h3 className="font-display text-xl">No open roles right now</h3>
@@ -214,91 +280,100 @@ const Careers = () => {
                 </Link>
               </div>
             ) : (
-              filtered.map((job, i) => {
-                const key = job.slug || job.title || i;
-                const jd = getJdBySlug(list, job);
+              filtered.map((job) => {
+                const key = job.slug || job.title;
+                const jd = getJdBySlug(jdSources, job);
                 const open = expandedJD === key;
+                const applied = appliedJobs.has(job.title);
                 return (
-                  <div key={key} className="border-b border-line last:border-b-0">
-                    <div className="grid items-center gap-3 px-6 py-6 md:grid-cols-[1.6fr_1fr_1fr_auto] md:gap-6 md:px-8">
-                      <div>
-                        <span className="font-display text-[20px] tracking-[-0.01em]">{job.title}</span>
+                  <article key={key} className="card-light overflow-hidden">
+                    <div className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between md:p-7">
+                      <div className="min-w-0">
+                        <h3 className="font-display text-[21px] leading-tight tracking-[-0.01em] md:text-[23px]">{job.title}</h3>
+                        <div className="mt-3 flex flex-wrap items-center gap-2">
+                          {job.department && <Chip>{job.department}</Chip>}
+                          {job.location && <Chip><MapPin size={12} weight="bold" className="text-ember-deep" />{job.location}</Chip>}
+                          {job.type && <Chip><Clock size={12} weight="bold" className="text-ember-deep" />{job.type}</Chip>}
+                        </div>
                       </div>
-                      <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-ink-faint">{job.department}</span>
-                      <span className="font-mono text-[12px] uppercase tracking-[0.1em] text-ink-faint">{job.location} · {job.type}</span>
-                      <div className="flex items-center gap-4">
+
+                      <div className="flex shrink-0 flex-wrap items-center gap-3">
                         {jd && (
                           <button
                             onClick={() => setExpandedJD(open ? null : key)}
-                            className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink"
+                            aria-expanded={open}
+                            aria-controls={`jd-${key}`}
+                            className="inline-flex items-center gap-1.5 rounded-btn border border-ink/20 bg-white px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink/50"
                           >
-                            {open ? <Minus size={14} weight="bold" /> : <Plus size={14} weight="bold" />}
-                            Role
+                            {open ? <Minus size={13} weight="bold" /> : <Plus size={13} weight="bold" />}
+                            {open ? 'Hide role' : 'View role'}
                           </button>
                         )}
-                        {appliedJobs.has(job.title) ? (
-                          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">Applied</span>
+                        {applied ? (
+                          <span className="inline-flex items-center gap-2 rounded-btn border border-ember/40 bg-ember/10 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep">
+                            Applied
+                          </span>
                         ) : (
-                          <button
-                            onClick={() => handleApplyClick(job)}
-                            className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ember-deep"
-                          >
+                          <Button onClick={() => handleApplyClick(job)} variant="dark" size="sm">
                             Apply <ArrowUpRight size={14} weight="bold" />
-                          </button>
+                          </Button>
                         )}
                       </div>
                     </div>
+
                     <AnimatePresence initial={false}>
                       {open && jd && (
                         <motion.div
-                          initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                          id={`jd-${key}`}
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden"
                         >
-                          <div className="border-t border-line px-6 py-7 md:px-8">
-                            {jd.tagline && <p className="max-w-3xl text-[15px] leading-relaxed text-ink-soft">{jd.tagline}</p>}
-                            {jd.responsibilities?.length > 0 && (
-                              <div className="mt-6">
-                                <p className="eyebrow text-ember-deep">{jd.responsibilitiesLabel || "What you'll do"}</p>
-                                <ul className="mt-3 grid gap-2 md:grid-cols-2">
-                                  {jd.responsibilities.map((r) => (
-                                    <li key={r} className="flex gap-3 text-[14px] leading-relaxed text-ink-soft">
-                                      <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-ember" />{r}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
+                          <div className="border-t border-line bg-paper px-6 py-7 md:px-7">
+                            {jd.tagline && (
+                              <p className="max-w-3xl text-[15.5px] leading-relaxed text-ink">{jd.tagline}</p>
                             )}
-                            {jd.fit?.length > 0 && (
-                              <div className="mt-6">
-                                <p className="eyebrow text-ember-deep">{jd.fitLabel || "You'd be a great fit if you…"}</p>
-                                <ul className="mt-3 grid gap-2 md:grid-cols-2">
-                                  {jd.fit.map((r) => (
-                                    <li key={r} className="flex gap-3 text-[14px] leading-relaxed text-ink-soft">
-                                      <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-ember" />{r}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            )}
+
+                            <div className="mt-8 grid gap-x-14 gap-y-8 md:grid-cols-2">
+                              {jd.responsibilities?.length > 0 && (
+                                <JDBlock label={jd.responsibilitiesLabel || "What you'll do"} items={jd.responsibilities} />
+                              )}
+                              {jd.fit?.length > 0 && (
+                                <JDBlock label={jd.fitLabel || "You'd be a great fit if you…"} items={jd.fit} />
+                              )}
+                            </div>
+
                             {jd.bring?.length > 0 && (
-                              <p className="mt-6 text-[14px] leading-relaxed text-ink-soft">
-                                {jd.bringLabel} <b className="font-medium text-ink">{jd.bring.join(' · ')}</b>
+                              <p className="mt-8 max-w-3xl text-[14.5px] leading-relaxed text-ink-soft">
+                                {jd.bringLabel}{' '}
+                                <b className="font-medium text-ink">{jd.bring.join(' · ')}</b>
                               </p>
                             )}
-                            {jd.closing && <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-ink-faint">{jd.closing}</p>}
+
+                            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
+                              {!applied && (
+                                <Button onClick={() => handleApplyClick(job)} variant="ember" size="sm">
+                                  Apply for this role <ArrowUpRight size={14} weight="bold" />
+                                </Button>
+                              )}
+                              {jd.closing && (
+                                <p className="max-w-xl text-[13px] leading-relaxed text-ink-faint">{jd.closing}</p>
+                              )}
+                            </div>
                           </div>
                         </motion.div>
                       )}
                     </AnimatePresence>
-                  </div>
+                  </article>
                 );
               })
             )}
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Button href="mailto:careers@arinox.ai" variant="dark">
+          <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-line pt-8">
+            <Button href="mailto:careers@arinox.ai" variant="ghost">
               <EnvelopeSimple size={17} weight="bold" />
               careers@arinox.ai
             </Button>

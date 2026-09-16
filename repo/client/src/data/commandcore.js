@@ -164,3 +164,16 @@ export const kogo = {
     'Exportable audit packs for every run',
   ],
 };
+
+/* Business applications built into the platform, included with every deployment. */
+export const businessApps = [
+  { name: 'ERP',        full: 'Enterprise Resource Planning',     desc: 'Agents plan, procure, produce and account, without the spreadsheet chase.' },
+  { name: 'HRMS',       full: 'Human Resource Management System', desc: 'Agents run attendance, payroll and performance, not the inbox.' },
+  { name: 'CRM',        full: 'Customer Relationship Management', desc: 'Agents work every account and follow-up, so nothing goes cold.' },
+  { name: 'Accounting', full: '',                                 desc: 'Agents post, reconcile and flag exceptions; ledgers stay current.' },
+  { name: 'Legal',      full: '',                                 desc: 'Agents track matters, obligations and compliance continuously.' },
+  { name: 'SCM',        full: 'Supply Chain Management',          desc: 'Agents source, replenish and monitor suppliers against live demand.' },
+  { name: 'CLM',        full: 'Contract Lifecycle Management',    desc: 'Agents draft, route and renew contracts, watching every obligation.' },
+  { name: 'Marketing',  full: '',                                 desc: 'Agents run campaigns, content and pipeline from one stack.' },
+  { name: 'Helpdesk',   full: '',                                 desc: 'Agents resolve and route tickets before they pile up.' },
+];

@@ -44,8 +44,7 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Platform</h5>
-            <FooterLink to="/platform">Platform</FooterLink>
+            <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Product</h5>
             <FooterLink to="/commandcore">CommandCore™</FooterLink>
             <FooterLink to="/case-studies">Case Studies</FooterLink>
             <FooterLink to="/partners">Partners</FooterLink>

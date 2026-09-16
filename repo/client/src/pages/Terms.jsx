@@ -44,7 +44,7 @@ const Terms = () => (
             <p>Arinox AI provides enterprise-grade sovereign AI solutions, including but not limited to:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">CommandCore™:</strong> An on-premises, sovereign AI platform for large-scale enterprise deployments</li>
-              <li><strong className="text-brand-text">AI Agents & Automation:</strong> Purpose-built autonomous AI agents for enterprise workflows across BFSI, Healthcare, Defence, Manufacturing, and other sectors</li>
+              <li><strong className="text-brand-text">AI Agents & Automation:</strong> Purpose-built autonomous AI agents for enterprise workflows across BFSI, Healthcare, Defence, Manufacturing, Retail, and other sectors</li>
               <li><strong className="text-brand-text">Advisory & Implementation:</strong> AI strategy consulting, system integration, and managed deployment services</li>
               <li><strong className="text-brand-text">Training & Enablement:</strong> Workshops, technical training, and AI literacy programmes for enterprise teams</li>
             </ul>

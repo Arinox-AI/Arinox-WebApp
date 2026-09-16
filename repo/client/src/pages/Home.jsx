@@ -12,6 +12,7 @@ import { AsciiGlobe } from '../components/site/AsciiGlobe'
 import { ComplianceStrip } from '../components/site/ComplianceStrip'
 import { LayerStack } from '../components/site/LayerStack'
 import { team, advisors } from '../data/site'
+import { businessApps } from '../data/commandcore'
 import { samplePosts } from './Blog'
 
 const moves = [
@@ -375,11 +376,50 @@ const Home = () => {
           The transformation stack, mapped.
         </h2>
         <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">
-          Agents that learn your context, an AI layer that runs on your hardware, and every existing
-          system stays in its home. No rip-and-replace.
+          Agents that learn your context, an AI layer that runs on your hardware, and the business
+          systems you would otherwise buy separately, built in. Every system you already run stays
+          in its home. No rip-and-replace.
         </p>
         <div className="mt-12">
           <LayerStack />
+        </div>
+      </Section>
+
+      {/* Included applications */}
+      <Section border>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <Label>Included applications</Label>
+            <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+              Your business systems, now driven by AI agents.
+            </h2>
+          </div>
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+            Built in, not stitched on. Each system ships with agents that run the work your team used to do by hand.
+          </p>
+        </div>
+        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-soft">
+          ERP, HRMS, CRM, Accounting, Legal, SCM, CLM, Marketing and Helpdesk are all part of the
+          platform. Work that used to be handled manually in each of them is now driven by AI
+          agents: planning, hiring, selling, posting, contracting, sourcing, campaigns and tickets,
+          all on your infrastructure, under your governance, included with every deployment.
+        </p>
+        <div className="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {businessApps.map((a) => (
+            <div key={a.name} className="border-t border-ink/80 pt-6">
+              <p className="eyebrow text-ember-deep">{a.name}</p>
+              {a.full && (
+                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">{a.full}</p>
+              )}
+              <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{a.desc}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+          <Button to="/contact" variant="dark" size="sm">See it on your workflows</Button>
+          <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
+            Included with every deployment · runs alongside what you already have
+          </span>
         </div>
       </Section>
 

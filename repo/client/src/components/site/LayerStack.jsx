@@ -1,15 +1,25 @@
-import { HardDrives, Robot, Stack } from '@phosphor-icons/react'
+import { HardDrives, Robot, SquaresFour, Stack } from '@phosphor-icons/react'
 
 const layers = [
   {
-    n: '03',
-    label: 'Layer 3',
+    n: '04',
+    label: 'Layer 4',
     name: 'AI Agents',
     role: 'What your teams touch',
     desc: 'Document, voice, vision, and governance agents, wired into the tools you already run, from SAP to Salesforce to plain email.',
     chips: ['Document', 'Voice', 'Vision', 'Governance'],
     Icon: Robot,
     tone: 'dark',
+  },
+  {
+    n: '03',
+    label: 'Layer 3',
+    name: 'Business applications',
+    role: 'Included in the OS',
+    desc: 'ERP, HRMS, CRM, Accounting, Legal, SCM and CLM are built in, not stitched on, and every module is agent-addressable.',
+    chips: ['ERP', 'HRMS', 'CRM', 'Accounting', 'Legal', 'SCM', 'CLM'],
+    Icon: SquaresFour,
+    tone: 'app',
   },
   {
     n: '02',
@@ -44,10 +54,11 @@ const tools = [
 const toneTile = {
   dark: 'bg-gradient-to-br from-ink to-black text-white shadow-[0_18px_34px_-18px_rgba(23,23,26,0.8)]',
   ember: 'bg-gradient-to-br from-ember to-ember-deep text-white shadow-[0_18px_36px_-14px_rgba(255,99,1,0.9)]',
+  app: 'border border-ember/25 bg-gradient-to-br from-ember/10 to-paper text-ember-deep',
   light: 'border border-line bg-gradient-to-br from-paper to-paper-2 text-ink',
 }
 
-/** The platform as three stacked layers, sheets with depth, top to bottom. */
+/** The platform as four stacked layers, sheets with depth, top to bottom. */
 export function LayerStack({ className = '' }) {
   return (
     <div className={`relative ${className}`}>
