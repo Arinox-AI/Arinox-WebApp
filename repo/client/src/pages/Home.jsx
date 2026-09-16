@@ -206,10 +206,11 @@ const Home = () => {
           <div className="text-center lg:text-left">
             <Label className="justify-center lg:justify-start">AI transformation company</Label>
             <h1 className="mt-5 font-display text-[44px] leading-[1.02] font-normal tracking-[-0.02em] md:text-[64px] lg:text-[68px]">
-              We transform how your
-              <br />
-              enterprise <span className="italic text-ember">works.</span>
+              We make your enterprise <span className="italic text-ember">AI native.</span>
             </h1>
+            <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">
+              Reimagine<span className="mx-2.5 text-ember">·</span>Reinvent<span className="mx-2.5 text-ember">·</span>Run with AI
+            </p>
             <p className="mx-auto mt-6 max-w-[560px] text-[17px] leading-relaxed text-ink-soft md:text-lg lg:mx-0">
               From agentic automation and voice AI to sovereign on-premises compute and real-time
               decision intelligence, Arinox delivers enterprise AI across every industry and domain, entirely within your environment.

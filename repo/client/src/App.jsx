@@ -78,7 +78,7 @@ const AppInner = () => {
       <Footer />
       <ConsentBanner />
       <ArinoxChatBot />
-      <Analytics route={location.pathname} />
+      <Analytics route={location.pathname} path={location.pathname} />
     </BookCtaProvider>
   );
 };
