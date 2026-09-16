@@ -13,6 +13,9 @@ build/
 .env.local
 .env.*.local
 
+# Vercel project link (local only)
+.vercel
+
 # Logs
 logs/
 *.log
