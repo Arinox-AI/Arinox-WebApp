@@ -22,7 +22,7 @@ const Privacy = () => (
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Legal</p>
           <h1 className="text-3xl sm:text-4xl font-display font-bold text-brand-text mb-2">Privacy Policy</h1>
-          <p className="text-sm text-brand-muted mb-2">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 1 June 2026</p>
+          <p className="text-sm text-brand-muted mb-2">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 16 September 2026</p>
           <p className="text-sm text-brand-muted mb-10">
             This Privacy Policy describes how Adisen Tech Private Limited ("Arinox AI", "we", "our", or "us"),
             registered in Bengaluru, India, collects, uses, and protects information when you visit
@@ -52,13 +52,9 @@ const Privacy = () => (
             </ul>
 
             <p className="pt-1"><strong className="text-brand-text">C. Cookies and tracking technologies</strong></p>
-            <p>We use the following types of cookies on this website:</p>
-            <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">Strictly necessary cookies:</strong> Required for the website to function (session state, CSRF protection, cookie consent preference). These are always active.</li>
-              <li><strong className="text-brand-text">Analytics cookies (Google Analytics):</strong> Collect anonymised data on how visitors use the site   pages viewed, time on site, bounce rate. Only set with your consent via our cookie banner.</li>
-              <li><strong className="text-brand-text">Marketing cookies (LinkedIn Insight Tag):</strong> Used to understand the professional profile of visitors and measure campaign performance in aggregate. Only set with your consent.</li>
-            </ul>
-            <p>You can withdraw cookie consent at any time by clicking "Cookie Settings" in the footer or clearing your browser cookies.</p>
+            <p>We do not set cookies on this website. We do not use advertising or marketing cookies, social tracking pixels, or cross-site tracking of any kind.</p>
+            <p>We use Vercel Web Analytics to understand aggregate traffic to the site. It is cookieless: it does not place cookies, does not store personal data, does not fingerprint your device, and does not follow you across other websites. It records aggregate page views, referrers, and coarse device and country information only.</p>
+            <p>Because we do not set cookies or use tracking that requires consent, no cookie consent banner is shown. You can block or disable analytics requests in your browser or with an ad blocker without affecting how the website works.</p>
 
             <p className="pt-1"><strong className="text-brand-text">D. What we do NOT collect</strong></p>
             <p>We do not collect, process, or store any data processed by CommandCore™ or other on-premises AI deployments. Our sovereign AI platform operates entirely within your own infrastructure   your operational data, AI prompts, model outputs, and business data never reach our systems or servers.</p>
@@ -90,8 +86,7 @@ const Privacy = () => (
             <p>We share your personal data only in the following limited circumstances:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-brand-text">Service providers:</strong> Trusted vendors (hosting, email delivery, analytics) who process data on our behalf under contractual data processing agreements</li>
-              <li><strong className="text-brand-text">Google:</strong> Google Analytics is used for aggregate website analytics. Data is anonymised and subject to Google's privacy policy</li>
-              <li><strong className="text-brand-text">LinkedIn:</strong> LinkedIn Insight Tag may be used for aggregate advertising analytics where you have consented</li>
+              <li><strong className="text-brand-text">Analytics:</strong> Vercel Inc. provides cookieless, aggregate website analytics. No personal data is shared with them</li>
               <li><strong className="text-brand-text">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
             </ul>
             <p>We do not transfer your personal data outside India without appropriate safeguards as required by the DPDP Act 2023.</p>
@@ -103,7 +98,7 @@ const Privacy = () => (
               <li>Contact form submissions: 3 years from date of submission</li>
               <li>Marketing opt-in data: Until you withdraw consent</li>
               <li>Server logs: 90 days</li>
-              <li>Analytics data: 26 months (Google Analytics default)</li>
+              <li>Analytics data: aggregate and non-identifying (cookieless), retained by our analytics provider</li>
             </ul>
             <p>After the applicable retention period, data is securely deleted or anonymised.</p>
           </Section>

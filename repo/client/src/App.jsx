@@ -5,7 +5,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { Nav } from './components/site/Nav';
 import { Footer } from './components/site/Shell';
 import { BookCtaProvider } from './components/site/BookCtaContext';
-import ConsentBanner from './components/ui/ConsentBanner';
 import ArinoxChatBot from './components/ui/ArinoxChatBot';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -76,7 +75,6 @@ const AppInner = () => {
         </Suspense>
       </main>
       <Footer />
-      <ConsentBanner />
       <ArinoxChatBot />
       <Analytics route={location.pathname} path={location.pathname} />
     </BookCtaProvider>
