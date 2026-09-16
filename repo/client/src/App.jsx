@@ -5,7 +5,7 @@ import { Nav } from './components/site/Nav';
 import { Footer } from './components/site/Shell';
 import { BookCtaProvider } from './components/site/BookCtaContext';
 import ConsentBanner from './components/ui/ConsentBanner';
-import ArinoxChatBot from './components/ui/ArinoxChatBot';
+// import ArinoxChatBot from './components/ui/ArinoxChatBot'; // chatbot disabled for now
 
 const Home = lazy(() => import('./pages/Home'));
 const Platform = lazy(() => import('./pages/Platform'));
@@ -78,7 +78,7 @@ const AppInner = () => {
       </main>
       <Footer />
       <ConsentBanner />
-      <ArinoxChatBot />
+      {/* <ArinoxChatBot /> */}
     </BookCtaProvider>
   );
 };

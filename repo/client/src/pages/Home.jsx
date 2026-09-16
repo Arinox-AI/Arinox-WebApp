@@ -110,6 +110,8 @@ const trustedLogos = [
   { src: '/images/logos/nikom.png', alt: 'Nikom', h: 'h-7' },
   { src: '/images/logos/langoor.png', alt: 'Langoor', h: 'h-12' },
   { src: '/images/logos/indian-army.png', alt: 'Indian Army', h: 'h-12' },
+  { src: '/images/logos/sunmobility.png', alt: 'Sun Mobility', h: 'h-7' },
+  { src: '/images/logos/kosmoderma.png', alt: 'Kosmoderma Clinics', h: 'h-7' },
 ]
 
 function PersonGroup({ label, people }) {
