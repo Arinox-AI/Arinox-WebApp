@@ -36,7 +36,10 @@ const partnerGroups = [
   },
   {
     label: 'Data',
-    items: [{ name: 'Dataquark', logo: '/images/logos/dataquark.png' }],
+    items: [
+      { name: 'Dataquark', logo: '/images/logos/dataquark.png' },
+      { name: 'LS Digital', logo: '/images/logos/lsdigital.png' },
+    ],
   },
 ];
 

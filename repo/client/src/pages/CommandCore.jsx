@@ -190,7 +190,7 @@ const CommandCore = () => (
           No prototypes. 80+ enterprise-ready agents deployable today.
         </h2>
         <p className="max-w-sm text-[15px] leading-relaxed text-ghost">
-          Inference to telephony, all local, all logged. Powered by KOGO OS.
+          All local, all logged. Powered by KOGO OS.
         </p>
       </div>
       <div className="mt-12 grid gap-x-16 sm:grid-cols-2">
