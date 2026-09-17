@@ -46,9 +46,9 @@ const deploy = [
     li: ['Deploys into your cloud', 'Isolated tenancy', 'Scales as adoption spreads'],
   },
   {
-    t: 'Your private infrastructure',
-    d: 'On your metal, your network, your terms. Existing investments, new capability.',
-    li: ['Runs on your private estate', 'BFSI and healthcare floors', 'Compliance as architecture'],
+    t: 'Your virtual private cloud',
+    d: 'We host it for you in a private cloud that stays yours alone.',
+    li: ['Hosted by us in a private VPC', 'Dedicated, not shared', 'No hardware to own or manage'],
   },
   {
     t: 'CommandCore™',
@@ -280,6 +280,11 @@ const Home = () => {
             team.
           </p>
         </div>
+
+        <p className="mt-12 max-w-3xl font-display text-[24px] leading-snug tracking-[-0.015em] text-ink md:text-[30px]">
+          You focus on your business. We carry the technical weight, and keep your AI journey{' '}
+          <span className="italic text-ember">safe and compliant.</span>
+        </p>
 
         <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-3">
           {model.map((m) => (
