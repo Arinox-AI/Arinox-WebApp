@@ -373,9 +373,9 @@ const Careers = () => {
           </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-line pt-8">
-            <Button href="mailto:careers@arinox.ai" variant="ghost">
+            <Button href="mailto:vandana@arinox.ai" variant="ghost">
               <EnvelopeSimple size={17} weight="bold" />
-              careers@arinox.ai
+              vandana@arinox.ai
             </Button>
             <span className="text-sm text-ink-faint">No matching role? Send your work anyway.</span>
           </div>
