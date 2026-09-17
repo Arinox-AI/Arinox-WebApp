@@ -282,7 +282,7 @@ const Home = () => {
         </div>
 
         <p className="mt-12 max-w-3xl font-display text-[24px] leading-snug tracking-[-0.015em] text-ink md:text-[30px]">
-          You focus on your business. We carry the technical weight, and keep your AI journey{' '}
+          You focus on your business. We carry the technical weight, from setting up your VPC to keeping your AI journey{' '}
           <span className="italic text-ember">safe and compliant.</span>
         </p>
 
