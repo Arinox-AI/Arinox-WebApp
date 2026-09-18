@@ -131,6 +131,10 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                 <Button type="submit" variant="ember" disabled={loading} className="mt-2 w-full">
                   {loading ? 'Submitting…' : 'Submit application'}
                 </Button>
+                <p className="mt-3 text-[12.5px] leading-relaxed text-ink-faint">
+                  Your details and résumé are used only to assess this application, and are handled under our{' '}
+                  <Link to="/privacy" className="text-ember-deep underline underline-offset-2 hover:text-ink">Privacy Policy</Link>.
+                </p>
               </form>
             </>
           )}

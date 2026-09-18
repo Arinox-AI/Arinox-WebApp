@@ -42,11 +42,9 @@ const Privacy = () => (
 
             <p className="pt-1"><strong className="text-ink">B. Data collected automatically when you visit our website</strong></p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-ink">Device & browser information:</strong> Browser type and version, operating system, device type (desktop / mobile / tablet), screen resolution, and language settings</li>
-              <li><strong className="text-ink">Network information:</strong> Your IP address, held briefly in memory to rate-limit abuse and used to derive aggregate country or region in analytics. It is not written to our databases</li>
-              <li><strong className="text-ink">Page interaction data:</strong> Pages visited, time spent on each page, scroll depth, links clicked, and buttons interacted with</li>
-              <li><strong className="text-ink">Referral data:</strong> The URL or search query that brought you to our site (e.g., Google, LinkedIn, a direct link)</li>
-              <li><strong className="text-ink">Session data:</strong> Session duration, entry and exit pages, and navigation path through the site</li>
+              <li><strong className="text-ink">Device and browser information:</strong> Browser, operating system and device type, derived from the request our analytics provider receives</li>
+              <li><strong className="text-ink">Network information:</strong> Your IP address, held briefly in memory to rate-limit abuse and used to derive aggregate country or region. It is not written to our databases</li>
+              <li><strong className="text-ink">Page views:</strong> Which pages are visited, and the referring page or search query that brought you here</li>
             </ul>
 
             <p className="pt-1"><strong className="text-ink">C. Cookies and tracking technologies</strong></p>
@@ -70,6 +68,7 @@ const Privacy = () => (
               <li>Detect and prevent fraud, abuse, and security incidents</li>
             </ul>
             <p>We do not sell, rent, or trade your personal data to third parties for marketing purposes.</p>
+            <p>Where you submit a form on this site, the notice beside it records your consent to the processing described in this policy. You can withdraw that consent at any time by contacting our grievance officer.</p>
           </Section>
 
           <Section title="3. Legal Basis for Processing">
@@ -98,7 +97,7 @@ const Privacy = () => (
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Contact form submissions: 3 years from date of submission</li>
               <li>Job applications and résumés: 12 months from submission, unless you ask us to delete them sooner</li>
-              <li>Server logs: 90 days</li>
+              <li>Server and function logs: retained briefly by our hosting provider for operational purposes</li>
               <li>Analytics data: aggregate and non-identifying (cookieless), retained by our analytics provider</li>
             </ul>
             <p>After the applicable retention period, data is securely deleted or anonymised.</p>

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { LinkedinIcon } from '../components/site/Icons';
@@ -128,6 +129,11 @@ const Contact = () => {
               </Button>
               <p className="mt-4 text-[13px] leading-relaxed text-ink-faint">
                 No newsletter, no drip sequence. One reply from a human who can read an architecture diagram.
+              </p>
+              <p className="mt-3 text-[12.5px] leading-relaxed text-ink-faint">
+                By sending this you consent to our{' '}
+                <Link to="/privacy" className="text-ember-deep underline underline-offset-2 hover:text-ink">Privacy Policy</Link>.
+                We use your details only to reply to you.
               </p>
             </form>
           )}
