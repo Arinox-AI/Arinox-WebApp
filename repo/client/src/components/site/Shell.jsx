@@ -68,12 +68,9 @@ export function Footer() {
             <FooterLink to="/terms">Terms</FooterLink>
           </div>
         </div>
-        <div className="mt-16 border-t border-line pt-6 font-mono text-[11.5px] text-ink-faint">
-          <div className="flex flex-wrap justify-between gap-2.5">
-            <span>© 2026 Adisen Tech Private Limited · Bengaluru · All rights reserved.</span>
-            <span>Sovereign. Scalable. Yours.</span>
-          </div>
-          <p className="mt-2.5">Third-party names and logos are the property of their respective owners.</p>
+        <div className="mt-16 flex flex-wrap justify-between gap-2.5 border-t border-line pt-6 font-mono text-[11.5px] text-ink-faint">
+          <span>© 2026 Adisen Tech Private Limited · Bengaluru · All rights reserved.</span>
+          <span>Sovereign. Scalable. Yours.</span>
         </div>
       </div>
     </footer>
