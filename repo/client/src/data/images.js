@@ -41,12 +41,8 @@ export const IMAGES = {
   'nvidia-workshop':  '/images/events/nvidia-workshop.jpg',
   'indian-gov':       '/images/events/indian-government.jpeg',
 
-  /* industries/, sector photography */
+  /* industries/, sector photography (blog imagery) */
   banking:    '/images/industries/banking.jpeg',
-  defence:    '/images/industries/defence.jpeg',
-  government: '/images/industries/government.jpeg',
-  healthcare: '/images/industries/healthcare.jpeg',
-  legal:      '/images/industries/legal.jpeg',
   technology: '/images/industries/technology.jpeg',
 };
 

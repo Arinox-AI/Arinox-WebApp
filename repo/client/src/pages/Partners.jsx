@@ -14,31 +14,31 @@ const partnerGroups = [
   {
     label: 'Compute',
     items: [
-      { name: 'E2E Networks', logo: '/images/logos/e2e-networks.png' },
-      { name: 'Altos', logo: '/images/logos/altos.svg' },
-      { name: 'HP', logo: '/images/logos/hp.svg' },
-      { name: 'IBM', logo: '/images/logos/ibm.svg' },
+      { name: 'E2E Cloud', logo: '/images/logos/e2e-networks.png', h: 'h-14' },
+      { name: 'Altos', logo: '/images/logos/altos.svg', h: 'h-7' },
+      { name: 'HP', logo: '/images/logos/hp.svg', h: 'h-8' },
+      { name: 'IBM', logo: '/images/logos/ibm.svg', h: 'h-8' },
     ],
   },
   {
     label: 'Silicon',
     items: [
-      { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg' },
-      { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg' },
+      { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg', h: 'h-7' },
+      { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg', h: 'h-7' },
     ],
   },
   {
     label: 'Distribution',
     items: [
-      { name: 'TechData', logo: '/images/logos/techdata.svg' },
-      { name: 'Redington', logo: '/images/logos/redington.svg' },
+      { name: 'TechData', logo: '/images/logos/techdata.svg', h: 'h-7' },
+      { name: 'Redington', logo: '/images/logos/redington.svg', h: 'h-7' },
     ],
   },
   {
     label: 'Data',
     items: [
-      { name: 'Dataquark', logo: '/images/logos/dataquark.png' },
-      { name: 'LS Digital', logo: '/images/logos/lsdigital.png' },
+      { name: 'Dataquark', logo: '/images/logos/dataquark.png', h: 'h-11' },
+      { name: 'LS Digital', logo: '/images/logos/lsdigital.png', h: 'h-12' },
     ],
   },
 ];
@@ -107,18 +107,21 @@ const Partners = () => (
         </p>
       </div>
 
-      <div className="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-10 border-t border-ink/80">
         {partnerGroups.map((g) => (
-          <div key={g.label} className="border-t border-ink/80 pt-5">
+          <div
+            key={g.label}
+            className="grid gap-y-5 border-b border-line py-7 md:grid-cols-[150px_1fr] md:items-center md:gap-x-12 md:py-8"
+          >
             <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">{g.label}</p>
-            <div className="mt-6 flex min-h-[76px] flex-wrap content-start items-center gap-x-8 gap-y-6">
+            <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
               {g.items.map((s) => (
                 <img
                   key={s.name}
                   src={s.logo}
                   alt={s.name}
                   loading="lazy"
-                  className="h-9 w-auto max-w-[120px] object-contain opacity-70 transition-opacity duration-200 hover:opacity-100"
+                  className={`w-auto shrink-0 object-contain opacity-70 transition-opacity duration-200 hover:opacity-100 ${s.h}`}
                 />
               ))}
             </div>

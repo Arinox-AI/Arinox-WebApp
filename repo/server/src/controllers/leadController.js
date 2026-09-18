@@ -5,7 +5,7 @@ const { sendMail, leadNotification, contactAutoReply } = require('../utils/maile
 const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
 const join = (v) => (Array.isArray(v) ? v.join(', ') : str(v));
 
-/* Submit a lead from the Google Ads landing page (/get-started). Saves a
+/* Submit a lead from a campaign landing page. Saves a
    structured row to the Leads table (each ICP answer in its own column) and
    notifies the Arinox team + auto-replies to the lead. The email is sent even
    if the DB write fails, so a lead is never lost. */

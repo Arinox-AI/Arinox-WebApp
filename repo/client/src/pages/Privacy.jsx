@@ -22,7 +22,7 @@ const Privacy = () => (
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3 text-ember-deep">Legal</p>
           <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[52px]">Privacy Policy</h1>
-          <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 16 September 2026</p>
+          <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 18 September 2026</p>
           <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             This Privacy Policy describes how Adisen Tech Private Limited ("Arinox AI", "we", "our", or "us"),
             registered in Bengaluru, India, collects, uses, and protects information when you visit
@@ -35,17 +35,15 @@ const Privacy = () => (
           <Section title="1. Information We Collect">
             <p><strong className="text-ink">A. Information you provide directly</strong></p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-ink">Contact & enquiry forms:</strong> Name, email address, phone number (optional), company name, job title, and the message you write to us</li>
-              <li><strong className="text-ink">Book a demo / Book a free call:</strong> Name, business email, company name, and any scheduling preferences you share</li>
-              <li><strong className="text-ink">Newsletter / update subscriptions:</strong> Email address and name (where provided)</li>
-              <li><strong className="text-ink">Event registrations:</strong> Name, email, company, and event-specific details you submit via our registration forms</li>
-              <li><strong className="text-ink">Chatbot conversations:</strong> Messages sent through our website chat assistant. These may be monitored, recorded, and used for service improvement, personalisation, and business purposes as described in this policy</li>
+              <li><strong className="text-ink">Contact &amp; enquiry forms:</strong> Name, email address, company name, phone number (optional), the subject you select, and the message you write to us</li>
+              <li><strong className="text-ink">Career applications:</strong> Name, email address, phone number, LinkedIn profile, the role you apply for, your cover note, and the CV or résumé you upload</li>
+              <li><strong className="text-ink">Chatbot conversations:</strong> The messages you send through our website assistant. They are used to generate a reply and are not stored on our servers once the reply has been produced</li>
             </ul>
 
             <p className="pt-1"><strong className="text-ink">B. Data collected automatically when you visit our website</strong></p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-ink">Device & browser information:</strong> Browser type and version, operating system, device type (desktop / mobile / tablet), screen resolution, and language settings</li>
-              <li><strong className="text-ink">Network information:</strong> Your IP address (used to determine approximate country/region for analytics; not stored in identifiable form beyond 90 days)</li>
+              <li><strong className="text-ink">Network information:</strong> Your IP address, held briefly in memory to rate-limit abuse and used to derive aggregate country or region in analytics. It is not written to our databases</li>
               <li><strong className="text-ink">Page interaction data:</strong> Pages visited, time spent on each page, scroll depth, links clicked, and buttons interacted with</li>
               <li><strong className="text-ink">Referral data:</strong> The URL or search query that brought you to our site (e.g., Google, LinkedIn, a direct link)</li>
               <li><strong className="text-ink">Session data:</strong> Session duration, entry and exit pages, and navigation path through the site</li>
@@ -53,6 +51,7 @@ const Privacy = () => (
 
             <p className="pt-1"><strong className="text-ink">C. Cookies and tracking technologies</strong></p>
             <p>We do not set cookies on this website. We do not use advertising or marketing cookies, social tracking pixels, or cross-site tracking of any kind.</p>
+            <p>We store one session-storage flag in your browser to remember that you dismissed our chat prompt. It is not a cookie and is never sent to us; your browser clears it when you close the tab.</p>
             <p>We use Vercel Web Analytics to understand aggregate traffic to the site. It is cookieless: it does not place cookies, does not store personal data, does not fingerprint your device, and does not follow you across other websites. It records aggregate page views, referrers, and coarse device and country information only.</p>
             <p>Because we do not set cookies or use tracking that requires consent, no cookie consent banner is shown. You can block or disable analytics requests in your browser or with an ad blocker without affecting how the website works.</p>
 
@@ -65,7 +64,7 @@ const Privacy = () => (
             <p>We use the information we collect to:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Respond to your enquiries and provide the services you request</li>
-              <li>Send you updates, newsletters, and product information where you have opted in</li>
+              <li>Assess and manage the job applications you submit through our Careers page</li>
               <li>Improve our website and understand how visitors engage with our content</li>
               <li>Comply with legal obligations under Indian law, including the Information Technology Act 2000 and the Digital Personal Data Protection Act 2023 (DPDP Act)</li>
               <li>Detect and prevent fraud, abuse, and security incidents</li>
@@ -76,8 +75,8 @@ const Privacy = () => (
           <Section title="3. Legal Basis for Processing">
             <p>We process your personal data on the following bases under the DPDP Act 2023 and applicable Indian law:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-ink">Consent:</strong> For marketing communications and non-essential cookies, where you have given explicit consent</li>
-              <li><strong className="text-ink">Legitimate interest:</strong> For responding to enquiries, website security monitoring, and aggregate analytics</li>
+              <li><strong className="text-ink">Consent:</strong> Where you submit an enquiry, request a plan, apply for a role, or ask us to contact you</li>
+              <li><strong className="text-ink">Legitimate uses:</strong> Where the DPDP Act permits processing without consent, such as responding to a request you initiate, recruitment, security monitoring, and aggregate analytics</li>
               <li><strong className="text-ink">Legal obligation:</strong> Where processing is required to comply with applicable Indian law</li>
             </ul>
           </Section>
@@ -85,18 +84,20 @@ const Privacy = () => (
           <Section title="4. Data Sharing and Third Parties">
             <p>We share your personal data only in the following limited circumstances:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-ink">Service providers:</strong> Trusted vendors (hosting, email delivery, analytics) who process data on our behalf under contractual data processing agreements</li>
-              <li><strong className="text-ink">Analytics:</strong> Vercel Inc. provides cookieless, aggregate website analytics. No personal data is shared with them</li>
+              <li><strong className="text-ink">Hosting and storage:</strong> Vercel Inc. hosts the website and its serverless functions. Supabase stores our database records and files, including enquiries, leads, job applications and uploaded résumés</li>
+              <li><strong className="text-ink">AI inference:</strong> Groq, Inc. generates replies for our website chat assistant. Your messages are sent to it together with a fixed Arinox knowledge prompt, and are not stored on our servers. Please do not share confidential information in the chat</li>
+              <li><strong className="text-ink">Email delivery:</strong> Our email provider transmits the messages you send us, our replies, and job applications with their attachments</li>
+              <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. Typefaces are loaded from Google Fonts and Fontshare; as with any web request, this discloses your IP address to those providers</li>
               <li><strong className="text-ink">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
             </ul>
-            <p>We do not transfer your personal data outside India without appropriate safeguards as required by the DPDP Act 2023.</p>
+            <p>Some of these providers process data outside India. Where they do, we rely on the safeguards required by the DPDP Act 2023.</p>
           </Section>
 
           <Section title="5. Data Retention">
             <p>We retain personal data only as long as necessary for the purposes described in this policy:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li>Contact form submissions: 3 years from date of submission</li>
-              <li>Marketing opt-in data: Until you withdraw consent</li>
+              <li>Job applications and résumés: 12 months from submission, unless you ask us to delete them sooner</li>
               <li>Server logs: 90 days</li>
               <li>Analytics data: aggregate and non-identifying (cookieless), retained by our analytics provider</li>
             </ul>
@@ -110,9 +111,9 @@ const Privacy = () => (
               <li><strong className="text-ink">Correction:</strong> Request that inaccurate or incomplete data be corrected</li>
               <li><strong className="text-ink">Erasure:</strong> Request deletion of your personal data where there is no legitimate reason for continued processing</li>
               <li><strong className="text-ink">Withdraw consent:</strong> Where processing is based on consent, withdraw it at any time without affecting the lawfulness of prior processing</li>
-              <li><strong className="text-ink">Grievance redressal:</strong> Lodge a complaint with our Data Protection Officer or the Data Protection Board of India</li>
+              <li><strong className="text-ink">Grievance redressal:</strong> Lodge a complaint with our grievance officer or the Data Protection Board of India</li>
             </ul>
-            <p>To exercise any of these rights, contact us at <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>. We will respond within 30 days.</p>
+            <p>To exercise any of these rights, contact our grievance officer at <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>. We will respond within 30 days.</p>
           </Section>
 
           <Section title="7. Security">
@@ -131,7 +132,7 @@ const Privacy = () => (
           <Section title="10. Contact Us">
             <p>For privacy-related enquiries, requests, or complaints:</p>
             <div className="card-light mt-2 space-y-1 p-5">
-              <p><strong className="text-ink">Contact</strong></p>
+              <p><strong className="text-ink">Data protection / grievance officer</strong></p>
               <p>Adisen Tech Private Limited (Arinox AI)</p>
               <p>Bengaluru, Karnataka, India</p>
               <p>Email: <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a></p>

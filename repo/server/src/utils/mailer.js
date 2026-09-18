@@ -165,7 +165,7 @@ const leadNotification = (lead) => {
     `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value || 'N/A'}</div>`;
   const hasCampaign = utmSource || utmMedium || utmCampaign || gclid || gadSource;
   return emailWrapper(`
-    ${header('New lead', 'Submitted via /get-started')}
+    ${header('New lead', 'Submitted via a campaign form')}
     <div style="${bodyStyle}">
       <p style="${eyebrowStyle}">Contact</p>
       ${row('Name', name)}

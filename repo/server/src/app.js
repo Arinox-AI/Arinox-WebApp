@@ -94,10 +94,6 @@ if (process.env.NODE_ENV === 'production') {
 
   if (fs.existsSync(clientBuild)) {
 
-  // Standalone Google Ads lead-capture landing page - clean URL alias so
-  // the ad can point at /get-started (the file ships as get-started.html).
-  app.get('/get-started', (req, res) => res.sendFile(path.join(clientBuild, 'get-started.html')));
-
   // Cache versioned assets (hashes in filenames) aggressively
   app.use('/assets', express.static(path.join(clientBuild, 'assets'), {
     maxAge: '365d',
