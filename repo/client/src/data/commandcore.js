@@ -8,7 +8,7 @@ export const commandCoreIntro = {
   product: 'CommandCore™',
   tagline: 'Agentic AI in a box',
   title: 'CommandCore, agentic AI, in a box.',
-  lead: 'CommandCore is Arinox’s own product: a self-contained AI micro-datacenter that brings compute, models, agentic intelligence, and governance inside your perimeter. 100% AI, 0% internet, fully air-gapped, sovereign, and on-premises.',
+  lead: 'CommandCore is our sovereign AI appliance: a self-contained micro-datacenter that brings compute, models, agentic intelligence and governance inside your perimeter.',
   badges: ['Agentic AI in a box', '100% AI · 0% internet', 'Fully air-gapped', 'Edge to datacenter'],
   claim: 'India’s first fully sovereign implementation of AI-in-a-Box.',
 };
@@ -121,10 +121,10 @@ export const tiers = [
 
 /* What CommandCore powers, from the brochure use-case map */
 export const powerUseCases = [
-  { sector: 'Government & public sector', items: ['Secure analytics & dashboards', 'Citizen data intelligence', 'Policy simulation & planning', 'Offline AI for critical departments'] },
-  { sector: 'BFSI', items: ['Fraud detection & compliance', 'Risk analytics', 'Secure AI copilots'] },
-  { sector: 'Enterprise & industry', items: ['Process automation', 'Predictive maintenance', 'Supply chain intelligence', 'Autonomous enterprise workflows'] },
-  { sector: 'Security & surveillance', items: ['Intelligence analysis & fusion', 'Sensor, satellite & video processing', 'Autonomous threat detection', 'Secure AI red-teaming'] },
+  { sector: 'Government & public sector', image: '/images/sectors/government.svg', items: ['Secure analytics & dashboards', 'Citizen data intelligence', 'Policy simulation & planning', 'Offline AI for critical departments'] },
+  { sector: 'BFSI', image: '/images/sectors/bfsi.svg', items: ['Fraud detection & compliance', 'Risk analytics', 'Secure AI copilots'] },
+  { sector: 'Enterprise & industry', image: '/images/sectors/industry.svg', items: ['Process automation', 'Predictive maintenance', 'Supply chain intelligence', 'Autonomous enterprise workflows'] },
+  { sector: 'Security & surveillance', image: '/images/sectors/security.svg', items: ['Intelligence analysis & fusion', 'Sensor, satellite & video processing', 'Autonomous threat detection', 'Secure AI red-teaming'] },
 ];
 
 export const governance = [
@@ -145,12 +145,12 @@ export const deploymentSteps = [
 export const kogo = {
   name: 'KOGO OS',
   role: 'The agentic layer',
-  desc: 'CommandCore’s intelligence comes from KOGO OS, the flagship private agentic AI platform built into every unit. KOGO turns infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable.',
-  badges: ['Built-in', '100+ connectors', '0 cloud dependence'],
+  desc: 'KOGO OS is an agentic operating system: the layer between your infrastructure and your work. It builds agents, orchestrates them as a mesh, manages their memory and tools, and keeps every action accountable, so the work runs itself and every step stays auditable.',
+  badges: ['Built-in', '500+ tools & connectors', '0 cloud dependence'],
   points: [
     'Agent Builder, low/no-code drag-and-drop workflows',
     'Agent Store, ready agents for video, audio, text & OCR',
-    'Agentic Mesh, plan-act-learn multi-agent swarms',
+    'Agentic Mesh, multi-agent orchestration with shared memory',
     'Policy & guardrails with PII controls',
     'Red-team & evaluation harness',
     'Live runs, replay & full observability',

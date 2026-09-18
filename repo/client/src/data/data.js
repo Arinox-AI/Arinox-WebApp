@@ -9,7 +9,7 @@ export const dataReadiness = {
   titleAccent: 'AI-ready.',
   lead: 'Your AI engine is only as powerful as the data behind it. Arinox transforms fragmented, unstructured and siloed enterprise data into a trusted, governed and AI-ready data foundation.',
   chips: ['discover', 'cleanse', 'structure', 'connect', 'govern', 'AI-enable'],
-  link: { label: 'Data readiness, in detail', to: '/commandcore' },
+  link: { label: 'Assess your data readiness', to: '/contact' },
   pullQuote: 'Garbage in, garbage out — at enterprise scale.',
   pullNote: 'Not a data management service. A readiness step inside the transformation, so the AI you deploy isn’t guessing.',
   governance: 'Governance applied at every stage',

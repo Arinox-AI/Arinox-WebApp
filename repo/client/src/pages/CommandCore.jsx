@@ -18,7 +18,7 @@ const tierImages = {
 };
 
 const uses = [
-  { k: 'Defence', t: 'Tactical deployments', d: 'Sovereign systems under national security constraints, audited end to end, swarm coordination for autonomous platforms.' },
+  { k: 'Defence', t: 'Tactical deployments', d: 'Sovereign systems under national security constraints, audited end to end, multi-agent coordination for autonomous platforms.' },
   { k: 'Field ops', t: 'Remote sites', d: 'Mines, plants, vessels, outposts, intelligence where backhaul doesn’t exist. Rugged, self-contained operation.' },
   { k: 'Regulated', t: 'Compliance-first estates', d: 'BFSI and healthcare floors where the regulator knows the data never moved. Audit coverage by architecture.' },
 ];

@@ -17,11 +17,11 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${dark ? 'bg-void text-white' : 'bg-paper'} ${border && !dark ? 'border-t border-line' : ''} py-20 md:py-[104px] ${className}`}
+      className={`${dark ? 'bg-void text-white' : 'bg-paper'} ${border && !dark ? 'border-t border-line' : ''} py-14 md:py-[76px] ${className}`}
     >
       <div className="mx-auto max-w-6xl px-7">
         {(eyebrow || title || sub) && (
-          <div className={`mb-14 md:mb-20 ${c} ${headClassName}`}>
+          <div className={`mb-10 md:mb-12 ${c} ${headClassName}`}>
             {eyebrow && <Eyebrow dark={dark} centered={centered}>{eyebrow}</Eyebrow>}
             {title && (
               <h2

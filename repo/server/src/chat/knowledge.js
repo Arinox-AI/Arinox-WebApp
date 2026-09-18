@@ -56,8 +56,8 @@ The three published tiers:
 CommandCore is a modular, plug-and-play stack: scale from the edge to the datacenter without re-architecting.
 
 ## KOGO OS (THE AGENTIC LAYER)
-KOGO OS is the private agentic AI platform built into every CommandCore unit. It turns infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable. 100+ connectors, zero cloud dependence.
-Capabilities: Agent Builder (low/no-code), Agent Store (ready agents for video, audio, text and OCR), Agentic Mesh (plan-act-learn multi-agent swarms), policy and guardrails with PII controls, red-team and evaluation harness, live runs/replay/full observability, unified governed memory and retrieval, model manager for hosting, fine-tuning and routing open models.
+KOGO OS is the private agentic AI platform behind every Arinox deployment, whether it runs on a CommandCore appliance or on the customer's own infrastructure. It turns that infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable. 500+ native tools and MCP connectors, zero cloud dependence.
+Capabilities: Agent Builder (low/no-code), Agent Store (ready agents for video, audio, text and OCR), Agentic Mesh (plan-act-learn multi-agent orchestration), policy and guardrails with PII controls, red-team and evaluation harness, live runs/replay/full observability, unified governed memory and retrieval, model manager for hosting, fine-tuning and routing open models.
 Security: air-gapped zero-egress stack; SSO (SAML/OIDC) with MFA and RBAC/ABAC; TLS 1.2+ in transit and AES-256 at rest; customer-managed keys via KMS/HSM; exportable audit packs for every run.
 
 ## DATA READINESS (CAPABILITY, ON THE HOME PAGE)

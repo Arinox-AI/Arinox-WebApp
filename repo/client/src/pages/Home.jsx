@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Map, Rocket, Layers, Target, ShieldCheck, Boxes } from 'lucide-react'
+import { Map, Rocket, Layers } from 'lucide-react'
 import SEO from '../components/ui/SEO'
 import { useBookCta, BOOK_CTA_TRANSITION } from '../components/site/BookCtaContext'
 import { Button } from '../components/site/Button'
@@ -14,7 +14,7 @@ import { LayerStack } from '../components/site/LayerStack'
 import { DataFlow } from '../components/site/DataFlow'
 import { team, advisors } from '../data/site'
 import { dataReadiness } from '../data/data'
-import { businessApps } from '../data/commandcore'
+import { businessApps, commandCoreIntro, headlineClaims, powerUseCases, kogo } from '../data/commandcore'
 import { samplePosts } from './Blog'
 
 const moves = [
@@ -64,7 +64,7 @@ const model = [
   {
     n: '01',
     k: 'What',
-    Icon: Target,
+    image: '/images/partnership/what.svg',
     title: 'We solve with purpose',
     desc: 'We build AI that drives business transformation, from roadmap to rollout: strategy, systems, and scale.',
     tags: ['Strategy', 'Systems', 'Scale'],
@@ -72,7 +72,7 @@ const model = [
   {
     n: '02',
     k: 'Who',
-    Icon: ShieldCheck,
+    image: '/images/partnership/who.svg',
     title: 'Trusted by the regulated',
     desc: 'Enterprises, governments, defence, and global system integrators, environments where AI has to survive the security review.',
     tags: ['BFSI', 'Healthcare', 'Defence', 'Government'],
@@ -80,21 +80,11 @@ const model = [
   {
     n: '03',
     k: 'How',
-    Icon: Boxes,
+    image: '/images/partnership/how.svg',
     title: 'An end-to-end ecosystem',
     desc: 'Data readiness, implementation, and adoption, managed end to end so strategy becomes measurable value.',
     tags: ['Data readiness', 'Implementation', 'Adoption'],
   },
-]
-
-const marquee = [
-  'Any cloud, your estate',
-  'Air-gapped option',
-  'RBAC by default',
-  'Full audit trails',
-  'Scales with demand',
-  'Zero data egress',
-  'BFSI · Healthcare · Defence',
 ]
 
 const trustedLogos = [
@@ -221,7 +211,7 @@ const Home = () => {
               We make your enterprise <span className="italic text-ember">AI native.</span>
             </h1>
             <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">
-              Reimagine<span className="mx-2.5 text-ember">·</span>Reinvent<span className="mx-2.5 text-ember">·</span>Run with AI
+              AI transformation, implemented end-to-end.
             </p>
             <p className="mx-auto mt-6 max-w-[560px] text-[17px] leading-relaxed text-ink-soft md:text-lg lg:mx-0">
               From agentic automation and voice AI to sovereign on-premises compute and real-time
@@ -245,7 +235,7 @@ const Home = () => {
               <Button to="/case-studies" variant="ghost">Explore case studies</Button>
             </div>
             <p className="num mt-6 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
-              Free discovery session · you keep the map · zero egress
+              Free discovery session · the roadmap is yours · zero egress
             </p>
           </div>
 
@@ -280,26 +270,50 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Our model */}
+      {/* The problem, dark statement, hairline rows */}
+      <Section dark border={false}>
+        <Label dark>The problem</Label>
+        <h2 className="mt-5 max-w-3xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[52px]">
+          Most AI never leaves the demo stage.
+        </h2>
+        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">
+          Three questions decide whether AI ships: where the data goes, who owns the model, and what
+          happens at the security review. We answer all three before we build.
+        </p>
+        <div className="mt-12 grid gap-x-16 gap-y-10 md:grid-cols-3">
+          {[
+            ['The data can’t move', 'Regulated data can’t be shipped to a vendor’s cloud, so the pilot never survives compliance. We run the models where the data already lives.'],
+            ['The pilot never ends', 'Six months of “evaluation” and nothing in production. We deploy in days and expand workflow by workflow, with results at each step.'],
+            ['Nobody can audit it', 'A model that can’t explain its decisions will never pass review. Every agent decision is logged, every time.'],
+          ].map(([t, d]) => (
+            <div key={t} className="border-t border-white/20 pt-6">
+              <h3 className="font-display text-[22px] leading-tight tracking-[-0.01em] text-phos">{t}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* The partnership */}
       <Section border>
-        <Label>Our model</Label>
+        <Label>The partnership</Label>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
             One partner for the whole AI journey.
           </h2>
           <p className="max-w-xs text-[15px] leading-relaxed text-ink-soft">
-            Assessment, architecture, deployment, and operations, held together by one accountable
-            team.
+            Accountable for the outcome, from the first working session to the workflows running in
+            production.
           </p>
         </div>
 
-        <p className="mt-12 max-w-2xl text-[17px] leading-relaxed text-ink-soft">
+        <p className="mt-10 max-w-2xl text-[17px] leading-relaxed text-ink-soft">
           You focus on your business. We carry the technical weight, from setting up your VPC to
           keeping your{' '}
           <span className="border-b border-ember pb-0.5 text-ink">AI journey safe and compliant.</span>
         </p>
 
-        <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-3">
+        <div className="mt-12 grid gap-x-12 gap-y-14 md:grid-cols-3">
           {model.map((m) => (
             <div key={m.k} className="group">
               <div className="flex items-center gap-3 border-t border-ink/80 pt-6">
@@ -311,8 +325,13 @@ const Home = () => {
                 />
               </div>
 
-              <div className="mt-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-ember/10 text-ember-deep">
-                <m.Icon size={28} strokeWidth={1.75} />
+              <div className="mt-7 flex h-[136px] items-center">
+                <img
+                  src={m.image}
+                  alt=""
+                  loading="lazy"
+                  className="max-h-full w-full object-contain object-left transition-transform duration-500 group-hover:scale-[1.02]"
+                />
               </div>
 
               <h3 className="mt-6 font-display text-[27px] leading-tight tracking-[-0.01em]">{m.title}</h3>
@@ -333,30 +352,6 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* The problem, dark statement, hairline rows */}
-      <Section dark border={false}>
-        <Label dark>The problem</Label>
-        <h2 className="mt-5 max-w-3xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[52px]">
-          Most AI never leaves the demo stage.
-        </h2>
-        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">
-          Three questions decide whether AI ships: where the data goes, who owns the model, and what
-          happens at the security review. We answer all three before we build.
-        </p>
-        <div className="mt-14 grid gap-x-16 gap-y-10 md:grid-cols-3">
-          {[
-            ['The data can’t move', 'Regulated data can’t be shipped to a vendor’s cloud, so the pilot never survives compliance. We run the models where the data already lives.'],
-            ['The pilot never ends', 'Six months of “evaluation” and nothing in production. We deploy in days and expand workflow by workflow, with results at each step.'],
-            ['Nobody can audit it', 'A model that can’t explain its decisions will never pass review. Every agent decision is logged, every time.'],
-          ].map(([t, d]) => (
-            <div key={t} className="border-t border-white/20 pt-6">
-              <h3 className="font-display text-[22px] leading-tight tracking-[-0.01em] text-phos">{t}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
       {/* The method, big numerals, no tiles */}
       <Section border={false}>
         <Label>The method</Label>
@@ -365,7 +360,7 @@ const Home = () => {
             Three moves. That’s the whole method.
           </h2>
         </div>
-        <div className="mt-14 grid gap-x-12 gap-y-12 md:grid-cols-3">
+        <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3">
           {moves.map((m) => (
             <div key={m.n} className="border-t border-ink/80 pt-7">
               <p className="num font-display text-[48px] leading-none tracking-[-0.03em] text-ink">{m.n}</p>
@@ -376,17 +371,6 @@ const Home = () => {
           ))}
         </div>
       </Section>
-
-      {/* Marquee */}
-      <section className="overflow-hidden border-y border-line bg-paper-2 py-5" aria-hidden>
-        <div className="flex w-max animate-[marquee_36s_linear_infinite] gap-10">
-          {[...marquee, ...marquee].map((m, i) => (
-            <span key={i} className="num whitespace-nowrap font-mono text-[13px] text-ink-soft">
-              {m} <span className="ml-10 text-ember">·</span>
-            </span>
-          ))}
-        </div>
-      </section>
 
       {/* The stack */}
       <Section border>
@@ -399,8 +383,77 @@ const Home = () => {
           systems you would otherwise buy separately, built in. Every system you already run stays
           in its home. No rip-and-replace.
         </p>
-        <div className="mt-12">
+        <div className="mt-10">
           <LayerStack />
+        </div>
+        <p className="mt-8 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
+          What follows walks the same stack, layer by layer: estate, data, agents, applications.
+        </p>
+      </Section>
+
+      {/* The fork, vertical rules, no cards */}
+      <Section dark border={false}>
+        <Label dark>Deployment</Label>
+        <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
+          Where it runs is your call.
+        </h2>
+        <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ghost">
+          Start at the foundation: the estate. Whichever you choose, everything above it runs the same.
+        </p>
+        <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-3">
+          {deploy.map((d) => (
+            <div key={d.t} className="border-t border-white/20 pt-7">
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="font-display text-[22px] tracking-[-0.01em] text-phos">{d.t}</h3>
+                {d.sovereign && (
+                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ember">Max sovereignty</span>
+                )}
+              </div>
+              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d.d}</p>
+              <ul className="mt-6">
+                {d.li.map((l) => (
+                  <li key={l} className="border-b border-white/10 py-2.5 text-sm text-ghost last:border-b-0">{l}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* CommandCore, the product moment */}
+      <Section border>
+        <Label>{commandCoreIntro.overline} · {commandCoreIntro.product}</Label>
+        <div className="mt-6 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+          <div>
+            <h2 className="max-w-xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[44px]">
+              {commandCoreIntro.title}
+            </h2>
+            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">{commandCoreIntro.lead}</p>
+
+            <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-3">
+              {headlineClaims.map((c) => (
+                <div key={c.big} className="border-t border-ink/80 pt-5">
+                  <p className="num font-display text-[28px] leading-none tracking-[-0.03em]">{c.big}</p>
+                  <p className="mt-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-ember-deep">{c.small}</p>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-ink-soft">{c.note}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Button to="/commandcore" variant="dark">See the machine</Button>
+              <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">{commandCoreIntro.claim}</span>
+            </div>
+          </div>
+
+          <div className="product-stage relative mx-auto w-full max-w-[480px] overflow-hidden rounded-2xl border border-line p-8">
+            <img
+              src="/images/commandcore/commandcore-xl2.webp"
+              alt="CommandCore XL"
+              loading="lazy"
+              className="mx-auto w-full drop-shadow-[0_34px_54px_rgba(11,11,13,0.25)]"
+            />
+          </div>
         </div>
       </Section>
 
@@ -425,11 +478,11 @@ const Home = () => {
           ))}
         </div>
 
-        <div className="mt-12">
+        <div className="mt-10">
           <DataFlow />
         </div>
 
-        <div className="mt-12 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
+        <div className="mt-10 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
           <blockquote className="max-w-2xl border-l-2 border-ember pl-6">
             <p className="font-display text-[24px] leading-snug tracking-[-0.02em] md:text-[30px]">
               “{dataReadiness.pullQuote}”
@@ -447,70 +500,74 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* Included applications */}
+      {/* KOGO OS, the agentic layer */}
       <Section border>
+        <Label>The agentic layer · {kogo.name}</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+          <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
+            Infrastructure becomes work.
+          </h2>
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+            Sitting on the data layer, {kogo.name} turns that infrastructure into agents that plan,
+            act and stay accountable.
+          </p>
+        </div>
+
+        <p className="mt-6 max-w-3xl text-[17px] leading-relaxed text-ink-soft">{kogo.desc}</p>
+
+        <div className="mt-10 grid gap-x-16 gap-y-0 sm:grid-cols-2">
+          {kogo.points.map((p) => (
+            <div key={p} className="border-b border-line py-3.5 text-[14.5px] leading-relaxed text-ink-soft">{p}</div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-2">
+          {kogo.badges.map((b) => (
+            <span
+              key={b}
+              className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft"
+            >
+              {b}
+            </span>
+          ))}
+        </div>
+      </Section>
+
+      {/* Included applications */}
+      <Section dark border={false}>
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <Label>Included applications</Label>
-            <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+            <Label dark>Included applications</Label>
+            <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
               Your business systems, now driven by AI agents.
             </h2>
           </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          <p className="max-w-sm text-[15px] leading-relaxed text-ghost">
             Built in, not stitched on. Each system ships with agents that run the work your team used to do by hand.
           </p>
         </div>
-        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-soft">
+        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">
           ERP, HRMS, CRM, Accounting, Legal, SCM, CLM, Marketing and Helpdesk are all part of the
           platform. Work that used to be handled manually in each of them is now driven by AI
           agents: planning, hiring, selling, posting, contracting, sourcing, campaigns and tickets,
           all on your infrastructure, under your governance, included with every deployment.
         </p>
-        <div className="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-x-16 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {businessApps.map((a) => (
-            <div key={a.name} className="border-t border-ink/80 pt-6">
-              <p className="eyebrow text-ember-deep">{a.name}</p>
+            <div key={a.name} className="border-t border-white/20 pt-6">
+              <p className="eyebrow text-ember">{a.name}</p>
               {a.full && (
-                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">{a.full}</p>
+                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ghost">{a.full}</p>
               )}
-              <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{a.desc}</p>
+              <p className="mt-3 text-[14.5px] leading-relaxed text-ghost">{a.desc}</p>
             </div>
           ))}
         </div>
         <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button to="/contact" variant="dark" size="sm">See it on your workflows</Button>
-          <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
-            Included with every deployment · runs alongside what you already have
+          <Button to="/contact" variant="ghostDark" size="sm">See it on your workflows</Button>
+          <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ghost">
+            Included with every deployment · connects to the systems you already run
           </span>
-        </div>
-      </Section>
-
-      {/* The fork, vertical rules, no cards */}
-      <Section dark border={false}>
-        <Label dark>Deployment</Label>
-        <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
-          Where it runs is your call.
-        </h2>
-        <div className="mt-14 grid gap-x-12 gap-y-10 md:grid-cols-3">
-          {deploy.map((d) => (
-            <div key={d.t} className="border-t border-white/20 pt-7">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="font-display text-[22px] tracking-[-0.01em] text-phos">{d.t}</h3>
-                {d.sovereign && (
-                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ember">Max sovereignty</span>
-                )}
-              </div>
-              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d.d}</p>
-              <ul className="mt-6">
-                {d.li.map((l) => (
-                  <li key={l} className="border-b border-white/10 py-2.5 text-sm text-ghost last:border-b-0">{l}</li>
-                ))}
-              </ul>
-              {d.sovereign && (
-                <Button to="/commandcore" variant="ghostDark" size="sm" className="mt-7">See the machine</Button>
-              )}
-            </div>
-          ))}
         </div>
       </Section>
 
@@ -530,13 +587,57 @@ const Home = () => {
         </div>
       </Section>
 
+      {/* Sectors */}
+      <Section border>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <Label>Sectors</Label>
+            <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
+              Deployed where the constraints are hardest.
+            </h2>
+          </div>
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+            Government, BFSI, industry and security, environments where AI has to pass the security
+            review, not just the demo.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+          {powerUseCases.map((s) => (
+            <div key={s.sector} className="group">
+              <div className="img-frame aspect-[4/3] overflow-hidden rounded-xl border border-line">
+                <img
+                  src={s.image}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+              </div>
+              <p className="eyebrow mt-5 text-ember-deep">{s.sector}</p>
+              <ul className="mt-3 space-y-2">
+                {s.items.map((it) => (
+                  <li key={it} className="flex gap-2.5 text-[14px] leading-relaxed text-ink-soft">
+                    <span className="mt-[9px] h-1 w-1 shrink-0 rounded-full bg-ember" aria-hidden />
+                    {it}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10">
+          <Button to="/case-studies" variant="ghost" size="sm">See the deployments</Button>
+        </div>
+      </Section>
+
       {/* People */}
       <Section border>
         <Label>People</Label>
         <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
           Operators, not evangelists.
         </h2>
-        <div className="mt-12 space-y-16">
+        <div className="mt-10 space-y-16">
           <PersonGroup label="Leadership" people={team} />
           <PersonGroup label="Advisors" people={advisors} />
         </div>
@@ -553,7 +654,7 @@ const Home = () => {
         </div>
 
         <div
-          className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16"
+          className="mt-10 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16"
           onMouseEnter={() => setNotesPaused(true)}
           onMouseLeave={() => setNotesPaused(false)}
           onFocusCapture={() => setNotesPaused(true)}
@@ -616,13 +717,11 @@ const Home = () => {
       </Section>
 
       <CtaBand
-        title="Deploy your first AI solution today."
+        title="Start with one workflow."
         offer={
           <>
-            See results in hours, not months. Free session:{' '}
-            <b className="font-medium text-white">
-              we map where intelligent AI fits your organisation's operations, strategy, and compliance needs.
-            </b>
+            A free working session. We map the first workflow worth transforming, and{' '}
+            <b className="font-medium text-white">you keep the roadmap either way.</b>
           </>
         }
       />
