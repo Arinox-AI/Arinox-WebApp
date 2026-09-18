@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { ArrowUp, Square, X } from 'lucide-react';
 
 const WELCOME = {
   role: 'assistant',
@@ -88,12 +89,6 @@ const Caret = () => (
     className="ml-0.5 inline-block h-[12px] w-[2px] translate-y-[1px] bg-ember"
     style={{ animation: 'blink 1s steps(1) infinite' }}
   />
-);
-
-const CloseIcon = ({ size = 16 }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
-    <path d="M18 6 6 18M6 6l12 12" />
-  </svg>
 );
 
 export default function ArinoxChatBot() {
@@ -299,7 +294,7 @@ export default function ArinoxChatBot() {
                 aria-label="Dismiss"
                 className="absolute right-2 top-2 rounded p-1.5 text-ink-faint transition-colors hover:text-ink"
               >
-                <CloseIcon size={13} />
+                <X size={13} strokeWidth={2} />
               </button>
               <span className="block h-px w-6 bg-ember" aria-hidden />
               <Label className="mt-3 block text-[9px] text-ink-faint">Arin · Arinox AI</Label>
@@ -377,7 +372,7 @@ export default function ArinoxChatBot() {
                 aria-label="Close chat"
                 className="shrink-0 rounded-md p-2 text-ink-faint transition-colors hover:bg-paper-2 hover:text-ink"
               >
-                <CloseIcon />
+                <X size={16} strokeWidth={1.9} />
               </button>
             </motion.header>
 
@@ -400,7 +395,7 @@ export default function ArinoxChatBot() {
                     <div key={i} className="flex justify-end">
                       <div className="max-w-[86%]">
                         <Label className="block text-right text-[9px] text-ink-faint">You</Label>
-                        <div className="mt-1.5 rounded-[6px] bg-tint px-3.5 py-2.5 text-[14px] leading-[1.6] text-ink">
+                        <div className="mt-1.5 rounded-lg bg-ink px-3.5 py-2.5 text-[13.5px] leading-[1.62] text-phos">
                           <p className="whitespace-pre-wrap break-words">{m.content}</p>
                         </div>
                       </div>
@@ -415,7 +410,7 @@ export default function ArinoxChatBot() {
                     </span>
                     <div className="min-w-0 flex-1">
                       <Label className="text-[9px] text-ember-deep">Arin</Label>
-                      <div className="mt-1.5 text-[14.5px] leading-[1.68] text-ink">
+                      <div className="mt-1.5 border-l border-line pl-3 text-[14.5px] leading-[1.68] text-ink">
                         <MessageBody text={m.content} />
                         {isStreamingThis && <Caret />}
                       </div>
@@ -451,28 +446,28 @@ export default function ArinoxChatBot() {
               )}
             </motion.div>
 
-            {/* Suggested prompts — numbered hairline rows */}
+            {/* Suggested prompts — a small grid of hairline cards */}
             {messages.length === 1 && (
-              <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white px-4 py-1">
-                {SUGGESTED.map((s, i) => (
-                  <button
-                    key={s}
-                    onClick={() => send(s)}
-                    className="group flex w-full items-center gap-3 border-b border-line py-2.5 text-left last:border-b-0"
-                  >
-                    <span className="num font-mono text-[10px] text-ember-deep">
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[13px] text-ink-soft transition-colors group-hover:text-ink">{s}</span>
-                    <span className="ml-auto h-px w-5 shrink-0 bg-line transition-all duration-300 group-hover:w-9 group-hover:bg-ember" aria-hidden />
-                  </button>
-                ))}
+              <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white p-3">
+                <Label className="block px-1 text-[9px] text-ink-faint">Try asking</Label>
+                <div className="mt-2.5 grid grid-cols-2 gap-2">
+                  {SUGGESTED.map((s) => (
+                    <button
+                      key={s}
+                      onClick={() => send(s)}
+                      className="group flex items-start gap-2 rounded-lg border border-line bg-paper/60 p-3 text-left transition-colors hover:border-ink/25 hover:bg-white"
+                    >
+                      <span className="mt-[5px] h-1.5 w-1.5 shrink-0 rounded-full bg-ember" aria-hidden />
+                      <span className="text-[12.5px] leading-snug text-ink-soft transition-colors group-hover:text-ink">{s}</span>
+                    </button>
+                  ))}
+                </div>
               </motion.div>
             )}
 
-            {/* Composer — hairline underline + chip button */}
-            <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white px-4 pb-3 pt-3.5">
-              <div className="flex items-end gap-3">
+            {/* Composer — bordered field with an inline send control */}
+            <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white p-3">
+              <div className="flex items-end gap-2 rounded-xl border border-line bg-paper/60 p-2 transition-colors focus-within:border-ember/60">
                 <textarea
                   ref={inputRef}
                   rows={1}
@@ -481,34 +476,36 @@ export default function ArinoxChatBot() {
                   onKeyDown={handleKey}
                   placeholder="Ask Arin about Arinox or AI"
                   disabled={streaming}
-                  className="max-h-[120px] flex-1 resize-none border-b border-line bg-transparent pb-2 text-[14px] leading-[1.55] text-ink outline-none transition-colors placeholder:text-ink-faint focus:border-ember disabled:opacity-60"
+                  className="max-h-[120px] flex-1 resize-none bg-transparent px-1.5 py-1.5 text-[14px] leading-[1.55] text-ink outline-none placeholder:text-ink-faint disabled:opacity-60"
                 />
                 {streaming ? (
                   <button
                     onClick={stop}
-                    className="chip shrink-0 rounded-btn border border-ink/20 bg-white px-4 py-2.5 leading-none text-ink transition-colors hover:border-ink/60"
+                    aria-label="Stop"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-line bg-white text-ink transition-colors hover:border-ink/50"
                   >
-                    Stop
+                    <Square size={13} strokeWidth={2} />
                   </button>
                 ) : (
                   <button
                     onClick={() => send()}
                     disabled={!input.trim()}
-                    className={`chip shrink-0 rounded-btn px-4 py-2.5 leading-none transition-colors ${
+                    aria-label="Send"
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg transition-colors ${
                       input.trim()
-                        ? 'bg-ember text-white hover:bg-ember-deep hover:text-white'
+                        ? 'bg-ember text-white hover:bg-ember-deep'
                         : 'cursor-not-allowed border border-line bg-white text-ink-faint'
                     }`}
                   >
-                    Send
+                    <ArrowUp size={16} strokeWidth={2.2} />
                   </button>
                 )}
               </div>
-              <Label className="mt-2.5 block text-center text-[8.5px] tracking-[0.1em] text-ink-faint">
+              <Label className="mt-2 block text-center text-[8.5px] tracking-[0.1em] text-ink-faint">
                 Arin can make mistakes. For anything important, contact{' '}
                 <a href="/contact" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>
               </Label>
-              </motion.div>
+            </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

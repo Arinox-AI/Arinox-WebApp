@@ -4,9 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import {
-  ArrowUpRight, EnvelopeSimple, Tray, Plus, Minus,
-  Globe, TrendUp, Lightbulb, Buildings, MapPin, Clock,
-} from '@phosphor-icons/react';
+  ArrowUpRight, Mail, Inbox, Plus, Minus,
+  Globe, TrendingUp, Lightbulb, Building2, MapPin, Clock,
+} from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Button } from '../components/site/Button';
@@ -21,7 +21,7 @@ const getJdBySlug = (roles, role) => {
   return match?.jd || null;
 };
 
-const PERK_ICONS = { Globe, TrendUp, Lightbulb, Buildings, TrendingUp: TrendUp, Building2: Buildings };
+const PERK_ICONS = { Globe, TrendUp: TrendingUp, Lightbulb, Buildings: Building2 };
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
 
@@ -212,7 +212,7 @@ const Careers = () => {
               return (
                 <div key={title} className="flex gap-4 border-t border-ink/80 pt-6">
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-white text-ember-deep">
-                    <Icon size={19} weight="duotone" />
+                    <Icon size={19} strokeWidth={1.75} />
                   </span>
                   <div>
                     <h3 className="font-display text-[20px] tracking-[-0.01em]">{title}</h3>
@@ -269,14 +269,14 @@ const Careers = () => {
             ) : filtered.length === 0 ? (
               <div className="card-light px-6 py-16 text-center">
                 <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-ember/10 text-ember-deep">
-                  <Tray size={20} weight="duotone" />
+                  <Inbox size={20} strokeWidth={1.75} />
                 </div>
                 <h3 className="font-display text-xl">No open roles right now</h3>
                 <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
                   We don&apos;t have active positions at the moment, but we&apos;re always looking for exceptional people.
                 </p>
                 <Link to="/contact" className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
-                  Get in touch <ArrowUpRight size={14} weight="bold" />
+                  Get in touch <ArrowUpRight size={14} strokeWidth={2.2} />
                 </Link>
               </div>
             ) : (
@@ -292,8 +292,8 @@ const Careers = () => {
                         <h3 className="font-display text-[21px] leading-tight tracking-[-0.01em] md:text-[23px]">{job.title}</h3>
                         <div className="mt-3 flex flex-wrap items-center gap-2">
                           {job.department && <Chip>{job.department}</Chip>}
-                          {job.location && <Chip><MapPin size={12} weight="bold" className="text-ember-deep" />{job.location}</Chip>}
-                          {job.type && <Chip><Clock size={12} weight="bold" className="text-ember-deep" />{job.type}</Chip>}
+                          {job.location && <Chip><MapPin size={12} strokeWidth={2.2} className="text-ember-deep" />{job.location}</Chip>}
+                          {job.type && <Chip><Clock size={12} strokeWidth={2.2} className="text-ember-deep" />{job.type}</Chip>}
                         </div>
                       </div>
 
@@ -305,7 +305,7 @@ const Careers = () => {
                             aria-controls={`jd-${key}`}
                             className="inline-flex items-center gap-1.5 rounded-btn border border-ink/20 bg-white px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink/50"
                           >
-                            {open ? <Minus size={13} weight="bold" /> : <Plus size={13} weight="bold" />}
+                            {open ? <Minus size={13} strokeWidth={2.2} /> : <Plus size={13} strokeWidth={2.2} />}
                             {open ? 'Hide role' : 'View role'}
                           </button>
                         )}
@@ -315,7 +315,7 @@ const Careers = () => {
                           </span>
                         ) : (
                           <Button onClick={() => handleApplyClick(job)} variant="dark" size="sm">
-                            Apply <ArrowUpRight size={14} weight="bold" />
+                            Apply <ArrowUpRight size={14} strokeWidth={2.2} />
                           </Button>
                         )}
                       </div>
@@ -355,7 +355,7 @@ const Careers = () => {
                             <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
                               {!applied && (
                                 <Button onClick={() => handleApplyClick(job)} variant="ember" size="sm">
-                                  Apply for this role <ArrowUpRight size={14} weight="bold" />
+                                  Apply for this role <ArrowUpRight size={14} strokeWidth={2.2} />
                                 </Button>
                               )}
                               {jd.closing && (
@@ -374,7 +374,7 @@ const Careers = () => {
 
           <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-line pt-8">
             <Button href="mailto:vandana@arinox.ai" variant="ghost">
-              <EnvelopeSimple size={17} weight="bold" />
+              <Mail size={17} strokeWidth={2.2} />
               vandana@arinox.ai
             </Button>
             <span className="text-sm text-ink-faint">No matching role? Send your work anyway.</span>

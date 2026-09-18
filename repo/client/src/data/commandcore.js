@@ -44,6 +44,7 @@ export const stack = [
   { layer: 'Your AI agents',       desc: 'Purpose-built agents for your workflows, configured with your rules, your data, your approvals.' },
   { layer: 'KOGO OS',              desc: 'The built-in agentic OS: agent builder, pre-built agent store, Agentic Mesh orchestration, memory, and governance.' },
   { layer: 'Models & knowledge',   desc: 'Open-weight LLMs and your governed knowledge base (RAG), running locally, cited and auditable.' },
+  { layer: 'AI-ready data layer',  desc: 'Your enterprise data, made ingestible and governed: discovered, cleansed, structured, connected, enriched, with lineage and access control, so the layers above reason over your context instead of guessing.' },
   { layer: 'CommandCore hardware', desc: 'Sovereign compute engineered for on-premises deployment, from edge units to datacenter-grade systems.' },
   { layer: 'Your premises',        desc: 'Your network, your security perimeter, your compliance boundary. Nothing crosses it.' },
 ];

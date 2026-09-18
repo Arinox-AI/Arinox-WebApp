@@ -1,7 +1,7 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { MapTrifold, RocketLaunch, StackSimple, Target, ShieldCheck, Stack } from '@phosphor-icons/react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Map, Rocket, Layers, Target, ShieldCheck, Boxes } from 'lucide-react'
 import SEO from '../components/ui/SEO'
 import { useBookCta, BOOK_CTA_TRANSITION } from '../components/site/BookCtaContext'
 import { Button } from '../components/site/Button'
@@ -11,28 +11,30 @@ import { CtaBand } from '../components/site/Shell'
 import { AsciiGlobe } from '../components/site/AsciiGlobe'
 import { ComplianceStrip } from '../components/site/ComplianceStrip'
 import { LayerStack } from '../components/site/LayerStack'
+import { DataFlow } from '../components/site/DataFlow'
 import { team, advisors } from '../data/site'
+import { dataReadiness } from '../data/data'
 import { businessApps } from '../data/commandcore'
 import { samplePosts } from './Blog'
 
 const moves = [
   {
     n: '01',
-    Icon: MapTrifold,
+    Icon: Map,
     t: 'Map',
     d: 'One free working session. We find the workflows worth transforming first, by cost, risk, and payback speed. You keep the map either way.',
     tag: 'One session',
   },
   {
     n: '02',
-    Icon: StackSimple,
+    Icon: Layers,
     t: 'Build',
     d: 'We assemble agents on a proven agentic operating system, documents, voice, vision, decisions, wired into the tools your teams already use.',
     tag: 'Built on KOGO OS',
   },
   {
     n: '03',
-    Icon: RocketLaunch,
+    Icon: Rocket,
     t: 'Run',
     d: 'You choose where it lives: your cloud, your infrastructure, or a CommandCore appliance in your building. Governed end to end.',
     tag: 'Inside your perimeter',
@@ -78,7 +80,7 @@ const model = [
   {
     n: '03',
     k: 'How',
-    Icon: Stack,
+    Icon: Boxes,
     title: 'An end-to-end ecosystem',
     desc: 'Data readiness, implementation, and adoption, managed end to end so strategy becomes measurable value.',
     tags: ['Data readiness', 'Implementation', 'Adoption'],
@@ -180,7 +182,17 @@ const Home = () => {
     el.style.setProperty('--my', `${e.clientY - r.top}px`)
   }
 
-  const [featured, ...more] = samplePosts
+  const [featuredIdx, setFeaturedIdx] = useState(0)
+  const [notesPaused, setNotesPaused] = useState(false)
+
+  useEffect(() => {
+    if (notesPaused) return undefined
+    const id = setInterval(() => setFeaturedIdx((i) => (i + 1) % samplePosts.length), 7000)
+    return () => clearInterval(id)
+  }, [notesPaused])
+
+  const featured = samplePosts[featuredIdx]
+  const more = samplePosts.filter((_, i) => i !== featuredIdx)
 
   return (
     <>
@@ -281,9 +293,10 @@ const Home = () => {
           </p>
         </div>
 
-        <p className="mt-12 max-w-3xl font-display text-[24px] leading-snug tracking-[-0.015em] text-ink md:text-[30px]">
-          You focus on your business. We carry the technical weight, from setting up your VPC to keeping your AI journey{' '}
-          <span className="italic text-ember">safe and compliant.</span>
+        <p className="mt-12 max-w-2xl text-[17px] leading-relaxed text-ink-soft">
+          You focus on your business. We carry the technical weight, from setting up your VPC to
+          keeping your{' '}
+          <span className="border-b border-ember pb-0.5 text-ink">AI journey safe and compliant.</span>
         </p>
 
         <div className="mt-14 grid gap-x-12 gap-y-14 md:grid-cols-3">
@@ -299,7 +312,7 @@ const Home = () => {
               </div>
 
               <div className="mt-7 flex h-14 w-14 items-center justify-center rounded-2xl bg-ember/10 text-ember-deep">
-                <m.Icon size={28} weight="duotone" />
+                <m.Icon size={28} strokeWidth={1.75} />
               </div>
 
               <h3 className="mt-6 font-display text-[27px] leading-tight tracking-[-0.01em]">{m.title}</h3>
@@ -388,6 +401,49 @@ const Home = () => {
         </p>
         <div className="mt-12">
           <LayerStack />
+        </div>
+      </Section>
+
+      {/* Data readiness, the layer beneath the machine */}
+      <Section border id="data-readiness">
+        <Label>{dataReadiness.eyebrow}</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+            {dataReadiness.titleLead} <span className="italic text-ember">{dataReadiness.titleAccent}</span>
+          </h2>
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">{dataReadiness.lead}</p>
+        </div>
+
+        <div className="mt-6 flex flex-wrap gap-2">
+          {dataReadiness.chips.map((c) => (
+            <span
+              key={c}
+              className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft"
+            >
+              {c}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-12">
+          <DataFlow />
+        </div>
+
+        <div className="mt-12 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
+          <blockquote className="max-w-2xl border-l-2 border-ember pl-6">
+            <p className="font-display text-[24px] leading-snug tracking-[-0.02em] md:text-[30px]">
+              “{dataReadiness.pullQuote}”
+            </p>
+            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{dataReadiness.pullNote}</p>
+          </blockquote>
+
+          <Link
+            to={dataReadiness.link.to}
+            className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
+          >
+            {dataReadiness.link.label}
+            <span aria-hidden>→</span>
+          </Link>
         </div>
       </Section>
 
@@ -496,22 +552,55 @@ const Home = () => {
           <Button to="/blog" variant="ghost" size="sm">All insights</Button>
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
-          <Link to={`/blog/${featured.slug}`} className="group block">
-            <div className="img-frame aspect-[16/10] overflow-hidden rounded-2xl border border-line">
-              <img
-                src={featured.image}
-                alt={featured.title}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-              />
+        <div
+          className="mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16"
+          onMouseEnter={() => setNotesPaused(true)}
+          onMouseLeave={() => setNotesPaused(false)}
+          onFocusCapture={() => setNotesPaused(true)}
+          onBlurCapture={() => setNotesPaused(false)}
+        >
+          <div>
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={featured.slug}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: 'easeInOut' }}
+              >
+                <Link to={`/blog/${featured.slug}`} className="group block">
+                  <div className="img-frame aspect-[16/10] overflow-hidden rounded-2xl border border-line">
+                    <img
+                      src={featured.image}
+                      alt={featured.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{featured.category}</p>
+                  <h3 className="mt-2 font-display text-[24px] leading-snug tracking-[-0.01em] group-hover:text-ember-deep transition-colors">
+                    {featured.title}
+                  </h3>
+                  <p className="mt-2.5 max-w-xl text-[15px] leading-relaxed text-ink-soft line-clamp-2">{featured.excerpt}</p>
+                </Link>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="mt-5 flex items-center gap-1.5">
+              {samplePosts.map((p, i) => (
+                <button
+                  key={p.slug}
+                  type="button"
+                  onClick={() => setFeaturedIdx(i)}
+                  aria-label={`Show ${p.title}`}
+                  aria-current={i === featuredIdx ? 'true' : undefined}
+                  className={`h-1 rounded-full transition-all duration-300 ${
+                    i === featuredIdx ? 'w-6 bg-ember' : 'w-1.5 bg-line hover:bg-ink-faint'
+                  }`}
+                />
+              ))}
             </div>
-            <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{featured.category}</p>
-            <h3 className="mt-2 font-display text-[24px] leading-snug tracking-[-0.01em] group-hover:text-ember-deep transition-colors">
-              {featured.title}
-            </h3>
-            <p className="mt-2.5 max-w-xl text-[15px] leading-relaxed text-ink-soft line-clamp-2">{featured.excerpt}</p>
-          </Link>
+          </div>
 
           <div className="border-t border-line">
             {more.slice(0, 4).map((p) => (

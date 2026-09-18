@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
 
 const Section = ({ title, children }) => (
-  <div className="mb-10">
-    <h2 className="text-base font-bold text-brand-text mb-3 pb-2 border-b border-brand-border">{title}</h2>
-    <div className="space-y-3 text-sm text-brand-muted leading-relaxed">{children}</div>
+  <div className="mb-12">
+    <h2 className="mb-4 border-b border-line pb-2.5 font-display text-[20px] tracking-[-0.015em] text-ink">{title}</h2>
+    <div className="space-y-3 text-[14.5px] leading-relaxed text-ink-soft">{children}</div>
   </div>
 );
 
@@ -16,47 +16,47 @@ const Privacy = () => (
       canonical="https://www.arinox.ai/privacy"
     />
 
-    <div className="min-h-screen pt-28 pb-20 px-4">
-      <div className="container-wide max-w-3xl mx-auto">
+    <section className="px-7 pb-24 pt-20 md:pt-28">
+      <div className="mx-auto max-w-3xl">
 
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Legal</p>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-brand-text mb-2">Privacy Policy</h1>
-          <p className="text-sm text-brand-muted mb-2">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 16 September 2026</p>
-          <p className="text-sm text-brand-muted mb-10">
+          <p className="eyebrow mb-3 text-ember-deep">Legal</p>
+          <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[52px]">Privacy Policy</h1>
+          <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 16 September 2026</p>
+          <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             This Privacy Policy describes how Adisen Tech Private Limited ("Arinox AI", "we", "our", or "us"),
             registered in Bengaluru, India, collects, uses, and protects information when you visit
-            <strong className="text-brand-text"> www.arinox.ai</strong> or engage with our services.
+            <strong className="text-ink"> www.arinox.ai</strong> or engage with our services.
           </p>
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
 
           <Section title="1. Information We Collect">
-            <p><strong className="text-brand-text">A. Information you provide directly</strong></p>
+            <p><strong className="text-ink">A. Information you provide directly</strong></p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">Contact & enquiry forms:</strong> Name, email address, phone number (optional), company name, job title, and the message you write to us</li>
-              <li><strong className="text-brand-text">Book a demo / Book a free call:</strong> Name, business email, company name, and any scheduling preferences you share</li>
-              <li><strong className="text-brand-text">Newsletter / update subscriptions:</strong> Email address and name (where provided)</li>
-              <li><strong className="text-brand-text">Event registrations:</strong> Name, email, company, and event-specific details you submit via our registration forms</li>
-              <li><strong className="text-brand-text">Chatbot conversations:</strong> Messages sent through our website chat assistant. These may be monitored, recorded, and used for service improvement, personalisation, and business purposes as described in this policy</li>
+              <li><strong className="text-ink">Contact & enquiry forms:</strong> Name, email address, phone number (optional), company name, job title, and the message you write to us</li>
+              <li><strong className="text-ink">Book a demo / Book a free call:</strong> Name, business email, company name, and any scheduling preferences you share</li>
+              <li><strong className="text-ink">Newsletter / update subscriptions:</strong> Email address and name (where provided)</li>
+              <li><strong className="text-ink">Event registrations:</strong> Name, email, company, and event-specific details you submit via our registration forms</li>
+              <li><strong className="text-ink">Chatbot conversations:</strong> Messages sent through our website chat assistant. These may be monitored, recorded, and used for service improvement, personalisation, and business purposes as described in this policy</li>
             </ul>
 
-            <p className="pt-1"><strong className="text-brand-text">B. Data collected automatically when you visit our website</strong></p>
+            <p className="pt-1"><strong className="text-ink">B. Data collected automatically when you visit our website</strong></p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">Device & browser information:</strong> Browser type and version, operating system, device type (desktop / mobile / tablet), screen resolution, and language settings</li>
-              <li><strong className="text-brand-text">Network information:</strong> Your IP address (used to determine approximate country/region for analytics; not stored in identifiable form beyond 90 days)</li>
-              <li><strong className="text-brand-text">Page interaction data:</strong> Pages visited, time spent on each page, scroll depth, links clicked, and buttons interacted with</li>
-              <li><strong className="text-brand-text">Referral data:</strong> The URL or search query that brought you to our site (e.g., Google, LinkedIn, a direct link)</li>
-              <li><strong className="text-brand-text">Session data:</strong> Session duration, entry and exit pages, and navigation path through the site</li>
+              <li><strong className="text-ink">Device & browser information:</strong> Browser type and version, operating system, device type (desktop / mobile / tablet), screen resolution, and language settings</li>
+              <li><strong className="text-ink">Network information:</strong> Your IP address (used to determine approximate country/region for analytics; not stored in identifiable form beyond 90 days)</li>
+              <li><strong className="text-ink">Page interaction data:</strong> Pages visited, time spent on each page, scroll depth, links clicked, and buttons interacted with</li>
+              <li><strong className="text-ink">Referral data:</strong> The URL or search query that brought you to our site (e.g., Google, LinkedIn, a direct link)</li>
+              <li><strong className="text-ink">Session data:</strong> Session duration, entry and exit pages, and navigation path through the site</li>
             </ul>
 
-            <p className="pt-1"><strong className="text-brand-text">C. Cookies and tracking technologies</strong></p>
+            <p className="pt-1"><strong className="text-ink">C. Cookies and tracking technologies</strong></p>
             <p>We do not set cookies on this website. We do not use advertising or marketing cookies, social tracking pixels, or cross-site tracking of any kind.</p>
             <p>We use Vercel Web Analytics to understand aggregate traffic to the site. It is cookieless: it does not place cookies, does not store personal data, does not fingerprint your device, and does not follow you across other websites. It records aggregate page views, referrers, and coarse device and country information only.</p>
             <p>Because we do not set cookies or use tracking that requires consent, no cookie consent banner is shown. You can block or disable analytics requests in your browser or with an ad blocker without affecting how the website works.</p>
 
-            <p className="pt-1"><strong className="text-brand-text">D. What we do NOT collect</strong></p>
+            <p className="pt-1"><strong className="text-ink">D. What we do NOT collect</strong></p>
             <p>We do not collect, process, or store any data processed by CommandCore™ or other on-premises AI deployments. Our sovereign AI platform operates entirely within your own infrastructure   your operational data, AI prompts, model outputs, and business data never reach our systems or servers.</p>
             <p>We do not use session recording tools (e.g., Hotjar, FullStory) and do not capture keystrokes, form field contents before submission, or individual video recordings of browsing sessions.</p>
           </Section>
@@ -76,18 +76,18 @@ const Privacy = () => (
           <Section title="3. Legal Basis for Processing">
             <p>We process your personal data on the following bases under the DPDP Act 2023 and applicable Indian law:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">Consent:</strong> For marketing communications and non-essential cookies, where you have given explicit consent</li>
-              <li><strong className="text-brand-text">Legitimate interest:</strong> For responding to enquiries, website security monitoring, and aggregate analytics</li>
-              <li><strong className="text-brand-text">Legal obligation:</strong> Where processing is required to comply with applicable Indian law</li>
+              <li><strong className="text-ink">Consent:</strong> For marketing communications and non-essential cookies, where you have given explicit consent</li>
+              <li><strong className="text-ink">Legitimate interest:</strong> For responding to enquiries, website security monitoring, and aggregate analytics</li>
+              <li><strong className="text-ink">Legal obligation:</strong> Where processing is required to comply with applicable Indian law</li>
             </ul>
           </Section>
 
           <Section title="4. Data Sharing and Third Parties">
             <p>We share your personal data only in the following limited circumstances:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">Service providers:</strong> Trusted vendors (hosting, email delivery, analytics) who process data on our behalf under contractual data processing agreements</li>
-              <li><strong className="text-brand-text">Analytics:</strong> Vercel Inc. provides cookieless, aggregate website analytics. No personal data is shared with them</li>
-              <li><strong className="text-brand-text">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
+              <li><strong className="text-ink">Service providers:</strong> Trusted vendors (hosting, email delivery, analytics) who process data on our behalf under contractual data processing agreements</li>
+              <li><strong className="text-ink">Analytics:</strong> Vercel Inc. provides cookieless, aggregate website analytics. No personal data is shared with them</li>
+              <li><strong className="text-ink">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
             </ul>
             <p>We do not transfer your personal data outside India without appropriate safeguards as required by the DPDP Act 2023.</p>
           </Section>
@@ -106,18 +106,18 @@ const Privacy = () => (
           <Section title="6. Your Rights">
             <p>Under the DPDP Act 2023 and applicable Indian law, you have the right to:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">Access:</strong> Request a copy of the personal data we hold about you</li>
-              <li><strong className="text-brand-text">Correction:</strong> Request that inaccurate or incomplete data be corrected</li>
-              <li><strong className="text-brand-text">Erasure:</strong> Request deletion of your personal data where there is no legitimate reason for continued processing</li>
-              <li><strong className="text-brand-text">Withdraw consent:</strong> Where processing is based on consent, withdraw it at any time without affecting the lawfulness of prior processing</li>
-              <li><strong className="text-brand-text">Grievance redressal:</strong> Lodge a complaint with our Data Protection Officer or the Data Protection Board of India</li>
+              <li><strong className="text-ink">Access:</strong> Request a copy of the personal data we hold about you</li>
+              <li><strong className="text-ink">Correction:</strong> Request that inaccurate or incomplete data be corrected</li>
+              <li><strong className="text-ink">Erasure:</strong> Request deletion of your personal data where there is no legitimate reason for continued processing</li>
+              <li><strong className="text-ink">Withdraw consent:</strong> Where processing is based on consent, withdraw it at any time without affecting the lawfulness of prior processing</li>
+              <li><strong className="text-ink">Grievance redressal:</strong> Lodge a complaint with our Data Protection Officer or the Data Protection Board of India</li>
             </ul>
-            <p>To exercise any of these rights, contact us at <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a>. We will respond within 30 days.</p>
+            <p>To exercise any of these rights, contact us at <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>. We will respond within 30 days.</p>
           </Section>
 
           <Section title="7. Security">
             <p>We implement industry-standard technical and organisational measures to protect your personal data against unauthorised access, disclosure, alteration, or destruction. These include TLS encryption in transit, access controls, and regular security reviews.</p>
-            <p>No method of transmission over the internet is 100% secure. If you believe your data has been compromised, contact us immediately at <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a>.</p>
+            <p>No method of transmission over the internet is 100% secure. If you believe your data has been compromised, contact us immediately at <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>.</p>
           </Section>
 
           <Section title="8. Children's Privacy">
@@ -130,17 +130,17 @@ const Privacy = () => (
 
           <Section title="10. Contact Us">
             <p>For privacy-related enquiries, requests, or complaints:</p>
-            <div className="mt-2 p-4 glass rounded-xl space-y-1">
-              <p><strong className="text-brand-text">Contact</strong></p>
+            <div className="card-light mt-2 space-y-1 p-5">
+              <p><strong className="text-ink">Contact</strong></p>
               <p>Adisen Tech Private Limited (Arinox AI)</p>
               <p>Bengaluru, Karnataka, India</p>
-              <p>Email: <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a></p>
+              <p>Email: <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a></p>
             </div>
           </Section>
 
         </motion.div>
       </div>
-    </div>
+    </section>
   </>
 );
 

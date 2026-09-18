@@ -1,4 +1,4 @@
-import { FileArrowDown } from '@phosphor-icons/react';
+import { FileDown } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Section } from '../components/site/Section';
 import { Button } from '../components/site/Button';
@@ -69,7 +69,7 @@ const CommandCore = () => (
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
             <Button to="/contact" variant="ember">Book a discovery session</Button>
             <Button href={SPECS_PDF} download variant="dark">
-              <FileArrowDown size={17} weight="bold" />
+              <FileDown size={17} strokeWidth={2.2} />
               Download specs
             </Button>
           </div>

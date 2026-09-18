@@ -1,4 +1,4 @@
-import { SealCheck } from '@phosphor-icons/react'
+import { BadgeCheck } from 'lucide-react'
 import { complianceGroups } from '../../data/compliance'
 
 /**
@@ -18,7 +18,7 @@ export function ComplianceStrip({ groups = complianceGroups, className = '' }) {
         >
           <div className="flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-white text-ink-faint">
-              <SealCheck size={17} weight="duotone" />
+              <BadgeCheck size={17} strokeWidth={1.75} />
             </span>
             <span className="eyebrow text-ink-faint">{g.label}</span>
           </div>

@@ -1,4 +1,4 @@
-import { ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRight } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Section } from '../components/site/Section';
 import { Label } from '../components/site/Layout';
@@ -90,10 +90,10 @@ const Partners = () => (
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
           <Button to="/contact" variant="dark">
-            Partner with us <ArrowUpRight size={14} weight="bold" />
+            Partner with us <ArrowUpRight size={14} strokeWidth={2.2} />
           </Button>
           <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">
-            LinkedIn <ArrowUpRight size={14} weight="bold" />
+            LinkedIn <ArrowUpRight size={14} strokeWidth={2.2} />
           </a>
         </div>
       </div>

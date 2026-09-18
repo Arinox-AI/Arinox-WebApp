@@ -19,6 +19,7 @@ export default {
         'ember-deep': '#b84300',
         tint: '#ffe8d9',
         ghost: '#a39d99',
+        'ember-lite': '#ff8a4a',
         /* Legacy tokens kept for pages not yet migrated */
         brand: {
           bg:        'rgb(var(--color-bg) / <alpha-value>)',

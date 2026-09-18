@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
 
 const Section = ({ title, children }) => (
-  <div className="mb-10">
-    <h2 className="text-base font-bold text-brand-text mb-3 pb-2 border-b border-brand-border">{title}</h2>
-    <div className="space-y-3 text-sm text-brand-muted leading-relaxed">{children}</div>
+  <div className="mb-12">
+    <h2 className="mb-4 border-b border-line pb-2.5 font-display text-[20px] tracking-[-0.015em] text-ink">{title}</h2>
+    <div className="space-y-3 text-[14.5px] leading-relaxed text-ink-soft">{children}</div>
   </div>
 );
 
@@ -16,16 +16,16 @@ const Terms = () => (
       canonical="https://www.arinox.ai/terms"
     />
 
-    <div className="min-h-screen pt-28 pb-20 px-4">
-      <div className="container-wide max-w-3xl mx-auto">
+    <section className="px-7 pb-24 pt-20 md:pt-28">
+      <div className="mx-auto max-w-3xl">
 
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-          <p className="text-xs tracking-widest uppercase text-brand-primary mb-3">Legal</p>
-          <h1 className="text-3xl sm:text-4xl font-display font-bold text-brand-text mb-2">Terms of Service</h1>
-          <p className="text-sm text-brand-muted mb-2">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 1 June 2026</p>
-          <p className="text-sm text-brand-muted mb-10">
+          <p className="eyebrow mb-3 text-ember-deep">Legal</p>
+          <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[52px]">Terms of Service</h1>
+          <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 1 June 2026</p>
+          <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             These Terms of Service ("Terms") govern your use of the website at
-            <strong className="text-brand-text"> www.arinox.ai</strong> and any services provided by
+            <strong className="text-ink"> www.arinox.ai</strong> and any services provided by
             Adisen Tech Private Limited ("Arinox AI", "we", "our", or "us"), a company incorporated under the laws of India
             with its registered office in Bengaluru, Karnataka. By accessing this website or engaging our services,
             you agree to be bound by these Terms.
@@ -43,19 +43,19 @@ const Terms = () => (
           <Section title="2. Services">
             <p>Arinox AI provides enterprise-grade sovereign AI solutions, including but not limited to:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-brand-text">CommandCore™:</strong> An on-premises, sovereign AI platform for large-scale enterprise deployments</li>
-              <li><strong className="text-brand-text">AI Agents & Automation:</strong> Purpose-built autonomous AI agents for enterprise workflows across BFSI, Healthcare, Defence, Manufacturing, Retail, and other sectors</li>
-              <li><strong className="text-brand-text">Advisory & Implementation:</strong> AI strategy consulting, system integration, and managed deployment services</li>
-              <li><strong className="text-brand-text">Training & Enablement:</strong> Workshops, technical training, and AI literacy programmes for enterprise teams</li>
+              <li><strong className="text-ink">CommandCore™:</strong> An on-premises, sovereign AI platform for large-scale enterprise deployments</li>
+              <li><strong className="text-ink">AI Agents & Automation:</strong> Purpose-built autonomous AI agents for enterprise workflows across BFSI, Healthcare, Defence, Manufacturing, Retail, and other sectors</li>
+              <li><strong className="text-ink">Advisory & Implementation:</strong> AI strategy consulting, system integration, and managed deployment services</li>
+              <li><strong className="text-ink">Training & Enablement:</strong> Workshops, technical training, and AI literacy programmes for enterprise teams</li>
             </ul>
             <p>The specific scope, deliverables, timelines, and commercial terms for any engagement are set out in a separate Statement of Work or Service Agreement signed by both parties. In the event of conflict between these Terms and a signed agreement, the signed agreement prevails.</p>
           </Section>
 
           <Section title="3. Intellectual Property">
-            <p><strong className="text-brand-text">Arinox AI property:</strong> All content on this website   including text, graphics, logos, product names (including CommandCore™), software, and documentation   is the property of Adisen Tech Private Limited or its licensors and is protected by applicable Indian and international intellectual property laws.</p>
-            <p><strong className="text-brand-text">Permitted use:</strong> You may access and view website content for your personal, non-commercial informational purposes. You may not reproduce, distribute, modify, create derivative works from, or commercially exploit any content without our prior written consent.</p>
-            <p><strong className="text-brand-text">Your data:</strong> You retain all rights to data you provide to us or that is processed through our services. We acquire no ownership interest in your data by virtue of providing our services.</p>
-            <p><strong className="text-brand-text">Feedback:</strong> If you provide us with suggestions, feedback, or ideas regarding our products or services, you grant us a perpetual, worldwide, royalty-free licence to use such feedback without any obligation to compensate you.</p>
+            <p><strong className="text-ink">Arinox AI property:</strong> All content on this website   including text, graphics, logos, product names (including CommandCore™), software, and documentation   is the property of Adisen Tech Private Limited or its licensors and is protected by applicable Indian and international intellectual property laws.</p>
+            <p><strong className="text-ink">Permitted use:</strong> You may access and view website content for your personal, non-commercial informational purposes. You may not reproduce, distribute, modify, create derivative works from, or commercially exploit any content without our prior written consent.</p>
+            <p><strong className="text-ink">Your data:</strong> You retain all rights to data you provide to us or that is processed through our services. We acquire no ownership interest in your data by virtue of providing our services.</p>
+            <p><strong className="text-ink">Feedback:</strong> If you provide us with suggestions, feedback, or ideas regarding our products or services, you grant us a perpetual, worldwide, royalty-free licence to use such feedback without any obligation to compensate you.</p>
           </Section>
 
           <Section title="4. Confidentiality">
@@ -78,9 +78,9 @@ const Terms = () => (
           </Section>
 
           <Section title="6. Disclaimers">
-            <p><strong className="text-brand-text">Website content:</strong> Information on this website is provided for general informational purposes only and does not constitute professional advice. We make reasonable efforts to ensure accuracy, but we make no warranties, express or implied, regarding completeness, accuracy, or fitness for a particular purpose.</p>
-            <p><strong className="text-brand-text">AI outputs:</strong> Outputs generated by AI systems, including those powered by CommandCore™, are provided as-is. They may contain errors or inaccuracies. Enterprise customers are responsible for validating AI outputs before acting on them in business-critical contexts.</p>
-            <p><strong className="text-brand-text">Third-party links:</strong> Our website may contain links to third-party websites. We are not responsible for the content, privacy practices, or accuracy of any third-party site.</p>
+            <p><strong className="text-ink">Website content:</strong> Information on this website is provided for general informational purposes only and does not constitute professional advice. We make reasonable efforts to ensure accuracy, but we make no warranties, express or implied, regarding completeness, accuracy, or fitness for a particular purpose.</p>
+            <p><strong className="text-ink">AI outputs:</strong> Outputs generated by AI systems, including those powered by CommandCore™, are provided as-is. They may contain errors or inaccuracies. Enterprise customers are responsible for validating AI outputs before acting on them in business-critical contexts.</p>
+            <p><strong className="text-ink">Third-party links:</strong> Our website may contain links to third-party websites. We are not responsible for the content, privacy practices, or accuracy of any third-party site.</p>
           </Section>
 
           <Section title="7. Limitation of Liability">
@@ -111,17 +111,17 @@ const Terms = () => (
 
           <Section title="11. Contact Us">
             <p>For questions about these Terms or to report a breach:</p>
-            <div className="mt-2 p-4 glass rounded-xl space-y-1">
-              <p><strong className="text-brand-text">Contact</strong></p>
+            <div className="card-light mt-2 space-y-1 p-5">
+              <p><strong className="text-ink">Contact</strong></p>
               <p>Adisen Tech Private Limited (Arinox AI)</p>
               <p>Bengaluru, Karnataka, India</p>
-              <p>Email: <a href="mailto:assist@arinox.ai" className="text-brand-primary underline">assist@arinox.ai</a></p>
+              <p>Email: <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a></p>
             </div>
           </Section>
 
         </motion.div>
       </div>
-    </div>
+    </section>
   </>
 );
 

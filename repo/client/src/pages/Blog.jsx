@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { ArrowUpRight } from '@phosphor-icons/react';
+import { ArrowUpRight } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
@@ -281,7 +281,7 @@ const Blog = () => {
                     <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
                       <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{post.readTime} min read</span>
                       <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors group-hover:text-ember-deep">
-                        Read <ArrowUpRight size={14} weight="bold" />
+                        Read <ArrowUpRight size={14} strokeWidth={2.2} />
                       </span>
                     </div>
                   </div>

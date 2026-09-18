@@ -1,6 +1,6 @@
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from '@phosphor-icons/react';
+import { ArrowLeft } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { img } from '../data/images';
 
@@ -198,9 +198,12 @@ const BlogPost = () => {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-4 px-4">
-        <p className="text-brand-muted text-lg">Post not found.</p>
-        <Link to="/blog" className="text-brand-primary hover:underline text-sm">← Back to Blog</Link>
+      <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-7">
+        <p className="text-[16px] text-ink-soft">Post not found.</p>
+        <Link to="/blog" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ember-deep hover:text-ink">
+          <ArrowLeft size={14} strokeWidth={2.2} />
+          Back to Blog
+        </Link>
       </div>
     );
   }
@@ -229,33 +232,23 @@ const BlogPost = () => {
         }}
       />
 
-      {/* Hero image */}
-      <div className="w-full overflow-hidden pt-16">
-        <div className="h-56 sm:h-72 md:h-96 overflow-hidden">
-          <img
-            src={post.image}
-            alt={post.title}
-            className="w-full h-full object-cover"
-            style={post.imagePosition ? { objectPosition: post.imagePosition } : undefined}
-          />
-        </div>
-      </div>
-
-      <article className="container-wide px-4 sm:px-6 py-10 sm:py-14 max-w-2xl">
+      <article className="mx-auto max-w-3xl px-7 pb-24 pt-20 md:pt-24">
 
         {/* Back */}
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <Link to="/blog" className="mb-6 inline-flex items-center gap-1.5 text-sm text-ink-soft transition-colors hover:text-ember-deep">
-            <ArrowLeft size={14} weight="bold" />
+          <Link to="/blog" className="mb-6 inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft transition-colors hover:text-ember-deep">
+            <ArrowLeft size={14} strokeWidth={2.2} />
             Back to Blog
           </Link>
         </motion.div>
 
         {/* Meta */}
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-2 mb-4">
-          <span className="text-xs px-2.5 py-1 rounded-full bg-brand-primary/10 text-brand-primary font-semibold">{post.category}</span>
-          {post.domain && <span className="text-xs text-brand-muted">{post.domain}</span>}
-          <span className="text-xs text-brand-muted ml-auto">{formatDate(post.publishedAt)} · {post.readTime} min read</span>
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-3">
+          <span className="rounded-full border border-ember/30 bg-ember/10 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ember-deep">{post.category}</span>
+          {post.domain && <span className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">{post.domain}</span>}
+          <span className="ml-auto font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">
+            {formatDate(post.publishedAt)} · {post.readTime} min read
+          </span>
         </motion.div>
 
         {/* Title */}
@@ -263,33 +256,43 @@ const BlogPost = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-2xl sm:text-3xl md:text-4xl font-display font-bold text-brand-text leading-tight mb-4"
+          className="mb-8 mt-5 font-display text-[34px] leading-[1.08] tracking-[-0.025em] text-ink md:text-[46px]"
         >
           {post.title}
         </motion.h1>
 
+        {/* Hero image */}
+        <div className="img-frame mb-8 aspect-[16/9] overflow-hidden rounded-2xl border border-line">
+          <img
+            src={post.image}
+            alt={post.title}
+            className="h-full w-full object-cover"
+            style={post.imagePosition ? { objectPosition: post.imagePosition } : undefined}
+          />
+        </div>
+
         {/* Author */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} className="flex items-center gap-3 mb-8 pb-8 border-b border-brand-border">
-          <div className="w-9 h-9 rounded-full bg-brand-primary/20 border border-brand-primary/40 flex items-center justify-center text-brand-primary font-bold text-sm flex-shrink-0">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} className="mb-10 flex items-center gap-3 border-b border-line pb-8">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line bg-paper-2 font-mono text-[13px] text-ember-deep">
             {post.author.name.charAt(0)}
           </div>
           <div>
-            <p className="text-sm font-semibold text-brand-text">{post.author.name}</p>
-            <p className="text-xs text-brand-muted">{post.author.role}</p>
+            <p className="font-display text-[17px] tracking-[-0.01em] text-ink">{post.author.name}</p>
+            <p className="mt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">{post.author.role}</p>
           </div>
         </motion.div>
 
         {/* Content */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="space-y-5">
-          <p className="text-base sm:text-lg text-brand-muted leading-relaxed">{post.excerpt}</p>
+          <p className="text-[17.5px] leading-[1.75] text-ink">{post.excerpt}</p>
           {post.body?.map((para, i) => (
             i === post.body.length - 1 ? (
-              <div key={i} className="mt-8 pt-6 border-t border-brand-border">
-                <p className="text-xs font-semibold text-brand-primary uppercase tracking-widest mb-2">Research Note</p>
-                <p className="text-sm text-brand-muted leading-relaxed">{para.replace(/^Do your own research:\s*/i, '')}</p>
+              <div key={i} className="mt-10 border-t border-line pt-6">
+                <p className="eyebrow mb-2 text-ink-faint">Research Note</p>
+                <p className="text-[14.5px] leading-relaxed text-ink-soft">{para.replace(/^Do your own research:\s*/i, '')}</p>
               </div>
             ) : (
-              <p key={i} className="text-base text-brand-muted leading-relaxed">{para}</p>
+              <p key={i} className="text-[16.5px] leading-[1.75] text-ink-soft">{para}</p>
             )
           ))}
         </motion.div>
