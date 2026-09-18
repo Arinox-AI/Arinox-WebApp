@@ -1,8 +1,8 @@
 export const perks = [
-  { icon: 'Globe',     title: 'Impact at Scale',       desc: 'Your work powers transformation across industries and continents.' },
-  { icon: 'TrendUp',   title: 'Fast Growth',            desc: "Develop tomorrow's skills today. We invest in your career." },
-  { icon: 'Lightbulb', title: 'Creative Freedom',       desc: 'Bring your best ideas. We implement them.' },
-  { icon: 'Buildings', title: 'On-Site Collaboration',  desc: 'Work side-by-side with the whole team at our office.' },
+  { image: '/images/careers/impact.svg',   title: 'Impact at Scale',       desc: 'Your work powers transformation across industries and continents.' },
+  { image: '/images/careers/growth.svg',   title: 'Fast Growth',           desc: "Develop tomorrow's skills today. We invest in your career." },
+  { image: '/images/careers/creative.svg', title: 'Creative Freedom',      desc: 'Bring your best ideas. We implement them.' },
+  { image: '/images/careers/office.svg',   title: 'On-Site Collaboration', desc: 'Work side-by-side with the whole team at our office.' },
 ];
 
 export const roles = [

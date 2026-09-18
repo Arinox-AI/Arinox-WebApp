@@ -5,7 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import {
   ArrowUpRight, Mail, Inbox, Plus, Minus,
-  Globe, TrendingUp, Lightbulb, Building2, MapPin, Clock,
+  MapPin, Clock,
 } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
@@ -20,8 +20,6 @@ const getJdBySlug = (roles, role) => {
   const match = roles.find(r => (r.slug === role.slug || r.title === role.title) && r.jd);
   return match?.jd || null;
 };
-
-const PERK_ICONS = { Globe, TrendUp: TrendingUp, Lightbulb, Buildings: Building2 };
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
 
@@ -206,21 +204,21 @@ const Careers = () => {
         <div className="mx-auto max-w-6xl px-7">
           <Label>How we work</Label>
           <h2 className="mt-5 font-display text-3xl tracking-[-0.01em] md:text-[40px]">What we look for.</h2>
-          <div className="mt-12 grid gap-x-16 gap-y-10 sm:grid-cols-2">
-            {perks.map(({ icon, title, desc }) => {
-              const Icon = PERK_ICONS[icon] || Globe;
-              return (
-                <div key={title} className="flex gap-4 border-t border-ink/80 pt-6">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-line bg-white text-ember-deep">
-                    <Icon size={19} strokeWidth={1.75} />
-                  </span>
-                  <div>
-                    <h3 className="font-display text-[20px] tracking-[-0.01em]">{title}</h3>
-                    <p className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
-                  </div>
+          <div className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2">
+            {perks.map(({ image, title, desc }) => (
+              <div key={title} className="group border-t border-ink/80 pt-6">
+                <div className="flex h-[150px] items-center">
+                  <img
+                    src={image}
+                    alt=""
+                    loading="lazy"
+                    className="max-h-full w-full object-contain object-left transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
                 </div>
-              );
-            })}
+                <h3 className="mt-6 font-display text-[20px] tracking-[-0.01em]">{title}</h3>
+                <p className="mt-2 max-w-[46ch] text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
