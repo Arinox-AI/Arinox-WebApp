@@ -87,24 +87,29 @@ const model = [
   },
 ]
 
+/* Trusted-by strip. Same sizing rule as the Partners page: explicit w/h
+   per logo (equal ~4,200px² footprint, max 150×44) so wide wordmarks don't
+   dwarf square marks and vice versa. The flex row center-aligns everything,
+   so all logos share one vertical axis. */
 const trustedLogos = [
-  { src: '/images/logos/ibm.svg', alt: 'IBM', h: 'h-9' },
-  { src: '/images/logos/hpe.svg', alt: 'HPE', h: 'h-8' },
-  { src: '/images/logos/hcltech.svg', alt: 'HCL Tech', h: 'h-7' },
-  { src: '/images/logos/hitachi.svg', alt: 'Hitachi Systems', h: 'h-7' },
-  { src: '/images/logos/Coforge.webp', alt: 'Coforge', h: 'h-8' },
-  { src: '/images/logos/minera.svg', alt: 'Minera Steel and Power', h: 'h-8' },
-  { src: '/images/logos/blackberrys.png', alt: 'Blackberrys', h: 'h-6' },
-  { src: '/images/logos/lsdigital.png', alt: 'LS Digital', h: 'h-14' },
-  { src: '/images/logos/hul.svg', alt: 'Hindustan Unilever', h: 'h-9' },
-  { src: '/images/logos/centuryply.svg', alt: 'Century Ply', h: 'h-10' },
-  { src: '/images/logos/innocean.png', alt: 'Innocean', h: 'h-7' },
-  { src: '/images/logos/celkon.webp', alt: 'Celkon Mobile', h: 'h-7' },
-  { src: '/images/logos/nikom.png', alt: 'Nikom', h: 'h-7' },
-  { src: '/images/logos/langoor.png', alt: 'Langoor', h: 'h-12' },
-  { src: '/images/logos/indian-army.png', alt: 'Indian Army', h: 'h-12' },
-  { src: '/images/logos/sunmobility.png', alt: 'Sun Mobility', h: 'h-7' },
-  { src: '/images/logos/kosmoderma.png', alt: 'Kosmoderma Clinics', h: 'h-7' },
+  { src: '/images/logos/ibm.svg', alt: 'IBM', w: 106, h: 40 },
+  { src: '/images/logos/hpe.svg', alt: 'HPE', w: 100, h: 42 },
+  { src: '/images/logos/hcltech.svg', alt: 'HCL Tech', w: 150, h: 27 },
+  { src: '/images/logos/hitachi.svg', alt: 'Hitachi Systems', w: 150, h: 23 },
+  { src: '/images/logos/Coforge.webp', alt: 'Coforge', w: 138, h: 30 },
+  { src: '/images/logos/minera.svg', alt: 'Minera Steel and Power', w: 119, h: 35 },
+  { src: '/images/logos/blackberrys.png', alt: 'Blackberrys', w: 150, h: 19 },
+  { src: '/images/logos/lsdigital.png', alt: 'LS Digital', w: 52, h: 44 },
+  { src: '/images/logos/hul.svg', alt: 'Hindustan Unilever', w: 112, h: 37 },
+  { src: '/images/logos/centuryply.svg', alt: 'Century Ply', w: 97, h: 43 },
+  { src: '/images/logos/innocean.png', alt: 'Innocean', w: 150, h: 22 },
+  { src: '/images/logos/celkon.webp', alt: 'Celkon Mobile', w: 148, h: 29 },
+  { src: '/images/logos/nikom.png', alt: 'Nikom', w: 124, h: 34 },
+  { src: '/images/logos/langoor.png', alt: 'Langoor', w: 150, h: 15 },
+  { src: '/images/logos/indian-army.png', alt: 'Indian Army', w: 58, h: 44 },
+  { src: '/images/logos/sunmobility.png', alt: 'Sun Mobility', w: 113, h: 37 },
+  { src: '/images/logos/kosmoderma.png', alt: 'Kosmoderma Clinics', w: 150, h: 27 },
+  { src: '/images/logos/informage.png', alt: 'Informage', w: 133, h: 31 },
 ]
 
 function PersonGroup({ label, people }) {
@@ -247,22 +252,31 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Trust carousel */}
+      {/* Trust carousel — the track holds two IDENTICAL halves; keep them
+          in sync or the -50% loop seam will jump */}
       <section className="border-t border-line py-12">
         <div className="mb-9 flex justify-center">
           <Label>Trusted by leaders</Label>
         </div>
         <div className="group relative overflow-hidden">
           <div className="marquee-track flex w-max items-center">
-            {[...trustedLogos, ...trustedLogos].map((l, i) => (
-              <img
-                key={`${l.alt}-${i}`}
-                src={l.src}
-                alt={l.alt}
-                loading="lazy"
-                aria-hidden={i >= trustedLogos.length}
-                className={`mr-20 w-auto shrink-0 object-contain opacity-55 transition-opacity duration-200 hover:opacity-90 ${l.h}`}
-              />
+            {[0, 1].map((copy) => (
+              <div
+                key={copy}
+                aria-hidden={copy === 1}
+                className="flex shrink-0 items-center gap-16 pr-16"
+              >
+                {trustedLogos.map((l) => (
+                  <img
+                    key={l.alt}
+                    src={l.src}
+                    alt={l.alt}
+                    loading="lazy"
+                    style={{ width: l.w, height: l.h }}
+                    className="shrink-0 object-contain opacity-55 transition-opacity duration-200 hover:opacity-90"
+                  />
+                ))}
+              </div>
             ))}
           </div>
           <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-paper to-transparent" />

@@ -7,38 +7,41 @@ import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
 import { company } from '../data/site';
 
-/* Quiet inline row, the parts, not a trophy wall. */
-/* Grouped, but quietly: clusters are separated by a hairline and a very
-   light mono label, so the roles read without being announced. */
+/* Partner logo rows, grouped by role.
+   Each item carries explicit w/h (equal ~4,200px² footprint, max 150×44)
+   because the source logos have wildly different aspect ratios — a fixed
+   height makes wide wordmarks dwarf square marks. Sizes are pre-computed
+   from each file's ratio; object-contain guards against drift. */
 const partnerGroups = [
   {
     label: 'Compute',
     items: [
-      { name: 'E2E Cloud', logo: '/images/logos/e2e-networks.png', h: 'h-14' },
-      { name: 'Altos', logo: '/images/logos/altos.svg', h: 'h-7' },
-      { name: 'HP', logo: '/images/logos/hp.svg', h: 'h-8' },
-      { name: 'IBM', logo: '/images/logos/ibm.svg', h: 'h-8' },
+      { name: 'E2E Cloud', logo: '/images/logos/e2e-networks.png', w: 65, h: 44 },
+      { name: 'Altos', logo: '/images/logos/altos.svg', w: 126, h: 33 },
+      { name: 'HP', logo: '/images/logos/hp.svg', w: 44, h: 44 },
+      { name: 'IBM', logo: '/images/logos/ibm.svg', w: 106, h: 40 },
     ],
   },
   {
     label: 'Silicon',
     items: [
-      { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg', h: 'h-7' },
-      { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg', h: 'h-7' },
+      { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg', w: 150, h: 27 },
+      { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg', w: 150, h: 28 },
     ],
   },
   {
     label: 'Distribution',
     items: [
-      { name: 'TechData', logo: '/images/logos/techdata.svg', h: 'h-7' },
-      { name: 'Redington', logo: '/images/logos/redington.svg', h: 'h-7' },
+      { name: 'TechData', logo: '/images/logos/techdata.svg', w: 124, h: 34 },
+      { name: 'Redington', logo: '/images/logos/redington.svg', w: 127, h: 33 },
+      { name: 'Informage', logo: '/images/logos/informage.png', w: 133, h: 31 },
     ],
   },
   {
     label: 'Data',
     items: [
-      { name: 'Dataquark', logo: '/images/logos/dataquark.png', h: 'h-11' },
-      { name: 'LS Digital', logo: '/images/logos/lsdigital.png', h: 'h-12' },
+      { name: 'Dataquark', logo: '/images/logos/dataquark.png', w: 66, h: 44 },
+      { name: 'LS Digital', logo: '/images/logos/lsdigital.png', w: 52, h: 44 },
     ],
   },
 ];
@@ -121,7 +124,8 @@ const Partners = () => (
                   src={s.logo}
                   alt={s.name}
                   loading="lazy"
-                  className={`w-auto shrink-0 object-contain opacity-70 transition-opacity duration-200 hover:opacity-100 ${s.h}`}
+                  style={{ width: s.w, height: s.h }}
+                  className="shrink-0 object-contain opacity-70 transition-opacity duration-200 hover:opacity-100"
                 />
               ))}
             </div>

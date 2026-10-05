@@ -593,8 +593,10 @@ h1, h2, h3, h4, h5, h6 {
   to   { transform: translateX(-50%); }
 }
 
-/* Seamless logo carousel: duplicate the track twice, vary speed via --marquee-duration.
-   Pauses on hover; honours reduced-motion. */
+/* Seamless logo carousel: the track contains two IDENTICAL halves, each
+   carrying the same inter-item gap AND a trailing gap, so the -50%
+   translate lands exactly on the start of the second copy — no jump.
+   Vary speed via --marquee-duration. Pauses on hover; honours reduced-motion. */
 .marquee-track {
   animation: marquee var(--marquee-duration, 40s) linear infinite;
 }
@@ -670,7 +672,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .pulse-ring { animation: pulseRing 2.4s ease-out infinite; }
 
-/* Hero backdrop, ASCII earth + warm vignette + pointer light */
+/* Hero backdrop, dot-matrix earth + warm vignette + pointer light */
 .hero-vignette {
   background: radial-gradient(72% 56% at 50% 34%, rgba(255, 99, 1, 0.1), transparent 70%);
 }
