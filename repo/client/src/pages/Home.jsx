@@ -113,16 +113,19 @@ const trustedLogos = [
 ]
 
 function PersonGroup({ label, people }) {
+  const layout = people.length > 3
+    ? 'lg:grid-cols-4'
+    : 'lg:grid-cols-3 mx-auto max-w-[51.5rem]'
   return (
     <div>
       <div className="mb-8 flex items-center gap-4">
         <span className="eyebrow text-ember-deep">{label}</span>
         <span className="h-px flex-1 bg-line" aria-hidden />
       </div>
-      <div className="grid max-w-4xl gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className={`grid gap-4 sm:grid-cols-2 ${layout}`}>
         {people.map((p) => (
           <div key={p.name} className="group overflow-hidden card-light">
-            <div className="aspect-[4/4.2] overflow-hidden bg-paper-2">
+            <div className="aspect-square overflow-hidden bg-paper-2">
               <img
                 src={p.photo}
                 alt={p.name}
@@ -130,8 +133,8 @@ function PersonGroup({ label, people }) {
                 className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
               />
             </div>
-            <div className="p-5">
-              <p className="font-display text-[18px] leading-tight tracking-[-0.01em]">{p.name}</p>
+            <div className="p-4">
+              <p className="font-display text-[16px] leading-tight tracking-[-0.01em]">{p.name}</p>
               <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ember-deep">{p.role}</p>
             </div>
           </div>

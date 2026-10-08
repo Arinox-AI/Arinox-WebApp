@@ -72,6 +72,12 @@ export const team = [
     bio: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
     photo: '/images/team/uday.webp',
   },
+  {
+    name: 'Michael Robinson',
+    role: 'MD & CMO - North America',
+    bio: 'Growth and go-to-market leader expanding Arinox\u2019s sovereign AI platforms across North American enterprises and strategic partners.',
+    photo: '/images/team/michael.jpg',
+  },
 ];
 
 export const advisors = [
