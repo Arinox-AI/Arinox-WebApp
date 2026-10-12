@@ -132,10 +132,11 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
     </div>`);
 
 /* ── Contact auto-reply to user ──
-   `body`, `steps` and `asset` override the default copy. `asset` names a
-   document the controller attaches to the email (no download link); its box
-   sits directly under the greeting so the deliverable is seen first. */
+   `body`, `steps` and `asset` override the default copy. Asset flows (deck
+   requests) stay minimal: greeting + one short line — the file arrives as an
+   attachment. Everything else keeps the steps box and reply line. */
 const contactAutoReply = ({ name, subject, body, steps, asset }) => {
+  const minimal = Boolean(asset?.name);
   const stepsList = Array.isArray(steps) && steps.length
     ? steps.map((s, i) => `${i + 1}. ${s}`).join('<br>')
     : `1. Our team reviews your message<br>
@@ -146,21 +147,17 @@ const contactAutoReply = ({ name, subject, body, steps, asset }) => {
     ${header("We've received your message", subject || 'Arinox AI')}
     <div style="${bodyStyle}">
       <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${name},</p>
-      ${asset?.name ? `
-      <div style="${noteBoxStyle};margin:0 0 20px;">
-        <span style="display:block;font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:10.5px;color:#b84300;">Attached</span>
-        <span style="display:block;margin-top:5px;font-size:14px;color:#17171a;line-height:1.6;">${esc(asset.name)} <span style="color:#5b5b60;">(PPTX &middot; opens in PowerPoint)</span></span>
-      </div>` : ''}
-      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 22px;">
+      <p style="font-size:15px;color:${minimal ? '#17171a' : '#5b5b60'};line-height:1.7;margin:0 0 ${minimal ? '4px' : '22px'};">
         ${body || `Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
         message regarding <em>"${subject || 'your inquiry'}"</em> and we will get back to you
         <strong style="color:#17171a;">soon</strong>.`}
       </p>
+      ${minimal ? '' : `
       <div style="${noteBoxStyle}">
         <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">What happens next</span><br>
         <span style="display:inline-block;margin-top:8px;">${stepsList}</span>
       </div>
-      <p style="font-size:13px;color:#8a8a93;line-height:1.6;margin:20px 0 0;">You can reply directly to this email — it reaches the Arinox team.</p>
+      <p style="font-size:13px;color:#8a8a93;line-height:1.6;margin:20px 0 0;">You can reply directly to this email — it reaches the Arinox team.</p>`}
     </div>`);
 };
 
