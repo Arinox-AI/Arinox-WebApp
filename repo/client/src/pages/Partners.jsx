@@ -152,9 +152,9 @@ const Partners = () => (
             <div className="md:col-span-5">
               <p className="text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
             </div>
-            <div className="flex flex-wrap items-start gap-2 md:col-span-3">
+            <div className="flex flex-wrap items-start gap-2 md:col-span-3 md:justify-end">
               {tags.map((t) => (
-                <span key={t} className="rounded-full border border-line px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft">{t}</span>
+                <span key={t} className="rounded-full border border-line bg-paper-2/70 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft">{t}</span>
               ))}
             </div>
           </div>

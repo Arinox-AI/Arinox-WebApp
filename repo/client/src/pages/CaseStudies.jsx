@@ -22,7 +22,7 @@ const valueSize = (value) =>
   String(value).length > 6 ? 'text-[20px] md:text-[24px]' : 'text-[30px] md:text-[36px]';
 
 const Architecture = ({ items }) => (
-  <div className="mt-8 border-t border-line pt-6">
+  <div className="mt-7 border-t border-line pt-5">
     <p className="eyebrow text-ink-faint">Capability architecture</p>
     <div className="mt-5 space-y-6">
       {items.map((a, i) => (
@@ -48,7 +48,7 @@ const Architecture = ({ items }) => (
 const UseCase = ({ index, useCase: c }) => {
   const hasRail = (c.metrics?.length ?? 0) > 0 || (c.architecture?.length ?? 0) > 0;
   return (
-    <article className={index > 0 ? 'mt-14 border-t border-line pt-12' : ''}>
+    <article className={index > 0 ? 'mt-12 border-t border-line pt-10' : ''}>
       <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
         <span className="num font-mono text-[12px] text-ink-faint">{String(index + 1).padStart(2, '0')}</span>
         <h3 className="font-display text-[26px] tracking-[-0.01em] md:text-[32px]">{c.title}</h3>
@@ -65,11 +65,11 @@ const UseCase = ({ index, useCase: c }) => {
         </div>
       )}
 
-      <div className={`mt-8 grid gap-10 ${hasRail ? 'lg:grid-cols-[1.1fr_0.9fr] lg:gap-16' : 'max-w-3xl'}`}>
+      <div className={`mt-7 grid gap-8 ${hasRail ? 'lg:grid-cols-[1.1fr_0.9fr] lg:gap-12' : 'max-w-3xl'}`}>
         <div>
           <p className="eyebrow text-ink-faint">The challenge</p>
           <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">{c.problem}</p>
-          <div className="mt-8 border-t border-ink/80 pt-5">
+          <div className="mt-7 border-t border-ink/80 pt-5">
             <p className="eyebrow text-ember-deep">Outcome</p>
             <p className="mt-2 text-[15.5px] leading-relaxed text-ink">{c.outcome}</p>
           </div>
@@ -78,9 +78,9 @@ const UseCase = ({ index, useCase: c }) => {
         {hasRail && (
           <div>
             {c.metrics?.length > 0 && (
-              <div className="border-t border-line pt-6">
+              <div className="border-t border-line pt-5">
                 <p className="eyebrow text-ink-faint">Metrics</p>
-                <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-7">
+                <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-6">
                   {c.metrics.map((m) => {
                     const basis = BASIS[m.basis];
                     return (
@@ -104,7 +104,7 @@ const UseCase = ({ index, useCase: c }) => {
       </div>
 
       {c.proofNote && (
-        <p className="mt-8 border-t border-line pt-5 font-mono text-[11.5px] leading-relaxed tracking-[0.02em] text-ink-faint">
+        <p className="mt-6 border-t border-line pt-4 font-mono text-[11.5px] leading-relaxed tracking-[0.02em] text-ink-faint">
           {c.proofNote}
         </p>
       )}
@@ -147,7 +147,7 @@ const CaseStudies = () => {
         </div>
       </section>
 
-      <Section border={false} className="pt-6">
+      <Section border={false} className="pt-6 pb-10 md:pb-14">
         <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-4" role="tablist" aria-label="Sectors">
           {sectorData.map((s, i) => {
             const on = i === active;
@@ -172,7 +172,7 @@ const CaseStudies = () => {
           })}
         </div>
 
-        <div key={sector.label} className="tile-in mt-12">
+        <div key={sector.label} className="tile-in mt-10">
           <div className="flex flex-wrap items-end justify-between gap-4 border-b border-line pb-6">
             <div>
               <h2 className="font-display text-[30px] leading-tight tracking-[-0.015em] md:text-[38px]">{sector.label}</h2>
@@ -184,13 +184,13 @@ const CaseStudies = () => {
           </div>
 
           {hasCases ? (
-            <div className="mt-10">
+            <div className="mt-8">
               {sector.useCases.map((c, i) => (
                 <UseCase key={c.title} index={i} useCase={c} />
               ))}
             </div>
           ) : (
-            <div className="mt-10 border-t border-line pt-8">
+            <div className="mt-8 border-t border-line pt-6">
               <p className="max-w-xl text-[16px] leading-relaxed text-ink-soft">
                 Use cases for this sector are being finalised. In the meantime, tell us your
                 constraint and we&apos;ll map it to a concrete on-premises deployment.
@@ -209,8 +209,8 @@ const CaseStudies = () => {
           {anchorDeployment.headline}
         </h2>
         <p className="mt-4 font-mono text-[12.5px] uppercase tracking-[0.08em] text-ember">{anchorDeployment.client}</p>
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:gap-16">
-          <div className="space-y-5">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:gap-12">
+          <div className="space-y-4">
             {anchorDeployment.body.map((p) => (
               <p key={p.slice(0, 24)} className="max-w-2xl text-[16px] leading-relaxed text-ghost">{p}</p>
             ))}

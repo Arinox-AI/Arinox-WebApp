@@ -1,0 +1,324 @@
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { ArrowDown, ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileDown, RefreshCw } from 'lucide-react';
+import SEO from '../components/ui/SEO';
+import { Label } from '../components/site/Layout';
+import { Section } from '../components/site/Section';
+import { HalftoneBackground } from '../components/site/HalftoneBackground';
+import { RequestForm } from '../components/site/RequestForm';
+import { marketingSuite } from '../data/marketingSuite';
+
+/* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
+   Composition: hero → on-page index → the leak ledger (dark) → the loop
+   board (signals in, the agents, decisions out, back to signal) → the deck. */
+
+/** Flow connector: dashed drift on desktop, vertical rail on mobile. */
+const FlowArrow = () => (
+  <div aria-hidden className="flex items-center justify-center">
+    <div className="hidden w-full items-center lg:flex">
+      <svg className="flow-dash h-2 min-w-0 flex-1" viewBox="0 0 40 8" preserveAspectRatio="none">
+        <line x1="0" y1="4" x2="40" y2="4" stroke="var(--color-line)" strokeWidth="1.4" strokeDasharray="4 10" />
+      </svg>
+      <ChevronRight size={14} strokeWidth={2.4} className="shrink-0 text-ember" />
+    </div>
+    <div className="flex flex-col items-center py-3 lg:hidden">
+      <svg className="flow-dash h-7 w-2" viewBox="0 0 8 40" preserveAspectRatio="none">
+        <line x1="4" y1="0" x2="4" y2="40" stroke="var(--color-line)" strokeWidth="2" strokeDasharray="4 10" />
+      </svg>
+      <ChevronDown size={14} strokeWidth={2.4} className="shrink-0 text-ember" />
+    </div>
+  </div>
+);
+
+/** The cockpit as a live loop, not three lists: signals → agents → decisions,
+    and a return rail so the last line of the loop gets drawn too. */
+const LoopBoard = () => {
+  const { cockpit } = marketingSuite;
+
+  return (
+    <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-white shadow-[0_32px_80px_-64px_rgba(11,11,13,0.6)]">
+      <div className="grid lg:grid-cols-[1fr_56px_minmax(280px,330px)_56px_1fr]">
+        {/* Signals in */}
+        <div className="p-6 md:p-7">
+          <p className="eyebrow text-ink-faint">Signals in</p>
+          <ul className="mt-4 border-t border-ink/80">
+            {cockpit.signalsIn.map((s) => (
+              <li key={s.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
+                <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{s.t}</span>
+                <span className="text-right font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{s.d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <FlowArrow />
+
+        {/* The agents, the engine panel of the loop */}
+        <div className="relative border-y border-line bg-paper-2/45 p-6 md:p-7 lg:border-x lg:border-y-0">
+          <p className="eyebrow text-ember-deep">The agents</p>
+          <ol className="mt-4 border-t border-ember/30">
+            {cockpit.agents.map((a, i) => (
+              <li key={a.t} className="grid grid-cols-[auto_1fr] items-start gap-x-3.5 border-b border-ember/20 py-4 last:border-b-0">
+                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[10px] text-ember-deep">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <div>
+                  <p className="font-display text-[18px] tracking-[-0.01em]">{a.t}</p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-ink-soft">{a.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-5 flex items-center gap-3 rounded-xl border border-ember/30 bg-white/80 px-4 py-3">
+            <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden>
+              <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-ember/60" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ember" />
+            </span>
+            <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep">{cockpit.approve}</span>
+          </div>
+        </div>
+
+        <FlowArrow />
+
+        {/* Decisions out */}
+        <div className="p-6 md:p-7">
+          <p className="eyebrow text-ink-faint">Decisions out</p>
+          <ul className="mt-4 border-t border-ink/80">
+            {cockpit.decisionsOut.map((d) => (
+              <li key={d.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
+                <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{d.t}</span>
+                <span className="text-right font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{d.d}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      {/* Return rail: the decision feeds the next signal */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line bg-paper-2/60 px-5 py-3.5 md:px-6">
+        <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">
+          <RefreshCw size={12} strokeWidth={2.4} className="animate-spin [animation-duration:8s]" aria-hidden />
+          the loop
+        </span>
+        <span
+          aria-hidden
+          className="hidden h-px min-w-[48px] flex-1 bg-[repeating-linear-gradient(90deg,var(--color-line)_0_5px,transparent_5px_10px)] sm:block"
+        />
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+          every action becomes the next signal
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const MarketingSuite = () => (
+  <>
+    <SEO
+      title="Marketing OS | The AI way to market | Arinox AI"
+      description="Marketing OS is one AI-native control plane for your marketing: every signal in, every decision out, in a loop. Request the deck by email."
+      canonical="https://www.arinox.ai/industries/marketing"
+    />
+
+    {/* Hero */}
+    <section className="relative overflow-hidden border-b border-line px-7 pb-14 pt-20 md:pt-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
+        <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
+      </div>
+      <div className="relative mx-auto max-w-6xl">
+        <Link
+          to="/industries"
+          className="inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
+        >
+          <ArrowLeft size={13} strokeWidth={2.2} />
+          Industry suites
+        </Link>
+
+        <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
+          <div>
+            <Label>{marketingSuite.overline}</Label>
+            <h1 className="mt-5 font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[58px]">
+              Marketing <span className="italic text-ember">OS.</span>
+            </h1>
+            <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">{marketingSuite.tagline}</p>
+            <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-ink-soft">{marketingSuite.lead}</p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <a
+                href="#deck"
+                className="chip btn-ember-glow inline-flex items-center gap-2 rounded-btn bg-ember px-6 py-3.5 text-[12.5px] font-medium leading-none text-white transition-colors duration-200 hover:bg-ember-deep"
+              >
+                <FileDown size={16} strokeWidth={2.2} />
+                {marketingSuite.request.ctaButton}
+              </a>
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
+              >
+                Book a discovery session
+                <ArrowRight size={14} strokeWidth={2.2} />
+              </Link>
+            </div>
+          </div>
+
+          <div className="product-stage relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+            <img
+              src="/images/industries/marketing-hero.jpg"
+              alt="Hands reviewing printed marketing performance charts"
+              loading="eager"
+              className="absolute inset-0 h-full w-full object-cover [filter:grayscale(1)_contrast(1.05)]"
+            />
+            <div aria-hidden className="absolute inset-0 bg-ember mix-blend-multiply opacity-[0.12]" />
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-[radial-gradient(rgba(255,99,1,0.45)_1px,transparent_1.5px)] [background-size:16px_16px] opacity-30 [mask-image:radial-gradient(closest-side_circle_at_50%_45%,black_0%,transparent_78%)]"
+            />
+            <span className="absolute bottom-4 left-4 max-w-[85%] rounded-full border border-line/60 bg-white/90 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep backdrop-blur-sm">
+              Signals in. Decisions out. In a loop.
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* On-page index, the reading path in three moves */}
+    <nav aria-label="On this page" className="border-b border-line bg-paper-2/50">
+      <div className="mx-auto max-w-6xl px-7">
+        <ol className="grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+          {[
+            ['01', marketingSuite.gap.label, '#changed'],
+            ['02', marketingSuite.cockpit.label, '#cockpit'],
+            ['03', marketingSuite.request.label, '#deck'],
+          ].map(([n, t, href]) => (
+            <li key={href}>
+              <a href={href} className="group flex items-center gap-4 py-4 sm:px-6">
+                <span className="num font-mono text-[10.5px] text-ember-deep">{n}</span>
+                <span className="font-display text-[17px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{t}</span>
+                <ArrowDown
+                  size={14}
+                  strokeWidth={2.2}
+                  className="ml-auto text-ink-faint transition-all duration-200 group-hover:translate-y-0.5 group-hover:text-ember"
+                  aria-hidden
+                />
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+
+    {/* What changed — one big statement, then the watch list */}
+    <Section id="changed" dark border={false}>
+      <div className="max-w-4xl">
+        <Label dark>{marketingSuite.gap.label}</Label>
+        <h2 className="mt-6 font-display text-[36px] leading-[1.05] tracking-[-0.02em] text-phos md:text-[54px]">
+          {marketingSuite.gap.title}
+        </h2>
+        <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-ghost md:text-[19px]">
+          {marketingSuite.gap.note}
+        </p>
+      </div>
+
+      <motion.ol
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-80px' }}
+        variants={{ show: { transition: { staggerChildren: 0.09 } } }}
+        className="mt-14 border-t border-white/15"
+      >
+        {marketingSuite.gap.slips.map((s, i) => (
+          <motion.li
+            key={s.t}
+            variants={{
+              hidden: { opacity: 0, y: 16 },
+              show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+            }}
+            className="group relative grid grid-cols-[3rem_1fr] border-b border-white/10 py-7 transition-colors duration-200 hover:bg-white/[0.035] md:py-8"
+          >
+            <span className="num pt-1 font-mono text-[12px] text-ember">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3 className="font-display text-[22px] leading-snug tracking-[-0.01em] text-phos md:text-[25px]">{s.t}</h3>
+              <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed text-ghost md:text-[16px]">{s.d}</p>
+            </div>
+            <span
+              aria-hidden
+              className="absolute left-0 top-0 h-full w-px origin-top scale-y-0 bg-ember transition-transform duration-300 group-hover:scale-y-100"
+            />
+          </motion.li>
+        ))}
+      </motion.ol>
+
+      <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
+        Without a cockpit, this is where the money goes.
+        <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
+      </p>
+    </Section>
+
+    {/* The control plane — one board, read left to right, then looped back */}
+    <Section id="cockpit" border>
+      <Label>{marketingSuite.cockpit.label}</Label>
+      <h2 className="mt-5 max-w-3xl font-display text-[30px] leading-[1.08] tracking-[-0.02em] md:text-[40px]">
+        {marketingSuite.cockpit.title}
+      </h2>
+
+      <LoopBoard />
+
+      <div className="mt-8 flex items-start gap-3 border-t border-line pt-5">
+        <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-ember" aria-hidden />
+        <p className="max-w-3xl text-[15.5px] leading-relaxed text-ink">{marketingSuite.cockpit.command}</p>
+      </div>
+    </Section>
+
+    {/* The deck */}
+    <Section border>
+      <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+        <div>
+          <Label>{marketingSuite.request.label}</Label>
+          <h2 className="mt-5 max-w-md font-display text-[30px] leading-tight tracking-[-0.01em] md:text-[40px]">
+            {marketingSuite.request.title}
+          </h2>
+          <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{marketingSuite.request.note}</p>
+
+          <div className="relative mt-10 max-w-md">
+            <span aria-hidden className="absolute left-5 right-5 top-0 h-full translate-y-3 rounded-xl border border-line bg-white/50" />
+            <span aria-hidden className="absolute left-2.5 right-2.5 top-0 h-full translate-y-1.5 rounded-xl border border-line bg-white/75" />
+            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
+              <img src="/images/industries/marketing-os.svg" alt="" loading="lazy" className="h-16 w-auto shrink-0" />
+              <div className="min-w-0">
+                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">Marketing OS</p>
+                <p className="mt-1 font-display text-[19px] tracking-[-0.01em]">The deck</p>
+                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
+                  Straight to your inbox · .pptx
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-10">
+            <p className="eyebrow text-ink-faint">What happens next</p>
+            <div className="mt-4 border-t border-ink/80">
+              {marketingSuite.request.autoReply.steps.map((s, i) => (
+                <div key={s} className="group grid grid-cols-[auto_1fr] gap-x-4 border-b border-line py-3.5">
+                  <span className="num pt-0.5 font-mono text-[12px] text-ember-deep">{i + 1}</span>
+                  <span className="text-[14.5px] leading-relaxed text-ink-soft">{s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <RequestForm
+          id="deck"
+          label={marketingSuite.request.formLabel}
+          note=""
+          success={marketingSuite.request.success}
+          role={marketingSuite.request.role}
+          message={marketingSuite.request.message}
+          cta={marketingSuite.request.ctaButton}
+          autoReply={marketingSuite.request.autoReply}
+        />
+      </div>
+    </Section>
+  </>
+);
+
+export default MarketingSuite;

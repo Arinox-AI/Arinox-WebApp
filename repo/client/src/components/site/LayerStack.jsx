@@ -99,7 +99,7 @@ const layers = [
               className="group relative border-b border-line transition-colors duration-200 last:border-b-0 hover:bg-paper-2/45"
             >
               <div className="relative grid gap-4 px-5 py-6 md:grid-cols-[54px_auto_1fr_auto] md:items-center md:gap-7 md:px-8">
-                <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-2.5">
+                <div className="flex items-center gap-3 md:flex-col md:items-start md:gap-2.5 md:h-[52px] md:justify-center">
                   <span className="num font-mono text-[11px] text-ink-faint">{l.n}</span>
                   <span className="hidden h-2.5 w-2.5 rounded-full bg-line group-hover:bg-ink-faint md:block" aria-hidden />
                 </div>
@@ -119,7 +119,7 @@ const layers = [
                   <p className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">{l.desc}</p>
                 </div>
 
-                <div className="flex flex-wrap gap-2 md:max-w-[236px] md:justify-end">
+                <div className="flex flex-wrap gap-2 md:max-w-[236px] md:justify-end md:self-start md:pt-[13px]">
                   {l.chips.map((c) => (
                     <span
                       key={c}

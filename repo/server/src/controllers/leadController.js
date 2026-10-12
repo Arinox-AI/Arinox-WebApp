@@ -1,9 +1,44 @@
 const validator = require('validator');
+const fs = require('fs');
+const path = require('path');
 const supabase = require('../config/supabase');
 const { sendMail, leadNotification, contactAutoReply } = require('../utils/mailer');
 
 const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
 const join = (v) => (Array.isArray(v) ? v.join(', ') : str(v));
+
+/* Team notification recipients. EMAIL_TO may hold one address or a
+   comma-separated list; vandana@arinox.ai is always included. */
+const notifyTo = () => {
+  const list = (process.env.EMAIL_TO || 'assist@arinox.ai')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+  if (!list.includes('vandana@arinox.ai')) list.push('vandana@arinox.ai');
+  return list.join(', ');
+};
+
+/* Marketing OS deck, attached to the requester's auto-reply. The file lives
+   in server/assets-private/ locally and is included in the Vercel function
+   bundle via vercel.json `includeFiles`; try every plausible location. */
+const DECK_FILE = 'arinox-marketing-os-deck-MASTER.pptx';
+
+const deckAttachment = () => {
+  const candidates = [
+    path.join(__dirname, '../..', 'assets-private', DECK_FILE),       // express dev: server/src/controllers
+    path.join(process.cwd(), 'assets-private', DECK_FILE),            // workspace dev: cwd = server/
+    path.join(process.cwd(), 'server', 'assets-private', DECK_FILE),  // repo root / vercel function bundle
+  ];
+  for (const p of candidates) {
+    try {
+      if (fs.existsSync(p)) return [{ filename: 'marketing-os-deck.pptx', content: fs.readFileSync(p) }];
+    } catch {
+      /* try next candidate */
+    }
+  }
+  console.warn('[leads] deck file not found for attachment (checked %s candidates)', candidates.length);
+  return null;
+};
 
 /* Submit a lead from a campaign landing page. Saves a
    structured row to the Leads table (each ICP answer in its own column) and
@@ -26,6 +61,18 @@ const submitLead = async (req, res, next) => {
       useCases:    join(b.useCases),
       timeline:    str(b.timeline, 60),
       message:     str(b.message, 4000),
+      autoReply:   (b.autoReply && typeof b.autoReply === 'object' && (b.autoReply.subject || b.autoReply.body || b.autoReply.steps || b.autoReply.asset))
+        ? {
+            subject: str(b.autoReply.subject, 200),
+            body: str(b.autoReply.body, 1000),
+            steps: Array.isArray(b.autoReply.steps)
+              ? b.autoReply.steps.slice(0, 5).map((s) => str(s, 200)).filter(Boolean)
+              : null,
+            asset: b.autoReply && typeof b.autoReply.asset === 'object'
+              ? { url: str(b.autoReply.asset.url, 300), name: str(b.autoReply.asset.name, 120) }
+              : null,
+          }
+        : null,
       utmSource:   str(b.utm_source, 120),
       utmMedium:   str(b.utm_medium, 120),
       utmCampaign: str(b.utm_campaign, 160),
@@ -37,8 +84,8 @@ const submitLead = async (req, res, next) => {
       landingPage: str(b.landing_page, 1000),
     };
 
-    if (!lead.name || !lead.email || !lead.phone)
-      return res.status(400).json({ success: false, message: 'Name, email and phone are required.' });
+    if (!lead.name || !lead.email)
+      return res.status(400).json({ success: false, message: 'Name and email are required.' });
     if (!validator.isEmail(lead.email))
       return res.status(400).json({ success: false, message: 'Invalid email address.' });
 
@@ -61,15 +108,24 @@ const submitLead = async (req, res, next) => {
     // freeze the function before SMTP has a chance to complete.
     const emailResults = await Promise.allSettled([
       sendMail({
-        to: process.env.EMAIL_TO || 'assist@arinox.ai',
+        to: notifyTo(),
         subject: `[Arinox Lead] ${lead.name}${lead.company ? ' - ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
         html: leadNotification(lead),
         replyTo: lead.email,
       }),
       sendMail({
         to: lead.email,
-        subject: 'We received your request - Arinox AI',
-        html: contactAutoReply({ name: lead.name, subject: 'your AI strategy call' }),
+        subject: lead.autoReply?.subject
+          ? `We received your request - ${lead.autoReply.subject}`
+          : 'We received your request - Arinox AI',
+        html: contactAutoReply({
+          name: lead.name,
+          subject: lead.autoReply?.subject || 'your AI strategy call',
+          body: lead.autoReply?.body,
+          steps: lead.autoReply?.steps,
+          asset: lead.autoReply?.asset,
+        }),
+        ...(lead.autoReply?.asset ? { attachments: deckAttachment() } : {}),
       }),
     ]);
     emailResults.forEach((r, i) => {

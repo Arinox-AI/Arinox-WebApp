@@ -88,6 +88,7 @@ const quoteBoxStyle = `
   background: #f8f7f5; border: 1px solid #e2e1dd; padding: 14px; border-radius: 8px;
 `;
 const linkStyle = `color:#ea5a00;text-decoration:none;font-weight:bold;`;
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const logoUrl = (name = 'logo-white.png') =>
   `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://www.arinox.ai'}/images/brand/${name}`;
@@ -130,77 +131,59 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
       </div>
     </div>`);
 
-/* ── Contact auto-reply to user ── */
-const contactAutoReply = ({ name, subject }) =>
-  emailWrapper(`
+/* ── Contact auto-reply to user ──
+   `body`, `steps` and `asset` override the default copy. `asset` names a
+   document the controller attaches to the email (no download link). */
+const contactAutoReply = ({ name, subject, body, steps, asset }) => {
+  return emailWrapper(`
     ${header("We've received your message", subject || 'Arinox AI')}
     <div style="${bodyStyle}">
       <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 10px;">Hi ${name},</p>
       <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 16px;">
-        Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
+        ${body || `Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
         message regarding <em>"${subject || 'your inquiry'}"</em> and we will get back to you
-        <strong style="color:#17171a;">soon</strong>.
+        <strong style="color:#17171a;">soon</strong>.`}
       </p>
+      ${asset?.name ? `
+      <div style="${noteBoxStyle};margin:0 0 22px;">
+        <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">Your copy is attached</span>
+        <p style="font-size:13.5px;color:#17171a;line-height:1.6;margin:8px 0 0;">${esc(asset.name)} — attached to this email. It opens in PowerPoint.</p>
+      </div>` : ''}
       <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 24px;">
-        In the meantime, explore the platform at
+        ${Array.isArray(steps) && steps.length
+          ? 'You can also reply directly to this email.'
+          : `In the meantime, explore the platform at
         <a href="https://www.arinox.ai" style="${linkStyle}">www.arinox.ai</a>,
-        or reply directly to this email.
+        or reply directly to this email.`}
       </p>
       <div style="${noteBoxStyle}">
         <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">What happens next</span><br>
-        <span style="display:inline-block;margin-top:8px;">1. Our team reviews your message<br>
+        <span style="display:inline-block;margin-top:8px;">${Array.isArray(steps) && steps.length
+          ? steps.map((s, i) => `${i + 1}. ${s}`).join('<br>')
+          : `1. Our team reviews your message<br>
         2. We schedule a free discovery call<br>
-        3. You get a tailored plan</span>
+        3. You get a tailored plan`}</span>
       </div>
     </div>`);
+};
 
-/* ── Lead notification to Arinox team (Google Ads landing page) ── */
-const leadNotification = (lead) => {
-  const {
-    name, email, phone, company, role, companySize, companyType, domain,
-    usesAi, aiTools, useCases, timeline, message,
-    utmSource, utmMedium, utmCampaign, utmTerm, utmContent, gclid, gadSource, referrer, landingPage,
-  } = lead;
+/* ── Lead notification to Arinox team (website forms) ──
+   Compact on purpose: the full record (ICP, AI profile, campaign fields)
+   lives in the Leads table; the email exists to act on the lead, not to
+   re-type it. Rows render only when a value exists — no N/A noise. */
+const leadNotification = ({ name, email, phone, company, role, message, landingPage }) => {
   const row = (label, value) =>
-    `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value || 'N/A'}</div>`;
-  const hasCampaign = utmSource || utmMedium || utmCampaign || gclid || gadSource;
+    value ? `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value}</div>` : '';
   return emailWrapper(`
-    ${header('New lead', 'Submitted via a campaign form')}
+    ${header('New lead', 'Via website form')}
     <div style="${bodyStyle}">
-      <p style="${eyebrowStyle}">Contact</p>
       ${row('Name', name)}
-      ${row('Email', `<a href="mailto:${email}" style="${linkStyle}">${email}</a>`)}
-      ${row('Phone', phone)}
+      ${row('Email', email ? `<a href="mailto:${email}" style="${linkStyle}">${email}</a>` : '')}
       ${row('Company', company)}
       ${row('Role', role)}
-
-      <p style="${eyebrowStyle}">Firmographics (ICP)</p>
-      ${row('Employees', companySize)}
-      ${row('Company type', companyType)}
-      ${row('Industry / domain', domain)}
-
-      <p style="${eyebrowStyle}">AI profile</p>
-      ${row('Uses AI today', usesAi)}
-      ${row('AI tools used', aiTools)}
-      ${row('Wants AI for', useCases)}
-      ${row('Timeline', timeline)}
-
-      ${message ? `<div style="padding-top:16px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
-
-      ${hasCampaign ? `
-      <p style="${eyebrowStyle}">Campaign attribution</p>
-      ${row('Source', utmSource)}
-      ${row('Medium', utmMedium)}
-      ${row('Campaign', utmCampaign)}
-      ${row('Term', utmTerm)}
-      ${row('Content', utmContent)}
-      ${row('gclid', gclid)}
-      ${row('gad_source', gadSource)}
-      ` : ''}
-      ${referrer || landingPage ? `
-      ${row('Referrer', referrer)}
-      ${row('Landing page', landingPage ? `<span style="word-break:break-all;font-size:12px;">${landingPage}</span>` : '')}
-      ` : ''}
+      ${row('Phone', phone)}
+      ${message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
+      ${landingPage ? `<div style="padding-top:10px;">${row('Landing page', `<span style="word-break:break-all;font-size:12px;">${esc(landingPage)}</span>`)}</div>` : ''}
     </div>`);
 };
 
