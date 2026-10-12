@@ -133,37 +133,34 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
 
 /* ── Contact auto-reply to user ──
    `body`, `steps` and `asset` override the default copy. `asset` names a
-   document the controller attaches to the email (no download link). */
+   document the controller attaches to the email (no download link); its box
+   sits directly under the greeting so the deliverable is seen first. */
 const contactAutoReply = ({ name, subject, body, steps, asset }) => {
+  const stepsList = Array.isArray(steps) && steps.length
+    ? steps.map((s, i) => `${i + 1}. ${s}`).join('<br>')
+    : `1. Our team reviews your message<br>
+       2. We schedule a free discovery call<br>
+       3. You get a tailored plan`;
+
   return emailWrapper(`
     ${header("We've received your message", subject || 'Arinox AI')}
     <div style="${bodyStyle}">
-      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 10px;">Hi ${name},</p>
-      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 16px;">
+      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${name},</p>
+      ${asset?.name ? `
+      <div style="${noteBoxStyle};margin:0 0 20px;">
+        <span style="display:block;font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:10.5px;color:#b84300;">Attached</span>
+        <span style="display:block;margin-top:5px;font-size:14px;color:#17171a;line-height:1.6;">${esc(asset.name)} <span style="color:#5b5b60;">(PPTX &middot; opens in PowerPoint)</span></span>
+      </div>` : ''}
+      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 22px;">
         ${body || `Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
         message regarding <em>"${subject || 'your inquiry'}"</em> and we will get back to you
         <strong style="color:#17171a;">soon</strong>.`}
       </p>
-      ${asset?.name ? `
-      <div style="${noteBoxStyle};margin:0 0 22px;">
-        <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">Your copy is attached</span>
-        <p style="font-size:13.5px;color:#17171a;line-height:1.6;margin:8px 0 0;">${esc(asset.name)} — attached to this email. It opens in PowerPoint.</p>
-      </div>` : ''}
-      <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 24px;">
-        ${Array.isArray(steps) && steps.length
-          ? 'You can also reply directly to this email.'
-          : `In the meantime, explore the platform at
-        <a href="https://www.arinox.ai" style="${linkStyle}">www.arinox.ai</a>,
-        or reply directly to this email.`}
-      </p>
       <div style="${noteBoxStyle}">
         <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">What happens next</span><br>
-        <span style="display:inline-block;margin-top:8px;">${Array.isArray(steps) && steps.length
-          ? steps.map((s, i) => `${i + 1}. ${s}`).join('<br>')
-          : `1. Our team reviews your message<br>
-        2. We schedule a free discovery call<br>
-        3. You get a tailored plan`}</span>
+        <span style="display:inline-block;margin-top:8px;">${stepsList}</span>
       </div>
+      <p style="font-size:13px;color:#8a8a93;line-height:1.6;margin:20px 0 0;">You can reply directly to this email — it reaches the Arinox team.</p>
     </div>`);
 };
 

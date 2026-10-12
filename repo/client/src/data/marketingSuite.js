@@ -57,12 +57,11 @@ export const marketingSuite = {
     message: 'Requested the Marketing OS deck from the industry suite page.',
     ctaButton: 'Request the deck',
     autoReply: {
-      subject: 'your request for the Marketing OS deck',
-      body: 'We have your request for the Marketing OS deck. Your copy is in this email — download it when ready. If you want, we can walk you through it on a call.',
+      subject: 'Your Marketing OS deck',
+      body: 'Thank you for requesting the Marketing OS deck. Your copy is attached to this email — it opens in PowerPoint.',
       steps: [
-        'Your copy of the deck is in this email',
-        'A person from the team follows up',
-        'If you want, we walk it with you on a call',
+        'The team follows up within a day',
+        'If it helps, we walk you through it on a call',
       ],
       asset: { name: 'Marketing OS deck (PPT)' },
     },

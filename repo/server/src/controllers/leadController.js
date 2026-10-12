@@ -117,7 +117,7 @@ const submitLead = async (req, res, next) => {
       sendMail({
         to: lead.email,
         subject: lead.autoReply?.subject
-          ? `We received your request - ${lead.autoReply.subject}`
+          ? lead.autoReply.subject
           : 'We received your request - Arinox AI',
         html: contactAutoReply({
           name: lead.name,
