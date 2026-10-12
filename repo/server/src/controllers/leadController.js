@@ -18,16 +18,17 @@ const notifyTo = () => {
   return list.join(', ');
 };
 
-/* Marketing OS deck, attached to the requester's auto-reply. The file lives
-   in server/assets-private/ locally and is included in the Vercel function
-   bundle via vercel.json `includeFiles`; try every plausible location. */
+/* Marketing OS deck, attached to the requester's auto-reply. Local dev reads
+   server/assets-private/; on Vercel the deck ships inside the api/ folder,
+   which the @vercel/node builder includes with the function. */
 const DECK_FILE = 'arinox-marketing-os-deck-MASTER.pptx';
 
 const deckAttachment = () => {
   const candidates = [
     path.join(__dirname, '../..', 'assets-private', DECK_FILE),       // express dev: server/src/controllers
     path.join(process.cwd(), 'assets-private', DECK_FILE),            // workspace dev: cwd = server/
-    path.join(process.cwd(), 'server', 'assets-private', DECK_FILE),  // repo root / vercel function bundle
+    path.join(__dirname, '../../../api', 'marketing-os-deck.pptx'),   // vercel: api/ rides with the function
+    path.join(process.cwd(), 'api', 'marketing-os-deck.pptx'),        // vercel fallback: cwd-based
   ];
   for (const p of candidates) {
     try {
