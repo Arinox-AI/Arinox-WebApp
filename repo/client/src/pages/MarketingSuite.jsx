@@ -34,7 +34,7 @@ const FlowArrow = () => (
     Real clock axis, two named series, verbatim deck lines underneath.
     The shape is illustrative; the timeline is real. No boxes, no chrome. */
 const OvernightPanel = () => {
-  const { overnight } = marketingSuite;
+  const { overnight } = marketingSuite.gap;
   const HOURS = ['2 a.m.', '2:05 a.m.', '3 a.m.', '4 a.m.', '5 a.m.', '6 a.m.', '7 a.m.'];
   const VIEWS = [55, 60, 66, 72, 76, 80, 84];
   const CLICKS = [92, 78, 74, 68, 63, 57, 52];
