@@ -5,6 +5,7 @@ import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { Button } from '../components/site/Button';
 import { CtaBand } from '../components/site/Shell';
+import { CountUp } from '../components/site/motion/CountUp';
 import { sectors as sectorData, anchorDeployment } from '../data/caseStudies';
 
 /* Provenance for every metric, so a figure is never read as a client result
@@ -56,7 +57,7 @@ const UseCase = ({ index, useCase: c }) => {
               const basis = BASIS[m.basis];
               return (
                 <div key={m.label}>
-                  <p className={`num break-words font-display leading-[1.05] tracking-[-0.02em] text-ink ${valueSize(m.value)}`}>{m.value}</p>
+                  <CountUp value={m.value} className={`break-words font-display leading-[1.05] tracking-[-0.02em] text-ink ${valueSize(m.value)}`} />
                   <p className="mt-1.5 font-mono text-[10.5px] uppercase leading-snug tracking-[0.1em] text-ink-faint">{m.label}</p>
                   {basis && (
                     <p className="mt-1 font-mono text-[9px] uppercase leading-none tracking-[0.14em] text-ink-faint/70" title={basis.title}>

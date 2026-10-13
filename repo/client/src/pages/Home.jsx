@@ -12,6 +12,9 @@ import { AsciiGlobe } from '../components/site/AsciiGlobe'
 import { ComplianceStrip } from '../components/site/ComplianceStrip'
 import { LayerStack } from '../components/site/LayerStack'
 import { DataFlow } from '../components/site/DataFlow'
+import { SplitText } from '../components/site/motion/SplitText'
+import { Tilt } from '../components/site/motion/Tilt'
+import { Magnet } from '../components/site/motion/Magnet'
 import { team, advisors } from '../data/site'
 import { dataReadiness } from '../data/data'
 import { businessApps, commandCoreIntro, headlineClaims, powerUseCases, kogo } from '../data/commandcore'
@@ -215,9 +218,13 @@ const Home = () => {
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8">
           <div className="text-center lg:text-left">
             <Label className="justify-center lg:justify-start">AI transformation company</Label>
-            <h1 className="mt-5 font-display text-[44px] leading-[1.02] font-normal tracking-[-0.02em] md:text-[64px] lg:text-[68px]">
-              We make your enterprise <span className="italic text-ember">AI native.</span>
-            </h1>
+            <SplitText
+              className="mt-5 font-display text-[44px] leading-[1.02] font-normal tracking-[-0.02em] md:text-[64px] lg:text-[68px]"
+              words={[
+                { t: 'We make your enterprise' },
+                { t: 'AI native.', accent: 'italic text-ember' },
+              ]}
+            />
             <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">
               AI transformation, implemented end-to-end.
             </p>
@@ -240,7 +247,9 @@ const Home = () => {
               >
                 <Button to="/contact" variant="ember">Book a discovery session</Button>
               </motion.div>
-              <Button to="/case-studies" variant="ghost">Explore case studies</Button>
+              <Magnet>
+                <Button to="/case-studies" variant="ghost">Explore case studies</Button>
+              </Magnet>
             </div>
             <p className="num mt-6 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
               Free discovery session · the roadmap is yours · zero egress
@@ -463,14 +472,16 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="product-stage relative mx-auto w-full max-w-[480px] overflow-hidden rounded-2xl border border-line p-8">
-            <img
-              src="/images/commandcore/commandcore-xl2.webp"
-              alt="CommandCore XL"
-              loading="lazy"
-              className="mx-auto w-full drop-shadow-[0_34px_54px_rgba(11,11,13,0.25)]"
-            />
-          </div>
+          <Tilt className="mx-auto w-full max-w-[480px]">
+            <div className="product-stage relative overflow-hidden rounded-2xl border border-line p-8">
+              <img
+                src="/images/commandcore/commandcore-xl2.webp"
+                alt="CommandCore XL"
+                loading="lazy"
+                className="mx-auto w-full drop-shadow-[0_34px_54px_rgba(11,11,13,0.25)]"
+              />
+            </div>
+          </Tilt>
         </div>
       </Section>
 
