@@ -5,6 +5,7 @@ import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { RequestForm } from '../components/site/RequestForm';
+import { CompareSlider } from '../components/site/CompareSlider';
 import { marketingSuite } from '../data/marketingSuite';
 
 /* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
@@ -29,65 +30,38 @@ const FlowArrow = () => (
   </div>
 );
 
-/** The watch list — one ad, then the multiplied version. The deck's own
-    before/now framing, built from tiles so a first-time visitor reads it in
-    one glance: nothing numeric, nothing to misread. */
-const WatchMosaic = () => {
-  const { gap } = marketingSuite;
-  return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(180deg,#151518_0%,#0e0e11_100%)] p-6 md:p-8">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(70%_120%_at_50%_0%,rgba(255,99,1,0.08),transparent_75%)]"
-      />
-
-      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ghost/80">{gap.watchLabel}</p>
-
-      <div className="mt-6 flex flex-col items-center gap-6 md:flex-row md:gap-8">
-        {/* Before: one ad */}
-        <div className="flex shrink-0 flex-col items-center gap-3">
-          <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/15 bg-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ghost">1 ad</span>
-          </div>
-          <span className="whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.14em] text-white/45">
-            {gap.before}
-          </span>
-        </div>
-
-        <div className="flex shrink-0 flex-col items-center md:hidden" aria-hidden>
-          <ChevronDown size={16} className="text-ember" />
-        </div>
-        <div className="hidden shrink-0 md:block" aria-hidden>
-          <ArrowRight size={18} className="text-ember" />
-        </div>
-
-        {/* After: the multiplied watch list */}
-        <div className="w-full min-w-0 flex-1">
-          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <div
-                key={i}
-                className={`aspect-video rounded-md border transition-colors duration-300 ${
-                  i === 11
-                    ? 'border-ember/60 bg-ember/25'
-                    : i % 3 === 0
-                      ? 'border-ember/25 bg-ember/[0.08] hover:border-ember/45'
-                      : 'border-white/10 bg-white/[0.03] hover:border-white/25'
-                }`}
-              />
-            ))}
-          </div>
-          <div className="mt-3 flex items-center justify-end gap-2">
-            <span aria-hidden className="h-1 w-1 rounded-full bg-ember" />
-            <span className="whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.14em] text-[#ff8a4a]">
-              {gap.now}
-            </span>
-          </div>
-        </div>
+/** The calm side: one ad, one thing to watch. */
+const BeforePanel = () => (
+  <div className="flex h-full w-full items-center justify-center bg-[#0e0e11] p-6">
+    <div className="flex flex-col items-center gap-4">
+      <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/25 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:h-24 sm:w-24">
+        <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-ghost">1 ad</span>
       </div>
+      <span className="h-px w-10 bg-white/15" aria-hidden />
+      <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">signals: a handful</span>
     </div>
-  );
-};
+  </div>
+);
+
+/** The multiplied side: the watch list, version after version. */
+const AfterPanel = () => (
+  <div className="aspect-[16/10] w-full">
+    <div className="grid h-full w-full grid-cols-4 place-content-center gap-2 bg-[#0e0e11] p-4 sm:gap-2.5 sm:p-6">
+      {Array.from({ length: 16 }).map((_, i) => (
+        <div
+          key={i}
+          className={`aspect-video rounded-md border transition-colors duration-300 ${
+            i === 15
+              ? 'border-ember/60 bg-ember/25'
+              : i % 3 === 0
+                ? 'border-ember/25 bg-ember/[0.08]'
+                : 'border-white/10 bg-white/[0.03]'
+          }`}
+        />
+      ))}
+    </div>
+  </div>
+);
 
 /** The cockpit as a live loop, not three lists: signals → agents → decisions,
     and a return rail so the last line of the loop gets drawn too. */
@@ -293,9 +267,21 @@ const MarketingSuite = () => (
           </p>
         </div>
 
-        {/* the argument: the watch list on the left, its legend on the right */}
+        {/* the argument: drag between one ad and the multiplied watch list */}
         <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <WatchMosaic />
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ghost/80">
+              {marketingSuite.gap.watchLabel}
+            </p>
+            <CompareSlider
+              className="mt-5"
+              before={<BeforePanel />}
+              after={<AfterPanel />}
+              beforeLabel={marketingSuite.gap.before}
+              afterLabel={marketingSuite.gap.now}
+              defaultPosition={38}
+            />
+          </div>
 
           <ol className="border-t border-white/15">
             {marketingSuite.gap.slips.map((s, i) => (

@@ -1,13 +1,15 @@
-## Status — round 1 implemented (local, uncommitted-to-main)
-- ✅ `docs/polish-roadmap.md` (this file)
-- ✅ Marketing "What changed": watch-list mosaic replaces the leak curve
-  ("Before: one ad" → 12 tiles → "Now: endless versions") — self-explanatory,
-  no fake data; Recharts removed (was ~113 KB gzip)
-- ✅ Motion atoms (framer-motion only, no new deps) in
-  `client/src/components/site/motion/`: SplitText, CountUp, Tilt, Magnet
-- ✅ Applied: Home hero headline (SplitText), Home ghost CTA (Magnet),
-  Home CommandCore image (Tilt), Case Studies metrics (CountUp)
-- ✅ All assets honours `prefers-reduced-motion`
+## Status — round 2 implemented (local, uncommitted-to-main)
+- ✅ `CompareSlider` (`client/src/components/site/CompareSlider.jsx`) — the
+  before/after wipe pattern shipped by LoomUI, Paragon UI and s11a (all MIT):
+  clipped layers via CSS var, pointer capture drag, sr-only range input
+  (keyboard arrows, reduced-motion safe), hairline seam + round handle,
+  corner chips. No new dependencies.
+- ✅ Marketing "What changed": drag between **BEFORE · ONE AD** (quiet single
+  tile) and **NOW · ENDLESS VERSIONS** (16-tile grid with ember accents) —
+  interactive, self-explanatory, zero fake numbers.
+- Chart research: if a chart is ever needed here again, **Nivo** is the
+  "beautiful defaults" choice (vs Recharts/Visx trade-offs). Recorded, not
+  installed.
 
 ## How to undo (easy rollback)
 
