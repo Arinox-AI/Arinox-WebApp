@@ -17,7 +17,7 @@
 const KNOWLEDGE = `
 ## ARINOX — THE COMPANY
 Arinox AI is an AI transformation company. It is a brand of Adisen Tech Private Limited, registered in Bengaluru, Karnataka, India, and recognised by Startup India (DPIIT).
-Positioning: Arinox is an AI transformation company, not a tool vendor. It helps enterprises implement private AI — AI that runs on the customer's own infrastructure, on their data, under their governance. Its product is CommandCore, sovereign AI infrastructure built in India. On top of it sits the KOGO agentic layer, which turns that infrastructure into working agents.
+Positioning: Arinox is an AI transformation company, not a tool vendor. It helps enterprises implement private AI — AI that runs on the customer's own infrastructure, on their data, under their governance. Its product is CommandCore, sovereign AI infrastructure built in India. On top of it sits the KOGO agentic layer, which turns that infrastructure into working agents. The platform layer is KOGO OS: 250+ AI models supported, 500+ tools and connectors, 100+ ready-made agents.
 Taglines used by the company: "Private AI, implemented end-to-end." and "Sovereign. Scalable. Yours."
 Headquarters: Bengaluru, India (India).
 Offices: Bengaluru (HQ), New Delhi and Hyderabad (India); Sharjah (UAE); New Jersey and New York (USA); Bangkok (Thailand).
@@ -56,7 +56,7 @@ The three published tiers:
 CommandCore is a modular, plug-and-play stack: scale from the edge to the datacenter without re-architecting.
 
 ## KOGO OS (THE AGENTIC LAYER)
-KOGO OS is the private agentic AI platform behind every Arinox deployment, whether it runs on a CommandCore appliance or on the customer's own infrastructure. It turns that infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable. 500+ native tools and MCP connectors, zero cloud dependence.
+KOGO OS is the private agentic AI platform behind every Arinox deployment, whether it runs on a CommandCore appliance or on the customer's own infrastructure. It turns that infrastructure into working AI: building agents, orchestrating them as a mesh, managing memory and tools, and keeping every action accountable. 250+ AI models supported, 500+ native tools and MCP connectors, 100+ ready-made agents, no cloud lock-in: the same platform runs air-gapped on-premises, on the customer's cloud, or in a VPC.
 Capabilities: Agent Builder (low/no-code), Agent Store (ready agents for video, audio, text and OCR), Agentic Mesh (plan-act-learn multi-agent orchestration), policy and guardrails with PII controls, red-team and evaluation harness, live runs/replay/full observability, unified governed memory and retrieval, model manager for hosting, fine-tuning and routing open models.
 Security: air-gapped zero-egress stack; SSO (SAML/OIDC) with MFA and RBAC/ABAC; TLS 1.2+ in transit and AES-256 at rest; customer-managed keys via KMS/HSM; exportable audit packs for every run.
 
@@ -94,16 +94,24 @@ Arinox works with an ecosystem of technology, infrastructure, hardware and syste
 ## WEBSITE PAGES (THE ONLY PAGES THAT EXIST)
 - /commandcore — the CommandCore product page
 - /case-studies — proof and sector solutions
+- /industries — industry-specific AI suites (Marketing OS is live; apparel in development). Each suite page carries a brief explanation and a deck request; the requested deck is attached to an automatic email reply.
+- /industries/marketing — Marketing OS, the AI-native marketing control plane: signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
 - /partners — partners and ecosystem
 - /blog — insights
 - /careers — open roles
 - /contact — book a discovery session
 There is no other page. Never invent a page, URL or document name. If you point a user somewhere, use one of these or the Contact page. The Home page also carries the data-readiness section "Make your data AI-ready?".
+There is no public implementation-brief or use-cases page and no direct PDF download. If a user asks about an implementation brief, say it is available from the Arinox team on request through the Contact page.
 
 ## APPROACH TO AI COMPETITORS
 Arinox is positioned on sovereignty, on-premises deployment, air-gapped operation and end-to-end delivery. When comparing with cloud-based assistants, keep it factual and respectful: the difference is where the data and the model run, and who owns them. Never disparage a competitor by name.
 
----
+## MARKETING OS (INDUSTRY SUITE — /industries/marketing)
+Marketing OS is Arinox's industry suite for marketing, published on the Industries page.
+Positioning: one AI-native control plane for marketing, run by the customer and their agents. Every signal in, every decision out, in a loop. Its tagline is "The AI way to market."
+What changed: AI made output infinite, so the things to watch multiplied — every ad, post or email throws off views, clicks and sales signals. Without a cockpit, tired ads keep running, budget leaks, buyers slip away unnoticed, and winners scale too late.
+The loop: signals in (ads on every platform; website funnel and analytics; store footfall and reviews; buyer CRM and support) → agents (Monitor — always on; Analyse — in the moment; Decide — within the rules the customer sets) → decisions out (Pause what is dying; Scale what is winning; Create the next creative; Send to the right person). The customer approves every decision; nothing goes out without their say; every action becomes the next signal.
+The deck: visitors request it from /industries/marketing and receive the Marketing OS deck (PPT) attached by email automatically. The deck is request-only; do not quote figures from it that are not also on the website.
 
 ## GENERAL AI KNOWLEDGE (SHORT FORM)
 Artificial Intelligence (AI): the simulation of human intelligence by machines — reasoning, learning, understanding language, recognising images and making decisions. AI is the broad field; ML, DL and NLP are subfields.
