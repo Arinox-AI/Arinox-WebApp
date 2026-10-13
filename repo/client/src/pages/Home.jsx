@@ -8,7 +8,8 @@ import { Button } from '../components/site/Button'
 import { Section } from '../components/site/Section'
 import { Label } from '../components/site/Layout'
 import { CtaBand } from '../components/site/Shell'
-import { AsciiGlobe } from '../components/site/AsciiGlobe'
+import { AsciiGlobe } from '../components/site/AsciiGlobe' // previous hero visual — commented usage in hero, keep for revert
+import { Globe, GlobeSvg, GlobePin } from '../components/site/Globe'
 import { ComplianceStrip } from '../components/site/ComplianceStrip'
 import { LayerStack } from '../components/site/LayerStack'
 import { DataFlow } from '../components/site/DataFlow'
@@ -256,10 +257,24 @@ const Home = () => {
             </p>
           </div>
 
-          <div className="relative mx-auto w-full max-w-[540px]">
-            <div className="relative aspect-square w-full">
-              <AsciiGlobe fontSize={13} speed={4} tilt={20} scale={0.98} landOpacity={0.66} oceanOpacity={0.5} />
-            </div>
+          <div className="relative mx-auto w-full max-w-[620px]">
+            {/* previous hero visual — AsciiGlobe, commented for quick revert:
+              <div className="relative aspect-square w-full">
+                <AsciiGlobe fontSize={13} speed={4} tilt={20} scale={0.98} landOpacity={0.66} oceanOpacity={0.5} />
+              </div> */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_70%_at_50%_45%,rgba(255,99,1,0.12),transparent_70%)]"
+            />
+            <Globe>
+              <GlobeSvg>
+                <GlobePin x={899} y={163} title="New Delhi" />
+                <GlobePin x={902} y={205} title="Bengaluru" />
+              </GlobeSvg>
+            </Globe>
+            <p className="mt-2.5 pr-2 text-right font-mono text-[9.5px] uppercase tracking-[0.16em] text-ink-faint">
+              New Delhi · Bengaluru
+            </p>
           </div>
         </div>
       </section>
