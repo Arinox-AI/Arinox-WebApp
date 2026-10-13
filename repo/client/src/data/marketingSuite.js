@@ -60,7 +60,7 @@ export const marketingSuite = {
       subject: 'Your Marketing OS deck',
       body: 'Thank you for requesting the Marketing OS deck. Your copy is attached to this email — we will get in touch with you soon.',
       steps: [
-        'The team follows up within a day',
+        'The team will follow up soon',
         'If it helps, we walk you through it on a call',
       ],
       asset: { name: 'Marketing OS deck (PPT)' },

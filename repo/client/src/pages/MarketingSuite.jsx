@@ -206,51 +206,101 @@ const MarketingSuite = () => (
       </div>
     </nav>
 
-    {/* What changed — one big statement, then the watch list */}
-    <Section id="changed" dark border={false}>
-      <div className="max-w-4xl">
-        <Label dark>{marketingSuite.gap.label}</Label>
-        <h2 className="mt-6 font-display text-[36px] leading-[1.05] tracking-[-0.02em] text-phos md:text-[54px]">
-          {marketingSuite.gap.title}
-        </h2>
-        <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-ghost md:text-[19px]">
-          {marketingSuite.gap.note}
+    {/* What changed — big statement, leak cards, and a ticker of what slips */}
+    <Section id="changed" dark border={false} className="relative overflow-hidden">
+      {/* backdrop: ember glow + faint grid, the depth layer under the text */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_15%_0%,rgba(255,99,1,0.14),transparent_70%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_85%_65%_at_50%_0%,black_25%,transparent_80%)]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
+            backgroundSize: '44px 44px',
+          }}
+        />
+      </div>
+
+      <div className="relative">
+        <div className="relative">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -top-12 right-0 hidden select-none font-display text-[170px] leading-none tracking-[-0.05em] text-white/[0.045] md:block"
+          >
+            01
+          </span>
+          <div className="max-w-4xl">
+            <Label dark>{marketingSuite.gap.label}</Label>
+            <h2 className="mt-6 font-display text-[36px] leading-[1.05] tracking-[-0.02em] text-phos md:text-[54px]">
+              {marketingSuite.gap.title}
+            </h2>
+            <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-ghost md:text-[19px]">
+              {marketingSuite.gap.note}
+            </p>
+          </div>
+        </div>
+
+        {/* The leaks as drain cards: what is slipping, each with its little meter */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+          variants={{ show: { transition: { staggerChildren: 0.08 } } }}
+          className="mt-12 grid gap-4 sm:grid-cols-2 lg:gap-5"
+        >
+          {marketingSuite.gap.slips.map((s, i) => (
+            <motion.div
+              key={s.t}
+              variants={{
+                hidden: { opacity: 0, y: 18 },
+                show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+              }}
+              className="card-dark flex flex-col justify-between gap-10 p-6 md:p-7"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <h3 className="font-display text-[22px] leading-snug tracking-[-0.01em] text-phos md:text-[24px]">
+                  {s.t}
+                </h3>
+                <span className="num shrink-0 font-mono text-[12px] leading-6 text-ember">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+              </div>
+              <div className="flex items-end justify-between gap-6">
+                <p className="max-w-[28ch] text-[14px] leading-relaxed text-ghost">{s.d}</p>
+                <div className="flex h-8 shrink-0 items-end gap-1" aria-hidden>
+                  {['0.35', '0.7', '0.45', '0.85', '0.55'].map((eq, b) => (
+                    <span
+                      key={b}
+                      className="eq-bar h-full w-[3px] rounded-t-sm bg-ember/70"
+                      style={{ '--eq': eq, animationDelay: `${b * 0.22}s` }}
+                    />
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
+          Without a cockpit, this is where the money goes.
+          <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
         </p>
       </div>
 
-      <motion.ol
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: '-80px' }}
-        variants={{ show: { transition: { staggerChildren: 0.09 } } }}
-        className="mt-14 border-t border-white/15"
-      >
-        {marketingSuite.gap.slips.map((s, i) => (
-          <motion.li
-            key={s.t}
-            variants={{
-              hidden: { opacity: 0, y: 16 },
-              show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-            }}
-            className="group relative grid grid-cols-[3rem_1fr] border-b border-white/10 py-7 transition-colors duration-200 hover:bg-white/[0.035] md:py-8"
-          >
-            <span className="num pt-1 font-mono text-[12px] text-ember">{String(i + 1).padStart(2, '0')}</span>
-            <div>
-              <h3 className="font-display text-[22px] leading-snug tracking-[-0.01em] text-phos md:text-[25px]">{s.t}</h3>
-              <p className="mt-2.5 max-w-2xl text-[15px] leading-relaxed text-ghost md:text-[16px]">{s.d}</p>
-            </div>
+      {/* Ticker: what slips, on a slow loop */}
+      <div aria-hidden className="group relative mt-12 -mx-7 overflow-hidden border-t border-white/10">
+        <div className="marquee-track flex w-max" style={{ '--marquee-duration': '36s' }}>
+          {[0, 1].map((half) => (
             <span
-              aria-hidden
-              className="absolute left-0 top-0 h-full w-px origin-top scale-y-0 bg-ember transition-transform duration-300 group-hover:scale-y-100"
-            />
-          </motion.li>
-        ))}
-      </motion.ol>
-
-      <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
-        Without a cockpit, this is where the money goes.
-        <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
-      </p>
+              key={half}
+              className="flex shrink-0 items-center whitespace-nowrap py-6 font-display text-[26px] italic tracking-[-0.01em] text-white/[0.16] md:text-[34px]"
+            >
+              {marketingSuite.gap.slips.map((s) => `${s.t.toUpperCase()} · `).join('')}
+              {marketingSuite.gap.slips.map((s) => `${s.t.toUpperCase()} · `).join('')}
+            </span>
+          ))}
+        </div>
+      </div>
     </Section>
 
     {/* The control plane — one board, read left to right, then looped back */}
