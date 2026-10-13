@@ -6,6 +6,8 @@ import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { Button } from '../components/site/Button';
 import { CtaBand } from '../components/site/Shell';
 import { CountUp } from '../components/site/motion/CountUp';
+import { Pill } from '../components/site/Pill';
+import { IndexStrip } from '../components/site/IndexStrip';
 import { sectors as sectorData, anchorDeployment } from '../data/caseStudies';
 
 /* Provenance for every metric, so a figure is never read as a client result
@@ -43,7 +45,7 @@ const UseCase = ({ index, useCase: c }) => {
       {c.agentNote && (
         <div className="mt-3 flex flex-wrap gap-2">
           {c.agentNote.split(' · ').map((d) => (
-            <span key={d} className="rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[10.5px] text-ink-soft">{d}</span>
+            <Pill key={d} tone="paper">{d}</Pill>
           ))}
         </div>
       )}
@@ -152,7 +154,15 @@ const CaseStudies = () => {
         </div>
       </section>
 
-      <Section border={false} className="pt-5 pb-7 md:pb-10">
+      <IndexStrip
+        cols="sm:grid-cols-2"
+        items={[
+          { n: '01', label: 'Sectors', href: '#sectors' },
+          { n: '02', label: 'Deployment', href: '#anchor' },
+        ]}
+      />
+
+      <Section border={false} id="sectors" className="pt-5 pb-7 md:pb-10">
         <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-4" role="tablist" aria-label="Sectors">
           {sectorData.map((s, i) => {
             const on = i === active;
@@ -208,7 +218,7 @@ const CaseStudies = () => {
         </div>
       </Section>
 
-      <Section dark border={false}>
+      <Section dark id="anchor" border={false}>
         <Label dark>{anchorDeployment.label}</Label>
         <h2 className="mt-5 max-w-2xl font-display text-[30px] leading-tight tracking-[-0.01em] text-phos md:text-[42px]">
           {anchorDeployment.headline}

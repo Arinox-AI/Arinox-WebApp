@@ -1,10 +1,12 @@
 import { Link } from 'react-router-dom';
-import { ArrowDown, ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileDown, RefreshCw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileDown, RefreshCw } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { RequestForm } from '../components/site/RequestForm';
+import { Button } from '../components/site/Button';
+import { IndexStrip } from '../components/site/IndexStrip';
 import { marketingSuite } from '../data/marketingSuite';
 
 /* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
@@ -190,13 +192,10 @@ const MarketingSuite = () => (
             <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">{marketingSuite.tagline}</p>
             <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-ink-soft">{marketingSuite.lead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href="#deck"
-                className="chip btn-ember-glow inline-flex items-center gap-2 rounded-btn bg-ember px-6 py-3.5 text-[12.5px] font-medium leading-none text-white transition-colors duration-200 hover:bg-ember-deep"
-              >
+              <Button href="#deck" variant="ember">
                 <FileDown size={16} strokeWidth={2.2} />
                 {marketingSuite.request.ctaButton}
-              </a>
+              </Button>
               <Link
                 to="/contact"
                 className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
@@ -228,30 +227,13 @@ const MarketingSuite = () => (
     </section>
 
     {/* On-page index, the reading path in three moves */}
-    <nav aria-label="On this page" className="border-b border-line bg-paper-2/50">
-      <div className="mx-auto max-w-6xl px-7">
-        <ol className="grid divide-y divide-line sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {[
-            ['01', marketingSuite.gap.label, '#changed'],
-            ['02', marketingSuite.cockpit.label, '#cockpit'],
-            ['03', marketingSuite.request.label, '#deck'],
-          ].map(([n, t, href]) => (
-            <li key={href}>
-              <a href={href} className="group flex items-center gap-4 py-4 sm:px-6">
-                <span className="num font-mono text-[10.5px] text-ember-deep">{n}</span>
-                <span className="font-display text-[17px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{t}</span>
-                <ArrowDown
-                  size={14}
-                  strokeWidth={2.2}
-                  className="ml-auto text-ink-faint transition-all duration-200 group-hover:translate-y-0.5 group-hover:text-ember"
-                  aria-hidden
-                />
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </nav>
+    <IndexStrip
+      items={[
+        { n: '01', label: marketingSuite.gap.label, href: '#changed' },
+        { n: '02', label: marketingSuite.cockpit.label, href: '#cockpit' },
+        { n: '03', label: marketingSuite.request.label, href: '#deck' },
+      ]}
+    />
 
     {/* What changed — the statement, and the curve that proves it */}
     <Section id="changed" dark border={false} className="relative overflow-hidden">

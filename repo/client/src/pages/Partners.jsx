@@ -5,6 +5,7 @@ import { Label } from '../components/site/Layout';
 import { Button } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
+import { Pill } from '../components/site/Pill';
 import { company } from '../data/site';
 
 /* Partner logo rows, grouped by role.
@@ -154,7 +155,7 @@ const Partners = () => (
             </div>
             <div className="flex flex-wrap items-start gap-2 md:col-span-3 md:justify-end">
               {tags.map((t) => (
-                <span key={t} className="rounded-full border border-line bg-paper-2/70 px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft">{t}</span>
+                <Pill key={t} tone="paper" className="px-3.5 py-1.5 text-[11px]">{t}</Pill>
               ))}
             </div>
           </div>
