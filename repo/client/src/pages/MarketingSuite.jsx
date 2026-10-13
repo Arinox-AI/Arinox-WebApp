@@ -5,7 +5,7 @@ import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { RequestForm } from '../components/site/RequestForm';
-import { CompareSlider } from '../components/site/CompareSlider';
+import { ResponsiveLine } from '@nivo/line';
 import { marketingSuite } from '../data/marketingSuite';
 
 /* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
@@ -30,38 +30,109 @@ const FlowArrow = () => (
   </div>
 );
 
-/** The calm side: one ad, one thing to watch. */
-const BeforePanel = () => (
-  <div className="flex h-full w-full items-center justify-center bg-[#0e0e11] p-6">
-    <div className="flex flex-col items-center gap-4">
-      <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-white/25 bg-white/[0.04] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] sm:h-24 sm:w-24">
-        <span className="font-mono text-[12px] uppercase tracking-[0.12em] text-ghost">1 ad</span>
-      </div>
-      <span className="h-px w-10 bg-white/15" aria-hidden />
-      <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">signals: a handful</span>
-    </div>
-  </div>
-);
+/** One night in the loop — the deck's overnight story, drawn as a chart.
+    Real clock axis, two named series, verbatim deck lines underneath.
+    The shape is illustrative; the timeline is real. No boxes, no chrome. */
+const OvernightPanel = () => {
+  const { overnight } = marketingSuite;
+  const HOURS = ['2 a.m.', '2:05 a.m.', '3 a.m.', '4 a.m.', '5 a.m.', '6 a.m.', '7 a.m.'];
+  const VIEWS = [55, 60, 66, 72, 76, 80, 84];
+  const CLICKS = [92, 78, 74, 68, 63, 57, 52];
 
-/** The multiplied side: the watch list, version after version. */
-const AfterPanel = () => (
-  <div className="aspect-[16/10] w-full">
-    <div className="grid h-full w-full grid-cols-4 place-content-center gap-2 bg-[#0e0e11] p-4 sm:gap-2.5 sm:p-6">
-      {Array.from({ length: 16 }).map((_, i) => (
-        <div
-          key={i}
-          className={`aspect-video rounded-md border transition-colors duration-300 ${
-            i === 15
-              ? 'border-ember/60 bg-ember/25'
-              : i % 3 === 0
-                ? 'border-ember/25 bg-ember/[0.08]'
-                : 'border-white/10 bg-white/[0.03]'
-          }`}
+  const data = overnight.series.map((s) => ({
+    id: s.id,
+    color: s.color,
+    data: HOURS.map((x, i) => ({ x, y: s.id === 'clicks' ? CLICKS[i] : VIEWS[i] })),
+  }));
+
+  return (
+    <div className="relative">
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ghost/80">{overnight.label}</p>
+      <p className="mt-4 max-w-md font-display text-[21px] leading-snug tracking-[-0.01em] text-phos md:text-[24px]">
+        {overnight.lead}
+      </p>
+
+      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
+        {overnight.series.map((s) => (
+          <span
+            key={s.id}
+            className="inline-flex items-center gap-2 font-mono text-[9.5px] uppercase tracking-[0.14em] text-ghost"
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color }} aria-hidden />
+            {s.id}
+          </span>
+        ))}
+        <span className="ml-auto font-mono text-[9.5px] uppercase tracking-[0.14em] text-white/35">
+          Deck · slide 10
+        </span>
+      </div>
+
+      <div className="mt-2 h-[230px]">
+        <ResponsiveLine
+          data={data}
+          margin={{ top: 14, right: 16, bottom: 34, left: 16 }}
+          xScale={{ type: 'point' }}
+          yScale={{ type: 'linear', min: 0, max: 100 }}
+          curve="monotoneX"
+          colors={(s) => s.color}
+          lineWidth={(s) => (s.id === 'clicks' ? 2 : 1.4)}
+          enableArea
+          areaOpacity={0.07}
+          areaBlendMode="normal"
+          enablePoints={false}
+          enableGridX={false}
+          enableGridY
+          gridYValues={[25, 50, 75]}
+          enableCrosshair
+          crosshairType="x"
+          useMesh
+          axisBottom={{ tickValues: 'every', tickSize: 0, tickPadding: 8 }}
+          axisLeft={null}
+          theme={{
+            axis: {
+              ticks: {
+                line: { stroke: 'transparent' },
+                text: {
+                  fill: 'rgba(244,237,232,0.45)',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 9,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.08em',
+                },
+              },
+            },
+            grid: { line: { stroke: 'rgba(255,255,255,0.06)' } },
+            crosshair: {
+              line: { stroke: 'rgba(255,255,255,0.18)', strokeWidth: 1, strokeDasharray: '3 4' },
+            },
+          }}
+          tooltip={({ point }) => (
+            <div className="rounded-lg border border-white/15 bg-carbon px-3 py-2 shadow-[0_14px_30px_-14px_rgba(0,0,0,0.6)]">
+              <p className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: point.color }}>
+                {point.serieId}
+              </p>
+              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-white/60">
+                {point.data.x}
+              </p>
+            </div>
+          )}
         />
-      ))}
+      </div>
+
+      {/* the night, step by step */}
+      <div className="mt-6 grid gap-x-10 gap-y-5 sm:grid-cols-3">
+        {overnight.timeline.map((step) => (
+          <div key={step.t} className="border-t border-white/10 pt-3.5">
+            <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-ember">{step.t}</p>
+            <p className="mt-2 text-[13px] leading-relaxed text-ghost">{step.d}</p>
+          </div>
+        ))}
+      </div>
+
+      <p className="mt-6 font-mono text-[9px] uppercase tracking-[0.14em] text-white/35">{overnight.note}</p>
     </div>
-  </div>
-);
+  );
+};
 
 /** The cockpit as a live loop, not three lists: signals → agents → decisions,
     and a return rail so the last line of the loop gets drawn too. */
@@ -267,21 +338,9 @@ const MarketingSuite = () => (
           </p>
         </div>
 
-        {/* the argument: drag between one ad and the multiplied watch list */}
-        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ghost/80">
-              {marketingSuite.gap.watchLabel}
-            </p>
-            <CompareSlider
-              className="mt-5"
-              before={<BeforePanel />}
-              after={<AfterPanel />}
-              beforeLabel={marketingSuite.gap.before}
-              afterLabel={marketingSuite.gap.now}
-              defaultPosition={38}
-            />
-          </div>
+        {/* the argument: the night in the loop, then what slips */}
+        <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <OvernightPanel />
 
           <ol className="border-t border-white/15">
             {marketingSuite.gap.slips.map((s, i) => (

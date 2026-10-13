@@ -1,15 +1,12 @@
-## Status — round 2 implemented (local, uncommitted-to-main)
-- ✅ `CompareSlider` (`client/src/components/site/CompareSlider.jsx`) — the
-  before/after wipe pattern shipped by LoomUI, Paragon UI and s11a (all MIT):
-  clipped layers via CSS var, pointer capture drag, sr-only range input
-  (keyboard arrows, reduced-motion safe), hairline seam + round handle,
-  corner chips. No new dependencies.
-- ✅ Marketing "What changed": drag between **BEFORE · ONE AD** (quiet single
-  tile) and **NOW · ENDLESS VERSIONS** (16-tile grid with ember accents) —
-  interactive, self-explanatory, zero fake numbers.
-- Chart research: if a chart is ever needed here again, **Nivo** is the
-  "beautiful defaults" choice (vs Recharts/Visx trade-offs). Recorded, not
-  installed.
+## Status — round 3 implemented (local, uncommitted-to-main)
+- ✅ "What changed" now shows a **real, labeled chart**: the deck's overnight
+  story (slide 10) rendered with @nivo/line — real clock axis
+  (2 a.m. → 7 a.m.), two named series (repeat views / clicks), verbatim
+  deck lines under the chart, provenance micro-note. Chart floats on the
+  dark band — no box, no widgetry (the Linear/Stripe engineering-post look).
+- ✅ CompareSlider removed (was round 2).
+- Chart research: Nivo = "beautiful defaults"; bundle ≈ +93 KB gzip on the
+  marketing page chunk (page is lazy-loaded).
 
 ## How to undo (easy rollback)
 
