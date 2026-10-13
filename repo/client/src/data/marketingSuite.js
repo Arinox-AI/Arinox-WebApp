@@ -17,20 +17,7 @@ export const marketingSuite = {
     titleAccent: 'infinite.',
     titleRest: 'So the things to watch multiplied too.',
     note: 'Every ad, post or email AI makes also throws off signals: views, clicks, sales. The more you generate, the more there is to watch.',
-    overnight: {
-      label: 'One night in the loop',
-      lead: 'An ad tires out at 2 a.m. By 7, the fix is waiting for you.',
-      series: [
-        { id: 'repeat views', color: '#c9c4be' },
-        { id: 'clicks', color: '#ff6301' },
-      ],
-      timeline: [
-        { t: '2:00 a.m.', d: 'An ad starts to tire. The same people keep seeing it, and click less.' },
-        { t: '2:05 a.m.', d: 'The agent flags it. A replacement is drafted and sized for every platform.' },
-        { t: '7:00 a.m.', d: 'You wake up to one decision. Approve it, and the budget moves.' },
-      ],
-      note: 'The overnight pattern from the Marketing OS deck · timeline real, shape illustrative',
-    },
+    multipliedNote: 'Every version has its own views, clicks and sales to check.',
     slips: [
       { t: 'Tired ads keep running', d: 'People have seen them too many times and stop clicking.' },
       { t: 'Budget leaks', d: 'Money keeps flowing to what is not working.' },

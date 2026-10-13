@@ -5,7 +5,6 @@ import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { RequestForm } from '../components/site/RequestForm';
-import { ResponsiveLine } from '@nivo/line';
 import { marketingSuite } from '../data/marketingSuite';
 
 /* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
@@ -30,106 +29,50 @@ const FlowArrow = () => (
   </div>
 );
 
-/** One night in the loop — the deck's overnight story, drawn as a chart.
-    Real clock axis, two named series, verbatim deck lines underneath.
-    The shape is illustrative; the timeline is real. No boxes, no chrome. */
-const OvernightPanel = () => {
-  const { overnight } = marketingSuite.gap;
-  const HOURS = ['2 a.m.', '2:05 a.m.', '3 a.m.', '4 a.m.', '5 a.m.', '6 a.m.', '7 a.m.'];
-  const VIEWS = [55, 60, 66, 72, 76, 80, 84];
-  const CLICKS = [92, 78, 74, 68, 63, 57, 52];
-
-  const data = overnight.series.map((s) => ({
-    id: s.id,
-    color: s.color,
-    data: HOURS.map((x, i) => ({ x, y: s.id === 'clicks' ? CLICKS[i] : VIEWS[i] })),
-  }));
-
+/** One → many. The simplest reading of "output infinite, watch-list
+    multiplied": one ember output, then the field of signals it throws off. */
+const MultiplyMotif = () => {
+  const { gap } = marketingSuite;
   return (
     <div className="relative">
-      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ghost/80">{overnight.label}</p>
-      <p className="mt-4 max-w-md font-display text-[21px] leading-snug tracking-[-0.01em] text-phos md:text-[24px]">
-        {overnight.lead}
-      </p>
-
-      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2">
-        {overnight.series.map((s) => (
+      <div className="flex items-center gap-6 md:gap-8">
+        {/* one output */}
+        <div className="flex shrink-0 flex-col items-center gap-4">
           <span
-            key={s.id}
-            className="inline-flex items-center gap-2 font-mono text-[9.5px] uppercase tracking-[0.14em] text-ghost"
-          >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: s.color }} aria-hidden />
-            {s.id}
+            aria-hidden
+            className="h-14 w-14 rounded-full bg-ember shadow-[0_0_46px_-8px_rgba(255,99,1,0.65)] sm:h-16 sm:w-16"
+          />
+          <span className="whitespace-nowrap font-mono text-[9.5px] uppercase tracking-[0.16em] text-ghost/70">
+            One output
           </span>
-        ))}
-        <span className="ml-auto font-mono text-[9.5px] uppercase tracking-[0.14em] text-white/35">
-          Deck · slide 10
-        </span>
-      </div>
+        </div>
 
-      <div className="mt-2 h-[230px]">
-        <ResponsiveLine
-          data={data}
-          margin={{ top: 14, right: 16, bottom: 34, left: 16 }}
-          xScale={{ type: 'point' }}
-          yScale={{ type: 'linear', min: 0, max: 100 }}
-          curve="monotoneX"
-          colors={(s) => s.color}
-          lineWidth={(s) => (s.id === 'clicks' ? 2 : 1.4)}
-          enableArea
-          areaOpacity={0.07}
-          areaBlendMode="normal"
-          enablePoints={false}
-          enableGridX={false}
-          enableGridY
-          gridYValues={[25, 50, 75]}
-          enableCrosshair
-          crosshairType="x"
-          useMesh
-          axisBottom={{ tickValues: 'every', tickSize: 0, tickPadding: 8 }}
-          axisLeft={null}
-          theme={{
-            axis: {
-              ticks: {
-                line: { stroke: 'transparent' },
-                text: {
-                  fill: 'rgba(244,237,232,0.45)',
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 9,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                },
-              },
-            },
-            grid: { line: { stroke: 'rgba(255,255,255,0.06)' } },
-            crosshair: {
-              line: { stroke: 'rgba(255,255,255,0.18)', strokeWidth: 1, strokeDasharray: '3 4' },
-            },
-          }}
-          tooltip={({ point }) => (
-            <div className="rounded-lg border border-white/15 bg-carbon px-3 py-2 shadow-[0_14px_30px_-14px_rgba(0,0,0,0.6)]">
-              <p className="font-mono text-[10px] uppercase tracking-[0.14em]" style={{ color: point.color }}>
-                {point.serieId}
-              </p>
-              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-white/60">
-                {point.data.x}
-              </p>
-            </div>
-          )}
-        />
-      </div>
+        <ChevronRight size={16} className="hidden shrink-0 text-ember sm:block" aria-hidden />
 
-      {/* the night, step by step */}
-      <div className="mt-6 grid gap-x-10 gap-y-5 sm:grid-cols-3">
-        {overnight.timeline.map((step) => (
-          <div key={step.t} className="border-t border-white/10 pt-3.5">
-            <p className="font-mono text-[10.5px] uppercase tracking-[0.14em] text-ember">{step.t}</p>
-            <p className="mt-2 text-[13px] leading-relaxed text-ghost">{step.d}</p>
+        {/* the signals it throws off */}
+        <div className="min-w-0 flex-1">
+          <div className="grid grid-cols-8 gap-1.5 sm:gap-2">
+            {Array.from({ length: 40 }).map((_, i) => (
+              <span
+                key={i}
+                aria-hidden
+                className={`aspect-square rounded-full ${
+                  i === 37
+                    ? 'bg-ember shadow-[0_0_18px_-2px_rgba(255,99,1,0.75)]'
+                    : i % 5 === 0
+                      ? 'bg-ember/40'
+                      : 'bg-ember/[0.14]'
+                }`}
+              />
+            ))}
           </div>
-        ))}
+          <p className="mt-3 text-right font-mono text-[9.5px] uppercase tracking-[0.16em] text-ghost/70">
+            The watch list
+          </p>
+        </div>
       </div>
 
-      <p className="mt-6 font-mono text-[9px] uppercase tracking-[0.14em] text-white/35">{overnight.note}</p>
+      <p className="mt-8 max-w-md text-[15px] leading-relaxed text-ghost">{gap.multipliedNote}</p>
     </div>
   );
 };
@@ -338,9 +281,9 @@ const MarketingSuite = () => (
           </p>
         </div>
 
-        {/* the argument: the night in the loop, then what slips */}
+        {/* the argument: one output, then the many signals it throws off */}
         <div className="mt-12 grid items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          <OvernightPanel />
+          <MultiplyMotif />
 
           <ol className="border-t border-white/15">
             {marketingSuite.gap.slips.map((s, i) => (
