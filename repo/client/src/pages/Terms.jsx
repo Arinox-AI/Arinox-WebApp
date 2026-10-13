@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
+import { HalftoneBackground } from '../components/site/HalftoneBackground';
 
 const Section = ({ title, children }) => (
   <div className="mb-12">
@@ -16,12 +17,15 @@ const Terms = () => (
       canonical="https://www.arinox.ai/terms"
     />
 
-    <section className="px-7 pb-24 pt-20 md:pt-28">
-      <div className="mx-auto max-w-3xl">
+    <section className="relative overflow-hidden border-b border-line px-7 pb-20 pt-20 md:pt-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
+        <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
+      </div>
+      <div className="relative mx-auto max-w-3xl">
 
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3 text-ember-deep">Legal</p>
-          <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[52px]">Terms of Service</h1>
+          <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[62px]">Terms of Service</h1>
           <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 18 September 2026</p>
           <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             These Terms of Service ("Terms") govern your use of the website at

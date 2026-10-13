@@ -12,6 +12,7 @@ import { AsciiGlobe } from '../components/site/AsciiGlobe'
 import { ComplianceStrip } from '../components/site/ComplianceStrip'
 import { LayerStack } from '../components/site/LayerStack'
 import { DataFlow } from '../components/site/DataFlow'
+import { Marquee } from '../components/site/Marquee'
 import { SplitText } from '../components/site/motion/SplitText'
 import { Tilt } from '../components/site/motion/Tilt'
 import { Magnet } from '../components/site/motion/Magnet'
@@ -270,27 +271,21 @@ const Home = () => {
         <div className="mb-9 flex justify-center">
           <Label>Trusted by leaders</Label>
         </div>
-        <div className="group relative overflow-hidden">
-          <div className="marquee-track flex w-max items-center">
-            {[0, 1].map((copy) => (
-              <div
-                key={copy}
-                aria-hidden={copy === 1}
-                className="flex shrink-0 items-center gap-16 pr-16"
-              >
-                {trustedLogos.map((l) => (
-                  <img
-                    key={l.alt}
-                    src={l.src}
-                    alt={l.alt}
-                    loading="lazy"
-                    style={{ width: l.w, height: l.h }}
-                    className="shrink-0 object-contain opacity-55 transition-opacity duration-200 hover:opacity-90"
-                  />
-                ))}
-              </div>
-            ))}
-          </div>
+        <div className="relative overflow-hidden">
+          <Marquee duration={44}>
+            <div className="flex items-center gap-16 pr-16">
+              {trustedLogos.map((l) => (
+                <img
+                  key={l.alt}
+                  src={l.src}
+                  alt={l.alt}
+                  loading="lazy"
+                  style={{ width: l.w, height: l.h }}
+                  className="shrink-0 object-contain opacity-55 transition-opacity duration-200 hover:opacity-90"
+                />
+              ))}
+            </div>
+          </Marquee>
           <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-paper to-transparent" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-paper to-transparent" />
         </div>

@@ -7,6 +7,7 @@ import SEO from '../components/ui/SEO';
 import { Eyebrow } from '../components/site/Eyebrow';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { Button } from '../components/site/Button';
+import { Pill } from '../components/site/Pill';
 import { company } from '../data/site';
 
 const subjects = ['Demo Request', 'General Inquiry', 'Partnership', 'Career', 'Media', 'Other'];
@@ -42,7 +43,7 @@ const Contact = () => {
         canonical="https://www.arinox.ai/contact"
       />
 
-      <section className="relative overflow-hidden px-7 pb-10 pt-20 text-center md:pt-28">
+      <section className="relative overflow-hidden border-b border-line px-7 pb-12 pt-20 text-center md:pt-28">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
           <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
         </div>
@@ -56,9 +57,9 @@ const Contact = () => {
             compliance needs, free, and the map is yours whatever you decide.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 font-mono text-[11.5px] text-ink-faint">
-            <span className="rounded-full border border-line bg-white px-3 py-1">reply in 1 working day</span>
-            <span className="rounded-full border border-line bg-white px-3 py-1">zero jargon</span>
-            <span className="rounded-full border border-line bg-white px-3 py-1">zero commitment</span>
+            <Pill>someone will reply soon</Pill>
+            <Pill>zero jargon</Pill>
+            <Pill>zero commitment</Pill>
           </div>
         </div>
       </section>
@@ -68,7 +69,7 @@ const Contact = () => {
           {sent ? (
             <div className="card-light p-10">
               <p className="eyebrow text-ember-deep">Received</p>
-              <h2 className="mt-3 font-display text-2xl tracking-[-0.01em]">We&apos;ll reply within one working day.</h2>
+              <h2 className="mt-3 font-display text-2xl tracking-[-0.01em]">Someone will reply soon.</h2>
               <p className="mt-3 max-w-md text-[15.5px] leading-relaxed text-ink-soft">
                 If it&apos;s urgent, write directly to{' '}
                 <a href={`mailto:${company.email}`} className="font-medium underline underline-offset-2">

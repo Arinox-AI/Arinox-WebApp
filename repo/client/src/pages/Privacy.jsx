@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import SEO from '../components/ui/SEO';
+import { HalftoneBackground } from '../components/site/HalftoneBackground';
 
 const Section = ({ title, children }) => (
   <div className="mb-12">
@@ -16,12 +17,15 @@ const Privacy = () => (
       canonical="https://www.arinox.ai/privacy"
     />
 
-    <section className="px-7 pb-24 pt-20 md:pt-28">
-      <div className="mx-auto max-w-3xl">
+    <section className="relative overflow-hidden border-b border-line px-7 pb-20 pt-20 md:pt-28">
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
+        <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
+      </div>
+      <div className="relative mx-auto max-w-3xl">
 
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3 text-ember-deep">Legal</p>
-          <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[52px]">Privacy Policy</h1>
+          <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[62px]">Privacy Policy</h1>
           <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 18 September 2026</p>
           <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             This Privacy Policy describes how Adisen Tech Private Limited ("Arinox AI", "we", "our", or "us"),
@@ -74,8 +78,8 @@ const Privacy = () => (
           <Section title="3. Legal Basis for Processing">
             <p>We process your personal data on the following bases under the DPDP Act 2023 and applicable Indian law:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-ink">Consent:</strong> Where you submit an enquiry, request a plan, apply for a role, or ask us to contact you</li>
-              <li><strong className="text-ink">Legitimate uses:</strong> Where the DPDP Act permits processing without consent, such as responding to a request you initiate, recruitment, security monitoring, and aggregate analytics</li>
+              <li><strong className="text-ink">Consent:</strong> Where you submit an enquiry, apply for a role, or use the chat assistant</li>
+              <li><strong className="text-ink">Legitimate uses:</strong> Recruitment, where the DPDP Act permits processing for employment purposes</li>
               <li><strong className="text-ink">Legal obligation:</strong> Where processing is required to comply with applicable Indian law</li>
             </ul>
           </Section>
@@ -89,18 +93,18 @@ const Privacy = () => (
               <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. Typefaces are loaded from Google Fonts and Fontshare; as with any web request, this discloses your IP address to those providers</li>
               <li><strong className="text-ink">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
             </ul>
-            <p>Some of these providers process data outside India. Where they do, we rely on the safeguards required by the DPDP Act 2023.</p>
+            <p>Some of these providers process data outside India.</p>
           </Section>
 
           <Section title="5. Data Retention">
-            <p>We retain personal data only as long as necessary for the purposes described in this policy:</p>
+            <p>We keep personal data only while it is needed for the purpose it was collected for, or for as long as the law requires.</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li>Contact form submissions: 3 years from date of submission</li>
-              <li>Job applications and résumés: 12 months from submission, unless you ask us to delete them sooner</li>
+              <li>Enquiries: kept while we are in contact with you</li>
+              <li>Job applications and résumés: kept while your application is being considered</li>
               <li>Server and function logs: retained briefly by our hosting provider for operational purposes</li>
               <li>Analytics data: aggregate and non-identifying (cookieless), retained by our analytics provider</li>
             </ul>
-            <p>After the applicable retention period, data is securely deleted or anonymised.</p>
+            <p>You can ask us to delete your data at any time, and we will, unless we are required by law to keep it.</p>
           </Section>
 
           <Section title="6. Your Rights">
@@ -116,7 +120,7 @@ const Privacy = () => (
           </Section>
 
           <Section title="7. Security">
-            <p>We implement industry-standard technical and organisational measures to protect your personal data against unauthorised access, disclosure, alteration, or destruction. These include TLS encryption in transit, access controls, and regular security reviews.</p>
+            <p>We protect your personal data with TLS encryption in transit and access controls on the systems that hold it.</p>
             <p>No method of transmission over the internet is 100% secure. If you believe your data has been compromised, contact us immediately at <a href="mailto:assist@arinox.ai" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>.</p>
           </Section>
 
