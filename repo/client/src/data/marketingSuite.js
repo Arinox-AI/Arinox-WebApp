@@ -17,6 +17,9 @@ export const marketingSuite = {
     titleAccent: 'infinite.',
     titleRest: 'So the things to watch multiplied too.',
     note: 'Every ad, post or email AI makes also throws off signals: views, clicks, sales. The more you generate, the more there is to watch.',
+    before: 'Before: one ad',
+    now: 'Now: endless versions',
+    watchLabel: 'What you now have to watch',
     slips: [
       { t: 'Tired ads keep running', d: 'People have seen them too many times and stop clicking.' },
       { t: 'Budget leaks', d: 'Money keeps flowing to what is not working.' },

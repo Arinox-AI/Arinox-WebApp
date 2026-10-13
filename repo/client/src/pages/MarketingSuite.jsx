@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { ArrowDown, ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileDown, RefreshCw } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
@@ -29,6 +28,66 @@ const FlowArrow = () => (
     </div>
   </div>
 );
+
+/** The watch list — one ad, then the multiplied version. The deck's own
+    before/now framing, built from tiles so a first-time visitor reads it in
+    one glance: nothing numeric, nothing to misread. */
+const WatchMosaic = () => {
+  const { gap } = marketingSuite;
+  return (
+    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(180deg,#151518_0%,#0e0e11_100%)] p-6 md:p-8">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-[radial-gradient(70%_120%_at_50%_0%,rgba(255,99,1,0.08),transparent_75%)]"
+      />
+
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-ghost/80">{gap.watchLabel}</p>
+
+      <div className="mt-6 flex flex-col items-center gap-6 md:flex-row md:gap-8">
+        {/* Before: one ad */}
+        <div className="flex shrink-0 flex-col items-center gap-3">
+          <div className="flex h-16 w-16 items-center justify-center rounded-xl border border-white/15 bg-white/[0.03] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ghost">1 ad</span>
+          </div>
+          <span className="whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.14em] text-white/45">
+            {gap.before}
+          </span>
+        </div>
+
+        <div className="flex shrink-0 flex-col items-center md:hidden" aria-hidden>
+          <ChevronDown size={16} className="text-ember" />
+        </div>
+        <div className="hidden shrink-0 md:block" aria-hidden>
+          <ArrowRight size={18} className="text-ember" />
+        </div>
+
+        {/* After: the multiplied watch list */}
+        <div className="w-full min-w-0 flex-1">
+          <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <div
+                key={i}
+                className={`aspect-video rounded-md border transition-colors duration-300 ${
+                  i === 11
+                    ? 'border-ember/60 bg-ember/25'
+                    : i % 3 === 0
+                      ? 'border-ember/25 bg-ember/[0.08] hover:border-ember/45'
+                      : 'border-white/10 bg-white/[0.03] hover:border-white/25'
+                }`}
+              />
+            ))}
+          </div>
+          <div className="mt-3 flex items-center justify-end gap-2">
+            <span aria-hidden className="h-1 w-1 rounded-full bg-ember" />
+            <span className="whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.14em] text-[#ff8a4a]">
+              {gap.now}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 /** The cockpit as a live loop, not three lists: signals → agents → decisions,
     and a return rail so the last line of the loop gets drawn too. */
@@ -137,7 +196,7 @@ const MarketingSuite = () => (
         <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
           <div>
             <Label>{marketingSuite.overline}</Label>
-            <h1 className="mt-5 font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[58px]">
+            <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
               Marketing <span className="italic text-ember">OS.</span>
             </h1>
             <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">{marketingSuite.tagline}</p>
@@ -206,7 +265,7 @@ const MarketingSuite = () => (
       </div>
     </nav>
 
-    {/* What changed — big statement, leak cards, and a ticker of what slips */}
+    {/* What changed — the statement, and the curve that proves it */}
     <Section id="changed" dark border={false} className="relative overflow-hidden">
       {/* backdrop: ember glow + faint grid, the depth layer under the text */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -222,84 +281,48 @@ const MarketingSuite = () => (
       </div>
 
       <div className="relative">
-        <div className="relative">
-          <span
-            aria-hidden
-            className="pointer-events-none absolute -top-12 right-0 hidden select-none font-display text-[170px] leading-none tracking-[-0.05em] text-white/[0.045] md:block"
-          >
-            01
-          </span>
-          <div className="max-w-4xl">
-            <Label dark>{marketingSuite.gap.label}</Label>
-            <h2 className="mt-6 font-display text-[36px] leading-[1.05] tracking-[-0.02em] text-phos md:text-[54px]">
-              {marketingSuite.gap.title}
-            </h2>
-            <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-ghost md:text-[19px]">
-              {marketingSuite.gap.note}
-            </p>
-          </div>
+        <div className="max-w-4xl">
+          <Label dark>{marketingSuite.gap.label}</Label>
+          <h2 className="mt-6 font-display text-[34px] leading-[1.05] tracking-[-0.02em] text-phos md:text-[52px]">
+            {marketingSuite.gap.titleLead}{' '}
+            <span className="italic text-ember">{marketingSuite.gap.titleAccent}</span>{' '}
+            {marketingSuite.gap.titleRest}
+          </h2>
+          <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-ghost md:text-[19px]">
+            {marketingSuite.gap.note}
+          </p>
         </div>
 
-        {/* The leaks as drain cards: what is slipping, each with its little meter */}
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: '-80px' }}
-          variants={{ show: { transition: { staggerChildren: 0.08 } } }}
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:gap-5"
-        >
-          {marketingSuite.gap.slips.map((s, i) => (
-            <motion.div
-              key={s.t}
-              variants={{
-                hidden: { opacity: 0, y: 18 },
-                show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-              }}
-              className="card-dark flex flex-col justify-between gap-10 p-6 md:p-7"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="font-display text-[22px] leading-snug tracking-[-0.01em] text-phos md:text-[24px]">
-                  {s.t}
-                </h3>
-                <span className="num shrink-0 font-mono text-[12px] leading-6 text-ember">
-                  {String(i + 1).padStart(2, '0')}
+        {/* the argument: the watch list on the left, its legend on the right */}
+        <div className="mt-12 grid items-start gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+          <WatchMosaic />
+
+          <ol className="border-t border-white/15">
+            {marketingSuite.gap.slips.map((s, i) => (
+              <li
+                key={s.t}
+                className="group relative flex items-start gap-4 border-b border-white/10 py-4 transition-colors hover:bg-white/[0.03] md:py-5"
+              >
+                <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ember/40 font-mono text-[10px] text-ember">
+                  {i + 1}
                 </span>
-              </div>
-              <div className="flex items-end justify-between gap-6">
-                <p className="max-w-[28ch] text-[14px] leading-relaxed text-ghost">{s.d}</p>
-                <div className="flex h-8 shrink-0 items-end gap-1" aria-hidden>
-                  {['0.35', '0.7', '0.45', '0.85', '0.55'].map((eq, b) => (
-                    <span
-                      key={b}
-                      className="eq-bar h-full w-[3px] rounded-t-sm bg-ember/70"
-                      style={{ '--eq': eq, animationDelay: `${b * 0.22}s` }}
-                    />
-                  ))}
+                <div>
+                  <h3 className="font-display text-[19px] leading-snug tracking-[-0.01em] text-phos md:text-[21px]">{s.t}</h3>
+                  <p className="mt-1.5 text-[13.5px] leading-relaxed text-ghost">{s.d}</p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+                <span
+                  aria-hidden
+                  className="absolute left-0 top-0 h-full w-px origin-top scale-y-0 bg-ember transition-transform duration-300 group-hover:scale-y-100"
+                />
+              </li>
+            ))}
+          </ol>
+        </div>
 
         <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
           Without a cockpit, this is where the money goes.
           <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
         </p>
-      </div>
-
-      {/* Ticker: what slips, on a slow loop */}
-      <div aria-hidden className="group relative mt-12 -mx-7 overflow-hidden border-t border-white/10">
-        <div className="marquee-track flex w-max" style={{ '--marquee-duration': '36s' }}>
-          {[0, 1].map((half) => (
-            <span
-              key={half}
-              className="flex shrink-0 items-center whitespace-nowrap py-6 font-display text-[26px] italic tracking-[-0.01em] text-white/[0.16] md:text-[34px]"
-            >
-              {marketingSuite.gap.slips.map((s) => `${s.t.toUpperCase()} · `).join('')}
-              {marketingSuite.gap.slips.map((s) => `${s.t.toUpperCase()} · `).join('')}
-            </span>
-          ))}
-        </div>
       </div>
     </Section>
 
