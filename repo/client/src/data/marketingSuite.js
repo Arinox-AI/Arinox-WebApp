@@ -59,7 +59,7 @@ export const marketingSuite = {
     ctaButton: 'Request the deck',
     autoReply: {
       subject: 'Your Marketing OS deck',
-      body: 'Thank you for requesting the Marketing OS deck. We\u2019ll email your copy shortly \u2014 it comes from a person on the team, so if it hasn\u2019t arrived by tomorrow, just reply to this email.',
+      body: 'Thank you for requesting the Marketing OS deck. We\u2019ll email your copy shortly.',
       steps: [
         'The team will follow up soon',
         'If it helps, we walk you through it on a call',
