@@ -22,6 +22,9 @@ CREATE TABLE IF NOT EXISTS "Leads" (
   "useCases"      TEXT,
   "timeline"      VARCHAR(60),
   "message"       TEXT,
+  -- leadController stores the auto-reply copy shown to the lead (incl. the
+  -- deck-request asset marker). Must exist or every insert 400s.
+  "autoReply"     JSONB,
   "utmSource"     VARCHAR(120),
   "utmMedium"     VARCHAR(120),
   "utmCampaign"   VARCHAR(160),
@@ -35,6 +38,12 @@ CREATE TABLE IF NOT EXISTS "Leads" (
   "createdAt"     TIMESTAMPTZ NOT NULL DEFAULT now(),
   "updatedAt"     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- RLS: no policies on purpose. The site only touches Leads with the
+-- service-role key (bypasses RLS), so with RLS enabled and zero policies
+-- these rows are unreadable to anon/authed clients - exactly what we want
+-- for lead privacy.
+ALTER TABLE "Leads" ENABLE ROW LEVEL SECURITY;
 
 CREATE INDEX IF NOT EXISTS "leads_domain_idx"      ON "Leads" ("domain");
 CREATE INDEX IF NOT EXISTS "leads_companySize_idx" ON "Leads" ("companySize");
