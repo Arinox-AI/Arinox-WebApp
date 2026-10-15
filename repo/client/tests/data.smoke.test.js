@@ -10,6 +10,7 @@ const dataModules = {
   caseStudies: () => import('../src/data/caseStudies.js'),
   commandcore: () => import('../src/data/commandcore.js'),
   marketingSuite: () => import('../src/data/marketingSuite.js'),
+  apparelSuite: () => import('../src/data/apparelSuite.js'),
   careers: () => import('../src/data/careers.js'),
   industries: () => import('../src/data/industries.js'),
   compliance: () => import('../src/data/compliance.js'),

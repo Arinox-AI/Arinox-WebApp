@@ -206,21 +206,13 @@ const MarketingSuite = () => (
             </div>
           </div>
 
-          <div className="product-stage relative aspect-[4/3] overflow-hidden rounded-2xl border border-line">
+          <div className="relative">
             <img
-              src="/images/industries/marketing-hero.jpg"
-              alt="Hands reviewing printed marketing performance charts"
+              src="/images/industries/marketing-signals.svg"
+              alt="A phone showing a performance chart, an envelope and signal bubbles, a dotted thread to a performance console, and an operator pointing at it — signals in, decisions out"
               loading="eager"
-              className="absolute inset-0 h-full w-full object-cover [filter:grayscale(1)_contrast(1.05)]"
+              className="mx-auto w-full max-w-[560px]"
             />
-            <div aria-hidden className="absolute inset-0 bg-ember mix-blend-multiply opacity-[0.12]" />
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-[radial-gradient(rgba(255,99,1,0.45)_1px,transparent_1.5px)] [background-size:16px_16px] opacity-30 [mask-image:radial-gradient(closest-side_circle_at_50%_45%,black_0%,transparent_78%)]"
-            />
-            <span className="absolute bottom-4 left-4 max-w-[85%] rounded-full border border-line/60 bg-white/90 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep backdrop-blur-sm">
-              Signals in. Decisions out. In a loop.
-            </span>
           </div>
         </div>
       </div>
@@ -325,7 +317,11 @@ const MarketingSuite = () => (
             <span aria-hidden className="absolute left-5 right-5 top-0 h-full translate-y-3 rounded-xl border border-line bg-white/50" />
             <span aria-hidden className="absolute left-2.5 right-2.5 top-0 h-full translate-y-1.5 rounded-xl border border-line bg-white/75" />
             <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
-              <img src="/images/industries/marketing-os.svg" alt="" loading="lazy" className="h-16 w-auto shrink-0" />
+              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
+                <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Marketing OS</span>
+                <span className="block h-px w-6 bg-ember/80" />
+                <span className="font-mono text-[6px] uppercase tracking-[0.16em] text-white/40">The deck</span>
+              </div>
               <div className="min-w-0">
                 <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">Marketing OS</p>
                 <p className="mt-1 font-display text-[19px] tracking-[-0.01em]">The deck</p>

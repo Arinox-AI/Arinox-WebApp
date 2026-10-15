@@ -19,11 +19,11 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Industries = lazy(() => import('./pages/Industries'));
 const MarketingSuite = lazy(() => import('./pages/MarketingSuite'));
+const ApparelSuite = lazy(() => import('./pages/ApparelSuite'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
-const Concepts = import.meta.env.DEV ? lazy(() => import('./pages/concepts')) : null;
 
 const PageTransition = ({ children }) => (
   <motion.div
@@ -72,6 +72,7 @@ const AppInner = () => {
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
               <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
               <Route path="/industries/marketing" element={<PageTransition><MarketingSuite /></PageTransition>} />
+              <Route path="/industries/apparel" element={<PageTransition><ApparelSuite /></PageTransition>} />
               <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
@@ -79,12 +80,6 @@ const AppInner = () => {
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
-              {Concepts && (
-                <Route
-                  path="/concepts/*"
-                  element={<PageTransition><Suspense fallback={<Loader />}><Concepts /></Suspense></PageTransition>}
-                />
-              )}
               {/* Legacy URL redirects */}
               <Route path="/solutions" element={<Navigate to="/commandcore" replace />} />
               <Route path="/about" element={<Navigate to="/" replace />} />

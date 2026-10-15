@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
-import { Pill } from '../components/site/Pill';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
 import { industries, industriesMeta } from '../data/industries';
 
 /* ─── Industry suites hub ───────────────────────────────────
-   Careers-page treatment: open vector illustration under a hairline rule,
-   serif name + status, one line of what it is and what it does for you.
-   Clicking the live suite opens its brief page. */
+   Same pattern as the home-page partnership section: a flat illustration
+   under a hairline rule, serif name, one line of what it is. No status
+   pills. Clicking opens the brief page. Illustrations are the same files
+   the brief pages use as their heroes. */
 const Industries = () => (
   <>
     <SEO
@@ -37,18 +37,15 @@ const Industries = () => (
         {industries.map((ind) => {
           const inner = (
             <>
-              <div className="flex h-[210px] items-center justify-center">
+              <div className="flex items-center justify-center py-2">
                 <img
-                  src={ind.image}
-                  alt={ind.imageAlt}
+                  src={ind.visual}
+                  alt={ind.visualAlt}
                   loading="lazy"
-                  className="max-h-full w-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+                  className="mx-auto w-full max-w-[460px] transition-transform duration-500 group-hover:-translate-y-1"
                 />
               </div>
-              <div className="mt-6 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-                <h3 className="font-display text-[22px] tracking-[-0.01em]">{ind.name}</h3>
-                <Pill dot>{ind.status}</Pill>
-              </div>
+              <h3 className="mt-6 font-display text-[22px] tracking-[-0.01em]">{ind.name}</h3>
               <p className="mt-2 max-w-[46ch] text-[14.5px] leading-relaxed text-ink-soft">{ind.line}</p>
             </>
           );

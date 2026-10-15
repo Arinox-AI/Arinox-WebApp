@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="670" height="520" viewBox="0 0 670 520" role="img" aria-label="Marketing signals: a phone showing a performance chart, an envelope and floating signal bubbles, a dotted thread to a performance console, an operator pointing at it, and a paper plane flying out — signals in, decisions out">
+  <title>Marketing OS — signals in, decisions out</title>
+
+  <!-- ground -->
+  <line x1="44" y1="470" x2="598" y2="470" stroke="#d5d4cf" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="110" cy="464" rx="42" ry="6" fill="#e8e7e4"/>
+  <ellipse cx="624" cy="464" rx="44" ry="6" fill="#e8e7e4"/>
+
+  <!-- phone with the campaign feed -->
+  <rect x="70" y="300" width="80" height="160" rx="16" fill="#17171a"/>
+  <rect x="79" y="322" width="62" height="114" rx="9" fill="#ffffff"/>
+  <rect x="87" y="334" width="46" height="12" rx="6" fill="#ff6301"/>
+  <path d="M87 384 L99 374 L109 379 L121 366 L133 370" stroke="#17171a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="133" cy="370" r="3.5" fill="#ff6301"/>
+  <rect x="87" y="396" width="46" height="6" rx="3" fill="#d5d4cf"/>
+  <rect x="87" y="410" width="32" height="6" rx="3" fill="#d5d4cf"/>
+  <rect x="104" y="308" width="12" height="5" rx="2.5" fill="#d5d4cf"/>
+
+  <!-- signals coming in -->
+  <circle cx="190" cy="250" r="22" fill="#e8e7e4"/>
+  <path d="M185 240 L185 260 L203 250 Z" fill="#17171a"/>
+  <circle cx="244" cy="188" r="16" fill="#ff6301"/>
+  <rect x="236" y="184" width="16" height="3" rx="1.5" fill="#ffffff"/>
+  <rect x="236" y="191" width="10" height="3" rx="1.5" fill="#ffffff"/>
+  <circle cx="162" cy="178" r="11" fill="#d5d4cf"/>
+  <circle cx="162" cy="178" r="3" fill="#17171a"/>
+
+  <!-- email -->
+  <rect x="180" y="118" width="56" height="44" rx="6" fill="#ffffff" stroke="#17171a" stroke-width="3"/>
+  <path d="M182 122 L208 142 L234 122" stroke="#17171a" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="224" cy="152" r="4" fill="#ff6301"/>
+
+  <!-- insight window -->
+  <rect x="286" y="166" width="104" height="98" rx="12" fill="#ffffff" stroke="#17171a" stroke-width="3"/>
+  <circle cx="298" cy="180" r="3" fill="#ff6301"/>
+  <circle cx="308" cy="180" r="3" fill="#ff6301"/>
+  <circle cx="318" cy="180" r="3" fill="#ff6301"/>
+  <line x1="286" y1="192" x2="390" y2="192" stroke="#e8e7e4" stroke-width="2"/>
+  <rect x="302" y="236" width="12" height="14" rx="3" fill="#d5d4cf"/>
+  <rect x="324" y="224" width="12" height="26" rx="3" fill="#17171a"/>
+  <rect x="346" y="212" width="12" height="38" rx="3" fill="#ff6301"/>
+
+  <!-- the thread: signals to the console -->
+  <path d="M150 356 C235 405 330 382 388 340" stroke="#ff6301" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="1 9"/>
+
+  <!-- performance console -->
+  <rect x="400" y="170" width="120" height="190" rx="14" fill="#ffffff" stroke="#17171a" stroke-width="3"/>
+  <path d="M414 170 h92 a14 14 0 0 1 14 14 v22 h-120 v-22 a14 14 0 0 1 14 -14 z" fill="#17171a"/>
+  <circle cx="416" cy="188" r="4" fill="#ff6301"/>
+  <circle cx="430" cy="188" r="4" fill="#ff6301"/>
+  <circle cx="444" cy="188" r="4" fill="#ff6301"/>
+  <rect x="416" y="222" width="88" height="22" rx="6" fill="#e8e7e4"/>
+  <circle cx="426" cy="233" r="3" fill="#ff6301"/>
+  <rect x="436" y="230" width="44" height="6" rx="3" fill="#17171a"/>
+  <rect x="416" y="254" width="88" height="22" rx="6" fill="#e8e7e4"/>
+  <path d="M424 268 L436 258 L446 264 L458 250 L468 254 L480 242" stroke="#ff6301" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="480" cy="242" r="3.5" fill="#ff6301"/>
+  <rect x="416" y="286" width="88" height="22" rx="6" fill="#ff6301"/>
+  <circle cx="426" cy="297" r="3" fill="#17171a"/>
+  <rect x="436" y="294" width="44" height="6" rx="3" fill="#17171a"/>
+  <rect x="416" y="318" width="88" height="22" rx="6" fill="#e8e7e4"/>
+  <circle cx="426" cy="329" r="3" fill="#ff6301"/>
+  <rect x="436" y="326" width="30" height="6" rx="3" fill="#17171a"/>
+
+  <!-- operator — the unDraw "Teaching" figure (undraw.co, open license), recoloured to site tokens -->
+  <g transform="translate(212.2 87.4) scale(0.68)">
+    <path d="M687.99486,340.212a7.09755,7.09755,0,0,0,9.51667,5.28009l29.275,34.05588,3.7063-12.572-29.0235-31.15741a7.136,7.136,0,0,0-13.47449,4.39343Z" transform="translate(-224.02471 -172.06589)" fill="#d5d4cf"/>
+    <polygon points="581.955 545.239 572.267 545.239 567.658 507.87 581.957 507.87 581.955 545.239" fill="#d5d4cf"/>
+    <path d="M805.72118,714.14063l-10.344-4.20746-.2962-.12152-5.71119,4.329a12.16122,12.16122,0,0,0-12.15918,12.15918v.3949h31.23713V714.14063Z" transform="translate(-224.02471 -172.06589)" fill="#0b0b0d"/>
+    <polygon points="651.067 545.239 641.379 545.239 636.77 507.87 651.069 507.87 651.067 545.239" fill="#d5d4cf"/>
+    <path d="M874.83324,714.14063l-10.344-4.20746-.2962-.12152-5.71119,4.329a12.16122,12.16122,0,0,0-12.15918,12.15918v.3949h31.23713V714.14063Z" transform="translate(-224.02471 -172.06589)" fill="#0b0b0d"/>
+    <path d="M852.22649,494.15522s12.15161,12.64194,12.15161,23.02936-3.0379,24.65,0,27.7716,6.83527,6.919,2.27845,11.47583-6.83527,6.83527-3.79737,9.87317,1.51892,56.201,1.51892,56.201L880.327,693.89661H860.23388l-25.47522-71.3905-6.83527-59.23889-22.10547,56.96045,2.44068,74.28155-21.00592-.61273-8.69507-78.98517s12.911-75.134,10.63263-77.05957,0-5.81268,0-5.81268l6.0758-28.77026Z" transform="translate(-224.02471 -172.06589)" fill="#17171a"/>
+    <path d="M828.435,404.52228s4.1319-16.28152-14.90375-20.94961-73.44934-10.66538-73.44934-10.66538l-27.499-29.17993-9.318,13.53205,30.82721,38.30816,73.04273,15.00327Z" transform="translate(-224.02471 -172.06589)" fill="#17171a"/>
+    <path d="M865.38341,449.36912s-1.929,15.92614-.41009,17.39193c1.519,1.45816-1.51892,10.6858-4.55682,16.76157s2.27844,6.83527,2.27844,11.39209,2.27838,21.26523,2.27838,21.26523-23.54364,1.51892-27.341-2.27844-9.87317-.75946-18.22736,7.59472-26.498,1.51892-30.29541-2.27844,2.95435-17.46786,5.23279-20.11841-2.19489.4177-4.47333-7.98205,2.19489-7.59473,5.99225-11.39209,0-10.63263-3.0379-17.46787-.75946-57.71991-.75946-69.87149,16.70837-13.6705,16.70837-13.6705l6.615-8.31625,4.86066-6.11374,9.52374-.37973.25061-.0076,9.2124-.37213,4.47333,5.21,9.87317,11.49841,11.39209,2.27841c9.11371,3.03791,6.83526,22.02472,6.83526,22.02472Z" transform="translate(-224.02471 -172.06589)" fill="#17171a"/>
+    <circle cx="605.27713" cy="169.02274" r="19.52246" fill="#d5d4cf"/>
+    <path d="M851.93755,334.52131c-5.36963-3.29306-4.68152-11.90341-9.85528-14.91013a18.42448,18.42448,0,0,0-17.03235-.71533c-3.644-1.559-8.00983-.31485-10.92505,2.50037s-4.49341,6.96829-4.95856,11.145a41.70474,41.70474,0,0,0,.89374,12.52578q.43423-2.47467.86865-4.94937l15.39032-3.36368q-2.04373,1.83613-4.0874,3.67228a27.9555,27.9555,0,0,0,20.43665-3.196c6.69982,3.00354,5.48553,9.749-.39588,18.701C844.55108,359.72855,858.05578,338.27351,851.93755,334.52131Z" transform="translate(-224.02471 -172.06589)" fill="#0b0b0d"/>
+    <path d="M843.70812,368.73591a1.54231,1.54231,0,0,1-.13672.09872,10.2272,10.2272,0,0,1-5.32391,1.443,9.41438,9.41438,0,0,1-6.78211-2.12656c-.99493-.94174-4.95178,1.04806-7.54913,2.14932a11.45963,11.45963,0,0,1-8.52893.09873l4.86066-6.11374,8.01074-1.77616h2l8.97607,1.0167Z" transform="translate(-224.02471 -172.06589)" fill="#e8e7e4"/>
+    <path d="M868.07543,518.37861a7.09761,7.09761,0,0,0,1.79376-10.73447l22.30573-38.978-13.08759.71116L859.42913,507.149a7.13606,7.13606,0,0,0,8.64636,11.22962Z" transform="translate(-224.02471 -172.06589)" fill="#d5d4cf"/>
+    <path d="M842.95141,381.75327s23.62439-7.59472,29.70013,10.63263,26.5008,67.59311,26.5008,67.59311l-21.944,44.8089-9.87316-10.63263,10.55194-31.13843-30.37891-45.56836Z" transform="translate(-224.02471 -172.06589)" fill="#17171a"/>
+    <path d="M877.96093,500.21183a12.89014,12.89014,0,0,0-2.67084-3.19632l-7.538-7.25491-.41913.935a10.23032,10.23032,0,0,0,4.16815,14.68674,6.661,6.661,0,0,0,3.60187.74393,3.9464,3.9464,0,0,0,3.04083-1.8992A4.36364,4.36364,0,0,0,877.96093,500.21183Z" transform="translate(-224.02471 -172.06589)" fill="#e8e7e4"/>
+  </g>
+
+  <!-- decisions out -->
+  <path d="M580 158 Q596 128 608 122" stroke="#ff6301" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="1 9"/>
+  <path d="M612 128 L668 94 L638 132 Z" fill="#17171a"/>
+  <path d="M638 132 L650 150 L656 124 Z" fill="#ff6301"/>
+
+  <!-- floating accents -->
+  <rect x="554" y="94" width="14" height="3" rx="1.5" fill="#ff6301"/>
+  <rect x="559.5" y="88.5" width="3" height="14" rx="1.5" fill="#ff6301"/>
+  <circle cx="536" cy="82" r="4" fill="#ff6301"/>
+  <circle cx="352" cy="128" r="5" fill="#d5d4cf"/>
+</svg>

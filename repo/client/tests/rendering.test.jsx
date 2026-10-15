@@ -47,6 +47,7 @@ const routes = [
   { path: '/case-studies/does-not-exist', heading: /case study not found/i },
   { path: '/industries', heading: /knows your industry/i },
   { path: '/industries/marketing', heading: /marketing\s+os/i },
+  { path: '/industries/apparel', heading: /apparel\s+os/i },
   { path: '/partners', heading: /assembled around/i },
   { path: '/blog', heading: /from inside/i },
   { path: '/blog/aks-workshop-global-sovereign-ai', heading: /aks workshop global/i },

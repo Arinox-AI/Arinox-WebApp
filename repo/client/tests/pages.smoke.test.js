@@ -16,6 +16,7 @@ const pageModules = {
   Careers: () => import('../src/pages/Careers.jsx'),
   Industries: () => import('../src/pages/Industries.jsx'),
   MarketingSuite: () => import('../src/pages/MarketingSuite.jsx'),
+  ApparelSuite: () => import('../src/pages/ApparelSuite.jsx'),
   Contact: () => import('../src/pages/Contact.jsx'),
   Privacy: () => import('../src/pages/Privacy.jsx'),
   Terms: () => import('../src/pages/Terms.jsx'),
