@@ -76,7 +76,7 @@ app.get('/rss.xml', seo.blogRss);
 app.get('/sitemap.xml', async (req, res) => {
   const base = seoOrigin();
   const lastmod = new Date().toISOString().split('T')[0];
-  const pages = ['', '/commandcore', '/case-studies', '/industries', '/industries/marketing', '/partners', '/blog', '/careers', '/contact', '/privacy', '/terms'];
+  const pages = ['', '/commandcore', '/case-studies', '/industries', '/industries/marketing', '/industries/apparel', '/partners', '/blog', '/careers', '/contact', '/privacy', '/terms'];
   let blogSlugs = [];
   try {
     blogSlugs = await seo.publishedSlugs();

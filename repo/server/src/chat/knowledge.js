@@ -94,8 +94,9 @@ Arinox works with an ecosystem of technology, infrastructure, hardware and syste
 ## WEBSITE PAGES (THE ONLY PAGES THAT EXIST)
 - /commandcore — the CommandCore product page
 - /case-studies — proof and sector solutions
-- /industries — industry-specific AI suites (Marketing OS is live; apparel in development). Each suite page carries a brief explanation and a deck request; the requested deck is attached to an automatic email reply.
+- /industries — industry-specific AI suites (Marketing OS and Apparel OS each have a brief page). Each suite page carries a brief explanation and a deck request; a person from the team emails the requested deck shortly.
 - /industries/marketing — Marketing OS, the AI-native marketing control plane: signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
+- /industries/apparel — Apparel OS, the AI-native control plane for apparel: floor, materials, orders and quality read together; signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
 - /partners — partners and ecosystem
 - /blog — insights
 - /careers — open roles

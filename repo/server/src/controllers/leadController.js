@@ -94,7 +94,7 @@ const submitLead = async (req, res, next) => {
       sendMail({
         to: notifyTo(),
         subject: `[Arinox Lead]${deckRequest ? ' DECK REQUEST - ' : ' '}${lead.name}${lead.company ? ' - ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
-        html: leadNotification(lead, { deckRequest }),
+        html: leadNotification(lead, { deckRequest, deckName: lead.autoReply?.asset?.name }),
         replyTo: lead.email,
       }),
       sendMail({

@@ -26,6 +26,7 @@ describe('SEO endpoints', () => {
     expect(res.text).toContain('https://www.arinox.ai');
     expect(res.text).toContain('/case-studies');
     expect(res.text).toContain('/industries/marketing');
+    expect(res.text).toContain('/industries/apparel');
     expect(res.text).toContain('/privacy');
     expect(res.text).toContain('/terms');
   });

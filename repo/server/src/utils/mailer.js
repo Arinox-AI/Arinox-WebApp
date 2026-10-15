@@ -134,8 +134,9 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
 
 /* ── Contact auto-reply to user ──
    `body`, `steps` and `asset` override the default copy. Asset flows (deck
-   requests) stay minimal: greeting + one short line — the file arrives as an
-   attachment. Everything else keeps the steps box and reply line. */
+   requests) stay minimal: greeting + one short line — the file is sent by a
+   person from the team shortly, never attached automatically. Everything
+   else keeps the steps box and reply line. */
 const contactAutoReply = ({ name, subject, body, steps, asset }) => {
   const minimal = Boolean(asset?.name);
   const stepsList = Array.isArray(steps) && steps.length
@@ -178,7 +179,7 @@ const leadNotification = ({ name, email, phone, company, role, message, landingP
       ${row('Company', company)}
       ${row('Role', role)}
       ${row('Phone', phone)}
-      ${opts.deckRequest ? `<div style="${rowStyle}"><span style="${labelStyle}">Deck requested</span> <strong style="color:#b84300;">Yes — they asked for the Marketing OS deck. Send it to them by email.</strong></div>` : ''}
+      ${opts.deckRequest ? `<div style="${rowStyle}"><span style="${labelStyle}">Deck requested</span> <strong style="color:#b84300;">Yes — they asked for the ${opts.deckName ? esc(opts.deckName) : 'suite deck'}. Send it to them by email.</strong></div>` : ''}
       ${message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
       ${landingPage ? `<div style="padding-top:10px;">${row('Landing page', `<span style="word-break:break-all;font-size:12px;">${esc(landingPage)}</span>`)}</div>` : ''}
     </div>`);
