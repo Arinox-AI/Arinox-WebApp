@@ -8,23 +8,48 @@ import { Eyebrow } from '../components/site/Eyebrow';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { Button } from '../components/site/Button';
 import { Pill } from '../components/site/Pill';
+import HumanCheck from '../components/site/HumanCheck';
 import { company } from '../data/site';
 
 const subjects = ['Demo Request', 'General Inquiry', 'Partnership', 'Career', 'Media', 'Other'];
-const empty = { name: '', email: '', company: '', phone: '', subject: 'Demo Request', message: '' };
+const empty = { name: '', email: '', company: '', phone: '', subject: 'Demo Request', message: '', website: '' };
 
 const Contact = () => {
   const [form, setForm] = useState(empty);
+  const [errors, setErrors] = useState({});
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if (errors[e.target.name]) setErrors({ ...errors, [e.target.name]: null });
+  };
+
+  /* Message mirrors the server: name required, email format, a message that
+     isn't just whitespace. Errors sit under the field, in the site's voice. */
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = 'Your name — we reply person to person.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) e.email = 'That email doesn\u2019t look complete.';
+    if (!form.message.trim() || form.message.trim().length < 10) e.message = 'One sentence is enough — ten characters minimum.';
+    return e;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const errs = validate();
+    if (Object.values(errs).some(Boolean)) {
+      setErrors(errs);
+      return;
+    }
+    setErrors({});
     setLoading(true);
     try {
-      await axios.post('/api/v1/contact', form);
+      await axios.post('/api/v1/contact', {
+        ...form, // `website` flows as-is: '' for humans, bot junk for bots
+        turnstileToken: token || undefined,
+      });
       setSent(true);
       toast.success("Message sent! We'll be in touch shortly.");
       setForm(empty);
@@ -57,9 +82,9 @@ const Contact = () => {
             compliance needs, free, and the map is yours whatever you decide.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 font-mono text-[11.5px] text-ink-faint">
-            <Pill>someone will reply soon</Pill>
             <Pill>zero jargon</Pill>
             <Pill>zero commitment</Pill>
+            <Pill>map is yours either way</Pill>
           </div>
         </div>
       </section>
@@ -82,17 +107,17 @@ const Contact = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="card-light p-8 md:p-10">
-              <Field label="Full name">
+              <Field label="Full name" error={errors.name}>
                 <input
                   type="text" name="name" value={form.name} onChange={handleChange} required
-                  autoComplete="name" placeholder="Your name"
+                  autoComplete="name" placeholder="Your name" aria-invalid={!!errors.name} maxLength={120}
                   className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember"
                 />
               </Field>
-              <Field label="Work email">
+              <Field label="Work email" error={errors.email}>
                 <input
                   type="email" name="email" value={form.email} onChange={handleChange} required
-                  autoComplete="email" placeholder="you@company.com"
+                  autoComplete="email" placeholder="you@company.com" aria-invalid={!!errors.email} maxLength={255}
                   className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember"
                 />
               </Field>
@@ -118,13 +143,29 @@ const Contact = () => {
                   {subjects.map((s) => <option key={s}>{s}</option>)}
                 </select>
               </Field>
-              <Field label="What should we look at first?">
+              <Field label="What should we look at first?" error={errors.message}>
                 <textarea
-                  name="message" value={form.message} onChange={handleChange} required rows={3}
+                  name="message" value={form.message} onChange={handleChange} required rows={3} maxLength={4000}
+                  aria-invalid={!!errors.message}
                   placeholder="One workflow, one bottleneck, one hunch, that's enough to start."
                   className="w-full resize-y rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember"
                 />
               </Field>
+
+              {/* Honeypot: bots spray every field; humans never see this one. */}
+              <input
+                type="text"
+                name="website"
+                value={form.website}
+                onChange={handleChange}
+                autoComplete="off"
+                tabIndex={-1}
+                aria-hidden="true"
+                className="absolute left-[-9999px] h-0 w-0 opacity-0"
+              />
+
+              <HumanCheck onToken={setToken} />
+
               <Button type="submit" variant="ember" disabled={loading} className="mt-2 w-full sm:w-auto">
                 {loading ? 'Sending…' : 'Book a discovery session'}
               </Button>
@@ -176,11 +217,16 @@ const Contact = () => {
   );
 };
 
-function Field({ label, children }) {
+function Field({ label, error, children }) {
   return (
     <label className="mb-7 block">
       <span className="mb-1.5 block font-mono text-[11.5px] font-medium uppercase tracking-[0.08em] text-ink-soft">{label}</span>
       {children}
+      {error && (
+        <span role="alert" className="mt-2 block font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep">
+          {error}
+        </span>
+      )}
     </label>
   );
 }

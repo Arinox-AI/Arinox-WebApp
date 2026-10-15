@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
@@ -7,17 +8,7 @@ import { Button } from '../components/site/Button';
 import { CtaBand } from '../components/site/Shell';
 import { Pill } from '../components/site/Pill';
 import { IndexStrip } from '../components/site/IndexStrip';
-import { sectors as sectorData, anchorDeployment } from '../data/caseStudies';
-
-/* Provenance for every metric, so a figure is never read as a client result
-   unless it is one. Keys must match `basis` in data/caseStudies.js. */
-const BASIS = {
-  published: { tag: 'Client outcome', title: 'Outcome published on this site' },
-  prior: { tag: 'Earlier figure', title: 'Published on an earlier version of the site' },
-  system: { tag: 'Platform capability', title: 'Structural capability, not a client outcome' },
-  benchmark: { tag: 'Industry benchmark', title: 'Industry reference figure, not a client result' },
-  'on-request': { tag: 'On request', title: 'Figure not cleared for publication' },
-};
+import { sectors as sectorData, anchorDeployment, caseSlug, metricBasis } from '../data/caseStudies';
 
 /* Word-values ("SKU-level", "On request") would overflow the numeric scale. */
 const valueSize = (value) =>
@@ -35,7 +26,14 @@ const UseCase = ({ index, useCase: c }) => {
         <span className="num flex h-9 w-9 shrink-0 items-center justify-center rounded-card border border-ink/60 font-mono text-[12px]">
           {String(index + 1).padStart(2, '0')}
         </span>
-        <h3 className="font-display text-[26px] leading-tight tracking-[-0.01em] md:text-[32px]">{c.title}</h3>
+        <h3 className="font-display text-[26px] leading-tight tracking-[-0.01em] md:text-[32px]">
+          <Link
+            to={`/case-studies/${caseSlug(c.title)}`}
+            className="transition-colors duration-200 hover:text-ember-deep focus-visible:outline-none"
+          >
+            {c.title}
+          </Link>
+        </h3>
         {c.agent && (
           <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-ember-deep md:ml-auto">{c.agent}</span>
         )}
@@ -55,7 +53,7 @@ const UseCase = ({ index, useCase: c }) => {
           <p className="eyebrow text-ink-faint">Metrics</p>
           <div className="mt-3 flex flex-wrap gap-x-12 gap-y-5">
             {metrics.map((m) => {
-              const basis = BASIS[m.basis];
+              const basis = metricBasis[m.basis];
               return (
                 <div key={m.label}>
                   <p className={`num break-words font-display leading-[1.05] tracking-[-0.02em] text-ink ${valueSize(m.value)}`}>

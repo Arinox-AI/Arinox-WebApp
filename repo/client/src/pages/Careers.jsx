@@ -12,6 +12,7 @@ import { Label } from '../components/site/Layout';
 import { Button } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
+import HumanCheck from '../components/site/HumanCheck';
 import { perks as perksData, roles as rolesData } from '../data/careers';
 
 // Prefer a match that actually carries a JD, so API roles (which may not store
@@ -45,6 +46,7 @@ const JDBlock = ({ label, items }) => (
 
 const ApplyModal = ({ job, onClose, onDone }) => {
   const [form, setForm] = useState(emptyApp);
+  const [token, setToken] = useState(null);
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -72,6 +74,9 @@ const ApplyModal = ({ job, onClose, onDone }) => {
       fd.append('department', job.department || '');
       fd.append('linkedIn', form.linkedIn);
       fd.append('coverNote', form.coverNote);
+      // Honeypot + human check (see utils/humans.js server-side)
+      fd.append('website', form.website || '');
+      fd.append('turnstileToken', token || '');
       if (resume) fd.append('resume', resume);
       await axios.post('/api/v1/careers/apply', fd, { headers: { 'Content-Type': 'multipart/form-data' } });
       setDone(true);
@@ -122,6 +127,18 @@ const ApplyModal = ({ job, onClose, onDone }) => {
                 <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="Phone" className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
                 <input name="linkedIn" value={form.linkedIn} onChange={handleChange} placeholder="LinkedIn / portfolio URL" className="w-full rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
                 <textarea name="coverNote" value={form.coverNote} onChange={handleChange} rows={3} placeholder="Anything we should know?" className="w-full resize-y rounded-none border-b border-line bg-transparent py-2.5 text-base outline-none transition-colors placeholder:text-ink-faint focus:border-ember" />
+                {/* Honeypot: bots spray every field; humans never see this one. */}
+                <input
+                  type="text"
+                  name="website"
+                  value={form.website || ''}
+                  onChange={handleChange}
+                  autoComplete="off"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
+                <HumanCheck onToken={setToken} />
                 <div>
                   <input ref={fileRef} type="file" accept=".pdf,.doc,.docx" onChange={handleFile} className="hidden" />
                   <Button type="button" variant="ghost" size="sm" onClick={() => fileRef.current?.click()}>

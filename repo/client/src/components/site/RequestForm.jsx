@@ -3,12 +3,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Button } from './Button';
+import HumanCheck from './HumanCheck';
 
 /* Request-a-document form.
    Posts to the Leads table with a `role` tag the team notification email
-   surfaces, so the source is always visible and the team can reply with the
-   document attached. `autoReply` customises the visitor's confirmation email
-   (sent by leadController) so it says what happens next. */
+   surfaces, so the source is always visible. Nothing is auto-attached: a deck
+   request flags the intent in the team email ("DECK REQUEST") and the visitor
+   is told a person will email the document shortly. `autoReply` customises
+   the visitor's confirmation email (sent by leadController) accordingly. */
 export function RequestForm({
   id = 'request',
   label,
@@ -19,7 +21,8 @@ export function RequestForm({
   cta = 'Request',
   autoReply,
 }) {
-  const [form, setForm] = useState({ name: '', email: '', company: '' });
+  const [form, setForm] = useState({ name: '', email: '', company: '', website: '' });
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
 
@@ -30,7 +33,8 @@ export function RequestForm({
     setLoading(true);
     try {
       await axios.post('/api/v1/leads', {
-        ...form,
+        ...form, // `website` flows as-is: '' for humans, bot junk for bots
+        turnstileToken: token || undefined,
         role,
         message,
         autoReply,
@@ -82,6 +86,20 @@ export function RequestForm({
         <span className={labelCls}>Organisation</span>
         <input type="text" name="company" value={form.company} onChange={handleChange} autoComplete="organization" placeholder="Company or institution" className={field} />
       </label>
+
+      {/* Honeypot: bots spray every visible/hidden field; humans never see this one. */}
+      <input
+        type="text"
+        name="website"
+        value={form.website}
+        onChange={handleChange}
+        autoComplete="off"
+        tabIndex={-1}
+        aria-hidden="true"
+        className="absolute left-[-9999px] h-0 w-0 opacity-0"
+      />
+
+      <HumanCheck onToken={setToken} />
 
       <Button type="submit" variant="ember" disabled={loading} className="mt-8 w-full sm:w-auto">
         {loading ? 'Sending…' : cta}

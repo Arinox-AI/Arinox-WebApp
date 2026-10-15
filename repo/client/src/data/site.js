@@ -1,12 +1,29 @@
 /* ─── Site-wide narrative data ────────────────────────────── */
 
+/* Primary navigation.
+   Flat items render as links; items with `group` render as a minimal
+   dropdown on desktop (hover + focus). Mobile always renders every child
+   link, so nothing is ever hidden behind a hover. */
 export const nav = [
-  { label: 'Home',         to: '/' },
-  { label: 'CommandCore',  to: '/commandcore' },
-  { label: 'Case Studies', to: '/case-studies' },
-  { label: 'Partners',     to: '/partners' },
-  { label: 'Blog',         to: '/blog' },
-  { label: 'Careers',      to: '/careers' },
+  { label: 'Home', to: '/' },
+  { label: 'CommandCore', to: '/commandcore' },
+  {
+    label: 'Solutions',
+    to: '/industries',
+    group: [
+      { to: '/industries', label: 'Industry Suites', note: 'AI that knows your industry' },
+      { to: '/case-studies', label: 'Case Studies', note: 'Deployed inside the perimeter' },
+    ],
+  },
+  { label: 'Partners', to: '/partners' },
+  {
+    label: 'Resources',
+    to: '/blog',
+    group: [
+      { to: '/blog', label: 'Blog', note: 'Field notes and events' },
+      { to: '/careers', label: 'Careers', note: 'Open roles' },
+    ],
+  },
 ];
 
 export const company = {
@@ -15,7 +32,7 @@ export const company = {
   entityNote: 'Registered in Bengaluru, Karnataka, India',
   recognition: 'Recognised by Startup India (DPIIT)',
   email: 'assist@arinox.ai',
-  phone: '+91 86976 78792',
+  phone: '+91 79759 39909',
   linkedin: 'https://in.linkedin.com/company/arinox-ai',
   offices: [
     { city: 'Bengaluru',  note: 'Headquarters · India' },
@@ -44,14 +61,6 @@ export const story = {
     { label: 'Entity',       value: 'Adisen Tech Pvt Ltd' },
   ],
 };
-
-export const values = [
-  { letter: 'A', title: 'Adaptability',       desc: 'Our solutions evolve with your needs. No rigid systems. No obsolescence.' },
-  { letter: 'G', title: 'Growth',             desc: 'We measure success by your outcomes. Real metrics. Real impact.' },
-  { letter: 'E', title: 'Excellence',         desc: 'Every agent meets the highest standards. Maximum value, not minimum viable.' },
-  { letter: 'N', title: 'Next-gen thinking',  desc: 'Future-ready systems built for tomorrow\u2019s challenges.' },
-  { letter: 'T', title: 'Trust',              desc: 'Transparency in how our agents work. Integrity in how we operate.' },
-];
 
 export const team = [
   {

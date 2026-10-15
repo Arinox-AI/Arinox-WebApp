@@ -51,15 +51,15 @@ export const marketingSuite = {
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
-    note: 'The loop, the agents behind it, the numbers and how a deployment runs. Tell us where to send it — your copy is emailed to you right away.',
+    note: 'The loop, the agents behind it, the numbers and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
-    success: 'Request received. Your copy of the deck is on its way to your inbox.',
+    success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
     role: 'Industries deck request · Marketing OS',
     message: 'Requested the Marketing OS deck from the industry suite page.',
     ctaButton: 'Request the deck',
     autoReply: {
       subject: 'Your Marketing OS deck',
-      body: 'Thank you for requesting the Marketing OS deck. Your copy is attached to this email — we will get in touch with you soon.',
+      body: 'Thank you for requesting the Marketing OS deck. We\u2019ll email your copy shortly \u2014 it comes from a person on the team, so if it hasn\u2019t arrived by tomorrow, just reply to this email.',
       steps: [
         'The team will follow up soon',
         'If it helps, we walk you through it on a call',

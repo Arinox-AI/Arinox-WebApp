@@ -14,7 +14,7 @@ export const anchorDeployment = {
   label: 'Verified deployment',
   headline: 'Sovereign AI in service of national security.',
   body: [
-    'Inside a National Data Centre (NDC) environment, Arinox deployed a fully sovereign AI system on CommandCore infrastructure, air-gapped, open-source models only, zero cloud dependency at any layer.',
+    'Inside a National Data Centre (NDC) environment, Arinox deployed a fully sovereign AI system on CommandCore infrastructure, air-gapped, open-source models only, zero cloud dependency at that layer.',
     'Multi-source intelligence feeds are fused into a single operational picture. Alerts are triaged against context and surfaced to decision-makers as ranked, explainable summaries, turning what took hours of manual effort into minutes, with every inference auditable.',
   ],
   /* VERIFIED_METRIC_SLOT: add the approved triage-time metric here when cleared for publication */
@@ -252,7 +252,7 @@ export const sectors = [
         title: 'Situational Awareness',
         problem: 'Intelligence silos across branches block real-time decision-making and coordinated response.',
         agentNote: 'Deployed with National Data Centre (NDC) · air-gapped · open-weight LLMs',
-        outcome: 'Deployed within the classified network: multi-source intelligence fused into one operational picture, alert triage cut dramatically, zero cloud dependency at any layer.',
+        outcome: 'Deployed within the classified network: multi-source intelligence fused into one operational picture, alert triage cut dramatically, zero cloud dependency at that layer.',
         metrics: [
           { value: '-82%', label: 'Alert-triage time', basis: 'prior' },
           { value: '100%', label: 'On-premises, sovereign', basis: 'prior' },
@@ -476,7 +476,7 @@ export const sectors = [
         ],
         how: 'VisionIQ runs vision models on your existing camera streams inside your network, extracting anonymised metrics such as footfall, dwell, queue length, and service interactions, then correlates them with POS and roster data to surface ranked actions.',
         capabilities: ['Employee performance and service-quality scoring from floor activity', 'Customer-satisfaction signals from dwell, queue, and interaction patterns', 'Footfall-to-sales correlation with next-visit and churn prediction', 'Privacy-preserving on-prem inference; no footage or frames leave the network'],
-        integrations: 'Sits beside your existing NVR/CCTV and POS/roster systems, no rip-and-replace, no cloud dependency.',
+        integrations: 'Sits beside your existing NVR/CCTV and POS/roster systems, no rip-and-replace, on-premises by default, with no cloud dependency in that deployment.',
       },
     ],
   },
@@ -514,3 +514,33 @@ export const sectors = [
     ],
   },
 ];
+
+/* ─── Deep links + metric provenance ────────────────────────
+   Every use-case title is unique across sectors, so a slug is the
+   kebab-cased title ('&' spelled out). caseIndex is the single lookup used
+   by /case-studies/:slug. metricBasis is shared by the index + detail pages:
+   each figure is never read as a client result unless its basis says so. */
+export const caseSlug = (title) =>
+  String(title)
+    .toLowerCase()
+    .replace(/&/g, ' and ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
+export const caseIndex = sectors.flatMap((s) =>
+  s.useCases.map((c) => ({
+    slug: caseSlug(c.title),
+    sectorId: s.id,
+    sectorLabel: s.label,
+    regHook: s.regHook,
+    useCase: c,
+  }))
+);
+
+export const metricBasis = {
+  published: { tag: 'Client outcome', title: 'Outcome published on this site' },
+  prior: { tag: 'Earlier figure', title: 'Published on an earlier version of the site' },
+  system: { tag: 'Platform capability', title: 'Structural capability, not a client outcome' },
+  benchmark: { tag: 'Industry benchmark', title: 'Industry reference figure, not a client result' },
+  'on-request': { tag: 'On request', title: 'Figure not cleared for publication' },
+};

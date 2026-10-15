@@ -3,6 +3,7 @@ import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
 import { Nav } from './components/site/Nav';
+import { HalftoneBackground } from './components/site/HalftoneBackground';
 import { ScrollProgress } from './components/site/ScrollProgress';
 import { Footer } from './components/site/Shell';
 import { BookCtaProvider } from './components/site/BookCtaContext';
@@ -11,6 +12,7 @@ import ArinoxChatBot from './components/ui/ArinoxChatBot';
 const Home = lazy(() => import('./pages/Home'));
 const CommandCore = lazy(() => import('./pages/CommandCore'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
+const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail'));
 const Partners = lazy(() => import('./pages/Partners'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
@@ -35,8 +37,12 @@ const PageTransition = ({ children }) => (
 );
 
 const Loader = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="w-9 h-9 border-2 border-ember border-t-transparent rounded-full animate-spin" />
+  <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
+    {/* Brand beat, not a generic spinner: ember halftone on paper. */}
+    <div className="pointer-events-none absolute inset-0 opacity-50" aria-hidden>
+      <HalftoneBackground dotSize={3} spacing={18} dotColor="#ff6301" opacity={0.3} gradient={{ type: 'linear', angle: 90 }} />
+    </div>
+    <span className="relative animate-pulse font-mono text-[11px] uppercase tracking-[0.35em] text-ink-faint">Arinox</span>
   </div>
 );
 
@@ -63,6 +69,7 @@ const AppInner = () => {
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/commandcore" element={<PageTransition><CommandCore /></PageTransition>} />
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
+              <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
               <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
               <Route path="/industries/marketing" element={<PageTransition><MarketingSuite /></PageTransition>} />
               <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
@@ -82,7 +89,6 @@ const AppInner = () => {
               <Route path="/solutions" element={<Navigate to="/commandcore" replace />} />
               <Route path="/about" element={<Navigate to="/" replace />} />
               <Route path="/company" element={<Navigate to="/" replace />} />
-              <Route path="/case-studies/:slug" element={<Navigate to="/case-studies" replace />} />
               <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
             </Routes>
           </AnimatePresence>

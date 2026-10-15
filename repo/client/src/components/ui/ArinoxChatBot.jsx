@@ -106,11 +106,35 @@ export default function ArinoxChatBot() {
   const abortRef = useRef(null);
 
   useEffect(() => {
+    // The nudge earns attention, it doesn't demand it: wait for 25s of
+    // reading OR the visitor scrolling well into the page, and after ONE
+    // dismissal (ever — localStorage) never auto-pop again; the launcher
+    // stays available regardless.
     try {
       if (sessionStorage.getItem('arinox_chat_popup_dismissed')) return;
-    } catch { /* storage blocked — still show the popup */ }
-    const t = setTimeout(() => setPopup(true), 4000);
-    return () => clearTimeout(t);
+      if (localStorage.getItem('arinox_chat_dismissed_ever')) return;
+    } catch { /* storage blocked — fall through to the timed nudge */ }
+
+    let shown = false;
+    const showOnce = () => {
+      if (shown) return;
+      shown = true;
+      setPopup(true);
+      detach();
+    };
+    let timer = null;
+    const onScroll = () => {
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - window.innerHeight;
+      if (scrollable > 0 && window.scrollY / scrollable >= 0.5) showOnce();
+    };
+    const detach = () => {
+      if (timer) clearTimeout(timer);
+      window.removeEventListener('scroll', onScroll);
+    };
+    timer = setTimeout(showOnce, 25000);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return detach;
   }, []);
 
   useEffect(() => {
@@ -134,6 +158,7 @@ export default function ArinoxChatBot() {
 
   const dismissPopup = useCallback(() => {
     try { sessionStorage.setItem('arinox_chat_popup_dismissed', 'true'); } catch { /* ignore */ }
+    try { localStorage.setItem('arinox_chat_dismissed_ever', 'true'); } catch { /* ignore */ }
     setPopup(false);
   }, []);
 

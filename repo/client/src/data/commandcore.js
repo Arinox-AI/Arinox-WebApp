@@ -146,7 +146,7 @@ export const kogo = {
   name: 'KOGO OS',
   role: 'The agentic layer',
   desc: 'KOGO OS is an agentic operating system: the layer between your infrastructure and your work. It builds agents, orchestrates them as a mesh, manages their memory and tools, and keeps every action accountable, so the work runs itself and every step stays auditable.',
-  badges: ['Built-in', '500+ tools & connectors', '0 cloud dependence'],
+  badges: ['Built-in', '250+ models · 500+ connectors', 'No cloud lock-in', '100+ ready agents'],
   points: [
     'Agent Builder, low/no-code drag-and-drop workflows',
     'Agent Store, ready agents for video, audio, text & OCR',

@@ -19,7 +19,7 @@ import { Magnet } from '../components/site/motion/Magnet'
 import { team, advisors } from '../data/site'
 import { dataReadiness } from '../data/data'
 import { businessApps, commandCoreIntro, headlineClaims, powerUseCases, kogo } from '../data/commandcore'
-import { samplePosts } from './Blog'
+import { blogPosts } from '../data/blogPosts'
 
 const moves = [
   {
@@ -189,12 +189,12 @@ const Home = () => {
 
   useEffect(() => {
     if (notesPaused) return undefined
-    const id = setInterval(() => setFeaturedIdx((i) => (i + 1) % samplePosts.length), 7000)
+    const id = setInterval(() => setFeaturedIdx((i) => (i + 1) % blogPosts.length), 7000)
     return () => clearInterval(id)
   }, [notesPaused])
 
-  const featured = samplePosts[featuredIdx]
-  const more = samplePosts.filter((_, i) => i !== featuredIdx)
+  const featured = blogPosts[featuredIdx]
+  const more = blogPosts.filter((_, i) => i !== featuredIdx)
 
   return (
     <>
@@ -711,7 +711,7 @@ const Home = () => {
             </AnimatePresence>
 
             <div className="mt-5 flex items-center gap-1.5">
-              {samplePosts.map((p, i) => (
+              {blogPosts.map((p, i) => (
                 <button
                   key={p.slug}
                   type="button"

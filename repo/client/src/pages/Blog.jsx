@@ -6,174 +6,7 @@ import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
-import { img } from '../data/images';
-
-const aksImg             = img('aks-workshop');
-const ansrImg            = img('ansr-workshop');
-const nvidiaImg          = img('nvidia-workshop');
-const hitachiImg         = img('hitachi-shori');
-const aiSummitImg        = img('ai-summit');
-const sovereignLaunchImg = img('sovereign-launch');
-const hitachiSystemsImg  = img('hitachi-systems');
-const indianGovImg       = img('indian-gov');
-const bharatDigitalImg   = img('bharat-digital');
-
-const AI_FINANCE_IMG   = img('banking');
-const SERVER_ROOM_IMG  = img('commandcore-hero');
-const FACTORY_AUTO_IMG = img('technology');
-
-export const samplePosts = [
-  {
-    _id: 'e1',
-    slug: 'aks-workshop-global-sovereign-ai',
-    title: 'AKS Workshop Global: Sovereign AI for Kubernetes-Native Enterprises',
-    excerpt: 'Arinox AI joined global CIOs and cloud architects at the AKS Workshop Global to demonstrate how Kubernetes-native deployments can achieve full data sovereignty without sacrificing performance, using CommandCore™ as the on-premises AI substrate.',
-    image: aksImg,
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Enterprise AI',
-    publishedAt: '2025-11-09',
-    readTime: 5,
-  },
-  {
-    _id: 'e2',
-    slug: 'ansr-tech-workshop-agentic-ai-gcc',
-    title: 'ANSR Tech Workshop: Agentic AI Meets Global Capability Centre Operations',
-    excerpt: 'At the ANSR Tech Workshop in July, Arinox AI explored how agentic AI systems are redefining the role of Global Capability Centres, shifting them from cost arbitrage hubs to autonomous intelligence factories.',
-    image: ansrImg,
-    imagePosition: 'center 35%',
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'GCC & Outsourcing',
-    publishedAt: '2025-07-04',
-    readTime: 6,
-  },
-  {
-    _id: 'e3',
-    slug: 'nvidia-workshop-h100-enterprise-ai',
-    title: 'NVIDIA Workshop: Unlocking H100 Performance for Enterprise Sovereign AI',
-    excerpt: 'Arinox AI joined NVIDIA\u2019s enterprise workshop to showcase how CommandCore harnesses H100 GPU clusters for real-time, on-premises AI inference, hyperscaler performance without hyperscaler dependency.',
-    image: nvidiaImg,
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Infrastructure',
-    publishedAt: '2025-06-26',
-    readTime: 6,
-  },
-  {
-    _id: 'e4',
-    slug: 'hitachi-shori-2026-industrial-ai',
-    title: 'Hitachi Shori 2026: Industrial Intelligence at the Sovereign Edge',
-    excerpt: 'Arinox AI was featured at Hitachi Shori 2026, an elite gathering of industrial leaders, to present how sovereign AI and agentic automation are transforming manufacturing, supply chain, and operational technology environments.',
-    image: hitachiImg,
-    imagePosition: 'top',
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Industrial AI',
-    publishedAt: '2026-05-07',
-    readTime: 7,
-  },
-  {
-    _id: 'e6',
-    slug: 'langoor-arinox-sovereign-ai-launch',
-    title: 'Langoor & Arinox Launch Sovereign AI: Marketing Transforms Into Autonomous Execution',
-    excerpt: 'In a landmark broadcast on AIM\u2019s Front Page, Langoor and Arinox AI announced the joint launch of a sovereign AI platform built for marketing intelligence, turning campaign strategy into fully autonomous, on-premises AI execution without a single token leaving the enterprise.',
-    image: sovereignLaunchImg,
-    imagePosition: 'center 25%',
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Marketing AI',
-    publishedAt: '2026-05-09',
-    readTime: 5,
-  },
-  {
-    _id: 'e7',
-    slug: 'hitachi-systems-india-partnership',
-    title: 'Hitachi Systems India: Expanding the Sovereign AI SI Network',
-    excerpt: 'Arinox AI formalised a strategic partnership with Hitachi Systems India, extending CommandCore\u2122 sovereign AI deployments into manufacturing, logistics, and government enterprise sectors through one of India\u2019s most trusted system integration networks.',
-    image: hitachiSystemsImg,
-    imagePosition: 'center 35%',
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Enterprise AI',
-    publishedAt: '2026-05-21',
-    readTime: 4,
-  },
-  {
-    _id: 'e8',
-    slug: 'government-engagement-sovereign-ai-india',
-    title: 'Government Engagement: Sovereign AI Briefing for India\u2019s Public Sector',
-    excerpt: 'Arinox AI engaged senior officials from India\u2019s central and state government agencies to present CommandCore\u2122 as a sovereign AI platform for public sector digital transformation, with full data localisation, on-premises deployment, and compliance-ready agent governance.',
-    image: indianGovImg,
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Government & Defence',
-    publishedAt: '2026-04-23',
-    readTime: 5,
-  },
-  {
-    _id: 'e9',
-    slug: 'bharat-digital-summit-bdia',
-    title: 'Bharat Digital Summit: Arinox at BDIA\u2019s Foundation Forum for India\u2019s Digital Future',
-    excerpt: 'Arinox AI joined India\u2019s leading technologists, policymakers, and enterprise leaders at the Bharat Digital Summit, BDIA\u2019s Foundation Forum, contributing to the roadmap for India\u2019s sovereign digital infrastructure and AI-first public services.',
-    image: bharatDigitalImg,
-    imagePosition: 'center 55%',
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Digital Infrastructure',
-    publishedAt: '2026-05-28',
-    readTime: 4,
-  },
-  {
-    _id: 'e5',
-    slug: 'nvidia-inception-ai-summit-2025',
-    title: 'NVIDIA Inception AI Summit: Arinox Showcases Sovereign AI to Indian Defence & Enterprises',
-    excerpt: 'At the NVIDIA Inception AI Summit, Arinox AI stood alongside India\u2019s defence leadership and enterprise innovators, demonstrating how CommandCore brings frontier AI to the most security-sensitive environments in the country.',
-    image: aiSummitImg,
-    imagePosition: 'center 25%',
-    author: { name: 'Arinox AI Team', role: 'Events & Innovation' },
-    category: 'Events',
-    domain: 'Defence & Enterprise',
-    publishedAt: '2026-02-18',
-    readTime: 5,
-  },
-  {
-    _id: '1',
-    slug: 'beyond-offshoring-ai-shoring',
-    title: 'Beyond Offshoring: The Macroeconomics of AI-Shoring',
-    excerpt: 'Why CFOs will reclassify cloud savings as growth CAPEX, and how the 30-30-30 loop turns theory into cashflow in 90 days.',
-    image: AI_FINANCE_IMG,
-    author: { name: 'Praveer Kochhar', role: 'Co-Founder, KOGO AI' },
-    category: 'AI Strategy',
-    domain: 'General',
-    publishedAt: '2025-05-01',
-    readTime: 7,
-  },
-  {
-    _id: '2',
-    slug: 'edge-to-core-ai',
-    title: 'Edge-to-Core AI: Turning On-Prem HPC Into a Profit Center',
-    excerpt: 'Inside a Tier-1 bank that flipped its dormant DGX cluster into an agent farm and paid off hardware amortisation two quarters early.',
-    image: SERVER_ROOM_IMG,
-    author: { name: 'P.N. Sudarshan', role: 'Global CTO, HPE' },
-    category: 'Technology',
-    domain: 'BFSI',
-    publishedAt: '2025-04-20',
-    readTime: 9,
-  },
-  {
-    _id: '3',
-    slug: 'bpo-to-autonomous-ops',
-    title: 'From BPO to Autonomous Ops: Building an Agent Factory',
-    excerpt: 'A step-by-step walkthrough of how Coforge cut 40% ticket resolution time by roboshoring processes back to on-prem KOGO agents.',
-    image: FACTORY_AUTO_IMG,
-    author: { name: 'Nikhil Arora', role: 'SVP AI & Automation, Coforge' },
-    category: 'Case Study',
-    domain: 'Technology',
-    publishedAt: '2025-04-10',
-    readTime: 8,
-  },
-];
+import { blogPosts } from '../data/blogPosts';
 
 const categories = ['All', 'Events', 'AI Strategy', 'Case Study', 'Technology', 'Industry Insights', 'Research'];
 
@@ -192,11 +25,11 @@ const Blog = () => {
     axios.get('/api/v1/blog', { params })
       .then(({ data }) => {
         const apiPosts = (data.data || []).map((p) => ({ ...p, image: p.image ?? p.coverImage }));
-        const sampleSlugs = new Set(samplePosts.map((p) => p.slug));
+        const sampleSlugs = new Set(blogPosts.map((p) => p.slug));
         const extras = apiPosts.filter((p) => !sampleSlugs.has(p.slug));
-        setPosts([...samplePosts, ...extras]);
+        setPosts([...blogPosts, ...extras]);
       })
-      .catch(() => setPosts(samplePosts))
+      .catch(() => setPosts(blogPosts))
       .finally(() => setLoading(false));
   }, [category]);
 

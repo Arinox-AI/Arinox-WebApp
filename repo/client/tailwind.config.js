@@ -20,22 +20,6 @@ export default {
         tint: '#ffe8d9',
         ghost: '#a39d99',
         'ember-lite': '#ff8a4a',
-        /* Legacy tokens kept for pages not yet migrated */
-        brand: {
-          bg:        'rgb(var(--color-bg) / <alpha-value>)',
-          surface:   'rgb(var(--color-surface) / <alpha-value>)',
-          card:      'rgb(var(--color-card) / <alpha-value>)',
-          border:    'rgb(var(--color-border) / <alpha-value>)',
-          primary:   'rgb(var(--color-primary) / <alpha-value>)',
-          secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
-          text:      'rgb(var(--color-text) / <alpha-value>)',
-          muted:     'rgb(var(--color-muted) / <alpha-value>)',
-          subtle:    'rgb(var(--color-subtle) / <alpha-value>)',
-          green:     'rgb(var(--color-green) / <alpha-value>)',
-          alert:     'rgb(var(--color-alert) / <alpha-value>)',
-          orange:    '#E8590C',
-          ink:       '#2A2724',
-        },
       },
       fontFamily: {
         body:    ['Switzer', 'system-ui', '-apple-system', 'sans-serif'],
