@@ -26,7 +26,7 @@ const allowedOrigins = process.env.NODE_ENV === 'production'
     ].filter(Boolean)
   : [
       'http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175',
-      'http://127.0.0.1:5173', 'http://127.0.0.1:5174',
+      'http://127.0.0.1:5173', 'http://127.0.0.1:5174', 'http://127.0.0.1:5175',
       process.env.CLIENT_URL,
     ].filter(Boolean);
 app.use(cors({
@@ -36,7 +36,11 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin) || /^https:\/\/arinox-website(?:-[\w-]+)?\.vercel\.app$/.test(origin)) {
       return cb(null, true);
     }
-    cb(new Error('CORS blocked'));
+    // CORS abuse is a client error, not an infrastructure failure - 403 with
+    // a client-safe message (the handler hides 5xx messages by design).
+    const err = new Error('Cross-origin request blocked.');
+    err.statusCode = 403;
+    cb(err);
   },
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
@@ -56,25 +60,32 @@ app.use('/api/v1/contact', require('./routes/contact'));
 app.use('/api/v1/leads', require('./routes/leads'));
 app.use('/api/v1/chat', require('./routes/chat'));
 
-// Canonical origin used in SEO output. Guards against a misconfigured
-// SITE_URL (e.g. the staging host leaking into the production
-// sitemap.xml / robots.txt), which is exactly what would devalue the
-// live domain in search.
-const PROD_ORIGIN = 'https://www.arinox.ai';
-const seoOrigin = () => {
-  const configured = (process.env.SITE_URL || '').replace(/\/+$/, '');
-  const looksNonProd = /staging|preview|localhost|127\.0\.0\.1|\.vercel\.app/i.test(configured);
-  return configured && !looksNonProd ? configured : PROD_ORIGIN;
-};
+// Canonical origin used in SEO output (sitemap, robots, RSS, meta shells),
+// shared with the serverless controllers via utils/seoOrigin.
+const { seoOrigin } = require('./utils/seoOrigin');
 
-// Sitemap XML (SEO)
-app.get('/sitemap.xml', (req, res) => {
+// Digest-limbo routes (below) like /sitemap.xml stay non-HTML; these are the
+// HTML meta shells social crawlers parse for blog deep links.
+const seo = require('./controllers/seoController');
+app.get('/blog', seo.blogIndex);
+app.get('/blog/:slug', seo.blogSlug);
+app.get('/case-studies/:slug', seo.caseStudySlug);
+app.get('/rss.xml', seo.blogRss);
+
+// Sitemap XML (SEO) - static page URLs + published blog slugs (best effort).
+app.get('/sitemap.xml', async (req, res) => {
   const base = seoOrigin();
   const lastmod = new Date().toISOString().split('T')[0];
-  const pages = ['', '/commandcore', '/case-studies', '/partners', '/blog', '/careers', '/contact'];
+  const pages = ['', '/commandcore', '/case-studies', '/industries', '/industries/marketing', '/partners', '/blog', '/careers', '/contact', '/privacy', '/terms'];
+  let blogSlugs = [];
+  try {
+    blogSlugs = await seo.publishedSlugs();
+  } catch { blogSlugs = []; } // DB unavailable → static pages only
+  const url = (p, priority) => `  <url><loc>${base}${p}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${priority}</priority></url>`;
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${pages.map(p => `  <url><loc>${base}${p}</loc><lastmod>${lastmod}</lastmod><changefreq>weekly</changefreq><priority>${p === '' ? '1.0' : '0.8'}</priority></url>`).join('\n')}
+${pages.map((p) => url(p, p === '' ? '1.0' : '0.8')).join('\n')}
+${blogSlugs.map((s) => url(`/blog/${s}`, '0.6')).join('\n')}
 </urlset>`;
   res.header('Content-Type', 'application/xml').send(xml);
 });
@@ -111,7 +122,10 @@ if (process.env.NODE_ENV === 'production') {
     },
   }));
 
-  app.get('*', (req, res) => {
+  app.get('*', (req, res, next) => {
+    // API paths are never the SPA - let them fall through to the JSON 404
+    // handler instead of serving index.html.
+    if (req.path.startsWith('/api/')) return next();
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.sendFile(path.join(clientBuild, 'index.html'));
   });

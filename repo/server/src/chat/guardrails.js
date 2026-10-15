@@ -82,6 +82,8 @@ function screenInput(text) {
  * normalise those away rather than showing raw syntax. */
 const polish = (value) => value
   .replace(/[\u00a0\u2007\u2009\u202f\u2002\u2003]/g, ' ')
+  /* Guardrails intentionally strip zero-width code points one by one. */
+  // eslint-disable-next-line no-misleading-character-class
   .replace(/[\u200b\u200c\u200d\ufeff]/g, '')
   .replace(/\u2011/g, '-')
   .replace(/\*\*(.+?)\*\*/g, '$1')

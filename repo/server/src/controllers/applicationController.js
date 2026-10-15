@@ -57,16 +57,24 @@ const submitApplication = async (req, res, next) => {
       }
     }
 
-    const { error } = await supabase.from('JobApplications').insert({
-      fullName, email, phone, role,
-      department: department || null,
-      resumeName: resumeAttachment ? resumeAttachment.filename : null,
-      resumePath: resumeKey,
-      linkedIn:   linkedIn || null,
-      coverNote:  coverNote || null,
-      createdAt: now, updatedAt: now,
-    });
-    if (error) throw new Error(error.message);
+    // Persist the application. A DB hiccup must not drop the applicant — the
+    // team notification below carries full details + the resume attachment,
+    // so the application survives even when this insert fails ("never lost",
+    // mirrored from the leads flow).
+    try {
+      const { error } = await supabase.from('JobApplications').insert({
+        fullName, email, phone, role,
+        department: department || null,
+        resumeName: resumeAttachment ? resumeAttachment.filename : null,
+        resumePath: resumeKey,
+        linkedIn:   linkedIn || null,
+        coverNote:  coverNote || null,
+        createdAt: now, updatedAt: now,
+      });
+      if (error) console.error('[careers] DB insert failed (application still emailed):', error.message);
+    } catch (dbErr) {
+      console.error('[careers] DB insert threw (application still emailed):', dbErr.message);
+    }
 
     // Notify team + auto-reply to applicant. Await in serverless so Vercel does
     // not freeze the function before SMTP has a chance to complete.
@@ -80,6 +88,7 @@ const submitApplication = async (req, res, next) => {
           resumeName: req.file ? req.file.originalname : null,
         }),
         attachments: resumeAttachment ? [resumeAttachment] : [],
+        replyTo: email, // match the contact/lead flows: reply reaches the sender
       }),
       sendMail({
         to: email,

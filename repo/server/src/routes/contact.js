@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { submitContact } = require('../controllers/contactController');
+const { requireHuman } = require('../utils/humans');
 
-router.post('/', submitContact);
+router.post('/', requireHuman(), submitContact);
 
 module.exports = router;

@@ -138,6 +138,8 @@ const chatStreamHandler = async (req, res) => {
     for await (const chunk of stream) {
       const delta = (chunk.choices?.[0]?.delta?.content || '')
         .replace(/[\u00a0\u2007\u2009\u202f\u2002\u2003]/g, ' ')
+        /* Intentional: strip each zero-width code point individually. */
+        // eslint-disable-next-line no-misleading-character-class
         .replace(/[\u200b\u200c\u200d\ufeff]/g, '')
         .replace(/\u2011/g, '-');
       if (delta) {

@@ -1,6 +1,4 @@
 const validator = require('validator');
-const fs = require('fs');
-const path = require('path');
 const supabase = require('../config/supabase');
 const { sendMail, leadNotification, contactAutoReply } = require('../utils/mailer');
 
@@ -8,37 +6,16 @@ const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)
 const join = (v) => (Array.isArray(v) ? v.join(', ') : str(v));
 
 /* Team notification recipients. EMAIL_TO may hold one address or a
-   comma-separated list; vandana@arinox.ai is always included. */
+   comma-separated list; the fallback recipient is always included.
+   LEADS_FALLBACK_EMAIL steers it via env; the default keeps prior behavior. */
+const FALLBACK_EMAIL = process.env.LEADS_FALLBACK_EMAIL || 'vandana@arinox.ai';
 const notifyTo = () => {
   const list = (process.env.EMAIL_TO || 'assist@arinox.ai')
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean);
-  if (!list.includes('vandana@arinox.ai')) list.push('vandana@arinox.ai');
+  if (!list.includes(FALLBACK_EMAIL)) list.push(FALLBACK_EMAIL);
   return list.join(', ');
-};
-
-/* Marketing OS deck, attached to the requester's auto-reply. Local dev reads
-   server/assets-private/; on Vercel the deck ships inside the api/ folder,
-   which the @vercel/node builder includes with the function. */
-const DECK_FILE = 'arinox-marketing-os-deck-MASTER.pptx';
-
-const deckAttachment = () => {
-  const candidates = [
-    path.join(__dirname, '../..', 'assets-private', DECK_FILE),       // express dev: server/src/controllers
-    path.join(process.cwd(), 'assets-private', DECK_FILE),            // workspace dev: cwd = server/
-    path.join(__dirname, '../../../api', 'marketing-os-deck.pptx'),   // vercel: api/ rides with the function
-    path.join(process.cwd(), 'api', 'marketing-os-deck.pptx'),        // vercel fallback: cwd-based
-  ];
-  for (const p of candidates) {
-    try {
-      if (fs.existsSync(p)) return [{ filename: 'marketing-os-deck.pptx', content: fs.readFileSync(p) }];
-    } catch {
-      /* try next candidate */
-    }
-  }
-  console.warn('[leads] deck file not found for attachment (checked %s candidates)', candidates.length);
-  return null;
 };
 
 /* Submit a lead from a campaign landing page. Saves a
@@ -105,13 +82,19 @@ const submitLead = async (req, res, next) => {
       console.error('Lead DB insert failed (email will still send):', dbErr.message);
     }
 
+    // A deck request (autoReply.asset, set by the request form) NEVER ships
+    // the deck file anymore. The team emails it personally; the visitor is
+    // told it follows shortly. The team email flags the intent loudly.
+    const deckRequest = Boolean(lead.autoReply?.asset?.name);
+    if (deckRequest) console.log('[leads] DECK REQUEST:', lead.email);
+
     // Notify team + auto-reply to lead. Await in serverless so Vercel does not
     // freeze the function before SMTP has a chance to complete.
     const emailResults = await Promise.allSettled([
       sendMail({
         to: notifyTo(),
-        subject: `[Arinox Lead] ${lead.name}${lead.company ? ' - ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
-        html: leadNotification(lead),
+        subject: `[Arinox Lead]${deckRequest ? ' DECK REQUEST - ' : ' '}${lead.name}${lead.company ? ' - ' + lead.company : ''}${lead.domain ? ' (' + lead.domain + ')' : ''}`,
+        html: leadNotification(lead, { deckRequest }),
         replyTo: lead.email,
       }),
       sendMail({
@@ -126,7 +109,6 @@ const submitLead = async (req, res, next) => {
           steps: lead.autoReply?.steps,
           asset: lead.autoReply?.asset,
         }),
-        ...(lead.autoReply?.asset ? { attachments: deckAttachment() } : {}),
       }),
     ]);
     emailResults.forEach((r, i) => {

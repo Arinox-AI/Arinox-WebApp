@@ -2,19 +2,32 @@ const validator = require('validator');
 const supabase = require('../config/supabase');
 const { sendMail, contactNotification, contactAutoReply } = require('../utils/mailer');
 
+/* Same hygiene as leadController: trim + length-cap every free-text field so
+   the Contacts table and the email bodies can't be inundated by oversized
+   junk (the 10kb body limit only bounds the request, not each column). */
+const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
+
 const submitContact = async (req, res, next) => {
   try {
-    const { name, email, company, phone, subject, message } = req.body;
+    const b = req.body || {};
+    const clean = {
+      name: str(b.name, 120),
+      email: str(b.email, 255),
+      company: str(b.company, 160),
+      phone: str(b.phone, 40),
+      subject: str(b.subject, 200),
+      message: str(b.message, 4000),
+    };
 
-    if (!name || !email || !message)
+    if (!clean.name || !clean.email || !clean.message)
       return res.status(400).json({ success: false, message: 'Name, email and message are required.' });
-    if (!validator.isEmail(email))
+    if (!validator.isEmail(clean.email))
       return res.status(400).json({ success: false, message: 'Invalid email address.' });
 
     const now = new Date().toISOString();
     const { data: contact, error } = await supabase
       .from('Contacts')
-      .insert({ name, email, company, phone, subject, message, createdAt: now, updatedAt: now })
+      .insert({ ...clean, createdAt: now, updatedAt: now })
       .select()
       .single();
     if (error) throw new Error(error.message);
@@ -24,13 +37,14 @@ const submitContact = async (req, res, next) => {
     const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
-        subject: `[Arinox] ${subject || 'New Contact'} from ${name}`,
-        html: contactNotification({ name, email, company, phone, subject, message }),
+        subject: `[Arinox] ${clean.subject || 'New Contact'} from ${clean.name}`,
+        html: contactNotification(clean),
+        replyTo: clean.email,
       }),
       sendMail({
-        to: email,
+        to: clean.email,
         subject: `We received your message - Arinox AI`,
-        html: contactAutoReply({ name, subject }),
+        html: contactAutoReply({ name: clean.name, subject: clean.subject }),
       }),
     ]);
     emailResults.forEach((r, i) => {

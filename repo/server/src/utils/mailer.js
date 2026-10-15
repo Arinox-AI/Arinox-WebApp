@@ -2,14 +2,19 @@ const nodemailer = require('nodemailer');
 
 const isConfigured = () => !!(process.env.EMAIL_USER && process.env.EMAIL_PASS);
 
-const getTransporter = () =>
-  nodemailer.createTransport({
+const getTransporter = () => {
+  const port = Number(process.env.EMAIL_PORT) || 587;
+  return nodemailer.createTransport({
     host: process.env.EMAIL_HOST || 'smtp.gmail.com',
-    port: Number(process.env.EMAIL_PORT) || 587,
-    secure: false,
+    port,
+    // Implicit TLS on a 465 relay, STARTTLS on 587.
+    secure: port === 465,
     auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
-    tls: { rejectUnauthorized: false },
+    // Verify the server certificate chain by default. SMTP_ALLOW_SELF_SIGNED
+    // =true opts out only for relays with self-signed certs.
+    tls: { rejectUnauthorized: process.env.SMTP_ALLOW_SELF_SIGNED !== 'true' },
   });
+};
 
 const sendMail = async (options) => {
   if (!isConfigured()) {
@@ -74,10 +79,6 @@ const rowStyle = `
 const labelStyle = `
   font-family: ${FONT_MONO}; text-transform: uppercase; letter-spacing: 1px;
   font-size: 11px; color: #8a8a93; min-width: 118px; display: inline-block;
-`;
-const eyebrowStyle = `
-  font-family: ${FONT_MONO}; text-transform: uppercase; letter-spacing: 1.4px;
-  font-size: 11px; color: #ea5a00; margin: 22px 0 8px;
 `;
 const noteBoxStyle = `
   background: #ffe8d9; border: 1px solid rgba(255,99,1,0.22); border-radius: 8px;
@@ -164,8 +165,9 @@ const contactAutoReply = ({ name, subject, body, steps, asset }) => {
 /* ── Lead notification to Arinox team (website forms) ──
    Compact on purpose: the full record (ICP, AI profile, campaign fields)
    lives in the Leads table; the email exists to act on the lead, not to
-   re-type it. Rows render only when a value exists — no N/A noise. */
-const leadNotification = ({ name, email, phone, company, role, message, landingPage }) => {
+   re-type it. Rows render only when a value exists — no N/A noise.
+   Deck requests render a loud intent row; the deck is never attached. */
+const leadNotification = ({ name, email, phone, company, role, message, landingPage }, opts = {}) => {
   const row = (label, value) =>
     value ? `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value}</div>` : '';
   return emailWrapper(`
@@ -176,6 +178,7 @@ const leadNotification = ({ name, email, phone, company, role, message, landingP
       ${row('Company', company)}
       ${row('Role', role)}
       ${row('Phone', phone)}
+      ${opts.deckRequest ? `<div style="${rowStyle}"><span style="${labelStyle}">Deck requested</span> <strong style="color:#b84300;">Yes — they asked for the Marketing OS deck. Send it to them by email.</strong></div>` : ''}
       ${message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
       ${landingPage ? `<div style="padding-top:10px;">${row('Landing page', `<span style="word-break:break-all;font-size:12px;">${esc(landingPage)}</span>`)}</div>` : ''}
     </div>`);
