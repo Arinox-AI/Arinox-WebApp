@@ -56,7 +56,7 @@ export const story = {
   ],
   facts: [
     { label: 'Headquarters', value: 'Bengaluru' },
-    { label: 'Presence',     value: 'New Delhi' },
+    { label: 'Presence',     value: 'India · UAE · USA · Thailand' },
     { label: 'Recognition',  value: 'Startup India (DPIIT)' },
     { label: 'Entity',       value: 'Adisen Tech Pvt Ltd' },
   ],

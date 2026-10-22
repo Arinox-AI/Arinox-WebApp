@@ -16,7 +16,7 @@ export const commandCoreIntro = {
 /* Three headline claims from the brochure, used as an impact strip */
 export const headlineClaims = [
   { big: '100% AI.', small: '0% Internet.', note: 'Runs advanced AI with zero external connectivity.' },
-  { big: '100% Secure.', small: '0% Risk.', note: 'Air-gapped, zero-egress architecture by design.' },
+  { big: 'Zero egress.', small: 'Air-gapped.', note: 'Nothing leaves your perimeter, by architecture, not by policy.' },
   { big: 'Edge → Datacenter.', small: 'One stack.', note: 'Modular, plug-and-play scalability without re-architecting.' },
 ];
 

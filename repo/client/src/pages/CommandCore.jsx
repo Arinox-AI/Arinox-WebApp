@@ -187,7 +187,7 @@ const CommandCore = () => (
       <Label dark>What runs on it</Label>
       <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
         <h2 className="max-w-2xl font-display text-[30px] leading-tight tracking-[-0.01em] text-phos md:text-[42px]">
-          No prototypes. 100+ enterprise-ready agents deployable today.
+          No prototypes. Enterprise-ready agents, deployable today.
         </h2>
         <p className="max-w-sm text-[15px] leading-relaxed text-ghost">
           All local, all logged. Powered by KOGO OS.
