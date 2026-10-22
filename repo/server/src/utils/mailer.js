@@ -89,7 +89,13 @@ const quoteBoxStyle = `
   background: #f8f7f5; border: 1px solid #e2e1dd; padding: 14px; border-radius: 8px;
 `;
 const linkStyle = `color:#ea5a00;text-decoration:none;font-weight:bold;`;
-const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+/* Every value that came from a form is untrusted: escape it before it enters
+   an email body, so a visitor can't inject markup or links into mail sent
+   from the Arinox mailbox. */
+const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+const para = (s) => esc(s).replace(/\n/g, '<br>');
+// Only http(s) URLs become links; anything else (javascript:, data:) renders as text.
+const safeHref = (u) => (/^https?:\/\//i.test(String(u || '').trim()) ? esc(String(u).trim()) : null);
 
 const logoUrl = (name = 'logo-white.png') =>
   `${process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://www.arinox.ai'}/images/brand/${name}`;
@@ -98,8 +104,8 @@ const header = (title, sub) => `
     ${accentBar}
     <div style="${headerStyle}">
       <img src="${logoUrl()}" alt="Arinox" style="height:26px;margin-bottom:14px;" onerror="this.style.display='none'"/>
-      <h2 style="${headerTitleStyle}">${title}</h2>
-      ${sub ? `<p style="${headerSubStyle}">${sub}</p>` : ''}
+      <h2 style="${headerTitleStyle}">${esc(title)}</h2>
+      ${sub ? `<p style="${headerSubStyle}">${esc(sub)}</p>` : ''}
     </div>`;
 
 const emailWrapper = (content) => `
@@ -107,7 +113,7 @@ const emailWrapper = (content) => `
   <div style="${cardStyle}">
     ${content}
     <div style="${footerStyle}">
-      Arinox AI · New Delhi &amp; Bengaluru, India<br>
+      Arinox AI · Headquartered in Bengaluru, India<br>
       <a href="https://www.arinox.ai" style="${linkStyle}">www.arinox.ai</a>
       &nbsp;·&nbsp;
       <a href="mailto:assist@arinox.ai" style="${linkStyle}">assist@arinox.ai</a>
@@ -121,14 +127,14 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
     ${header('New contact form submission', 'Via the Arinox website')}
     <div style="${bodyStyle}">
       <p style="color:#5b5b60;font-size:14px;margin:0 0 18px;">You have a new message from the contact form.</p>
-      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${name}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${email}" style="${linkStyle}">${email}</a></div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Company</span> ${company || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Subject</span> ${subject || 'General Inquiry'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${esc(name)}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${esc(email)}" style="${linkStyle}">${esc(email)}</a></div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Company</span> ${company ? esc(company) : 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone ? esc(phone) : 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Subject</span> ${subject ? esc(subject) : 'General Inquiry'}</div>
       <div style="padding-top:16px;">
         <span style="${labelStyle}">Message</span>
-        <p style="${quoteBoxStyle}">${message.replace(/\n/g, '<br>')}</p>
+        <p style="${quoteBoxStyle}">${para(message)}</p>
       </div>
     </div>`);
 
@@ -140,7 +146,7 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
 const contactAutoReply = ({ name, subject, body, steps, asset }) => {
   const minimal = Boolean(asset?.name);
   const stepsList = Array.isArray(steps) && steps.length
-    ? steps.map((s, i) => `${i + 1}. ${s}`).join('<br>')
+    ? steps.map((s, i) => `${i + 1}. ${esc(s)}`).join('<br>')
     : `1. Our team reviews your message<br>
        2. We schedule a free discovery call<br>
        3. You get a tailored plan`;
@@ -148,10 +154,10 @@ const contactAutoReply = ({ name, subject, body, steps, asset }) => {
   return emailWrapper(`
     ${header("We've received your message", subject || 'Arinox AI')}
     <div style="${bodyStyle}">
-      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${name},</p>
+      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${esc(name)},</p>
       <p style="font-size:15px;color:${minimal ? '#17171a' : '#5b5b60'};line-height:1.7;margin:0 0 ${minimal ? '4px' : '22px'};">
-        ${body || `Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
-        message regarding <em>"${subject || 'your inquiry'}"</em> and we will get back to you
+        ${body ? esc(body) : `Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
+        message regarding <em>"${esc(subject || 'your inquiry')}"</em> and we will get back to you
         <strong style="color:#17171a;">soon</strong>.`}
       </p>
       ${minimal ? '' : `
@@ -174,13 +180,13 @@ const leadNotification = ({ name, email, phone, company, role, message, landingP
   return emailWrapper(`
     ${header('New lead', 'Via website form')}
     <div style="${bodyStyle}">
-      ${row('Name', name)}
-      ${row('Email', email ? `<a href="mailto:${email}" style="${linkStyle}">${email}</a>` : '')}
-      ${row('Company', company)}
-      ${row('Role', role)}
-      ${row('Phone', phone)}
+      ${row('Name', esc(name))}
+      ${row('Email', email ? `<a href="mailto:${esc(email)}" style="${linkStyle}">${esc(email)}</a>` : '')}
+      ${row('Company', esc(company))}
+      ${row('Role', esc(role))}
+      ${row('Phone', esc(phone))}
       ${opts.deckRequest ? `<div style="${rowStyle}"><span style="${labelStyle}">Deck requested</span> <strong style="color:#b84300;">Yes — they asked for the ${opts.deckName ? esc(opts.deckName) : 'suite deck'}. Send it to them by email.</strong></div>` : ''}
-      ${message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${String(message).replace(/\n/g, '<br>')}</p></div>` : ''}
+      ${message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${para(message)}</p></div>` : ''}
       ${landingPage ? `<div style="padding-top:10px;">${row('Landing page', `<span style="word-break:break-all;font-size:12px;">${esc(landingPage)}</span>`)}</div>` : ''}
     </div>`);
 };
@@ -191,14 +197,14 @@ const applicationNotification = ({ fullName, email, phone, role, department, lin
     ${header('New job application', role)}
     <div style="${bodyStyle}">
       <p style="color:#5b5b60;font-size:14px;margin:0 0 18px;">A new application was submitted via the Careers page.</p>
-      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${fullName}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${email}" style="${linkStyle}">${email}</a></div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Role</span> ${role}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Department</span> ${department || 'N/A'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">Resume</span> ${resumeName || 'Not provided'}</div>
-      <div style="${rowStyle}"><span style="${labelStyle}">LinkedIn</span> ${linkedIn ? `<a href="${linkedIn}" style="${linkStyle}">${linkedIn}</a>` : 'N/A'}</div>
-      ${coverNote ? `<div style="padding-top:16px;"><span style="${labelStyle}">Cover note</span><p style="${quoteBoxStyle}">${coverNote.replace(/\n/g, '<br>')}</p></div>` : ''}
+      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${esc(fullName)}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${esc(email)}" style="${linkStyle}">${esc(email)}</a></div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone ? esc(phone) : 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Role</span> ${esc(role)}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Department</span> ${department ? esc(department) : 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Resume</span> ${resumeName ? esc(resumeName) : 'Not provided'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">LinkedIn</span> ${!linkedIn ? 'N/A' : safeHref(linkedIn) ? `<a href="${safeHref(linkedIn)}" style="${linkStyle}">${esc(linkedIn)}</a>` : esc(linkedIn)}</div>
+      ${coverNote ? `<div style="padding-top:16px;"><span style="${labelStyle}">Cover note</span><p style="${quoteBoxStyle}">${para(coverNote)}</p></div>` : ''}
     </div>`);
 
 /* ── Application auto-reply to applicant ── */
@@ -206,9 +212,9 @@ const applicationAutoReply = ({ fullName, role }) =>
   emailWrapper(`
     ${header('Application received', role)}
     <div style="${bodyStyle}">
-      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 10px;">Hi ${fullName},</p>
+      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 10px;">Hi ${esc(fullName)},</p>
       <p style="font-size:14px;color:#5b5b60;line-height:1.7;margin:0 0 16px;">
-        Thank you for applying for the <strong style="color:#17171a;">${role}</strong> position at
+        Thank you for applying for the <strong style="color:#17171a;">${esc(role)}</strong> position at
         <strong style="color:#17171a;">Arinox AI</strong>. We've received your application and our
         hiring team will review it carefully.
       </p>

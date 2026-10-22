@@ -58,6 +58,9 @@ export const marketingSuite = {
     message: 'Requested the Marketing OS deck from the industry suite page.',
     ctaButton: 'Request the deck',
     autoReply: {
+      // Server-owned email template id (server/src/utils/autoReplies.js);
+      // the copy below is for the page only - keep the two in sync.
+      id: 'marketing-os-deck',
       subject: 'Your Marketing OS deck',
       body: 'Thank you for requesting the Marketing OS deck. We\u2019ll email your copy shortly.',
       steps: [

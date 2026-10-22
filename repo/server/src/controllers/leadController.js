@@ -1,9 +1,10 @@
 const validator = require('validator');
 const supabase = require('../config/supabase');
 const { sendMail, leadNotification, contactAutoReply } = require('../utils/mailer');
+const { getAutoReply } = require('../utils/autoReplies');
 
 const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
-const join = (v) => (Array.isArray(v) ? v.join(', ') : str(v));
+const join = (v) => (Array.isArray(v) ? str(v.map(String).join(', ')) : str(v));
 
 /* Team notification recipients. EMAIL_TO may hold one address or a
    comma-separated list; the fallback recipient is always included.
@@ -39,18 +40,9 @@ const submitLead = async (req, res, next) => {
       useCases:    join(b.useCases),
       timeline:    str(b.timeline, 60),
       message:     str(b.message, 4000),
-      autoReply:   (b.autoReply && typeof b.autoReply === 'object' && (b.autoReply.subject || b.autoReply.body || b.autoReply.steps || b.autoReply.asset))
-        ? {
-            subject: str(b.autoReply.subject, 200),
-            body: str(b.autoReply.body, 1000),
-            steps: Array.isArray(b.autoReply.steps)
-              ? b.autoReply.steps.slice(0, 5).map((s) => str(s, 200)).filter(Boolean)
-              : null,
-            asset: b.autoReply && typeof b.autoReply.asset === 'object'
-              ? { url: str(b.autoReply.asset.url, 300), name: str(b.autoReply.asset.name, 120) }
-              : null,
-          }
-        : null,
+      // Auto-reply copy is server-owned (utils/autoReplies.js): the request
+      // names a template, it never supplies email text.
+      autoReply:   getAutoReply(b.autoReplyId),
       utmSource:   str(b.utm_source, 120),
       utmMedium:   str(b.utm_medium, 120),
       utmCampaign: str(b.utm_campaign, 160),

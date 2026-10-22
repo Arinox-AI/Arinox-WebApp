@@ -9,8 +9,8 @@ import HumanCheck from './HumanCheck';
    Posts to the Leads table with a `role` tag the team notification email
    surfaces, so the source is always visible. Nothing is auto-attached: a deck
    request flags the intent in the team email ("DECK REQUEST") and the visitor
-   is told a person will email the document shortly. `autoReply` customises
-   the visitor's confirmation email (sent by leadController) accordingly. */
+   is told a person will email the document shortly. `autoReply.id` picks the
+   server-owned confirmation email template (server/src/utils/autoReplies.js). */
 export function RequestForm({
   id = 'request',
   label,
@@ -37,7 +37,7 @@ export function RequestForm({
         turnstileToken: token || undefined,
         role,
         message,
-        autoReply,
+        autoReplyId: autoReply?.id,
         landing_page: typeof window !== 'undefined' ? window.location.href : undefined,
       });
       setSent(true);

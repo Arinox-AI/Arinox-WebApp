@@ -1,4 +1,5 @@
 const path = require('path');
+const validator = require('validator');
 const multer = require('multer');
 const supabase = require('../config/supabase');
 const { sendMail, applicationNotification, applicationAutoReply } = require('../utils/mailer');
@@ -10,17 +11,41 @@ const RESUME_BUCKET = 'resumes';
 // attached to the notification email - no reliance on ephemeral local disk.
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 5 * 1024 * 1024 },
+  limits: { fileSize: 5 * 1024 * 1024, files: 1, fields: 20 },
   fileFilter: (_req, file, cb) => {
     const allowed = ['.pdf', '.doc', '.docx'];
-    if (allowed.includes(path.extname(file.originalname).toLowerCase())) cb(null, true);
-    else cb(new Error('Only PDF, DOC, or DOCX files are accepted.'));
+    if (allowed.includes(path.extname(file.originalname).toLowerCase())) return cb(null, true);
+    // 400, not 500: the error handler only shows 4xx messages to the visitor.
+    cb(Object.assign(new Error('Only PDF, DOC, or DOCX files are accepted.'), { statusCode: 400 }));
   },
 });
 
+// Same trim + length-cap hygiene as the contact/lead flows.
+const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
+
 const submitApplication = async (req, res, next) => {
   try {
-    const { fullName, email, phone, role, department, linkedIn, coverNote } = req.body;
+    const b = req.body || {};
+    const fullName   = str(b.fullName, 120);
+    const email      = str(b.email, 255);
+    const phone      = str(b.phone, 40);
+    const role       = str(b.role, 160);
+    const department = str(b.department, 120);
+    const coverNote  = str(b.coverNote, 4000);
+    let linkedIn     = str(b.linkedIn, 300);
+
+    if (!fullName || !email || !role)
+      return res.status(400).json({ success: false, message: 'Name, email and role are required.' });
+    // isEmail rejects 'a@x.com, b@y.com', so the auto-reply can only reach one address.
+    if (!validator.isEmail(email))
+      return res.status(400).json({ success: false, message: 'Invalid email address.' });
+    if (linkedIn) {
+      if (!validator.isURL(linkedIn, { protocols: ['http', 'https'] }))
+        return res.status(400).json({ success: false, message: 'Please enter a valid LinkedIn or portfolio URL.' });
+      // People type "linkedin.com/in/x" - store a clickable https URL.
+      if (!/^https?:\/\//i.test(linkedIn)) linkedIn = `https://${linkedIn}`;
+    }
+
     const now = new Date().toISOString();
 
     // Convert the resume to a downloadable PDF once (a .docx is converted; a

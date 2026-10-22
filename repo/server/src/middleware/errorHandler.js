@@ -1,5 +1,6 @@
 const errorHandler = (err, req, res, next) => {
-  const status = err.statusCode || 500;
+  // Multer upload limits (file too large, too many fields) are client errors.
+  const status = err.statusCode || (err.name === 'MulterError' ? 400 : 500);
   // 4xx messages are client-safe (validation, notFound, CORS). 5xx messages
   // come from infrastructure (Supabase/SMTP) and must NOT reach callers.
   const message = status < 500

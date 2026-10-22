@@ -16,6 +16,9 @@ connectDB();
 verifyMailer();
 
 // Security & middleware
+// Behind Vercel's proxy: trust one hop so req.ip (and the rate limiters keyed
+// on it) is the visitor's address, not the proxy's.
+app.set('trust proxy', 1);
 app.use(helmet({ contentSecurityPolicy: false }));
 const allowedOrigins = process.env.NODE_ENV === 'production'
   ? [

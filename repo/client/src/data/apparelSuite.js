@@ -90,6 +90,9 @@ export const apparelSuite = {
     message: 'Requested the Apparel OS deck from the industry suite page.',
     ctaButton: 'Request the deck',
     autoReply: {
+      // Server-owned email template id (server/src/utils/autoReplies.js);
+      // the copy below is for the page only - keep the two in sync.
+      id: 'apparel-os-deck',
       subject: 'Your Apparel OS deck',
       body: 'Thank you for requesting the Apparel OS deck. We\u2019ll email your copy shortly.',
       steps: [
