@@ -24,7 +24,6 @@ export const IMAGES = {
   /* team/, leadership + advisors */
   ajay:      '/images/team/ajay.jpg',
   chytra:    '/images/team/chytra.webp',
-  uday:      '/images/team/uday.webp',
   venu:      '/images/team/venu.webp',
   repswal:   '/images/team/repswal.webp',
   aniruddha: '/images/team/aniruddha.webp',

@@ -19,7 +19,7 @@ public/images/
 | Folder | Files | Used on |
 |--------|-------|---------|
 | `brand/` | `logo-black.png`, `logo-orange.png`, `logo-white.png`, `logo-mark.png`, `arinox-logo-black.png`, `arinox-a-black.png`, `arinox-a-orange.png` | Nav, Footer, AuthModal, email header |
-| `team/` | `ajay.jpg`, `chytra.webp`, `uday.webp` (leadership) · `venu.webp`, `repswal.webp`, `aniruddha.webp` (advisors) | Home (People), Company |
+| `team/` | `ajay.jpg`, `chytra.webp` (leadership) · `venu.webp`, `repswal.webp`, `aniruddha.webp` (advisors) | Home (People), Company |
 | `commandcore/` | `commandcore-s1.webp`, `commandcore-m1.webp`, `commandcore-xl2.webp` | CommandCore, Home |
 | `events/` | `sovereign-launch.jpeg`, `hitachi-shori-2026.JPG`, `hitachi-2026.jpeg`, `hitachi-systems-event.jpeg`, `ai-summit.jpg`, `bharat-digital-summit.jpeg`, `aks-workshop-global.jpeg`, `ansr-tech-workshop.jpg`, `nvidia-workshop.jpg`, `indian-government.jpeg` | Home (insights), Blog, BlogPost, Company (gallery) |
 | `industries/` | `banking.jpeg`, `technology.jpeg` (site photos) · `marketing-signals.svg`, `apparel-line.svg` (suite illustrations) | Home (sectors), Platform, Industries hub, Marketing OS, Apparel OS |
