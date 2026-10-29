@@ -5,8 +5,8 @@
 
    Structure (per the positioning notes):
    • Sub-headings = manufacturing FUNCTIONS (planning, shop floor,
-     materials, quality, maintenance, procurement, analytics) — the
-     seven connected capabilities below.
+     materials, quality, maintenance, procurement, analytics, accounts) —
+     the eight connected capabilities below.
    • No industry line-sheet cards: the industries are named in the FAQ
      and chat knowledge, not rendered as a tile grid on the page.
    • Positioned as an AI intelligence & orchestration layer across the
@@ -30,8 +30,8 @@ export const industrialSuite = {
     h1Accent: 'OS.',
   },
   systems: {
-    label: 'Seven connected capabilities',
-    note: 'one AI brain across all seven',
+    label: 'Eight connected capabilities',
+    note: 'one AI brain across all eight',
     footer: 'From planning to dispatch. From machine to management.',
     items: [
       { n: '01', t: 'Production Planning & Intelligence', stage: 'Plan' },
@@ -41,6 +41,10 @@ export const industrialSuite = {
       { n: '05', t: 'Asset, Maintenance & Downtime', stage: 'Sustain' },
       { n: '06', t: 'Procurement, Supply Chain & Orders', stage: 'Sell' },
       { n: '07', t: 'Manufacturing Analytics & Decisions', stage: 'Support' },
+      // Accounts & Finance mirrors the Fashion & Lifestyle OS row: not a
+      // manufacturing stage (plan/make/sustain) but the control layer over
+      // the money the floor produces — cost, payables, receivables.
+      { n: '08', t: 'Accounts & Finance', stage: 'Control' },
     ],
   },
   gap: {
@@ -96,7 +100,7 @@ export const industrialSuite = {
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
-    note: 'The seven capabilities, the industry use cases, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
+    note: 'The eight capabilities, the industry use cases, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
     success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
     role: 'Industries deck request · Manufacturing OS',

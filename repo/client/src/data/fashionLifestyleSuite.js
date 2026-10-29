@@ -109,8 +109,8 @@ export const fashionLifestyleSuite = {
     ],
   },
   systems: {
-    label: 'Nine connected solutions',
-    note: 'one AI brain across all nine',
+    label: 'Ten connected solutions',
+    note: 'one AI brain across all ten',
     footer: 'From product concept to delivery. From operations to customer.',
     items: [
       { n: '01', t: 'Product Development (PLM)', stage: 'Design' },
@@ -122,6 +122,10 @@ export const fashionLifestyleSuite = {
       { n: '07', t: 'Omnichannel & Wholesale', stage: 'Sell' },
       { n: '08', t: 'B2B Wholesale Platform', stage: 'Sell' },
       { n: '09', t: 'CRM, HRMS & Marketing Software', stage: 'Support' },
+      // Accounts & Finance is not a product stage (design/plan/make/sell) —
+      // it reads the money across the whole flow, so it carries 'Control'
+      // alongside the OS's control-plane story.
+      { n: '10', t: 'Accounts & Finance', stage: 'Control' },
     ],
   },
   gap: {
@@ -175,7 +179,7 @@ export const fashionLifestyleSuite = {
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
-    note: 'The nine systems, the AI brain behind them, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
+    note: 'The ten systems, the AI brain behind them, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
     success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
     role: 'Industries deck request · Fashion & Lifestyle OS',
