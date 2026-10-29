@@ -29,7 +29,7 @@ LinkedIn: https://in.linkedin.com/company/arinox-ai
 ## LEADERSHIP
 - Ajay Kharbanda — CEO & Founder. 25+ years driving digital transformation at Fortune 500s; connects enterprise strategy directly to AI execution at scale.
 - Dr Chytra V Anand — Director & Co-Founder. Champions client partnerships and enterprise AI adoption across global markets, turning complex deployments into measurable outcomes.
-- D Uday Bhaskar Rao — CTO. 26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media and GIS/Digital Twin.
+- Anuvesh Nigam — Chief Operating Officer. Operations leader keeping delivery, teams and company rhythm in step, turning strategy into structured, repeatable execution.
 Advisors:
 - Venu Ganganna — Creative, Data & Tech Specialist.
 - Lt General BK Repswal — Defence & Strategic Advisor.

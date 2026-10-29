@@ -76,6 +76,12 @@ export const team = [
     photo: '/images/team/chytra.webp',
   },
   {
+    name: 'Anuvesh Nigam',
+    role: 'Chief Operating Officer',
+    bio: 'Operations leader keeping delivery, teams and company rhythm in step, turning strategy into structured, repeatable execution.',
+    photo: '/images/team/anuvesh.jpeg',
+  },
+  {
     name: 'Michael Robinson',
     role: 'MD & CMO - North America',
     bio: 'Growth and go-to-market leader expanding Arinox\u2019s sovereign AI platforms across North American enterprises and strategic partners.',
