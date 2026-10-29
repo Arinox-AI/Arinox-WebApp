@@ -18,18 +18,19 @@ public/images/
 
 | Folder | Files | Used on |
 |--------|-------|---------|
-| `brand/` | `logo-black.png`, `logo-orange.png`, `logo-white.png`, `logo-mark.png`, `arinox-logo-black.png`, `arinox-a-black.png`, `arinox-a-orange.png` | Nav, Footer, AuthModal, email header |
-| `team/` | `ajay.jpg`, `chytra.webp`, `uday.webp` (leadership) · `venu.webp`, `repswal.webp`, `aniruddha.webp` (advisors) | Home (People), Company |
+| `brand/` | `logo-orange.webp` (Nav), `logo-black.webp` (Footer), `logo-white.png` (email header), PNG originals resized to 96px high, `logo-mark.png`, `arinox-logo-black.png`, `arinox-a-black.png`, `arinox-a-orange.png` | Nav, Footer, AuthModal, email header |
+| `team/` | `ajay.webp`, `michael.webp`, `chytra.webp`, `anuvesh.jpeg` (leadership) · `venu.webp`, `repswal.webp`, `aniruddha.webp` (advisors) | Home (People), Company |
 | `commandcore/` | `commandcore-s1.webp`, `commandcore-m1.webp`, `commandcore-xl2.webp` | CommandCore, Home |
-| `events/` | `sovereign-launch.jpeg`, `hitachi-shori-2026.JPG`, `hitachi-2026.jpeg`, `hitachi-systems-event.jpeg`, `ai-summit.jpg`, `bharat-digital-summit.jpeg`, `aks-workshop-global.jpeg`, `ansr-tech-workshop.jpg`, `nvidia-workshop.jpg`, `indian-government.jpeg` | Home (insights), Blog, BlogPost, Company (gallery) |
-| `industries/` | `banking.jpeg`, `technology.jpeg` (site photos) · `marketing-signals.svg`, `apparel-line.svg` (suite illustrations) | Home (sectors), Platform, Industries hub, Marketing OS, Apparel OS |
+| `events/` | `sovereign-launch.webp`, `hitachi-shori-2026.webp`, `hitachi-2026.webp`, `hitachi-systems-event.webp`, `ai-summit.webp`, `bharat-digital-summit.webp`, `aks-workshop-global.webp`, `ansr-tech-workshop.webp`, `nvidia-workshop.webp`, `indian-government.webp` | Home (insights), Blog, BlogPost, Company (gallery) |
+| `industries/` | `banking.webp`, `technology.webp` (site photos) · `marketing-signals.svg`, `fashion-lifestyle-control.svg`, `industrial-line.svg`, `secure-os.svg` (product illustrations) | Home (sectors), Platform, Industries hub (product line), Marketing OS, Fashion & Lifestyle OS, Industrial OS, Secure OS (hub card) |
 
-> Suite visuals: `marketing-signals.svg` and `apparel-line.svg` — flat
-> illustrations in the style of the home-page partnership diagrams
-> (ink / paper-2 / ember only), used both on the Industries hub cards and
-> as the brief-page heroes. Scene objects are hand-built; the operator
-> figures are unDraw illustrations (undraw.co, open licence, no attribution
-> required) recoloured to site tokens.
+> Product visuals: `marketing-signals.svg` (unDraw "Growth Analytics"),
+> `industrial-line.svg` (unDraw "Factory"), `fashion-lifestyle-control.svg`
+> (unDraw "Trying on Clothes") and `secure-os.svg` (unDraw "Security On") —
+> recoloured to site tokens (ember accent, ink darks, paper neutrals) — used
+> on the Industries hub ledger rows and as the suite-page heroes (Secure OS
+> is hub-only until its page exists). The operator figures across the site
+> are also unDraw (undraw.co, open licence, no attribution required).
 > `client/src/components/site/SuiteMocks.jsx` (app-window mockups) remains
 > in the codebase, currently unused.
 | `sectors/` | `government.svg`, `bfsi.svg`, `industry.svg`, `security.svg` (flat illustration library, recoloured to site tokens) | Home (sectors), CommandCore (what powers it) |

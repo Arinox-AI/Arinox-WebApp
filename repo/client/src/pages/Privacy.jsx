@@ -90,7 +90,7 @@ const Privacy = () => (
               <li><strong className="text-ink">Hosting and storage:</strong> Vercel Inc. hosts the website and its serverless functions. Supabase stores our database records and files, including enquiries, leads, job applications and uploaded résumés</li>
               <li><strong className="text-ink">AI inference:</strong> Groq, Inc. generates replies for our website chat assistant. Your messages are sent to it together with a fixed Arinox knowledge prompt, and are not stored on our servers. Please do not share confidential information in the chat</li>
               <li><strong className="text-ink">Email delivery:</strong> Our email provider transmits the messages you send us, our replies, and job applications with their attachments</li>
-              <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. Typefaces are loaded from Google Fonts and Fontshare; as with any web request, this discloses your IP address to those providers</li>
+              <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. Typefaces are served from our own domain, so no font provider receives your IP address</li>
               <li><strong className="text-ink">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
             </ul>
             <p>Some of these providers process data outside India.</p>

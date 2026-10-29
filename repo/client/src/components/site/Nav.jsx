@@ -102,7 +102,7 @@ export function Nav() {
     <header className="sticky top-0 z-50 border-b border-line bg-paper/95 backdrop-blur-[10px]">
       <div className="mx-auto flex h-[68px] max-w-6xl items-center justify-between gap-4 px-7">
         <Link to="/" aria-label="Arinox home" className="shrink-0">
-          <img src="/images/brand/logo-orange.png" alt="Arinox" className="h-[26px] w-auto" />
+          <img src="/images/brand/logo-orange.webp" alt="Arinox" className="h-[26px] w-auto" />
         </Link>
 
         <nav className="chip hidden items-center lg:flex" aria-label="Main">

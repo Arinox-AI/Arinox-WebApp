@@ -209,7 +209,7 @@ const MarketingSuite = () => (
           <div className="relative">
             <img
               src="/images/industries/marketing-signals.svg"
-              alt="A phone showing a performance chart, an envelope and signal bubbles, a dotted thread to a performance console, and an operator pointing at it — signals in, decisions out"
+              alt="Two people at a large analytics chart on a screen — one presenting, one reviewing the growth curve"
               loading="eager"
               className="mx-auto w-full max-w-[560px]"
             />

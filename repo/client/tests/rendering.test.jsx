@@ -45,9 +45,11 @@ const routes = [
   { path: '/case-studies', heading: /deployed inside the perimeter/i },
   { path: '/case-studies/situational-awareness', heading: /situational awareness/i },
   { path: '/case-studies/does-not-exist', heading: /case study not found/i },
-  { path: '/industries', heading: /knows your industry/i },
+  { path: '/industries', heading: /built for your sector/i },
   { path: '/industries/marketing', heading: /marketing\s+os/i },
-  { path: '/industries/apparel', heading: /apparel\s+os/i },
+  { path: '/industries/fashion-lifestyle', heading: /fashion\s*&\s*lifestyle\s+os/i },
+  { path: '/industries/industrial', heading: /manufacturing\s+os/i },
+  { path: '/industries/secure', heading: /secure\s+os/i },
   { path: '/partners', heading: /assembled around/i },
   { path: '/blog', heading: /from inside/i },
   { path: '/blog/aks-workshop-global-sovereign-ai', heading: /aks workshop global/i },
@@ -78,16 +80,16 @@ describe('header navigation', () => {
 
   it('dropdown group opens on hover and its links route', async () => {
     renderAt('/');
-    const solutions = mainNav().getByRole('link', { name: /^solutions$/i });
-    fireEvent.mouseOver(solutions);
-    fireEvent.focus(solutions);
-    const caseStudies = await mainNav().findByRole(
+    const products = mainNav().getByRole('link', { name: /^products$/i });
+    fireEvent.mouseOver(products);
+    fireEvent.focus(products);
+    const manufacturing = await mainNav().findByRole(
       'link',
-      { name: /case studies/i },
+      { name: /manufacturing os/i },
       { timeout: 5000 }
     );
-    fireEvent.click(caseStudies);
-    expect(await heading(/deployed inside the perimeter/i)).toBeTruthy();
+    fireEvent.click(manufacturing);
+    expect(await heading(/manufacturing\s+os/i)).toBeTruthy();
   }, 30000);
 });
 
@@ -101,6 +103,31 @@ describe('legacy URL redirects', () => {
     renderAt('/about');
     expect(await heading(/ai native/i)).toBeTruthy();
   }, 20000);
+
+  it('/industries/apparel redirects to the Fashion & Lifestyle OS page', async () => {
+    renderAt('/industries/apparel');
+    expect(await heading(/fashion\s*&\s*lifestyle\s+os/i)).toBeTruthy();
+  }, 20000);
+});
+
+describe('product tour (Fashion & Lifestyle OS)', () => {
+  it('switches stage consoles on selection', async () => {
+    renderAt('/industries/fashion-lifestyle');
+    await heading(/fashion\s*&\s*lifestyle\s+os/i);
+    fireEvent.click(screen.getByRole('button', { name: /sell/i }));
+    expect(await screen.findByText(/allocation for order 2044/i)).toBeTruthy();
+  }, 30000);
+});
+
+describe('sector line sheet (Fashion & Lifestyle OS)', () => {
+  it('defaults to All sectors and swaps content on selection', async () => {
+    renderAt('/industries/fashion-lifestyle');
+    await heading(/fashion\s*&\s*lifestyle\s+os/i);
+    expect(screen.getByText(/every order against its ship window/i)).toBeTruthy();
+
+    fireEvent.click(screen.getByRole('button', { name: /footwear/i }));
+    expect(await screen.findByText(/outsole delivery slipping/i)).toBeTruthy();
+  }, 30000);
 });
 
 describe('share affordances', () => {

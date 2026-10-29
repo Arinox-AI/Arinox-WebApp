@@ -35,7 +35,8 @@ describe('email templates escape visitor input', () => {
 describe('lead auto-replies are server-owned', () => {
   it('resolves known template ids only', () => {
     expect(getAutoReply('marketing-os-deck')?.asset?.name).toMatch(/Marketing OS/);
-    expect(getAutoReply('apparel-os-deck')?.asset?.name).toMatch(/Apparel OS/);
+    expect(getAutoReply('fashion-lifestyle-os-deck')?.asset?.name).toMatch(/Fashion & Lifestyle OS/);
+    expect(getAutoReply('industrial-os-deck')?.asset?.name).toMatch(/Manufacturing OS/);
     expect(getAutoReply('nope')).toBeNull();
     expect(getAutoReply('__proto__')).toBeNull();
     expect(getAutoReply({ subject: 'x' })).toBeNull();

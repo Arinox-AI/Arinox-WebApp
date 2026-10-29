@@ -10,6 +10,7 @@ export function Section({
   dark = false,
   border = true,
   centered = false,
+  dense = false,
   className = '',
   headClassName = '',
 }) {
@@ -17,7 +18,9 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${dark ? 'bg-void text-white' : 'bg-paper'} ${border && !dark ? 'border-t border-line' : ''} py-14 md:py-[76px] ${className}`}
+      className={`${dark ? 'bg-void text-white' : 'bg-paper'} ${border && !dark ? 'border-t border-line' : ''} ${
+        dense ? 'py-10 md:py-12' : 'py-14 md:py-[76px]'
+      } ${className}`}
     >
       <div className="mx-auto max-w-6xl px-7">
         {(eyebrow || title || sub) && (

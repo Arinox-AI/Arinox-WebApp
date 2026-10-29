@@ -29,7 +29,7 @@ LinkedIn: https://in.linkedin.com/company/arinox-ai
 ## LEADERSHIP
 - Ajay Kharbanda — CEO & Founder. 25+ years driving digital transformation at Fortune 500s; connects enterprise strategy directly to AI execution at scale.
 - Dr Chytra V Anand — Director & Co-Founder. Champions client partnerships and enterprise AI adoption across global markets, turning complex deployments into measurable outcomes.
-- D Uday Bhaskar Rao — CTO. 26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media and GIS/Digital Twin.
+- Anuvesh Nigam — Chief Operating Officer. Operations leader keeping delivery, teams and company rhythm in step, turning strategy into structured, repeatable execution.
 Advisors:
 - Venu Ganganna — Creative, Data & Tech Specialist.
 - Lt General BK Repswal — Defence & Strategic Advisor.
@@ -94,9 +94,11 @@ Arinox works with an ecosystem of technology, infrastructure, hardware and syste
 ## WEBSITE PAGES (THE ONLY PAGES THAT EXIST)
 - /commandcore — the CommandCore product page
 - /case-studies — proof and sector solutions
-- /industries — industry-specific AI suites (Marketing OS and Apparel OS each have a brief page). Each suite page carries a brief explanation and a deck request; a person from the team emails the requested deck shortly.
+- /industries — the product line: Marketing OS, Fashion & Lifestyle OS, Manufacturing OS and Secure OS (in development). Each suite with a page carries a brief explanation and a deck request; a person from the team emails the requested deck shortly.
 - /industries/marketing — Marketing OS, the AI-native marketing control plane: signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
-- /industries/apparel — Apparel OS, the AI-native control plane for apparel: floor, materials, orders and quality read together; signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
+- /industries/fashion-lifestyle — Fashion & Lifestyle OS, the AI-native control plane for fashion and lifestyle product businesses (apparel, footwear, accessories, home goods, lifestyle products, uniforms & workwear): production, materials, orders and quality read together; signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
+- /industries/industrial — Manufacturing OS, the AI-native control plane for manufacturing across industries (metals/steel/heavy engineering, textiles/apparel/footwear, automotive/auto components, electronics/electrical, food/pharma/process, furniture/furnishings): planning, production, machines, materials, quality and maintenance read together; positioned as an AI orchestration layer across the systems manufacturers already run (ERP, MES, SCM, CRM, QMS, CMMS, IoT) — not an ERP replacement. Signals in, decisions out, in a loop. The deck is requested from this page and emailed to the requester.
+- /industries/secure — Secure OS, the AI-native control plane for security operations (in development): autonomous attack and defense agents equipped with the standard pentest toolkit (Kali Linux), honeypots that capture attacker credentials in throwaway environments, malicious-IP bans, replayed attack conversations, top-attacker tracking and ISP reports, folder-level data-loss prevention on local models, compliance checks against regional frameworks within seconds, and a secure index tracking every file the AI engine accesses. The deck is requested from this page and emailed by a person.
 - /partners — partners and ecosystem
 - /blog — insights
 - /careers — open roles
@@ -113,6 +115,15 @@ Positioning: one AI-native control plane for marketing, run by the customer and 
 What changed: AI made output infinite, so the things to watch multiplied — every ad, post or email throws off views, clicks and sales signals. Without a cockpit, tired ads keep running, budget leaks, buyers slip away unnoticed, and winners scale too late.
 The loop: signals in (ads on every platform; website funnel and analytics; store footfall and reviews; buyer CRM and support) → agents (Monitor — always on; Analyse — in the moment; Decide — within the rules the customer sets) → decisions out (Pause what is dying; Scale what is winning; Create the next creative; Send to the right person). The customer approves every decision; nothing goes out without their say; every action becomes the next signal.
 The deck: visitors request it from /industries/marketing and receive the Marketing OS deck (PPT) attached by email automatically. The deck is request-only; do not quote figures from it that are not also on the website.
+
+## SECURE OS (INDUSTRY SUITE — /industries/secure)
+Secure OS is Arinox's security suite, published on the Industries page. Its status is in development (v1 dashboard); present it as working with the packaging still moving.
+Positioning: one AI-native control plane for security operations, run by the customer and their agents. Autonomous agents cover both offense and defense — attack and defense in one loop, equipped with the standard pentest toolkit (Kali Linux) and monitoring continuously. Its tagline is "The AI way to run security operations."
+What changed: attackers probe every endpoint continuously while sensitive files keep moving; attacks get investigated after the damage, past bypass tricks keep working, and compliance runs as paperwork months apart.
+The seven connected capabilities: (1) autonomous attack and defense agents; (2) security orchestration — one orchestrator inside the OS providing administrative assistance and vulnerability intelligence; (3) honeypot intelligence — throwaway environments that capture attacker credentials, tooling and full conversations; (4) attack tracking and response — top attackers tracked, malicious IPs banned, attack conversations replayed, bypass commands analysed, offenders reported to their ISPs; (5) real-time data-loss prevention — folder monitoring on local models, files classified as they move, developer activity tracked; (6) compliance monitoring — regional frameworks checked within seconds; (7) the secure index — it tracks every file the AI engine itself accesses.
+The loop: signals in (the network edge, honeypots, folders, the AI engine's own file access, frameworks) → agents (Monitor — always on; Analyse — replays and bypass analysis as it happens; Decide — within the rules the customer sets) → decisions out (Ban a malicious IP; Isolate an attacked asset; Flag a file; Report an attacker to their ISP). The customer approves every decision; nothing moves without their say; every action becomes the next signal.
+Do NOT on any surface: name or hint at sales targets or stakeholder engagements (including police modernisation or any bureau), the bug-bounty market outlook, or team members behind the work.
+The deck (requested on the page as the "playbook"): visitors ask from /industries/secure and a person from the team emails the copy; there is no automatic attachment or public download. The deck is request-only; do not quote figures from it that are not also on the website.
 
 ## GENERAL AI KNOWLEDGE (SHORT FORM)
 Artificial Intelligence (AI): the simulation of human intelligence by machines — reasoning, learning, understanding language, recognising images and making decisions. AI is the broad field; ML, DL and NLP are subfields.

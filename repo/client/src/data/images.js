@@ -22,28 +22,27 @@ export const IMAGES = {
   'commandcore-xl':   '/images/commandcore/commandcore-xl2.webp',
 
   /* team/, leadership + advisors */
-  ajay:      '/images/team/ajay.jpg',
+  ajay:      '/images/team/ajay.webp',
   chytra:    '/images/team/chytra.webp',
-  uday:      '/images/team/uday.webp',
   venu:      '/images/team/venu.webp',
   repswal:   '/images/team/repswal.webp',
   aniruddha: '/images/team/aniruddha.webp',
 
   /* events/, field photos & event recaps */
-  'sovereign-launch': '/images/events/sovereign-launch.jpeg',
-  'hitachi-shori':    '/images/events/hitachi-shori-2026.JPG',
-  'hitachi-2026':     '/images/events/hitachi-2026.jpeg',
-  'hitachi-systems':  '/images/events/hitachi-systems-event.jpeg',
-  'ai-summit':        '/images/events/ai-summit.jpg',
-  'bharat-digital':   '/images/events/bharat-digital-summit.jpeg',
-  'aks-workshop':     '/images/events/aks-workshop-global.jpeg',
-  'ansr-workshop':    '/images/events/ansr-tech-workshop.jpg',
-  'nvidia-workshop':  '/images/events/nvidia-workshop.jpg',
-  'indian-gov':       '/images/events/indian-government.jpeg',
+  'sovereign-launch': '/images/events/sovereign-launch.webp',
+  'hitachi-shori':    '/images/events/hitachi-shori-2026.webp',
+  'hitachi-2026':     '/images/events/hitachi-2026.webp',
+  'hitachi-systems':  '/images/events/hitachi-systems-event.webp',
+  'ai-summit':        '/images/events/ai-summit.webp',
+  'bharat-digital':   '/images/events/bharat-digital-summit.webp',
+  'aks-workshop':     '/images/events/aks-workshop-global.webp',
+  'ansr-workshop':    '/images/events/ansr-tech-workshop.webp',
+  'nvidia-workshop':  '/images/events/nvidia-workshop.webp',
+  'indian-gov':       '/images/events/indian-government.webp',
 
   /* industries/, sector photography (blog imagery) */
-  banking:    '/images/industries/banking.jpeg',
-  technology: '/images/industries/technology.jpeg',
+  banking:    '/images/industries/banking.webp',
+  technology: '/images/industries/technology.webp',
 };
 
 export const img = (key) => IMAGES[key] || IMAGES['commandcore-hero'];

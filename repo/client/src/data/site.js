@@ -8,11 +8,13 @@ export const nav = [
   { label: 'Home', to: '/' },
   { label: 'CommandCore', to: '/commandcore' },
   {
-    label: 'Solutions',
+    label: 'Products',
     to: '/industries',
     group: [
-      { to: '/industries', label: 'Industry Suites', note: 'AI that knows your industry' },
-      { to: '/case-studies', label: 'Case Studies', note: 'Deployed inside the perimeter' },
+      { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
+      { to: '/industries/fashion-lifestyle', label: 'Fashion & Lifestyle OS', note: 'From concept to delivery' },
+      { to: '/industries/industrial', label: 'Manufacturing OS', note: 'Machines, lines and orders' },
+      { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
     ],
   },
   { label: 'Partners', to: '/partners' },
@@ -22,6 +24,7 @@ export const nav = [
     group: [
       { to: '/blog', label: 'Blog', note: 'Field notes and events' },
       { to: '/careers', label: 'Careers', note: 'Open roles' },
+      { to: '/case-studies', label: 'Case Studies', note: 'Deployed inside the perimeter' },
     ],
   },
 ];
@@ -67,7 +70,7 @@ export const team = [
     name: 'Ajay Kharbanda',
     role: 'CEO & Founder',
     bio: '25+ years driving digital transformation at Fortune 500s. Connects enterprise strategy directly to AI execution at scale.',
-    photo: '/images/team/ajay.jpg',
+    photo: '/images/team/ajay.webp',
   },
   {
     name: 'Dr Chytra V Anand',
@@ -76,16 +79,16 @@ export const team = [
     photo: '/images/team/chytra.webp',
   },
   {
-    name: 'D Uday Bhaskar Rao',
-    role: 'CTO',
-    bio: '26+ years in enterprise software engineering, cloud-native platforms, and AI-enabled systems across Retail, FinTech, Healthcare, Media & GIS/Digital Twin.',
-    photo: '/images/team/uday.webp',
+    name: 'Anuvesh Nigam',
+    role: 'Chief Operating Officer',
+    bio: 'Operations leader keeping delivery, teams and company rhythm in step, turning strategy into structured, repeatable execution.',
+    photo: '/images/team/anuvesh.jpeg',
   },
   {
     name: 'Michael Robinson',
     role: 'MD & CMO - North America',
     bio: 'Growth and go-to-market leader expanding Arinox\u2019s sovereign AI platforms across North American enterprises and strategic partners.',
-    photo: '/images/team/michael.jpg',
+    photo: '/images/team/michael.webp',
   },
 ];
 

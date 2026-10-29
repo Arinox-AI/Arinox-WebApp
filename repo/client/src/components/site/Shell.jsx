@@ -29,13 +29,14 @@ export function Footer() {
       <img
         src="/images/brand/arinox-a-orange.png"
         alt=""
+        loading="lazy"
         aria-hidden
         className="pointer-events-none absolute -bottom-10 -right-6 h-[clamp(220px,34vw,420px)] w-auto select-none opacity-[0.08]"
       />
       <div className="relative z-10 mx-auto max-w-6xl px-7 pb-12 pt-16">
         <div className="grid grid-cols-2 gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div className="col-span-2 md:col-span-1">
-            <img src="/images/brand/logo-black.png" alt="Arinox" className="mb-4 h-[22px] w-auto" />
+            <img src="/images/brand/logo-black.webp" alt="Arinox" loading="lazy" className="mb-4 h-[22px] w-auto" />
             <p className="max-w-[260px] text-sm text-ink-soft">
               Enterprise AI that runs the work, not the deck.
             </p>
@@ -43,12 +44,15 @@ export function Footer() {
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Product</h5>
             <FooterLink to="/commandcore">CommandCore™</FooterLink>
-            <FooterLink to="/industries">Industry Suites</FooterLink>
-            <FooterLink to="/case-studies">Case Studies</FooterLink>
-            <FooterLink to="/partners">Partners</FooterLink>
+            <FooterLink to="/industries">All products</FooterLink>
+            <FooterLink to="/industries/marketing">Marketing OS</FooterLink>
+            <FooterLink to="/industries/fashion-lifestyle">Fashion &amp; Lifestyle OS</FooterLink>
+            <FooterLink to="/industries/industrial">Manufacturing OS</FooterLink>
+            <FooterLink to="/industries/secure">Secure OS</FooterLink>
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Resources</h5>
+            <FooterLink to="/case-studies">Case Studies</FooterLink>
             <FooterLink to="/blog">Blog</FooterLink>
             <FooterLink to="/careers">Careers</FooterLink>
             <FooterLink to="/partners">Partners</FooterLink>

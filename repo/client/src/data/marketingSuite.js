@@ -70,4 +70,121 @@ export const marketingSuite = {
       asset: { name: 'Marketing OS deck (PPT)' },
     },
   },
+  tour: {
+    label: 'A day in the cockpit',
+    titleLead: 'Watch it',
+    titleAccent: 'work a full day.',
+    note: 'Signals land, drafts appear, you approve, actions run — and every action becomes the next signal.',
+    stages: [
+      {
+        id: 'signals',
+        name: 'Signals',
+        blurb: 'Every platform, store and CRM account reports in as it happens. Nothing waits for tomorrow’s report.',
+        systems: ['Ads', 'Website', 'Stores', 'CRM'],
+        console: {
+          title: 'Marketing OS — signals',
+          rows: [
+            { k: 'Meta', v: 'Clicks falling while repeat views rise', tag: 'flag', tone: 'flag' },
+            { k: 'Google', v: 'Creative scaling, three days strong', tag: 'ok', tone: 'ok' },
+            { k: 'Stores', v: 'Footfall up, evening peak', tag: 'ok', tone: 'ok' },
+            { k: 'CRM', v: 'Two accounts showing churn signals', tag: 'flag', tone: 'flag' },
+          ],
+          chips: ['Meta', 'Google', 'Stores', 'CRM'],
+        },
+      },
+      {
+        id: 'drafts',
+        name: 'Drafts',
+        blurb: 'The agents draft the next move for every flag — with the reason and the trade-off attached.',
+        systems: ['Monitor', 'Analyse', 'Decide'],
+        console: {
+          title: 'Marketing OS — drafts',
+          rows: [
+            { k: 'Draft 1', v: 'Pause the tired ad — frequency past the cliff', tag: 'new', tone: 'new' },
+            { k: 'Draft 2', v: 'Replacement cut from the winning hook', tag: 'new', tone: 'new' },
+            { k: 'Draft 3', v: 'Budget shifts to the scaling set', tag: 'new', tone: 'new' },
+          ],
+          approve: {
+            label: 'Needs your approval',
+            items: ['Pause — Meta ad set 12', 'Scale — Google creative B'],
+          },
+          chips: ['Reasons attached', 'Rules from you'],
+        },
+      },
+      {
+        id: 'approvals',
+        name: 'Approvals',
+        blurb: 'You approve with one look: the reason, the numbers, the risk. Edit or decline — the loop learns.',
+        systems: ['Your rules', 'Audit trail'],
+        console: {
+          title: 'Marketing OS — approvals',
+          rows: [
+            { k: 'Decision', v: 'Pause approved — reason logged', tag: 'ok', tone: 'ok' },
+            { k: 'Edit', v: 'Budget cap changed before the scale', tag: 'new', tone: 'new' },
+            { k: 'Declined', v: 'Draft kept for review next week', tag: 'flag', tone: 'flag' },
+          ],
+          chips: ['Audit trail', 'Every action logged'],
+        },
+      },
+      {
+        id: 'actions',
+        name: 'Actions',
+        blurb: 'Approved actions execute — campaigns, budgets, sends. Nothing moves without the say-so.',
+        systems: ['Campaigns', 'Budgets', 'Messaging'],
+        console: {
+          title: 'Marketing OS — actions',
+          rows: [
+            { k: 'Campaigns', v: 'Tired set paused across platforms', tag: 'ok', tone: 'ok' },
+            { k: 'Budget', v: 'Moved to the performing set', tag: 'ok', tone: 'ok' },
+            { k: 'Messaging', v: 'Win-back email sent to two accounts', tag: 'new', tone: 'new' },
+          ],
+          chips: ['Executed', 'Logged'],
+        },
+      },
+      {
+        id: 'loop',
+        name: 'The loop',
+        blurb: 'Every action lands as the next signal. The cockpit never starts from zero.',
+        systems: ['Monitor', 'Analyse', 'Decide'],
+        console: {
+          title: 'Marketing OS — the loop',
+          rows: [
+            { k: 'Signal', v: 'Replacement creative outperforming the original', tag: 'ok', tone: 'ok' },
+            { k: 'Signal', v: 'Churn account re-engaged, reply received', tag: 'ok', tone: 'ok' },
+            { k: 'Signal', v: 'Footfall peak drifting one hour later', tag: 'flag', tone: 'flag' },
+          ],
+          chips: ['Back to signals'],
+        },
+      },
+    ],
+  },
+  ask: {
+    label: 'Ask the OS',
+    titleLead: 'Ask it',
+    titleAccent: 'about today.',
+    questions: [
+      { t: 'Performance', q: 'Which campaigns are wasting budget right now?' },
+      { t: 'Audience', q: 'Which accounts look ready to churn this month?' },
+      { t: 'Stores', q: 'How did footfall move against last weekend?' },
+      { t: 'Creative', q: 'Which hook is winning across platforms?' },
+    ],
+  },
+  faq: [
+    {
+      q: 'What is Marketing OS?',
+      a: 'An AI-native control plane for marketing: ads, website, stores and CRM read together as one picture. Agents monitor every signal, draft the next move, and you approve what runs.',
+    },
+    {
+      q: 'Which platforms does it read?',
+      a: 'The ones you already run — ad platforms, your website funnel, store systems and CRM. The OS reads their signals as they land; nothing is invented.',
+    },
+    {
+      q: 'Can it send things on its own?',
+      a: 'No. Agents draft; you approve. Emails, budget moves and campaign changes go out only with your say — and every action is logged.',
+    },
+    {
+      q: 'Where does it run?',
+      a: 'In the cloud, alongside the platforms and systems you already use. Deployment details for your environment are confirmed in the working session.',
+    },
+  ],
 };

@@ -6,7 +6,7 @@
  * send only an `autoReplyId`; unknown ids fall back to the generic reply.
  *
  * Keep in sync with the on-page copy in client/src/data/{marketingSuite,
- * apparelSuite}.js (`request.autoReply`).
+ * fashionLifestyleSuite, industrialSuite, secureOsSuite}.js (`request.autoReply`).
  */
 const AUTO_REPLIES = {
   'marketing-os-deck': {
@@ -18,14 +18,32 @@ const AUTO_REPLIES = {
     ],
     asset: { name: 'Marketing OS deck (PPT)' },
   },
-  'apparel-os-deck': {
-    subject: 'Your Apparel OS deck',
-    body: 'Thank you for requesting the Apparel OS deck. We’ll email your copy shortly.',
+  'fashion-lifestyle-os-deck': {
+    subject: 'Your Fashion & Lifestyle OS deck',
+    body: 'Thank you for requesting the Fashion & Lifestyle OS deck. We’ll email your copy shortly.',
     steps: [
       'The team will follow up soon',
       'If it helps, we map your first 2–3 systems to connect on a call',
     ],
-    asset: { name: 'Apparel OS deck (PDF)' },
+    asset: { name: 'Fashion & Lifestyle OS deck (PDF)' },
+  },
+  'industrial-os-deck': {
+    subject: 'Your Manufacturing OS deck',
+    body: 'Thank you for requesting the Manufacturing OS deck. We’ll email your copy shortly.',
+    steps: [
+      'The team will follow up soon',
+      'If it helps, we map your first 2–3 systems to connect on a call',
+    ],
+    asset: { name: 'Manufacturing OS deck (PDF)' },
+  },
+  'secure-os-deck': {
+    subject: 'Your Secure OS playbook',
+    body: 'Thank you for requesting the Secure OS playbook. We’ll send your copy shortly.',
+    steps: [
+      'The team will follow up soon',
+      'If it helps, we map your first threat surface on a call',
+    ],
+    asset: { name: 'Secure OS playbook (PDF)' },
   },
 };
 

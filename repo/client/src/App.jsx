@@ -19,7 +19,9 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Industries = lazy(() => import('./pages/Industries'));
 const MarketingSuite = lazy(() => import('./pages/MarketingSuite'));
-const ApparelSuite = lazy(() => import('./pages/ApparelSuite'));
+const FashionLifestyleSuite = lazy(() => import('./pages/FashionLifestyleSuite'));
+const IndustrialSuite = lazy(() => import('./pages/IndustrialSuite'));
+const SecureOsSuite = lazy(() => import('./pages/SecureOsSuite'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -72,7 +74,10 @@ const AppInner = () => {
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
               <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
               <Route path="/industries/marketing" element={<PageTransition><MarketingSuite /></PageTransition>} />
-              <Route path="/industries/apparel" element={<PageTransition><ApparelSuite /></PageTransition>} />
+              <Route path="/industries/fashion-lifestyle" element={<PageTransition><FashionLifestyleSuite /></PageTransition>} />
+              <Route path="/industries/industrial" element={<PageTransition><IndustrialSuite /></PageTransition>} />
+              <Route path="/industries/secure" element={<PageTransition><SecureOsSuite /></PageTransition>} />
+              <Route path="/industries/apparel" element={<Navigate to="/industries/fashion-lifestyle" replace />} />
               <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
