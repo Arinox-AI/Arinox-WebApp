@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Map, Rocket, Layers, ArrowRight } from 'lucide-react'
+import { Map, Rocket, Layers } from 'lucide-react'
 import SEO from '../components/ui/SEO'
 import { useBookCta, BOOK_CTA_TRANSITION } from '../components/site/BookCtaContext'
 import { Button } from '../components/site/Button'
@@ -17,7 +17,6 @@ import { SplitText } from '../components/site/motion/SplitText'
 import { Tilt } from '../components/site/motion/Tilt'
 import { Magnet } from '../components/site/motion/Magnet'
 import { team, advisors } from '../data/site'
-import { products } from '../data/industries'
 import { dataReadiness } from '../data/data'
 import { businessApps, commandCoreIntro, headlineClaims, powerUseCases, kogo } from '../data/commandcore'
 import { blogPosts } from '../data/blogPosts'
@@ -608,46 +607,6 @@ const Home = () => {
             </p>
           </div>
           <ComplianceStrip className="self-center" />
-        </div>
-      </Section>
-
-      {/* The product line */}
-      <Section border>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Label>All products</Label>
-            <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
-              AI operating systems. Built for your sector.
-            </h2>
-          </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
-            Packaged AI products, built sector by sector. Open one to see how it runs.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
-          {products.map((p) => (
-            <Link key={p.id} to={p.to} className="group block" aria-label={p.cta}>
-              <div className="flex items-center justify-center py-1">
-                <img
-                  src={p.visual}
-                  alt=""
-                  loading="lazy"
-                  className="mx-auto w-full max-w-[220px] transition-transform duration-500 group-hover:-translate-y-1"
-                />
-              </div>
-              <h3 className="mt-4 font-display text-[19px] tracking-[-0.01em]">{p.name}</h3>
-              <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink-soft">{p.tagline}</p>
-              <span className="mt-3 inline-flex items-center gap-1.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ember-deep transition-all group-hover:gap-2.5">
-                {p.available ? 'Open' : 'Details on request'}
-                <ArrowRight size={12} strokeWidth={2.2} aria-hidden />
-              </span>
-            </Link>
-          ))}
-        </div>
-
-        <div className="mt-10">
-          <Button to="/industries" variant="ghost" size="sm">Browse all products</Button>
         </div>
       </Section>
 
