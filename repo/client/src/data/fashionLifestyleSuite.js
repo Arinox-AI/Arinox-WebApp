@@ -182,8 +182,7 @@ export const fashionLifestyleSuite = {
     note: 'The ten systems, the AI brain behind them, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
     success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
-    role: 'Industries deck request · Fashion & Lifestyle OS',
-    message: 'Requested the Fashion & Lifestyle OS deck from the industry suite page.',
+    asset: 'fashion-lifestyle-os', // asset key the server maps to the deck template
     ctaButton: 'Request the deck',
     autoReply: {
       // Server-owned email template id (server/src/utils/autoReplies.js);

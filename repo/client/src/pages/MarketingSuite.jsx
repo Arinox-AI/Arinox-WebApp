@@ -4,7 +4,7 @@ import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
-import { RequestForm } from '../components/site/RequestForm';
+import { inquiries } from '../data/inquiries';
 import { Button } from '../components/site/Button';
 import { IndexStrip } from '../components/site/IndexStrip';
 import { marketingSuite } from '../data/marketingSuite';
@@ -192,7 +192,7 @@ const MarketingSuite = () => (
             <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">{marketingSuite.tagline}</p>
             <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-ink-soft">{marketingSuite.lead}</p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button href="#deck" variant="ember">
+              <Button to={inquiries.deckHref(marketingSuite.request.asset)} variant="ember">
                 <FileDown size={16} strokeWidth={2.2} />
                 {marketingSuite.request.ctaButton}
               </Button>
@@ -345,16 +345,15 @@ const MarketingSuite = () => (
           </div>
         </div>
 
-        <RequestForm
-          id="deck"
-          label={marketingSuite.request.formLabel}
-          note=""
-          success={marketingSuite.request.success}
-          role={marketingSuite.request.role}
-          message={marketingSuite.request.message}
-          cta={marketingSuite.request.ctaButton}
-          autoReply={marketingSuite.request.autoReply}
-        />
+        <div className="card-light p-8 md:p-10">
+          <p className="eyebrow text-ink-faint">{inquiries.hubCard.eyebrow}</p>
+          <p className="mt-4 text-[15.5px] leading-relaxed text-ink-soft">{inquiries.hubCard.body}</p>
+          <Button to={inquiries.deckHref(marketingSuite.request.asset)} variant="ember" className="mt-7 w-full sm:w-auto">
+            <FileDown size={16} strokeWidth={2.2} />
+            {marketingSuite.request.ctaButton}
+          </Button>
+          <p className="mt-4 text-[12.5px] leading-relaxed text-ink-faint">{inquiries.hubCard.foot}</p>
+        </div>
       </div>
     </Section>
   </>

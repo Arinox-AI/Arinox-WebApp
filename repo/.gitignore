@@ -4,3 +4,6 @@ client/dist/
 .env
 .vercel
 .env*
+
+# Local secrets (service-account keys) — never commit
+.secrets/

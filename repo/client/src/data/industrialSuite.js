@@ -103,8 +103,7 @@ export const industrialSuite = {
     note: 'The eight capabilities, the industry use cases, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
     success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
-    role: 'Industries deck request · Manufacturing OS',
-    message: 'Requested the Manufacturing OS deck from the industry suite page.',
+    asset: 'industrial-os', // asset key the server maps to the deck template
     ctaButton: 'Request the deck',
     autoReply: {
       // Server-owned email template id (server/src/utils/autoReplies.js);

@@ -54,8 +54,7 @@ export const marketingSuite = {
     note: 'The loop, the agents behind it, the numbers and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
     success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
-    role: 'Industries deck request · Marketing OS',
-    message: 'Requested the Marketing OS deck from the industry suite page.',
+    asset: 'marketing-os', // asset key the server maps to the deck template
     ctaButton: 'Request the deck',
     autoReply: {
       // Server-owned email template id (server/src/utils/autoReplies.js);

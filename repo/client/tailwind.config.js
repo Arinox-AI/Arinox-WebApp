@@ -17,9 +17,12 @@ export default {
         phos: '#f4ede8',
         ember: '#ff6301',
         'ember-deep': '#b84300',
+        'ember-lite': '#ff8a4a',
         tint: '#ffe8d9',
         ghost: '#a39d99',
-        'ember-lite': '#ff8a4a',
+        /* Wizard completion only (pricing/PriceDiscovery) */
+        success: '#1d7a5f',
+        'success-tint': '#eaf7f2',
       },
       fontFamily: {
         body:    ['Switzer', 'system-ui', '-apple-system', 'sans-serif'],

@@ -378,12 +378,39 @@ h1, h2, h3, h4, h5, h6 {
   );
 }
 
+/* Booking loader — the calendar that is coming, plus a live dot */
+@keyframes loaderPulse {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  70%  { transform: scale(2.4); opacity: 0; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.loader-dot {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: var(--color-ember, #ff6301);
+}
+.loader-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: inherit;
+  animation: loaderPulse 1.7s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .tile-in,
   .pulse-ring,
   .flow-dash,
-  .marquee-track {
+  .marquee-track,
+  .skeleton {
     animation: none;
+  }
+  .loader-dot::after {
+    animation: none;
+    opacity: 0.35;
   }
 }
 

@@ -18,6 +18,8 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Industries = lazy(() => import('./pages/Industries'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const PriceDiscovery = lazy(() => import('./pages/PriceDiscovery'));
 const MarketingSuite = lazy(() => import('./pages/MarketingSuite'));
 const FashionLifestyleSuite = lazy(() => import('./pages/FashionLifestyleSuite'));
 const IndustrialSuite = lazy(() => import('./pages/IndustrialSuite'));
@@ -58,6 +60,9 @@ const ScrollReset = () => {
 
 const AppInner = () => {
   const location = useLocation();
+  /* The wizard is a focused flow: it suppresses the site footer + chatbot
+     and keeps only the nav chrome. */
+  const isWizard = location.pathname.startsWith('/pricing/discovery');
 
   return (
     <BookCtaProvider>
@@ -73,6 +78,9 @@ const AppInner = () => {
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
               <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
+              <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
+              {/* Wizard: no PageTransition wrap — it manages its own animated steps */}
+              <Route path="/pricing/discovery" element={<PriceDiscovery />} />
               <Route path="/industries/marketing" element={<PageTransition><MarketingSuite /></PageTransition>} />
               <Route path="/industries/fashion-lifestyle" element={<PageTransition><FashionLifestyleSuite /></PageTransition>} />
               <Route path="/industries/industrial" element={<PageTransition><IndustrialSuite /></PageTransition>} />
@@ -94,8 +102,8 @@ const AppInner = () => {
           </AnimatePresence>
         </Suspense>
       </main>
-      <Footer />
-      <ArinoxChatBot />
+      {!isWizard && <Footer />}
+      {!isWizard && <ArinoxChatBot />}
       <Analytics route={location.pathname} path={location.pathname} />
     </BookCtaProvider>
   );

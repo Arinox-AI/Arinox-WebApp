@@ -229,11 +229,76 @@ const applicationAutoReply = ({ fullName, role }) =>
       </div>
     </div>`);
 
+/* ── Discovery-session booking emails ──
+   `when` is the pre-formatted host-timezone string; `visitorWhen` (optional)
+   the same moment in the visitor's own timezone. Every value is escaped. */
+const bookingRows = ({ when, visitorWhen, topic, meetLink }) => `
+      <div style="${rowStyle}"><span style="${labelStyle}">When</span> <b>${esc(when)}</b></div>
+      ${visitorWhen ? `<div style="${rowStyle}"><span style="${labelStyle}">Your time</span> ${esc(visitorWhen)}</div>` : ''}
+      <div style="${rowStyle}"><span style="${labelStyle}">Length</span> 30 minutes</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Topic</span> ${esc(topic || 'General')}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Where</span> ${safeHref(meetLink) ? `<a href="${safeHref(meetLink)}" style="${linkStyle}">Join the video call</a>` : 'Video call — our team will share the joining link'}</div>`;
+
+const bookingConfirmation = ({ name, when, visitorWhen, topic, meetLink }) =>
+  emailWrapper(`
+    ${header('Your discovery session is booked', 'Arinox AI')}
+    <div style="${bodyStyle}">
+      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${esc(name)},</p>
+      <p style="font-size:15px;color:#5b5b60;line-height:1.7;margin:0 0 18px;">You're booked. You'll get a calendar invite as well — accept it and it lands in your calendar.</p>
+      ${bookingRows({ when, visitorWhen, topic, meetLink })}
+      <div style="${noteBoxStyle};margin-top:22px;">
+        Need to move it? Just reply to this email — a person will sort it out with you. If our schedule ever has to change, we'll tell you straight away.
+      </div>
+    </div>`);
+
+const bookingNotification = ({ name, email, company, phone, topic, notes, guests, when, meetLink }) =>
+  emailWrapper(`
+    ${header('New discovery session booked', 'Via the Arinox website')}
+    <div style="${bodyStyle}">
+      ${bookingRows({ when, topic, meetLink })}
+      <div style="${rowStyle}"><span style="${labelStyle}">Name</span> ${esc(name)}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${esc(email)}" style="${linkStyle}">${esc(email)}</a></div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Company</span> ${company ? esc(company) : 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone ? esc(phone) : 'N/A'}</div>
+      ${guests?.length ? `<div style="${rowStyle}"><span style="${labelStyle}">Guests</span> ${esc(guests.join(', '))}</div>` : ''}
+      ${notes ? `<div style="padding-top:16px;"><span style="${labelStyle}">Look at first</span><p style="${quoteBoxStyle}">${para(notes)}</p></div>` : ''}
+      <p style="font-size:12.5px;color:#8a8a93;margin-top:18px;">Add required colleagues to the calendar event. To free the slot, cancel the event and set the booking's status to "cancelled".</p>
+    </div>`);
+
+/* ── Inquiry notification to Arinox team ──
+   One shape for every inquiry (question, deck request, partnership, Price
+   Discovery): the intent is the first thing the reader sees, the asset row
+   is loud when a document was asked for, and the source page tells the team
+   which surface the inquiry came from. Rows render only when they carry a
+   value - no N/A noise. */
+const inquiryNotification = (lead) => {
+  const row = (label, value) =>
+    value ? `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value}</div>` : '';
+  return emailWrapper(`
+    ${header('New inquiry', 'Via the Arinox website')}
+    <div style="${bodyStyle}">
+      ${row('Intent', `<strong style="color:#b84300;">${esc(lead.intentLabel || 'General inquiry')}</strong>`)}
+      ${lead.sourceLabel ? row('Came in via', esc(lead.sourceLabel)) : ''}
+      ${lead.assetLabel ? `<div style="${rowStyle}"><span style="${labelStyle}">Requested</span> <strong style="color:#b84300;">${esc(lead.assetLabel)}</strong> &mdash; a person from the team sends it by email.</div>` : ''}
+      ${row('Name', esc(lead.name))}
+      ${row('Email', lead.email ? `<a href="mailto:${esc(lead.email)}" style="${linkStyle}">${esc(lead.email)}</a>` : '')}
+      ${row('Company', esc(lead.company))}
+      ${row('Phone', esc(lead.phone))}
+      ${lead.subject ? row('Subject', esc(lead.subject)) : ''}
+      ${lead.message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${para(lead.message)}</p></div>` : ''}
+      ${lead.landingPage ? `<div style="padding-top:10px;">${row('Source page', `<span style="word-break:break-all;font-size:12px;">${esc(lead.landingPage)}</span>`)}</div>` : ''}
+      ${lead.utmSource || lead.referrer ? `<div style="padding-top:10px;">${row('Campaign', `${esc(lead.utmSource || '')}${lead.utmCampaign ? ' / ' + esc(lead.utmCampaign) : ''}${lead.referrer ? ' &middot; ' + esc(lead.referrer) : ''}`)}</div>` : ''}
+    </div>`);
+};
+
 module.exports = {
+  bookingConfirmation,
+  bookingNotification,
   sendMail,
   verifyMailer,
   contactNotification,
   contactAutoReply,
+  inquiryNotification,
   leadNotification,
   applicationNotification,
   applicationAutoReply,

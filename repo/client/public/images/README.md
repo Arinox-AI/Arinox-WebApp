@@ -44,3 +44,6 @@ public/images/
 
 Portraits are referenced from `src/data/site.js` (`team`, `advisors`) and event/industry images
 from `src/data/images.js` — both are single-source maps.
+
+> Pricing visuals (all unDraw, recoloured to tokens like the product SVGs): `pricing-budget.svg` ("Budget Adjustments"),
+> `pricing-survey.svg` ("Customer Survey"), `pricing-private.svg` ("Private Files").

@@ -107,8 +107,7 @@ export const secureOsSuite = {
     note: 'The seven capabilities are the public names. Everything behind them — the wiring, the guardrails, how a deployment runs — is in the playbook. Tell us where to send it, and a person from the team emails your copy shortly.',
     formLabel: 'Request the playbook',
     success: 'Request received — we’ll send your copy of the playbook shortly. It comes from a person, not a mailing robot.',
-    role: 'Industries deck request · Secure OS',
-    message: 'Requested the Secure OS deck from the security suite page.',
+    asset: 'secure-os', // asset key the server maps to the playbook template
     ctaButton: 'Request the playbook',
     autoReply: {
       // Server-owned email template id (server/src/utils/autoReplies.js);

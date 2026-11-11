@@ -93,7 +93,7 @@ const Partners = () => (
           parts, and orchestrated by us, so what you run is one governed system.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <Button to="/contact" variant="dark">
+          <Button to="/contact?intent=partnership" variant="dark">
             Partner with us <ArrowUpRight size={14} strokeWidth={2.2} />
           </Button>
           <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">

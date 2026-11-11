@@ -50,6 +50,8 @@ const routes = [
   { path: '/industries/fashion-lifestyle', heading: /fashion\s*&\s*lifestyle\s+os/i },
   { path: '/industries/industrial', heading: /manufacturing\s+os/i },
   { path: '/industries/secure', heading: /secure\s+os/i },
+  { path: '/pricing', heading: /we don\u2019t sell seats/i },
+  { path: '/pricing/discovery', heading: /4 minutes\. 10 questions/i },
   { path: '/partners', heading: /assembled around/i },
   { path: '/blog', heading: /from inside/i },
   { path: '/blog/aks-workshop-global-sovereign-ai', heading: /aks workshop global/i },

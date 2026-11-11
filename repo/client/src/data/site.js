@@ -17,6 +17,7 @@ export const nav = [
       { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
     ],
   },
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Partners', to: '/partners' },
   {
     label: 'Resources',
@@ -27,6 +28,9 @@ export const nav = [
       { to: '/case-studies', label: 'Case Studies', note: 'Deployed inside the perimeter' },
     ],
   },
+  /* Contact is a plain nav link: on desktop it used to live only in the
+     footer, which made "talk to us" hard to find. */
+  { label: 'Contact', to: '/contact' },
 ];
 
 export const company = {

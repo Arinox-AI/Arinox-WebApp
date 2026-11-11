@@ -84,7 +84,11 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
   const { passed, hasHero } = useBookCta()
-  const showNavCta = !hasHero || passed
+  /* The header CTA is the pricing entry point sitewide (the page carries the
+     price form and the survey door). It hides on the pricing routes - it
+     would point at its own page. */
+  const onPricing = pathname.startsWith('/pricing')
+  const showNavCta = (!hasHero || passed) && !onPricing
 
   useEffect(() => { setOpen(false) }, [pathname])
   useEffect(() => {
@@ -132,7 +136,7 @@ export function Nav() {
             style={{ pointerEvents: showNavCta ? 'auto' : 'none' }}
             aria-hidden={!showNavCta}
           >
-            <Button to="/contact" variant="ember" size="sm">Book a session</Button>
+            <Button to="/pricing" variant="ember" size="sm">Talk pricing</Button>
           </motion.div>
         </div>
 
@@ -156,7 +160,7 @@ export function Nav() {
           />
           <div className="fixed inset-x-0 top-[68px] z-50 max-h-[calc(100vh-68px)] overflow-y-auto border-b border-line bg-paper p-7 pb-10 shadow-[0_30px_60px_-30px_rgba(11,11,13,0.45)] lg:hidden">
             <nav className="flex flex-col" aria-label="Mobile">
-              {[...mobile, { label: 'Contact', to: '/contact' }].map((l) => (
+              {mobile.map((l) => (
                 <NavLink
                   key={`${l.heading ? 'h' : 'l'}-${l.to}-${l.label}`}
                   to={l.to}
@@ -176,8 +180,8 @@ export function Nav() {
               ))}
             </nav>
             <div className="mt-7">
-              <Button to="/contact" variant="ember" className="w-full" onClick={() => setOpen(false)}>
-                Book a session
+              <Button to="/pricing" variant="ember" className="w-full" onClick={() => setOpen(false)}>
+                Talk pricing
               </Button>
             </div>
           </div>

@@ -59,8 +59,12 @@ app.use('/api', limiter);
 app.use('/api/v1/blog', require('./routes/blog'));
 app.use('/api/v1/case-studies', require('./routes/caseStudies'));
 app.use('/api/v1/careers', require('./routes/careers'));
+app.use('/api/v1/inquiries', require('./routes/inquiries'));
+// Legacy aliases of the unified intake - kept so old links and the
+// Price Discovery wizard keep working while they move to /api/v1/inquiries.
 app.use('/api/v1/contact', require('./routes/contact'));
 app.use('/api/v1/leads', require('./routes/leads'));
+app.use('/api/v1/booking', require('./routes/booking'));
 app.use('/api/v1/chat', require('./routes/chat'));
 
 // Canonical origin used in SEO output (sitemap, robots, RSS, meta shells),
@@ -79,7 +83,7 @@ app.get('/rss.xml', seo.blogRss);
 app.get('/sitemap.xml', async (req, res) => {
   const base = seoOrigin();
   const lastmod = new Date().toISOString().split('T')[0];
-  const pages = ['', '/commandcore', '/case-studies', '/industries', '/industries/marketing', '/industries/fashion-lifestyle', '/industries/industrial', '/industries/secure', '/partners', '/blog', '/careers', '/contact', '/privacy', '/terms'];
+  const pages = ['', '/commandcore', '/case-studies', '/industries', '/industries/marketing', '/industries/fashion-lifestyle', '/industries/industrial', '/industries/secure', '/partners', '/pricing', '/blog', '/careers', '/contact', '/privacy', '/terms'];
   let blogSlugs = [];
   try {
     blogSlugs = await seo.publishedSlugs();

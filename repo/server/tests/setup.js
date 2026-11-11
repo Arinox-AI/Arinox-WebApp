@@ -9,3 +9,7 @@ process.env.SUPABASE_SERVICE_ROLE_KEY = '';
 process.env.EMAIL_USER = '';
 process.env.EMAIL_PASS = '';
 process.env.SITE_URL = '';
+process.env.GOOGLE_SERVICE_ACCOUNT_FILE = '';
+process.env.GOOGLE_SERVICE_ACCOUNT_JSON = '';
+process.env.GOOGLE_DELEGATION = '';
+process.env.BOOKING_MEET_LINK = '';
