@@ -8,43 +8,30 @@ import { CtaBand } from '../components/site/Shell';
 import { Pill } from '../components/site/Pill';
 import { company } from '../data/site';
 
-/* Partner logo rows, grouped by role.
+/* Partner logos - one flat set, no categories.
    Each item carries explicit w/h (equal ~4,200px² footprint, max 150×44)
-   because the source logos have wildly different aspect ratios — a fixed
+   because the source logos have wildly different aspect ratios - a fixed
    height makes wide wordmarks dwarf square marks. Sizes are pre-computed
    from each file's ratio; object-contain guards against drift. */
-const partnerGroups = [
-  {
-    label: 'Compute',
-    items: [
-      { name: 'E2E Cloud', logo: '/images/logos/e2e-networks.png', w: 65, h: 44 },
-      { name: 'Altos', logo: '/images/logos/altos.svg', w: 126, h: 33 },
-      { name: 'HP', logo: '/images/logos/hp.svg', w: 44, h: 44 },
-      { name: 'IBM', logo: '/images/logos/ibm.svg', w: 106, h: 40 },
-    ],
-  },
-  {
-    label: 'Silicon',
-    items: [
-      { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg', w: 150, h: 27 },
-      { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg', w: 150, h: 28 },
-    ],
-  },
-  {
-    label: 'Distribution',
-    items: [
-      { name: 'TechData', logo: '/images/logos/techdata.svg', w: 124, h: 34 },
-      { name: 'Redington', logo: '/images/logos/redington.svg', w: 127, h: 33 },
-      { name: 'Informage', logo: '/images/logos/informage.png', w: 133, h: 31 },
-    ],
-  },
-  {
-    label: 'Data',
-    items: [
-      { name: 'Dataquark', logo: '/images/logos/dataquark.png', w: 66, h: 44 },
-      { name: 'LS Digital', logo: '/images/logos/lsdigital.png', w: 52, h: 44 },
-    ],
-  },
+const partners = [
+  { name: 'E2E Cloud', logo: '/images/logos/e2e-networks.png', w: 65, h: 44 },
+  { name: 'Altos', logo: '/images/logos/altos.svg', w: 126, h: 33 },
+  { name: 'HPE', logo: '/images/logos/hpe.svg', w: 100, h: 42 },
+  { name: 'IBM', logo: '/images/logos/ibm.svg', w: 106, h: 40 },
+  { name: 'Hitachi Systems', logo: '/images/logos/hitachi.svg', w: 150, h: 23 },
+  { name: 'NVIDIA', logo: '/images/logos/NVIDIA_logo.svg', w: 150, h: 27 },
+  { name: 'Qualcomm', logo: '/images/logos/qualcomm.svg', w: 150, h: 28 },
+  { name: 'TechData', logo: '/images/logos/techdata.svg', w: 124, h: 34 },
+  { name: 'Redington', logo: '/images/logos/redington.svg', w: 127, h: 33 },
+  { name: 'Informage', logo: '/images/logos/informage.png', w: 133, h: 31 },
+  { name: 'Dataquark', logo: '/images/logos/dataquark.png', w: 66, h: 44 },
+  { name: 'LS Digital', logo: '/images/logos/lsdigital.png', w: 52, h: 44 },
+  { name: 'Coforge', logo: '/images/logos/Coforge.webp', w: 138, h: 30 },
+  { name: 'Celkon', logo: '/images/logos/celkon.webp', w: 147, h: 28 },
+  { name: 'Nikom', logo: '/images/logos/nikom.png', w: 124, h: 34 },
+  { name: 'Langoor', logo: '/images/logos/langoor.png', w: 150, h: 15 },
+  { name: 'BloxBitz', logo: '/images/logos/bloxbitz.png', w: 116, h: 36 },
+  { name: 'Ai-ERA', logo: '/images/logos/ai-era.png', w: 114, h: 37 },
 ];
 
 const tracks = [
@@ -104,35 +91,35 @@ const Partners = () => (
     </section>
 
     <Section border={false}>
-      <div className="flex flex-wrap items-baseline justify-between gap-x-10 gap-y-3">
-        <p className="eyebrow text-ink-faint">Built with</p>
-        <p className="max-w-sm text-[14px] leading-relaxed text-ink-faint">
-          A small, deliberate stack, assembled and governed by us.
-        </p>
-      </div>
-
-      <div className="mt-10 border-t border-ink/80">
-        {partnerGroups.map((g) => (
-          <div
-            key={g.label}
-            className="grid gap-y-5 border-b border-line py-7 md:grid-cols-[150px_1fr] md:items-center md:gap-x-12 md:py-8"
+      {/* The partner board: a ruled grid, one equal cell per partner.
+          - Logos show in full brand colour (a greyscale treatment was tried and
+            rejected); hover/focus adds a lift and a mono name tag.
+          - Keep the count a multiple of 6 (it divides evenly into 2, 3 and 6
+            columns) so the board closes as a clean rectangle. Currently 18;
+            adding or removing a logo leaves a gap in the last row. */}
+      <ul className="grid grid-cols-2 border-l border-t border-ink/80 md:grid-cols-3 lg:grid-cols-6">
+        {partners.map((p) => (
+          <li
+            key={p.name}
+            tabIndex={0}
+            className="group relative flex h-32 items-center justify-center border-b border-r border-line px-5 outline-none transition-colors duration-300 hover:bg-white focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ember md:h-36"
           >
-            <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">{g.label}</p>
-            <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
-              {g.items.map((s) => (
-                <img
-                  key={s.name}
-                  src={s.logo}
-                  alt={s.name}
-                  loading="lazy"
-                  style={{ width: s.w, height: s.h }}
-                  className="shrink-0 object-contain opacity-70 transition-opacity duration-200 hover:opacity-100"
-                />
-              ))}
-            </div>
-          </div>
+            <img
+              src={p.logo}
+              alt={p.name}
+              loading="lazy"
+              style={{ width: p.w, height: p.h }}
+              className="max-w-full shrink-0 object-contain transition duration-300 group-hover:scale-105"
+            />
+            <span
+              aria-hidden
+              className="absolute bottom-2.5 left-3.5 font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+            >
+              {p.name}
+            </span>
+          </li>
         ))}
-      </div>
+      </ul>
     </Section>
 
     <Section border>
