@@ -52,6 +52,7 @@ export function Footer() {
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Resources</h5>
+            <FooterLink to="/pricing">Pricing</FooterLink>
             <FooterLink to="/case-studies">Case Studies</FooterLink>
             <FooterLink to="/blog">Blog</FooterLink>
             <FooterLink to="/careers">Careers</FooterLink>

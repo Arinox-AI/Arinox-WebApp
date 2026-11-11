@@ -20,7 +20,7 @@ Arinox AI is an AI transformation company. It is a brand of Adisen Tech Private 
 Positioning: Arinox is an AI transformation company, not a tool vendor. It helps enterprises implement private AI — AI that runs on the customer's own infrastructure, on their data, under their governance. Its product is CommandCore, sovereign AI infrastructure built in India. On top of it sits the KOGO agentic layer, which turns that infrastructure into working agents. The platform layer is KOGO OS: 250+ AI models supported, 500+ tools and connectors, 100+ ready-made agents.
 Taglines used by the company: "Private AI, implemented end-to-end." and "Sovereign. Scalable. Yours."
 Headquarters: Bengaluru, India (India).
-Offices: Bengaluru (HQ), New Delhi and Hyderabad (India); Sharjah (UAE); New Jersey and New York (USA); Bangkok (Thailand).
+Offices: India — Bengaluru (HQ), Hyderabad, New Delhi. International — New York (USA), Bangkok (Thailand), Dubai (UAE).
 Website: https://www.arinox.ai
 Email: assist@arinox.ai
 Phone: +91 86976 78792

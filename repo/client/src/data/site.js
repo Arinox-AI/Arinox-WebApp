@@ -41,14 +41,25 @@ export const company = {
   email: 'assist@arinox.ai',
   phone: '+91 79759 39909',
   linkedin: 'https://in.linkedin.com/company/arinox-ai',
+  /* Offices are grouped: India first, then international. Edit here only —
+     the contact page renders whatever is in this list. */
   offices: [
-    { city: 'Bengaluru',  note: 'Headquarters · India' },
-    { city: 'New Delhi',  note: 'India' },
-    { city: 'Hyderabad',  note: 'India' },
-    { city: 'Sharjah',    note: 'UAE' },
-    { city: 'New Jersey', note: 'USA' },
-    { city: 'New York',   note: 'USA' },
-    { city: 'Bangkok',    note: 'Thailand' },
+    {
+      group: 'India',
+      cities: [
+        { city: 'Bengaluru', note: 'Headquarters' },
+        { city: 'Hyderabad' },
+        { city: 'New Delhi' },
+      ],
+    },
+    {
+      group: 'International',
+      cities: [
+        { city: 'New York', note: 'USA' },
+        { city: 'Bangkok', note: 'Thailand' },
+        { city: 'Dubai', note: 'UAE' },
+      ],
+    },
   ],
   tagline: 'Private AI, implemented end-to-end.',
 };

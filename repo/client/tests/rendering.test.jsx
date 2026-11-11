@@ -95,6 +95,39 @@ describe('header navigation', () => {
   }, 30000);
 });
 
+describe('footer', () => {
+  it('links to the pricing page from the Resources column', async () => {
+    renderAt('/');
+    await heading(/ai native/i);
+    const footer = within(screen.getByRole('contentinfo'));
+
+    const resources = within(screen.getByRole('heading', { name: 'Resources' }).parentElement);
+    const pricing = resources.getByRole('link', { name: 'Pricing' });
+    expect(pricing.getAttribute('href')).toBe('/pricing');
+
+    // Pricing belongs to Resources, not to the Product column.
+    const product = within(screen.getByRole('heading', { name: 'Product' }).parentElement);
+    expect(product.queryByRole('link', { name: 'Pricing' })).toBeNull();
+    expect(footer.getByRole('link', { name: 'Pricing' })).toBeTruthy();
+  }, 30000);
+});
+
+describe('contact page offices', () => {
+  it('lists India and international offices, with no dropped cities', async () => {
+    renderAt('/contact');
+    await heading(/discovery session/i);
+
+    expect(screen.getByText('India')).toBeTruthy();
+    expect(screen.getByText('International')).toBeTruthy();
+
+    for (const city of ['Bengaluru', 'Hyderabad', 'New Delhi', 'New York', 'Bangkok', 'Dubai']) {
+      expect(screen.getByText(city)).toBeTruthy();
+    }
+    expect(screen.queryByText('Sharjah')).toBeNull();
+    expect(screen.queryByText('New Jersey')).toBeNull();
+  }, 30000);
+});
+
 describe('legacy URL redirects', () => {
   it('/solutions redirects to CommandCore', async () => {
     renderAt('/solutions');

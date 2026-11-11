@@ -36,6 +36,22 @@ describe('data map smoke', () => {
     expect(advisors.length).toBeGreaterThan(0);
   });
 
+  it('company.offices is grouped into India and international offices', async () => {
+    const { company } = await import('../src/data/site.js');
+    const groups = company.offices.map((g) => g.group);
+    expect(groups).toEqual(['India', 'International']);
+
+    const india = company.offices[0].cities.map((c) => c.city);
+    const international = company.offices[1].cities.map((c) => c.city);
+    expect(india).toEqual(['Bengaluru', 'Hyderabad', 'New Delhi']);
+    expect(international).toEqual(['New York', 'Bangkok', 'Dubai']);
+
+    // Offices that were dropped must not come back through another group.
+    const all = [...india, ...international];
+    expect(all).not.toContain('Sharjah');
+    expect(all).not.toContain('New Jersey');
+  });
+
   it('case-study deep-link slugs are unique (URL contract)', async () => {
     const { caseIndex } = await import('../src/data/caseStudies.js');
     expect(caseIndex.length).toBeGreaterThan(0);

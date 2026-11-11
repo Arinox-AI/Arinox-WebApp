@@ -88,14 +88,21 @@ const Contact = () => {
           <div>
             <div className="mb-8 card-light p-7">
               <h4 className="font-display text-lg">Offices</h4>
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                {company.offices.map(({ city, note }) => (
-                  <div key={city}>
-                    <p className="text-[15px] font-medium">{city}</p>
-                    <p className="mt-0.5 text-xs text-ink-faint">{note}</p>
+              {company.offices.map(({ group, cities }) => (
+                <div key={group} className="mt-5">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
+                    {group}
+                  </p>
+                  <div className="mt-3 grid grid-cols-2 gap-3">
+                    {cities.map(({ city, note }) => (
+                      <div key={city}>
+                        <p className="text-[15px] font-medium">{city}</p>
+                        {note && <p className="mt-0.5 text-xs text-ink-faint">{note}</p>}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
             <div className="mb-8 card-light p-7">
               <h4 className="font-display text-lg">Direct</h4>
