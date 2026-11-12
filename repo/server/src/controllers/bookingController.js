@@ -5,7 +5,7 @@ const { generateSlots } = require('../booking/availability');
 const google = require('../booking/googleCalendar');
 const { buildInvite } = require('../booking/ics');
 const store = require('../booking/store');
-const { sendMail, bookingConfirmation, bookingNotification } = require('../utils/mailer');
+const { sendMail, teamCc, bookingConfirmation, bookingNotification } = require('../utils/mailer');
 
 const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
 // Visitor text that lands in a Google event / invite: no angle brackets (so it can never render as markup or a link
@@ -148,7 +148,7 @@ const createBooking = async (req, res, next) => {
         ...ical,
       }),
       sendMail({
-        to: host, cc: cfg.ccEmails().filter((c) => c.toLowerCase() !== host.toLowerCase()), replyTo: clean.email,
+        to: host, cc: [...new Set([...cfg.ccEmails(), ...teamCc()])].filter((c) => c.toLowerCase() !== host.toLowerCase()), replyTo: clean.email,
         subject: `[Arinox] Discovery session booked — ${clean.name} · ${fmt(startAt, cfg.timezone, true)}`.replace(/[\r\n]/g, ' '),
         html: bookingNotification({ ...clean, guests, when, meetLink }),
         ...hostIcal,

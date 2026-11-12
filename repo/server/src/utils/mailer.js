@@ -28,6 +28,17 @@ const sendMail = async (options) => {
   });
 };
 
+/* Always-CC list for every email that goes to the team (inquiries, careers,
+   bookings). TEAM_CC env overrides (comma list; set empty to disable). */
+const teamCc = (exclude = []) => {
+  const skip = new Set(
+    (Array.isArray(exclude) ? exclude : String(exclude).split(','))
+      .map((s) => s.trim().toLowerCase()).filter(Boolean),
+  );
+  return (process.env.TEAM_CC === undefined ? 'ajay@arinox.ai' : process.env.TEAM_CC)
+    .split(',').map((s) => s.trim()).filter((s) => s && !skip.has(s.toLowerCase()));
+};
+
 const verifyMailer = () => {
   if (!isConfigured()) return;
   getTransporter().verify((err) => {
@@ -295,6 +306,7 @@ module.exports = {
   bookingConfirmation,
   bookingNotification,
   sendMail,
+  teamCc,
   verifyMailer,
   contactNotification,
   contactAutoReply,

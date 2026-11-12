@@ -2,7 +2,7 @@ const path = require('path');
 const validator = require('validator');
 const multer = require('multer');
 const supabase = require('../config/supabase');
-const { sendMail, applicationNotification, applicationAutoReply } = require('../utils/mailer');
+const { sendMail, teamCc, applicationNotification, applicationAutoReply } = require('../utils/mailer');
 const { resumeToPdf } = require('../utils/resumeToPdf');
 
 const RESUME_BUCKET = 'resumes';
@@ -106,6 +106,7 @@ const submitApplication = async (req, res, next) => {
     const emailResults = await Promise.allSettled([
       sendMail({
         to: process.env.EMAIL_TO || 'assist@arinox.ai',
+        cc: teamCc(process.env.EMAIL_TO || 'assist@arinox.ai'),
         subject: `[Arinox Careers] New Application - ${role} from ${fullName}`,
         html: applicationNotification({
           fullName, email, phone, role, department,

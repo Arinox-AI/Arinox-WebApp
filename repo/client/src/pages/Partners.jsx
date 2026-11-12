@@ -32,6 +32,10 @@ const partners = [
   { name: 'Langoor', logo: '/images/logos/langoor.png', w: 150, h: 15 },
   { name: 'BloxBitz', logo: '/images/logos/bloxbitz.png', w: 116, h: 36 },
   { name: 'Ai-ERA', logo: '/images/logos/ai-era.png', w: 114, h: 37 },
+  /* Official, unmodified logo (from thephygitalstudio.com). The file carries
+     ~16% transparent padding, hence the inflated w/h to match the ~4,200px²
+     footprint of the others. */
+  { name: 'The Phygital Studio', logo: '/images/logos/phygital-studio.png', w: 120, h: 55 },
 ];
 
 const tracks = [
@@ -70,7 +74,8 @@ const Partners = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+        <div>
         <Label>Partners</Label>
         <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
           One stack, assembled around <span className="italic text-ember">your constraint.</span>
@@ -87,22 +92,32 @@ const Partners = () => (
             LinkedIn <ArrowUpRight size={14} strokeWidth={2.2} />
           </a>
         </div>
+        </div>
+        <img
+          src="/images/industries/partners-stack.svg"
+          alt="Four partner tiles — software, silicon, data and growth — connected around one Arinox hub"
+          loading="eager"
+          className="mx-auto w-full max-w-[460px]"
+        />
       </div>
     </section>
 
     <Section border={false}>
-      {/* The partner board: a ruled grid, one equal cell per partner.
-          - Logos show in full brand colour (a greyscale treatment was tried and
-            rejected); hover/focus adds a lift and a mono name tag.
-          - Keep the count a multiple of 6 (it divides evenly into 2, 3 and 6
-            columns) so the board closes as a clean rectangle. Currently 18;
-            adding or removing a logo leaves a gap in the last row. */}
-      <ul className="grid grid-cols-2 border-l border-t border-ink/80 md:grid-cols-3 lg:grid-cols-6">
+      {/* The partner wall: borderless, centred rows so a short last row reads
+          as intentional (19 logos never form a full grid). Logos stay in full
+          brand colour; hover/focus lifts the tile and shows a mono name tag. */}
+      <div className="flex items-center justify-between gap-4 border-b border-ink/80 pb-4">
+        <Label>The stack</Label>
+        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
+          {partners.length} partners · infrastructure · silicon · channel
+        </span>
+      </div>
+      <ul className="mx-auto mt-8 flex max-w-6xl flex-wrap justify-center">
         {partners.map((p) => (
           <li
             key={p.name}
             tabIndex={0}
-            className="group relative flex h-32 items-center justify-center border-b border-r border-line px-5 outline-none transition-colors duration-300 hover:bg-white focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ember md:h-36"
+            className="group relative flex h-28 basis-1/2 items-center justify-center rounded-2xl px-4 outline-none transition-colors duration-300 hover:bg-white focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-ember md:h-32 md:basis-1/4 lg:basis-1/5"
           >
             <img
               src={p.logo}
@@ -113,7 +128,7 @@ const Partners = () => (
             />
             <span
               aria-hidden
-              className="absolute bottom-2.5 left-3.5 font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+              className="absolute bottom-2 font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
             >
               {p.name}
             </span>

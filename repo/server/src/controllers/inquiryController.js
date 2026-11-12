@@ -1,6 +1,6 @@
 const validator = require('validator');
 const supabase = require('../config/supabase');
-const { sendMail, inquiryNotification, contactAutoReply } = require('../utils/mailer');
+const { sendMail, teamCc, inquiryNotification, contactAutoReply } =require('../utils/mailer');
 const { getAutoReply } = require('../utils/autoReplies');
 const { resolveInquiry, sourceTag } = require('../utils/intents');
 
@@ -109,6 +109,7 @@ const submitInquiry = async (req, res, next) => {
     const emailResults = await Promise.allSettled([
       sendMail({
         to: notifyTo(),
+        cc: teamCc(notifyTo()),
         subject: `[Arinox Inquiry] ${resolved.intentLabel}${deckRequest ? ' - ' + (resolved.assetLabel || 'Deck') : ''} - ${inquiry.name}${inquiry.company ? ' - ' + inquiry.company : ''}`,
         html: inquiryNotification({
           ...inquiry,
