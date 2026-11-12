@@ -74,7 +74,7 @@ const Partners = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+      <div className="relative mx-auto grid max-w-[68.5rem] items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
         <div>
         <Label>Partners</Label>
         <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
@@ -88,7 +88,7 @@ const Partners = () => (
           <Button to="/contact?intent=partnership" variant="dark">
             Partner with us <ArrowUpRight size={14} strokeWidth={2.2} />
           </Button>
-          <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">
+          <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">
             LinkedIn <ArrowUpRight size={14} strokeWidth={2.2} />
           </a>
         </div>
@@ -128,7 +128,7 @@ const Partners = () => (
             />
             <span
               aria-hidden
-              className="absolute bottom-2 font-mono text-[9px] uppercase tracking-[0.16em] text-ink-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
+              className="absolute bottom-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink-faint opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100"
             >
               {p.name}
             </span>
@@ -139,7 +139,7 @@ const Partners = () => (
 
     <Section border>
       <Label>Working with us</Label>
-      <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[44px]">
+      <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
         Three ways to partner.
       </h2>
       <div className="mt-12 border-t border-ink/80">

@@ -29,10 +29,10 @@ const SecureOsSuite = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-[68.5rem]">
         <Link
           to="/industries"
-          className="inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
+          className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
         >
           <ArrowLeft size={13} strokeWidth={2.2} />
           All products
@@ -131,7 +131,7 @@ const SecureOsSuite = () => (
                 key={s.t}
                 className="group relative flex items-start gap-4 border-b border-white/10 py-4 transition-colors hover:bg-white/[0.03] md:py-5"
               >
-                <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ember/40 font-mono text-[10px] text-ember">
+                <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ember/40 font-mono text-[11px] text-ember">
                   {i + 1}
                 </span>
                 <div>
@@ -189,9 +189,9 @@ const SecureOsSuite = () => (
                 <span className="font-mono text-[6px] uppercase tracking-[0.16em] text-white/40">The playbook</span>
               </div>
               <div className="min-w-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">Secure OS</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">Secure OS</p>
                 <p className="mt-1 font-display text-[19px] tracking-[-0.01em]">The playbook</p>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">
                   Straight to your inbox · .pdf
                 </p>
               </div>

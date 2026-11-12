@@ -29,7 +29,7 @@ const CaseStudyDetail = () => {
         <p className="max-w-md text-[14.5px] leading-relaxed text-ink-soft">
           The use case you&apos;re looking for isn&apos;t published at this URL.
         </p>
-        <Link to="/case-studies" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ember-deep hover:text-ink">
+        <Link to="/case-studies" className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ember-deep hover:text-ink">
           <ArrowLeft size={14} strokeWidth={2.2} />
           Back to Case Studies
         </Link>
@@ -86,9 +86,9 @@ const CaseStudyDetail = () => {
                       <p className={`num break-words font-display leading-[1.05] tracking-[-0.02em] text-ink ${valueSize(m.value)}`}>
                         {m.value}
                       </p>
-                      <p className="mt-1.5 font-mono text-[10.5px] uppercase leading-snug tracking-[0.1em] text-ink-faint">{m.label}</p>
+                      <p className="mt-1.5 font-mono text-[11px] uppercase leading-snug tracking-[0.1em] text-ink-faint">{m.label}</p>
                       {basis && (
-                        <p className="mt-1 font-mono text-[9px] uppercase leading-none tracking-[0.14em] text-ink-faint/70" title={basis.title}>
+                        <p className="mt-1 font-mono text-[11px] uppercase leading-none tracking-[0.14em] text-ink-faint/70" title={basis.title}>
                           {basis.tag}
                         </p>
                       )}
@@ -126,7 +126,7 @@ const CaseStudyDetail = () => {
               <div className="mt-4 grid gap-x-10 gap-y-6 sm:grid-cols-2">
                 {architecture.map((a, i) => (
                   <div key={a.title} className="grid grid-cols-[auto_1fr] gap-x-3.5">
-                    <span className="num pt-1 font-mono text-[10.5px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="num pt-1 font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
                     <div>
                       <h2 className="font-display text-[16px] tracking-[-0.01em]">{a.title}</h2>
                       <ul className="mt-2 space-y-1">
@@ -179,7 +179,7 @@ const CaseStudyDetail = () => {
 
           <div className="mt-12 flex flex-wrap items-center gap-4 border-t border-ink/80 pt-6">
             <Button to="/contact" variant="ember">Book a discovery session</Button>
-            <Link to="/case-studies" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft hover:text-ember-deep">
+            <Link to="/case-studies" className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft hover:text-ember-deep">
               <ArrowLeft size={14} strokeWidth={2.2} />
               All case studies
             </Link>

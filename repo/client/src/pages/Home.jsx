@@ -1,6 +1,5 @@
-import { useRef, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { useRef, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { Map, Rocket, Layers } from 'lucide-react'
 import SEO from '../components/ui/SEO'
 import { useBookCta, BOOK_CTA_TRANSITION } from '../components/site/BookCtaContext'
@@ -8,18 +7,13 @@ import { Button } from '../components/site/Button'
 import { Section } from '../components/site/Section'
 import { Label } from '../components/site/Layout'
 import { CtaBand } from '../components/site/Shell'
-import { AsciiGlobe } from '../components/site/AsciiGlobe'
-import { ComplianceStrip } from '../components/site/ComplianceStrip'
+import { PresenceGlobe } from '../components/site/PresenceGlobe'
+import { StartHere } from '../components/site/StartHere'
 import { LayerStack } from '../components/site/LayerStack'
-import { DataFlow } from '../components/site/DataFlow'
 import { Marquee } from '../components/site/Marquee'
 import { SplitText } from '../components/site/motion/SplitText'
-import { Tilt } from '../components/site/motion/Tilt'
 import { Magnet } from '../components/site/motion/Magnet'
-import { team, advisors } from '../data/site'
-import { dataReadiness } from '../data/data'
-import { businessApps, commandCoreIntro, headlineClaims, powerUseCases, kogo } from '../data/commandcore'
-import { blogPosts } from '../data/blogPosts'
+import { powerUseCases, businessApps, kogoHome } from '../data/commandcore'
 
 const moves = [
   {
@@ -28,6 +22,7 @@ const moves = [
     t: 'Map',
     d: 'One free working session. We find the workflows worth transforming first, by cost, risk, and payback speed. You keep the map either way.',
     tag: 'One session',
+    image: '/images/method/map.svg',
   },
   {
     n: '02',
@@ -35,6 +30,7 @@ const moves = [
     t: 'Build',
     d: 'We assemble agents on a proven agentic operating system, documents, voice, vision, decisions, wired into the tools your teams already use.',
     tag: 'Built on KOGO OS',
+    image: '/images/method/build.svg',
   },
   {
     n: '03',
@@ -42,6 +38,7 @@ const moves = [
     t: 'Run',
     d: 'You choose where it lives: your cloud, your infrastructure, or a CommandCore appliance in your building. Governed end to end.',
     tag: 'Inside your perimeter',
+    image: '/images/method/run.svg',
   },
 ]
 
@@ -50,17 +47,20 @@ const deploy = [
     t: 'Your public cloud',
     d: 'Dedicated, isolated compute that slots into the estate you already run.',
     li: ['Deploys into your cloud', 'Isolated tenancy', 'Scales as adoption spreads'],
+    image: '/images/deploy/public-cloud.svg',
   },
   {
     t: 'Your virtual private cloud',
     d: 'We host it for you in a private cloud that stays yours alone.',
     li: ['Hosted by us in a private VPC', 'Dedicated, not shared', 'No hardware to own or manage'],
+    image: '/images/deploy/private-cloud.svg',
   },
   {
     t: 'CommandCore™',
     d: 'The machine itself, air-gapped, in your building, answering to nobody’s cloud.',
     li: ['Zero data egress', 'Full audit trails', 'Remote and tactical sites'],
     sovereign: true,
+    image: '/images/deploy/commandcore.svg',
   },
 ]
 
@@ -116,38 +116,6 @@ const trustedLogos = [
   { src: '/images/logos/informage.png', alt: 'Informage', w: 133, h: 31 },
 ]
 
-function PersonGroup({ label, people }) {
-  const layout = people.length > 3
-    ? 'lg:grid-cols-4'
-    : 'lg:grid-cols-3 mx-auto max-w-[51.5rem]'
-  return (
-    <div>
-      <div className="mb-8 flex items-center gap-4">
-        <span className="eyebrow text-ember-deep">{label}</span>
-        <span className="h-px flex-1 bg-line" aria-hidden />
-      </div>
-      <div className={`grid gap-4 sm:grid-cols-2 ${layout}`}>
-        {people.map((p) => (
-          <div key={p.name} className="group overflow-hidden card-light">
-            <div className="aspect-square overflow-hidden bg-paper-2">
-              <img
-                src={p.photo}
-                alt={p.name}
-                loading="lazy"
-                className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-              />
-            </div>
-            <div className="p-4">
-              <p className="font-display text-[16px] leading-tight tracking-[-0.01em]">{p.name}</p>
-              <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ember-deep">{p.role}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 const Home = () => {
   const heroRef = useRef(null)
   const ctaSlotRef = useRef(null)
@@ -184,18 +152,6 @@ const Home = () => {
     el.style.setProperty('--my', `${e.clientY - r.top}px`)
   }
 
-  const [featuredIdx, setFeaturedIdx] = useState(0)
-  const [notesPaused, setNotesPaused] = useState(false)
-
-  useEffect(() => {
-    if (notesPaused) return undefined
-    const id = setInterval(() => setFeaturedIdx((i) => (i + 1) % blogPosts.length), 7000)
-    return () => clearInterval(id)
-  }, [notesPaused])
-
-  const featured = blogPosts[featuredIdx]
-  const more = blogPosts.filter((_, i) => i !== featuredIdx)
-
   return (
     <>
       <SEO
@@ -216,7 +172,7 @@ const Home = () => {
           <div className="hero-light absolute inset-0" />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8">
+        <div className="relative mx-auto grid max-w-[68.5rem] items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-8">
           <div className="text-center lg:text-left">
             <Label className="justify-center lg:justify-start">AI transformation company</Label>
             <SplitText
@@ -258,9 +214,7 @@ const Home = () => {
           </div>
 
           <div className="relative mx-auto w-full max-w-[540px]">
-            <div className="relative aspect-square w-full">
-              <AsciiGlobe fontSize={13} speed={4} tilt={20} scale={0.98} landOpacity={0.66} oceanOpacity={0.5} />
-            </div>
+            <PresenceGlobe />
           </div>
         </div>
       </section>
@@ -358,16 +312,9 @@ const Home = () => {
               <h3 className="mt-6 font-display text-[27px] leading-tight tracking-[-0.01em]">{m.title}</h3>
               <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">{m.desc}</p>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {m.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
+              <p className="mt-6 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">
+                {m.tags.join(' · ')}
+              </p>
             </div>
           ))}
         </div>
@@ -385,6 +332,9 @@ const Home = () => {
           {moves.map((m) => (
             <div key={m.n} className="border-t border-ink/80 pt-7">
               <p className="num font-display text-[48px] leading-none tracking-[-0.03em] text-ink">{m.n}</p>
+              <div className="mt-7 flex h-[136px] items-center">
+                <img src={m.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
+              </div>
               <h3 className="mt-6 font-display text-[24px] tracking-[-0.01em]">{m.t}</h3>
               <p className="mt-3 text-[15.5px] leading-relaxed text-ink-soft">{m.d}</p>
               <p className="mt-6 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{m.tag}</p>
@@ -407,206 +357,72 @@ const Home = () => {
         <div className="mt-10">
           <LayerStack />
         </div>
-        <p className="mt-8 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
-          What follows walks the same stack, layer by layer: estate, data, agents, applications.
-        </p>
       </Section>
 
-      {/* The fork, vertical rules, no cards */}
-      <Section dark border={false}>
-        <Label dark>Deployment</Label>
-        <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
-          Where it runs is your call.
-        </h2>
-        <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ghost">
-          Start at the foundation: the estate. Whichever you choose, everything above it runs the same.
-        </p>
-        <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-3">
+      {/* The agentic layer: the precise KOGO summary; full detail on /commandcore#kogo */}
+      <Section border>
+        <Label>{kogoHome.label}</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+            {kogoHome.title}
+          </h2>
+          <p className="max-w-sm text-[15.5px] leading-relaxed text-ink-soft">{kogoHome.lead}</p>
+        </div>
+        <div className="mt-12 grid grid-cols-2 gap-x-12 gap-y-10 md:grid-cols-4">
+          {kogoHome.stats.map((s) => (
+            <div key={s.small} className="border-t border-ink/80 pt-6">
+              <p className="num font-display text-[44px] leading-none tracking-[-0.03em] text-ink">{s.big}</p>
+              <p className="mt-3 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{s.small}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-12 border-t border-line pt-6">
+          <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{kogoHome.appsLabel}</p>
+          <p className="mt-3 flex flex-wrap font-display text-[22px] leading-snug tracking-[-0.01em] md:text-[26px]">
+            {businessApps.map((a, i) => (
+              <span key={a.name} className="whitespace-nowrap">
+                {i > 0 && <span className="px-2.5 text-ember" aria-hidden>·</span>}
+                {a.name}
+              </span>
+            ))}
+          </p>
+        </div>
+        <div className="mt-10">
+          <Button to={kogoHome.link.to} variant="dark">{kogoHome.link.label}</Button>
+        </div>
+      </Section>
+
+      {/* Deployment: where it runs (light, so the illustrations read) */}
+      <Section border>
+        <Label>Deployment</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+            Where it runs is your call.
+          </h2>
+          <p className="max-w-sm text-[15.5px] leading-relaxed text-ink-soft">
+            Whichever you choose, everything above it runs the same.
+          </p>
+        </div>
+        <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3">
           {deploy.map((d) => (
-            <div key={d.t} className="border-t border-white/20 pt-7">
-              <div className="flex items-center justify-between gap-4">
-                <h3 className="font-display text-[22px] tracking-[-0.01em] text-phos">{d.t}</h3>
+            <div key={d.t} className="border-t border-ink/80 pt-7">
+              <div className="flex h-[136px] items-center">
+                <img src={d.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
+              </div>
+              <div className="mt-6 flex items-center justify-between gap-4">
+                <h3 className="font-display text-[22px] tracking-[-0.01em]">{d.t}</h3>
                 {d.sovereign && (
-                  <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ember">Max sovereignty</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">Max sovereignty</span>
                 )}
               </div>
-              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d.d}</p>
+              <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{d.d}</p>
               <ul className="mt-6">
                 {d.li.map((l) => (
-                  <li key={l} className="border-b border-white/10 py-2.5 text-sm text-ghost last:border-b-0">{l}</li>
+                  <li key={l} className="border-b border-line py-2.5 text-sm text-ink-soft last:border-b-0">{l}</li>
                 ))}
               </ul>
             </div>
           ))}
-        </div>
-      </Section>
-
-      {/* CommandCore, the product moment */}
-      <Section border>
-        <Label>{commandCoreIntro.overline} · {commandCoreIntro.product}</Label>
-        <div className="mt-6 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
-          <div>
-            <h2 className="max-w-xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[44px]">
-              {commandCoreIntro.title}
-            </h2>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">{commandCoreIntro.lead}</p>
-
-            <div className="mt-10 grid gap-x-10 gap-y-8 sm:grid-cols-3">
-              {headlineClaims.map((c) => (
-                <div key={c.big} className="border-t border-ink/80 pt-5">
-                  <p className="num font-display text-[28px] leading-none tracking-[-0.03em]">{c.big}</p>
-                  <p className="mt-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-ember-deep">{c.small}</p>
-                  <p className="mt-2 text-[13.5px] leading-relaxed text-ink-soft">{c.note}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3">
-              <Button to="/commandcore" variant="dark">See the machine</Button>
-              <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">{commandCoreIntro.claim}</span>
-            </div>
-          </div>
-
-          <Tilt className="mx-auto w-full max-w-[480px]">
-            <div className="product-stage relative overflow-hidden rounded-2xl border border-line p-8">
-              <img
-                src="/images/commandcore/commandcore-xl2.webp"
-                alt="CommandCore XL"
-                loading="lazy"
-                className="mx-auto w-full drop-shadow-[0_34px_54px_rgba(11,11,13,0.25)]"
-              />
-            </div>
-          </Tilt>
-        </div>
-      </Section>
-
-      {/* Data readiness, the layer beneath the machine */}
-      <Section border id="data-readiness">
-        <Label>{dataReadiness.eyebrow}</Label>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
-            {dataReadiness.titleLead} <span className="italic text-ember">{dataReadiness.titleAccent}</span>
-          </h2>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">{dataReadiness.lead}</p>
-        </div>
-
-        <div className="mt-6 flex flex-wrap gap-2">
-          {dataReadiness.chips.map((c) => (
-            <span
-              key={c}
-              className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft"
-            >
-              {c}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-10">
-          <DataFlow />
-        </div>
-
-        <div className="mt-10 flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
-          <blockquote className="max-w-2xl border-l-2 border-ember pl-6">
-            <p className="font-display text-[24px] leading-snug tracking-[-0.02em] md:text-[30px]">
-              “{dataReadiness.pullQuote}”
-            </p>
-            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{dataReadiness.pullNote}</p>
-          </blockquote>
-
-          <Link
-            to={dataReadiness.link.to}
-            className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
-          >
-            {dataReadiness.link.label}
-            <span aria-hidden>→</span>
-          </Link>
-        </div>
-      </Section>
-
-      {/* KOGO OS, the agentic layer */}
-      <Section border>
-        <Label>The agentic layer · {kogo.name}</Label>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-          <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
-            Infrastructure becomes work.
-          </h2>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
-            Sitting on the data layer, {kogo.name} turns that infrastructure into agents that plan,
-            act and stay accountable.
-          </p>
-        </div>
-
-        <p className="mt-6 max-w-3xl text-[17px] leading-relaxed text-ink-soft">{kogo.desc}</p>
-
-        <div className="mt-10 grid gap-x-16 gap-y-0 sm:grid-cols-2">
-          {kogo.points.map((p) => (
-            <div key={p} className="border-b border-line py-3.5 text-[14.5px] leading-relaxed text-ink-soft">{p}</div>
-          ))}
-        </div>
-
-        <div className="mt-8 flex flex-wrap gap-2">
-          {kogo.badges.map((b) => (
-            <span
-              key={b}
-              className="rounded-full border border-line px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-soft"
-            >
-              {b}
-            </span>
-          ))}
-        </div>
-      </Section>
-
-      {/* Included applications */}
-      <Section dark border={false}>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Label dark>Included applications</Label>
-            <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
-              Your business systems, now driven by AI agents.
-            </h2>
-          </div>
-          <p className="max-w-sm text-[15px] leading-relaxed text-ghost">
-            Built in, not stitched on. Each system ships with agents that run the work your team used to do by hand.
-          </p>
-        </div>
-        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">
-          ERP, HRMS, CRM, Accounting, Legal, SCM, CLM, Marketing and Helpdesk are all part of the
-          platform. Work that used to be handled manually in each of them is now driven by AI
-          agents: planning, hiring, selling, posting, contracting, sourcing, campaigns and tickets,
-          all on your infrastructure, under your governance, included with every deployment.
-        </p>
-        <div className="mt-10 grid gap-x-16 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {businessApps.map((a) => (
-            <div key={a.name} className="border-t border-white/20 pt-6">
-              <p className="eyebrow text-ember">{a.name}</p>
-              {a.full && (
-                <p className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.08em] text-ghost">{a.full}</p>
-              )}
-              <p className="mt-3 text-[14.5px] leading-relaxed text-ghost">{a.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-          <Button to="/contact" variant="ghostDark" size="sm">See it on your workflows</Button>
-          <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ghost">
-            Included with every deployment · connects to the systems you already run
-          </span>
-        </div>
-      </Section>
-
-      {/* Compliance, quiet, two groups */}
-      <Section border>
-        <Label>Compliance</Label>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-          <div>
-            <h2 className="max-w-md font-display text-[28px] leading-tight tracking-[-0.01em] md:text-[38px]">
-              Certified to run inside the wire.
-            </h2>
-            <p className="mt-4 max-w-sm text-[15.5px] leading-relaxed text-ink-soft">
-              Both the machine and the platform are built for regulated environments.
-            </p>
-          </div>
-          <ComplianceStrip className="self-center" />
         </div>
       </Section>
 
@@ -627,14 +443,9 @@ const Home = () => {
 
         <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {powerUseCases.map((s) => (
-            <div key={s.sector} className="group">
-              <div className="img-frame aspect-[4/3] overflow-hidden rounded-xl border border-line">
-                <img
-                  src={s.image}
-                  alt=""
-                  loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                />
+            <div key={s.sector} className="border-t border-ink/80 pt-7">
+              <div className="flex h-[136px] items-center">
+                <img src={s.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
               </div>
               <p className="eyebrow mt-5 text-ember-deep">{s.sector}</p>
               <ul className="mt-3 space-y-2">
@@ -654,90 +465,9 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* People */}
-      <Section border>
-        <Label>People</Label>
-        <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
-          Operators, not evangelists.
-        </h2>
-        <div className="mt-10 space-y-16">
-          <PersonGroup label="Leadership" people={team} />
-          <PersonGroup label="Advisors" people={advisors} />
-        </div>
-      </Section>
-
-      {/* Insights, one feature + compact list */}
-      <Section border>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <Label>Insights</Label>
-            <h2 className="mt-5 font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">Field notes.</h2>
-          </div>
-          <Button to="/blog" variant="ghost" size="sm">All insights</Button>
-        </div>
-
-        <div
-          className="mt-10 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16"
-          onMouseEnter={() => setNotesPaused(true)}
-          onMouseLeave={() => setNotesPaused(false)}
-          onFocusCapture={() => setNotesPaused(true)}
-          onBlurCapture={() => setNotesPaused(false)}
-        >
-          <div>
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={featured.slug}
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: 'easeInOut' }}
-              >
-                <Link to={`/blog/${featured.slug}`} className="group block">
-                  <div className="img-frame aspect-[16/10] overflow-hidden rounded-2xl border border-line">
-                    <img
-                      src={featured.image}
-                      alt={featured.title}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                    />
-                  </div>
-                  <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{featured.category}</p>
-                  <h3 className="mt-2 font-display text-[24px] leading-snug tracking-[-0.01em] group-hover:text-ember-deep transition-colors">
-                    {featured.title}
-                  </h3>
-                  <p className="mt-2.5 max-w-xl text-[15px] leading-relaxed text-ink-soft line-clamp-2">{featured.excerpt}</p>
-                </Link>
-              </motion.div>
-            </AnimatePresence>
-
-            <div className="mt-5 flex items-center gap-1.5">
-              {blogPosts.map((p, i) => (
-                <button
-                  key={p.slug}
-                  type="button"
-                  onClick={() => setFeaturedIdx(i)}
-                  aria-label={`Show ${p.title}`}
-                  aria-current={i === featuredIdx ? 'true' : undefined}
-                  className={`h-1 rounded-full transition-all duration-300 ${
-                    i === featuredIdx ? 'w-6 bg-ember' : 'w-1.5 bg-line hover:bg-ink-faint'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          <div className="border-t border-line">
-            {more.slice(0, 4).map((p) => (
-              <Link key={p._id} to={`/blog/${p.slug}`} className="group flex flex-col gap-2 border-b border-line py-6">
-                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">{p.category} · {p.readTime} min</span>
-                <span className="font-display text-[18px] leading-snug tracking-[-0.01em] group-hover:text-ember-deep transition-colors">
-                  {p.title}
-                </span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </Section>
+      {/* Get started: the client intake lives on its own page (/get-started);
+          the people section moved to /people */}
+      <StartHere />
 
       <CtaBand
         title="Start with one workflow."

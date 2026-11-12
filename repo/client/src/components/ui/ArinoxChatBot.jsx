@@ -109,7 +109,9 @@ export default function ArinoxChatBot() {
     // The nudge earns attention, it doesn't demand it: wait for 25s of
     // reading OR the visitor scrolling well into the page, and after ONE
     // dismissal (ever — localStorage) never auto-pop again; the launcher
-    // stays available regardless.
+    // stays available regardless. Phones skip the bubble entirely: at 390px
+    // it covers the copy being read; the launcher alone is enough there.
+    if (window.matchMedia?.('(max-width: 639px)').matches) return;
     try {
       if (sessionStorage.getItem('arinox_chat_popup_dismissed')) return;
       if (localStorage.getItem('arinox_chat_dismissed_ever')) return;
@@ -209,7 +211,7 @@ export default function ArinoxChatBot() {
       const res = await fetch('/api/v1/chat/stream', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: payload }),
+        body: JSON.stringify({ messages: payload, page: window.location.pathname }),
         signal: controller.signal,
       });
 
@@ -322,7 +324,7 @@ export default function ArinoxChatBot() {
                 <X size={13} strokeWidth={2} />
               </button>
               <span className="block h-px w-6 bg-ember" aria-hidden />
-              <Label className="mt-3 block text-[9px] text-ink-faint">Arin · Arinox AI</Label>
+              <Label className="mt-3 block text-[11px] text-ink-faint">Arin · Arinox AI</Label>
               <p className="mt-2 pr-3 font-display text-[15px] leading-snug text-ink">
                 Ask me anything about Arinox or AI.
               </p>
@@ -387,7 +389,7 @@ export default function ArinoxChatBot() {
               </span>
               <div className="min-w-0 flex-1">
                 <p className="font-display text-[16px] leading-none text-ink">Arin</p>
-                <Label className="mt-1.5 flex items-center gap-1.5 text-[9px] text-ink-faint">
+                <Label className="mt-1.5 flex items-center gap-1.5 text-[11px] text-ink-faint">
                   <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
                   Arinox AI · Online
                 </Label>
@@ -419,7 +421,7 @@ export default function ArinoxChatBot() {
                   return (
                     <div key={i} className="flex justify-end">
                       <div className="max-w-[86%]">
-                        <Label className="block text-right text-[9px] text-ink-faint">You</Label>
+                        <Label className="block text-right text-[11px] text-ink-faint">You</Label>
                         <div className="mt-1.5 rounded-lg bg-ink px-3.5 py-2.5 text-[13.5px] leading-[1.62] text-phos">
                           <p className="whitespace-pre-wrap break-words">{m.content}</p>
                         </div>
@@ -434,7 +436,7 @@ export default function ArinoxChatBot() {
                       <ArinMark size={12} />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <Label className="text-[9px] text-ember-deep">Arin</Label>
+                      <Label className="text-[11px] text-ember-deep">Arin</Label>
                       <div className="mt-1.5 border-l border-line pl-3 text-[14.5px] leading-[1.68] text-ink">
                         <MessageBody text={m.content} />
                         {isStreamingThis && <Caret />}
@@ -449,7 +451,7 @@ export default function ArinoxChatBot() {
                   <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-[4px] border border-line bg-white">
                     <ArinMark size={12} />
                   </span>
-                  <Label className="flex items-center gap-2 text-[9px] text-ink-faint">
+                  <Label className="flex items-center gap-2 text-[11px] text-ink-faint">
                     Arin is thinking
                     <Caret />
                   </Label>
@@ -462,7 +464,7 @@ export default function ArinoxChatBot() {
                   {lastSent && (
                     <button
                       onClick={() => send(lastSent)}
-                      className="mt-2 border-b border-ember/40 pb-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep transition-colors hover:border-ember-deep"
+                      className="mt-2 border-b border-ember/40 pb-0.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep transition-colors hover:border-ember-deep"
                     >
                       Try again
                     </button>
@@ -474,7 +476,7 @@ export default function ArinoxChatBot() {
             {/* Suggested prompts — a small grid of hairline cards */}
             {messages.length === 1 && (
               <motion.div variants={contentItem} className="shrink-0 border-t border-line bg-white p-3">
-                <Label className="block px-1 text-[9px] text-ink-faint">Try asking</Label>
+                <Label className="block px-1 text-[11px] text-ink-faint">Try asking</Label>
                 <div className="mt-2.5 grid grid-cols-2 gap-2">
                   {SUGGESTED.map((s) => (
                     <button
@@ -526,7 +528,7 @@ export default function ArinoxChatBot() {
                   </button>
                 )}
               </div>
-              <Label className="mt-2 block text-center text-[8.5px] leading-relaxed tracking-[0.1em] text-ink-faint">
+              <Label className="mt-2 block text-center text-[11px] leading-relaxed tracking-[0.1em] text-ink-faint">
                 Replies are generated by a third-party AI provider. Don&apos;t share anything confidential. Arin can
                 make mistakes, so confirm anything important with us at{' '}
                 <a href="/contact" className="text-ember-deep underline underline-offset-2 hover:text-ink">assist@arinox.ai</a>

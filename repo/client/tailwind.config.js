@@ -20,7 +20,7 @@ export default {
         'ember-lite': '#ff8a4a',
         tint: '#ffe8d9',
         ghost: '#a39d99',
-        /* Wizard completion only (pricing/PriceDiscovery) */
+        /* Booking / intake confirmation states */
         success: '#1d7a5f',
         'success-tint': '#eaf7f2',
       },

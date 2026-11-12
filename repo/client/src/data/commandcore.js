@@ -178,3 +178,62 @@ export const businessApps = [
   { name: 'Marketing',  full: '',                                 desc: 'Agents run campaigns, content and pipeline from one stack.' },
   { name: 'Helpdesk',   full: '',                                 desc: 'Agents resolve and route tickets before they pile up.' },
 ];
+
+/* Deployment options (moved from Home): where the platform runs. */
+export const deployOptions = {
+  overline: 'Deployment',
+  title: 'Where it runs is your call.',
+  lead: 'Start at the foundation: the estate. Whichever you choose, everything above it runs the same.',
+  options: [
+    {
+      t: 'Your public cloud',
+      d: 'Dedicated, isolated compute that slots into the estate you already run.',
+      li: ['Deploys into your cloud', 'Isolated tenancy', 'Scales as adoption spreads'],
+    },
+    {
+      t: 'Your virtual private cloud',
+      d: 'We host it for you in a private cloud that stays yours alone.',
+      li: ['Hosted by us in a private VPC', 'Dedicated, not shared', 'No hardware to own or manage'],
+    },
+    {
+      t: 'CommandCore\u2122',
+      d: 'The machine itself, air-gapped, in your building, answering to nobody\u2019s cloud.',
+      li: ['Zero data egress', 'Full audit trails', 'Remote and tactical sites'],
+      sovereign: true,
+    },
+  ],
+};
+
+/* The transformation stack section (moved from Home). */
+export const stackIntro = {
+  overline: 'The stack',
+  title: 'The transformation stack, mapped.',
+  lead: 'Agents that learn your context, an AI layer that runs on your hardware, and the business systems you would otherwise buy separately, built in. Every system you already run stays in its home. No rip-and-replace.',
+  foot: 'The sections below walk the same stack, layer by layer: estate, data, agents, applications.',
+};
+
+/* Included-applications section copy (moved from Home). */
+export const appsIntro = {
+  overline: 'Included applications',
+  title: 'Your business systems, now driven by AI agents.',
+  side: 'Built in, not stitched on. Each system ships with agents that run the work your team used to do by hand.',
+  lead: 'ERP, HRMS, CRM, Accounting, Legal, SCM, CLM, Marketing and Helpdesk are all part of the platform. Work that used to be handled manually in each of them is now driven by AI agents: planning, hiring, selling, posting, contracting, sourcing, campaigns and tickets, all on your infrastructure, under your governance, included with every deployment.',
+  cta: 'See it on your workflows',
+  foot: 'Included with every deployment \u00b7 connects to the systems you already run',
+};
+
+/* Home summary of the agentic layer: the precise version of the KOGO
+   section on /commandcore (#kogo), which keeps the full feature list. */
+export const kogoHome = {
+  label: 'The agentic layer · KOGO OS',
+  title: 'Infrastructure becomes work.',
+  lead: 'KOGO OS builds, runs and governs AI agents on your own infrastructure. Every step they take is logged and auditable.',
+  stats: [
+    { big: '250+', small: 'AI models supported' },
+    { big: '500+', small: 'tools & connectors' },
+    { big: '100+', small: 'ready-made agents' },
+    { big: '0', small: 'cloud lock-in' },
+  ],
+  appsLabel: 'Agents built into your business systems',
+  link: { label: 'How KOGO works', to: '/commandcore#kogo' },
+};

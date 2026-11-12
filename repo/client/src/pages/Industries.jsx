@@ -39,14 +39,18 @@ const LedgerRow = ({ p, index }) => (
     </div>
 
     {/* the illustration, height-normalised so the rows optically match */}
-    <div className="flex h-[180px] items-center justify-center lg:h-[200px]">
-      <img
-        src={p.visual}
-        alt={p.visualAlt}
-        loading="lazy"
-        className="max-h-full w-auto transition-transform duration-500 group-hover:-translate-y-1"
-      />
-    </div>
+    {p.visual ? (
+      <div className="flex h-[180px] items-center justify-center lg:h-[200px]">
+        <img
+          src={p.visual}
+          alt={p.visualAlt}
+          loading="lazy"
+          className="max-h-full w-auto transition-transform duration-500 group-hover:-translate-y-1"
+        />
+      </div>
+    ) : (
+      <div aria-hidden className="hidden lg:block" />
+    )}
   </Link>
 );
 
@@ -54,7 +58,7 @@ const Industries = () => (
   <>
     <SEO
       title="All products | Industry operating systems | Arinox AI"
-      description="Marketing OS, Fashion & Lifestyle OS, Manufacturing OS and Secure OS — packaged AI operating systems built sector by sector: your data inside, every decision yours."
+      description="CommandCore, the sovereign AI appliance, plus Marketing OS, Fashion & Lifestyle OS, Manufacturing OS, Secure OS and Digital Twin++ — packaged AI operating systems built sector by sector: your data inside, every decision yours."
       canonical="https://www.arinox.ai/industries"
     />
 
@@ -63,7 +67,7 @@ const Industries = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-[68.5rem]">
         <Label>{industriesMeta.overline}</Label>
         <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
           {industriesMeta.titleLead}{' '}

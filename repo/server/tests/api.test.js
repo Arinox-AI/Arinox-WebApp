@@ -29,6 +29,7 @@ describe('SEO endpoints', () => {
     expect(res.text).toContain('/industries/fashion-lifestyle');
     expect(res.text).toContain('/industries/industrial');
     expect(res.text).toContain('/industries/secure');
+    expect(res.text).toContain('/industries/digital-twin');
     expect(res.text).toContain('/privacy');
     expect(res.text).toContain('/terms');
   });

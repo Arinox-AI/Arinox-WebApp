@@ -6,9 +6,9 @@
  * unknown intent or asset falls back to the general reply - it never
  * reaches the auto-reply table as-is.
  *
- * The four asset keys map 1:1 onto the deck-request forms that live inline
+ * The asset keys map 1:1 onto the deck-request forms that live inline
  * on the product pages (client/src/data/{marketingSuite,fashionLifestyleSuite,
- * industrialSuite,secureOsSuite}.js) - keep the two in sync.
+ * industrialSuite,secureOsSuite,digitalTwinSuite}.js) - keep the two in sync.
  */
 
 const INQUIRY_INTENTS = {
@@ -16,6 +16,7 @@ const INQUIRY_INTENTS = {
   deck: { label: 'Deck request', autoReplyId: null }, // the asset decides the template
   partnership: { label: 'Partnership', autoReplyId: 'partnership' },
   pricing: { label: 'Price Discovery', autoReplyId: 'price-discovery' },
+  profile: { label: 'Business Profile', autoReplyId: 'business-profile' },
 };
 
 /* Asset key → what the visitor asked for + the auto-reply template. */
@@ -24,6 +25,7 @@ const INQUIRY_ASSETS = {
   'fashion-lifestyle-os': { label: 'Fashion & Lifestyle OS deck', autoReplyId: 'fashion-lifestyle-os-deck' },
   'industrial-os': { label: 'Manufacturing OS deck', autoReplyId: 'industrial-os-deck' },
   'secure-os': { label: 'Secure OS playbook', autoReplyId: 'secure-os-deck' },
+  'digital-twin': { label: 'Digital Twin++ brief', autoReplyId: 'digital-twin-brief' },
 };
 
 /* Subjects offered on the contact form. Each one maps to an intent; the
@@ -36,13 +38,14 @@ const CONTACT_SUBJECTS = [
   { label: 'Something else', intent: 'question' },
 ];
 
-/* Where an enquiry came from. Only the pricing intent carries it - the team
+/* Where an enquiry came from. Only the pricing and profile intents carry it - the team
    wants to know which door converts (the quick form, the survey, the hub),
    not where every "general inquiry" was typed. */
 const INQUIRY_SOURCES = {
   quick: 'quick form',
   survey: 'survey',
   hub: 'contact hub',
+  home: 'home intake',
 };
 
 const isIntent = (v) => typeof v === 'string' && Object.prototype.hasOwnProperty.call(INQUIRY_INTENTS, v);
@@ -86,7 +89,7 @@ const resolveInquiry = ({ intent, asset, subject, autoReplyId, source } = {}) =>
 /* The source tag the team notification surfaces (the Leads.role column). */
 const sourceTag = ({ intentLabel, assetLabel, subject, intent, source }) => {
   const parts = [subject || intentLabel, assetLabel].filter(Boolean);
-  if (intent === 'pricing' && source && INQUIRY_SOURCES[source]) parts.push(INQUIRY_SOURCES[source]);
+  if ((intent === 'pricing' || intent === 'profile') && source && INQUIRY_SOURCES[source]) parts.push(INQUIRY_SOURCES[source]);
   return parts.join(' · ');
 };
 

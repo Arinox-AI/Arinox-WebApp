@@ -26,7 +26,7 @@ export function LockedPrice({ per, className = '' }) {
       {/* Tooltip on hover or keyboard focus */}
       <span
         role="tooltip"
-        className="pointer-events-none absolute bottom-full left-0 z-10 mb-2 hidden whitespace-nowrap rounded border border-line bg-white px-2.5 py-1.5 font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink shadow-[0_14px_30px_-14px_rgba(11,11,13,0.35)] group-hover/lk:block group-focus-within/lk:block"
+        className="pointer-events-none absolute bottom-full left-0 z-10 mb-2 hidden whitespace-nowrap rounded border border-line bg-white px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink shadow-[0_14px_30px_-14px_rgba(11,11,13,0.35)] group-hover/lk:block group-focus-within/lk:block"
       >
         Shared in a conversation
       </span>

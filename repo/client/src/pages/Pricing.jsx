@@ -22,7 +22,6 @@ import {
   deployments,
   models,
   inEvery,
-  discoverySteps,
   pricingFaq,
   closingBand,
 } from '../data/pricing';
@@ -119,7 +118,7 @@ export default function Pricing() {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
           <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
         </div>
-        <div className="relative mx-auto grid max-w-6xl items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
+        <div className="relative mx-auto grid max-w-[68.5rem] items-center gap-10 lg:grid-cols-[1.02fr_0.98fr]">
           <Reveal>
             <Label>{pricingHero.eyebrow}</Label>
             <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
@@ -163,7 +162,7 @@ export default function Pricing() {
         items={[
           { n: '01', label: 'What shapes your price', href: '#factors' },
           { n: '02', label: 'Engagement models', href: '#models' },
-          { n: '03', label: 'How it works', href: '#discovery' },
+          { n: '03', label: 'FAQ', href: '#faq' },
         ]}
       />
 
@@ -217,7 +216,7 @@ export default function Pricing() {
           <div className="mt-10 border border-line bg-white">
             <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line px-5 py-3.5 md:px-7">
               <span className="eyebrow text-ember-deep">{models.ladder.label}</span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+              <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
                 Five levels · one visible price
               </span>
             </div>
@@ -232,7 +231,7 @@ export default function Pricing() {
               <Link
                 to={discoveryHref('ladder', { deployment, currency })}
                 onClick={() => track('cta_click', { cta: 'ladder' })}
-                className="group flex items-center gap-2.5 font-mono text-[10.5px] uppercase tracking-[0.12em] text-ember-deep"
+                className="group flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep"
               >
                 <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ember" aria-hidden />
                 {models.ladder.footer}
@@ -263,7 +262,7 @@ export default function Pricing() {
                     key={item}
                     className="grid grid-cols-[2rem_1fr] items-baseline border-b border-line py-3 text-[14.5px] text-ink-soft"
                   >
-                    <span className="num font-mono text-[10px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="num font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
                     <span className="font-display text-[17px] tracking-[-0.01em] text-ink">{item}</span>
                   </li>
                 ))}
@@ -288,7 +287,7 @@ export default function Pricing() {
             <ol className="mt-7 border-t border-white/15">
               {models.custom.includes.map((item, i) => (
                 <li key={item} className="grid grid-cols-[2.25rem_1fr] items-baseline border-b border-white/10 py-3.5">
-                  <span className="num font-mono text-[10.5px] text-ember">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="num font-mono text-[11px] text-ember">{String(i + 1).padStart(2, '0')}</span>
                   <span className="text-[15px] leading-snug text-phos/90">{item}</span>
                 </li>
               ))}
@@ -323,55 +322,12 @@ export default function Pricing() {
           {inEvery.items.map((item, i) => (
             <Reveal key={item.title} delay={i * 0.05}>
               <div className="border-t-2 border-ink pt-5">
-                <span className="num font-mono text-[10.5px] text-ember-deep">{String(i + 1).padStart(2, '0')}</span>
+                <span className="num font-mono text-[11px] text-ember-deep">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="mt-2 font-display text-[20px] tracking-[-0.01em]">{item.title}</h3>
                 <p className="mt-2.5 text-[14.5px] leading-relaxed text-ink-soft">{item.body}</p>
               </div>
             </Reveal>
           ))}
-        </div>
-      </Section>
-
-      {/* ── How Price Discovery works ────────────────────────────── */}
-      <Section id="discovery" className="scroll-mt-[72px]" eyebrow={discoverySteps.eyebrow} title={discoverySteps.title}>
-        <div className="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-          <Reveal>
-            <img
-              src="/images/industries/pricing-survey.svg"
-              alt="Two people reviewing a survey and its results on screens"
-              loading="lazy"
-              className="mx-auto w-full max-w-[480px]"
-            />
-          </Reveal>
-          <ol className="border-t border-ink/80">
-            {discoverySteps.steps.map((step, i) => (
-              <Reveal key={step.title} delay={i * 0.05}>
-                <li className="group grid grid-cols-[3rem_1fr] items-baseline gap-x-3 border-b border-line py-6">
-                  <span className="num font-display text-[34px] leading-none text-ember">{i + 1}</span>
-                  <div>
-                    <h3 className="font-display text-[22px] tracking-[-0.01em]">{step.title}</h3>
-                    <p className="mt-2 max-w-md text-[14.5px] leading-relaxed text-ink-soft">{step.body}</p>
-                  </div>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-line pt-8">
-          <Button
-            to={discoveryHref('steps', { deployment, currency })}
-            variant="ember"
-            onClick={() => track('cta_click', { cta: 'steps' })}
-          >
-            {pricingHero.ctaPrimary} <ArrowRight size={14} strokeWidth={2.2} aria-hidden />
-          </Button>
-          <Link
-            to="/contact?intent=pricing"
-            onClick={() => track('cta_click', { cta: 'steps-talk' })}
-            className="font-mono text-[12px] uppercase tracking-[0.08em] text-ember-deep underline underline-offset-4 hover:text-ink"
-          >
-            {pricingHero.ctaSecondary}
-          </Link>
         </div>
       </Section>
 
@@ -403,7 +359,7 @@ export default function Pricing() {
           />
         </div>
         <div className="relative mx-auto max-w-3xl px-7 text-center">
-          <h2 className="font-display text-[34px] leading-[1.08] tracking-[-0.01em] text-phos md:text-[50px]">
+          <h2 className="font-display text-[34px] leading-[1.08] tracking-[-0.01em] text-phos md:text-[52px]">
             {closingBand.titleA}{' '}
             {/* On void, .text-ember renders the AA-safe bright tint (see index.css) */}
             <span className="italic text-ember">{closingBand.titleAccent}</span>

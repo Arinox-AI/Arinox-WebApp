@@ -80,11 +80,11 @@ const layers = [
         </div>
 
         <div className="relative flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-line px-5 py-4 md:px-8">
-          <span className="inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">
+          <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">
             <ArrowDown size={13} strokeWidth={2.2} className="text-ember" />
             Foundation first · layer by layer
           </span>
-          <span className="inline-flex items-center gap-2 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">
+          <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">
             <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
             Runs entirely inside your perimeter
           </span>
@@ -114,7 +114,7 @@ const layers = [
                 <div className="max-w-2xl">
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                     <h3 className="font-display text-[22px] tracking-[-0.015em]">{l.name}</h3>
-                    <span className="font-mono text-[10.5px] uppercase tracking-[0.11em] text-ember-deep">{l.role}</span>
+                    <span className="font-mono text-[11px] uppercase tracking-[0.11em] text-ember-deep">{l.role}</span>
                   </div>
                   <p className="mt-2 text-[14.5px] leading-relaxed text-ink-soft">{l.desc}</p>
                 </div>

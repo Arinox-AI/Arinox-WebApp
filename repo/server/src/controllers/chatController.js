@@ -1,6 +1,8 @@
-const { getGroq, MODEL, TEMPERATURE, MAX_TOKENS, REQUEST_TIMEOUT_MS } = require('../chat/groq');
-const { SYSTEM_PROMPT } = require('../chat/prompt');
+const { createCompletion, MODEL, REQUEST_TIMEOUT_MS } = require('../chat/groq');
+const { buildSystemPrompt } = require('../chat/prompt');
+const { selectKnowledge } = require('../chat/retrieve');
 const { screenInput, screenOutput, REINFORCEMENT, HARD_REFUSAL } = require('../chat/guardrails');
+const { logExchange } = require('../chat/store');
 
 const MAX_MESSAGES = 12;
 const MAX_CHARS = 1500;
@@ -24,6 +26,9 @@ function normalize(messages) {
 
 const lastUserMessage = (sanitized) => [...sanitized].reverse().find((m) => m.role === 'user')?.content || '';
 
+// Which page the visitor was on - lets the log show what each page prompts.
+const pageOf = (body) => (typeof body?.page === 'string' && body.page.startsWith('/') ? body.page : null);
+
 function buildPrompt(sanitized) {
   // A high-confidence injection anywhere in the user's turns is refused — the
   // client controls history, so an attacker could try to bury one earlier.
@@ -31,7 +36,9 @@ function buildPrompt(sanitized) {
   if (hard) return { messages: [], screened: { level: 'hard', reason: 'injection' } };
 
   const screened = screenInput(lastUserMessage(sanitized));
-  const messages = [{ role: 'system', content: SYSTEM_PROMPT }];
+  // Only the knowledge this conversation needs: keeps each request well inside
+  // Groq's per-minute token budget (see chat/retrieve.js).
+  const messages = [{ role: 'system', content: buildSystemPrompt(selectKnowledge(sanitized)) }];
   if (screened.level === 'soft') messages.push({ role: 'system', content: REINFORCEMENT });
   return { messages: [...messages, ...sanitized], screened };
 }
@@ -42,6 +49,17 @@ function friendlyError(err) {
   if (err?.name === 'AbortError') return 'Arin took too long to respond. Please try again.';
   return 'Sorry, something went wrong. Please try again.';
 }
+
+/* Streamed text is tidied as it arrives: exotic spaces become plain spaces,
+ * zero-width characters are dropped, the non-breaking hyphen becomes '-'.
+ * Built from char codes so the source holds no invisible characters. */
+const charClass = (codes) => new RegExp(`[${codes.map((c) => String.fromCharCode(c)).join('')}]`, 'g');
+const ODD_SPACES = charClass([0xa0, 0x2007, 0x2009, 0x202f, 0x2002, 0x2003]);
+const ZERO_WIDTH = charClass([0x200b, 0x200c, 0x200d, 0xfeff]);
+const NB_HYPHEN = charClass([0x2011]);
+const tidyDelta = (text) => text.replace(ODD_SPACES, ' ').replace(ZERO_WIDTH, '').replace(NB_HYPHEN, '-');
+
+const errorReason = (err) => (err?.status ? `http-${err.status}` : 'upstream');
 
 /* ── Non-streaming ───────────────────────────────────────────────────────── */
 const chatHandler = async (req, res) => {
@@ -56,9 +74,13 @@ const chatHandler = async (req, res) => {
   }
 
   const { messages: prompt, screened } = buildPrompt(sanitized);
+  const question = lastUserMessage(sanitized);
+  const page = pageOf(req.body);
+  const startedAt = Date.now();
 
   // High-confidence injection: refuse without spending a token.
   if (screened.level === 'hard') {
+    await logExchange({ question, reply: HARD_REFUSAL, blocked: true, reason: 'injection', model: MODEL, page });
     return res.json({ reply: HARD_REFUSAL });
   }
 
@@ -66,14 +88,16 @@ const chatHandler = async (req, res) => {
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    const completion = await getGroq().chat.completions.create(
-      { model: MODEL, messages: prompt, max_tokens: MAX_TOKENS, temperature: TEMPERATURE },
+    const completion = await createCompletion(
+      { messages: prompt },
       { signal: controller.signal },
     );
     const raw = completion.choices?.[0]?.message?.content ?? '';
-    const { text } = screenOutput(raw);
+    const { text, blocked, reason } = screenOutput(raw);
+    await logExchange({ question, reply: text, blocked, reason, latencyMs: Date.now() - startedAt, model: MODEL, page });
     return res.json({ reply: text });
   } catch (err) {
+    await logExchange({ question, reply: '', error: true, reason: errorReason(err), latencyMs: Date.now() - startedAt, model: MODEL, page });
     return res.status(502).json({ message: friendlyError(err) });
   } finally {
     clearTimeout(timer);
@@ -99,6 +123,9 @@ const chatStreamHandler = async (req, res) => {
   }
 
   const { messages: prompt, screened } = buildPrompt(sanitized);
+  const question = lastUserMessage(sanitized);
+  const page = pageOf(req.body);
+  const startedAt = Date.now();
 
   res.writeHead(200, {
     'Content-Type': 'text/event-stream; charset=utf-8',
@@ -117,6 +144,7 @@ const chatStreamHandler = async (req, res) => {
 
   if (screened.level === 'hard') {
     send({ delta: HARD_REFUSAL });
+    await logExchange({ question, reply: HARD_REFUSAL, blocked: true, reason: 'injection', model: MODEL, page });
     return finish();
   }
 
@@ -130,18 +158,13 @@ const chatStreamHandler = async (req, res) => {
   res.on('close', () => { abortedByClient = true; });
 
   try {
-    const stream = await getGroq().chat.completions.create(
-      { model: MODEL, messages: prompt, max_tokens: MAX_TOKENS, temperature: TEMPERATURE, stream: true },
+    const stream = await createCompletion(
+      { messages: prompt, stream: true },
       { signal: controller.signal },
     );
 
     for await (const chunk of stream) {
-      const delta = (chunk.choices?.[0]?.delta?.content || '')
-        .replace(/[\u00a0\u2007\u2009\u202f\u2002\u2003]/g, ' ')
-        /* Intentional: strip each zero-width code point individually. */
-        // eslint-disable-next-line no-misleading-character-class
-        .replace(/[\u200b\u200c\u200d\ufeff]/g, '')
-        .replace(/\u2011/g, '-');
+      const delta = tidyDelta(chunk.choices?.[0]?.delta?.content || '');
       if (delta) {
         full += delta;
         send({ delta });
@@ -150,8 +173,11 @@ const chatStreamHandler = async (req, res) => {
 
     // screenOutput also normalises markdown and stray unicode. If that changed
     // anything — or blocked the reply — tell the client to replace what it got.
-    const { text } = screenOutput(full);
+    const { text, blocked, reason } = screenOutput(full);
     if (text !== full) send({ replace: text });
+    // Logged BEFORE the stream closes: a serverless function can be frozen the
+    // moment the response ends. The write is time-boxed inside logExchange.
+    await logExchange({ question, reply: text, blocked, reason, latencyMs: Date.now() - startedAt, model: MODEL, page });
     finish();
   } catch (err) {
     if (abortedByClient) {
@@ -160,10 +186,12 @@ const chatStreamHandler = async (req, res) => {
     }
     if (full) {
       // Partial answer already delivered — screen and close cleanly.
-      const { text } = screenOutput(full);
+      const { text, blocked, reason } = screenOutput(full);
       if (text !== full) send({ replace: text });
+      await logExchange({ question, reply: text, blocked, reason, latencyMs: Date.now() - startedAt, model: MODEL, page });
       return finish();
     }
+    await logExchange({ question, reply: '', error: true, reason: errorReason(err), latencyMs: Date.now() - startedAt, model: MODEL, page });
     send({ error: friendlyError(err) });
     if (!res.writableEnded) res.end();
   } finally {

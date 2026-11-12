@@ -3,11 +3,10 @@ import SEO from '../components/ui/SEO';
 import { Section } from '../components/site/Section';
 import { Button } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
-import { ComplianceStrip } from '../components/site/ComplianceStrip';
+import { LayerStack } from '../components/site/LayerStack';
 import { Label } from '../components/site/Layout';
 import { CtaBand } from '../components/site/Shell';
-import { tiers, headlineClaims, governance, kogo } from '../data/commandcore';
-import { complianceGroups } from '../data/compliance';
+import { tiers, headlineClaims, governance, kogo, businessApps, deployOptions, stackIntro, appsIntro } from '../data/commandcore';
 
 const SPECS_PDF = '/downloads/arinox-commandcore-specs.pdf';
 
@@ -16,18 +15,6 @@ const tierImages = {
   m: '/images/commandcore/commandcore-m1.webp',
   xl: '/images/commandcore/commandcore-xl2.webp',
 };
-
-const uses = [
-  { k: 'Defence', t: 'Tactical deployments', d: 'Sovereign systems under national security constraints, audited end to end, multi-agent coordination for autonomous platforms.' },
-  { k: 'Field ops', t: 'Remote sites', d: 'Mines, plants, vessels, outposts, intelligence where backhaul doesn’t exist. Rugged, self-contained operation.' },
-  { k: 'Regulated', t: 'Compliance-first estates', d: 'BFSI and healthcare floors where the regulator knows the data never moved. Audit coverage by architecture.' },
-];
-
-const runsOn = [
-  'Large model inference', 'Document intelligence', 'Computer vision', 'Voice agents',
-  'Multi-agent orchestration', 'Cloud-free simulation', 'Real-time intelligence', 'Autonomous systems & IoT AI',
-  'Batch processing', 'Edge video analytics', 'Enterprise telephony', 'Cited, governed knowledge',
-];
 
 const CommandCore = () => (
   <>
@@ -51,7 +38,7 @@ const CommandCore = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
+      <div className="relative mx-auto grid max-w-[68.5rem] items-center gap-12 lg:grid-cols-[1fr_0.9fr]">
         <div className="text-center lg:text-left">
           <div className="mb-5 flex justify-center lg:justify-start"><Label>Sovereign · on-premises · air-gapped</Label></div>
           <h1 className="font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
@@ -98,7 +85,7 @@ const CommandCore = () => (
     <Section border>
       <Label>The lineup</Label>
       <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[44px]">
+        <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
           Three machines. One operating system.
         </h2>
         <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
@@ -138,23 +125,43 @@ const CommandCore = () => (
       </div>
     </Section>
 
-    {/* Compliance, hardware marks only */}
+    {/* The stack */}
     <Section border>
-      <Label>Compliance</Label>
-      <div className="mt-6 grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
-        <div>
-          <h2 className="max-w-md font-display text-[28px] leading-tight tracking-[-0.01em] md:text-[38px]">
-            Certified to ship into regulated environments.
-          </h2>
-          <p className="mt-4 max-w-sm text-[15.5px] leading-relaxed text-ink-soft">
-            The appliance carries the product-safety and quality marks enterprise and government
-            buyers require.
-          </p>
-        </div>
-        <ComplianceStrip
-          groups={complianceGroups.filter((g) => g.key === 'hardware')}
-          className="self-center"
-        />
+      <Label>{stackIntro.overline}</Label>
+      <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+        {stackIntro.title}
+      </h2>
+      <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">{stackIntro.lead}</p>
+      <div className="mt-10">
+        <LayerStack />
+      </div>
+      <p className="mt-8 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">{stackIntro.foot}</p>
+    </Section>
+
+    {/* The fork: where it runs */}
+    <Section dark border={false}>
+      <Label dark>{deployOptions.overline}</Label>
+      <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
+        {deployOptions.title}
+      </h2>
+      <p className="mt-5 max-w-2xl text-[17px] leading-relaxed text-ghost">{deployOptions.lead}</p>
+      <div className="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-3">
+        {deployOptions.options.map((d) => (
+          <div key={d.t} className="border-t border-white/20 pt-7">
+            <div className="flex items-center justify-between gap-4">
+              <h3 className="font-display text-[22px] tracking-[-0.01em] text-phos">{d.t}</h3>
+              {d.sovereign && (
+                <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember">Max sovereignty</span>
+              )}
+            </div>
+            <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d.d}</p>
+            <ul className="mt-6">
+              {d.li.map((l) => (
+                <li key={l} className="border-b border-white/10 py-2.5 text-sm text-ghost last:border-b-0">{l}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </Section>
 
@@ -182,45 +189,53 @@ const CommandCore = () => (
       </div>
     </Section>
 
-    {/* What runs on it */}
-    <Section dark border={false}>
-      <Label dark>What runs on it</Label>
-      <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
-        <h2 className="max-w-2xl font-display text-[30px] leading-tight tracking-[-0.01em] text-phos md:text-[42px]">
-          No prototypes. Enterprise-ready agents, deployable today.
+    {/* KOGO OS, the agentic layer (#kogo is linked from Home) */}
+    <Section border id="kogo" className="scroll-mt-[72px]">
+      <Label>The agentic layer &middot; {kogo.name}</Label>
+      <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+        <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
+          Infrastructure becomes work.
         </h2>
-        <p className="max-w-sm text-[15px] leading-relaxed text-ghost">
-          All local, all logged. Powered by KOGO OS.
+        <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">
+          Sitting on the data layer, {kogo.name} turns that infrastructure into agents that plan,
+          act and stay accountable.
         </p>
       </div>
-      <div className="mt-12 grid gap-x-16 sm:grid-cols-2">
-        {runsOn.map((w) => (
-          <div key={w} className="border-b border-white/10 py-3.5 text-[14.5px] text-ghost">{w}</div>
-        ))}
-      </div>
-      <div className="mt-10 flex flex-wrap gap-2.5">
-        {kogo.badges.map((b, i) => (
-          <span key={b} className={`rounded-full border px-4 py-1.5 text-sm font-medium ${i === 0 ? 'border-ember bg-ember text-white' : 'border-white/25 text-ghost'}`}>{b}</span>
+      <p className="mt-6 max-w-3xl text-[17px] leading-relaxed text-ink-soft">{kogo.desc}</p>
+      <div className="mt-10 grid gap-x-16 gap-y-0 sm:grid-cols-2">
+        {kogo.points.map((p) => (
+          <div key={p} className="border-b border-line py-3.5 text-[14.5px] leading-relaxed text-ink-soft">{p}</div>
         ))}
       </div>
     </Section>
 
-    {/* Where it goes */}
-    <Section border>
-      <Label>Where it goes</Label>
-      <h2 className="mt-5 max-w-2xl font-display text-[30px] leading-tight tracking-[-0.01em] md:text-[42px]">
-        Built for the edges of the map.
-      </h2>
-      <div className="mt-12 grid gap-x-16 gap-y-10 md:grid-cols-3">
-        {uses.map((u) => (
-          <div key={u.t} className="border-t border-ink/80 pt-6">
-            <p className="eyebrow text-ink-faint">{u.k}</p>
-            <h3 className="mt-4 font-display text-[21px] tracking-[-0.01em]">{u.t}</h3>
-            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{u.d}</p>
+    {/* Included applications */}
+    <Section dark border={false}>
+      <div className="flex flex-wrap items-end justify-between gap-6">
+        <div>
+          <Label dark>{appsIntro.overline}</Label>
+          <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
+            {appsIntro.title}
+          </h2>
+        </div>
+        <p className="max-w-sm text-[15px] leading-relaxed text-ghost">{appsIntro.side}</p>
+      </div>
+      <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">{appsIntro.lead}</p>
+      <div className="mt-10 grid gap-x-16 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {businessApps.map((a) => (
+          <div key={a.name} className="border-t border-white/20 pt-6">
+            <p className="eyebrow text-ember">{a.name}</p>
+            {a.full && (
+              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ghost">{a.full}</p>
+            )}
+            <p className="mt-3 text-[14.5px] leading-relaxed text-ghost">{a.desc}</p>
           </div>
         ))}
       </div>
-      <p className="mt-12 text-[13.5px] text-ink-faint">We run your workload on the appliance before you commit. Seeing beats believing.</p>
+      <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+        <Button to="/contact" variant="ghostDark" size="sm">{appsIntro.cta}</Button>
+        <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ghost">{appsIntro.foot}</span>
+      </div>
     </Section>
 
     <CtaBand

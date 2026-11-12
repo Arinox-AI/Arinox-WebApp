@@ -31,7 +31,7 @@ export function SystemsPanel({ suite }) {
     <div className="overflow-hidden border border-line bg-white">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line px-5 py-3.5">
         <span className="eyebrow text-ember-deep">{systems.label}</span>
-        <span className="font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">{systems.note}</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">{systems.note}</span>
       </div>
       <ul className="grid px-5 py-1 sm:grid-cols-2 sm:gap-x-10">
         {systems.items.map((s) => (
@@ -39,15 +39,15 @@ export function SystemsPanel({ suite }) {
             key={s.n}
             className="grid grid-cols-[2.25rem_1fr_auto] items-baseline gap-x-3 border-b border-line py-[7px] last:border-b-0 sm:[&:nth-last-child(-n+2)]:border-b-0"
           >
-            <span className="font-mono text-[10px] text-ink-faint">{s.n}</span>
+            <span className="font-mono text-[11px] text-ink-faint">{s.n}</span>
             <span className="font-display text-[16px] tracking-[-0.01em]">{s.t}</span>
-            <span className="text-right font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">{s.stage}</span>
+            <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{s.stage}</span>
           </li>
         ))}
       </ul>
       <div className="flex items-center gap-2.5 border-t border-line bg-paper-2/60 px-5 py-3">
         <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ember" aria-hidden />
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">
           {systems.footer}
         </span>
       </div>
@@ -63,7 +63,7 @@ export function WatchListCard({ suite }) {
     <div className="relative">
       <div className="overflow-hidden border border-white/10">
         <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5">
-          <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ember">{gap.watch.label}</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.16em] text-ember">{gap.watch.label}</span>
           <span className="relative flex h-2 w-2" aria-hidden>
             <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-ember/60" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-ember" />
@@ -73,7 +73,7 @@ export function WatchListCard({ suite }) {
           {gap.watch.rows.map((r) => (
             <li key={r.t} className="grid grid-cols-[auto_5.5rem_1fr] items-start gap-x-3 border-b border-white/10 px-5 py-3.5">
               <span aria-hidden className="mt-[7px] h-1.5 w-1.5 rounded-full bg-ember/80" />
-              <span className="pt-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-ghost/60">{r.t}</span>
+              <span className="pt-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ghost/60">{r.t}</span>
               <span className="text-[13.5px] leading-relaxed text-ghost">{r.d}</span>
             </li>
           ))}
@@ -103,7 +103,7 @@ export function LoopBoard({ suite }) {
             {cockpit.signalsIn.map((s) => (
               <li key={s.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
                 <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{s.t}</span>
-                <span className="text-right font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{s.d}</span>
+                <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{s.d}</span>
               </li>
             ))}
           </ul>
@@ -117,7 +117,7 @@ export function LoopBoard({ suite }) {
           <ol className="mt-4 border-t border-ember/30">
             {cockpit.agents.map((a, i) => (
               <li key={a.t} className="grid grid-cols-[auto_1fr] items-start gap-x-3.5 border-b border-ember/20 py-4 last:border-b-0">
-                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[10px] text-ember-deep">
+                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[11px] text-ember-deep">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -146,7 +146,7 @@ export function LoopBoard({ suite }) {
             {cockpit.decisionsOut.map((d) => (
               <li key={d.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
                 <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{d.t}</span>
-                <span className="text-right font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{d.d}</span>
+                <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{d.d}</span>
               </li>
             ))}
           </ul>
@@ -155,7 +155,7 @@ export function LoopBoard({ suite }) {
 
       {/* Return rail: the decision feeds the next signal */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line bg-paper-2/60 px-5 py-3.5 md:px-6">
-        <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">
+        <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">
           <RefreshCw size={12} strokeWidth={2.4} className="animate-spin [animation-duration:8s]" aria-hidden />
           the loop
         </span>
@@ -163,7 +163,7 @@ export function LoopBoard({ suite }) {
           aria-hidden
           className="hidden h-px min-w-[48px] flex-1 bg-[repeating-linear-gradient(90deg,var(--color-line)_0_5px,transparent_5px_10px)] sm:block"
         />
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
           every action becomes the next signal
         </span>
       </div>

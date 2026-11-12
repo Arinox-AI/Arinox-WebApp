@@ -45,14 +45,16 @@ const routes = [
   { path: '/case-studies', heading: /deployed inside the perimeter/i },
   { path: '/case-studies/situational-awareness', heading: /situational awareness/i },
   { path: '/case-studies/does-not-exist', heading: /case study not found/i },
-  { path: '/industries', heading: /built for your sector/i },
+  { path: '/industries', heading: /one ai appliance/i },
   { path: '/industries/marketing', heading: /marketing\s+os/i },
   { path: '/industries/fashion-lifestyle', heading: /fashion\s*&\s*lifestyle\s+os/i },
   { path: '/industries/industrial', heading: /manufacturing\s+os/i },
   { path: '/industries/secure', heading: /secure\s+os/i },
+  { path: '/industries/digital-twin', heading: /digital\s+twin/i },
   { path: '/pricing', heading: /we don\u2019t sell seats/i },
-  { path: '/pricing/discovery', heading: /4 minutes\. 10 questions/i },
   { path: '/partners', heading: /assembled around/i },
+  { path: '/people', heading: /people behind arinox/i },
+  { path: '/get-started', heading: /tell us about your business/i },
   { path: '/blog', heading: /from inside/i },
   { path: '/blog/aks-workshop-global-sovereign-ai', heading: /aks workshop global/i },
   { path: '/careers', heading: /build systems that/i },
@@ -73,8 +75,8 @@ describe('every public route renders real content', () => {
 describe('header navigation', () => {
   it('top-level nav links route between pages', async () => {
     renderAt('/');
-    fireEvent.click(mainNav().getByRole('link', { name: /^commandcore$/i }));
-    expect(await heading(/commandcore/i)).toBeTruthy();
+    fireEvent.click(mainNav().getByRole('link', { name: /^people$/i }));
+    expect(await heading(/people behind arinox/i)).toBeTruthy();
 
     fireEvent.click(mainNav().getByRole('link', { name: /^partners$/i }));
     expect(await heading(/assembled around/i)).toBeTruthy();
@@ -132,6 +134,11 @@ describe('legacy URL redirects', () => {
   it('/solutions redirects to CommandCore', async () => {
     renderAt('/solutions');
     expect(await heading(/commandcore/i)).toBeTruthy();
+  }, 20000);
+
+  it('/pricing/discovery redirects to the client intake page', async () => {
+    renderAt('/pricing/discovery');
+    expect(await heading(/tell us about your business/i)).toBeTruthy();
   }, 20000);
 
   it('/about redirects to the homepage', async () => {

@@ -17,7 +17,7 @@ const AUTO_REPLIES = {
     body: 'Thank you for writing to Arinox AI. We have your message and a person from the team will reply shortly.',
     steps: [
       'Our team reads your message',
-      'We reply within one working day',
+      'We reply soon',
       'If it helps, we book a 30-minute discovery call with you',
     ],
   },
@@ -26,7 +26,7 @@ const AUTO_REPLIES = {
     body: 'Thank you for reaching out about working with Arinox AI. We have your note and someone from the team will come back to you.',
     steps: [
       'Our partnerships lead reads your note',
-      'We reply within one working day',
+      'We reply soon',
       'If it fits, we set up a short call',
     ],
   },
@@ -66,6 +66,15 @@ const AUTO_REPLIES = {
     ],
     asset: { name: 'Secure OS playbook (PDF)' },
   },
+  'digital-twin-brief': {
+    subject: 'Your Digital Twin++ brief',
+    body: 'Thank you for requesting the Digital Twin++ brief. We’ll send your copy shortly.',
+    steps: [
+      'The team will follow up soon',
+      'If it helps, we map your first module and its data sources on a call',
+    ],
+    asset: { name: 'Digital Twin++ brief (PDF)' },
+  },
   /* Price Discovery wizard confirmation. No `asset` on purpose: nothing is
      auto-attached, and no price is ever sent by email: the team shares it in
      the 30-minute conversation. */
@@ -73,8 +82,18 @@ const AUTO_REPLIES = {
     subject: 'Your Price Discovery answers are in review',
     body: 'Thank you — your answers are with an Arinox architect, who will read them before you speak.',
     steps: [
-      'An architect reviews your answers and gets in touch within one business day',
+      'An architect reviews your answers and gets in touch soon',
       'Your 30-minute conversation: your price is shared there, built around your answers',
+    ],
+  },
+  /* Home-page client intake (the ten-question business profile). No asset and no
+     pricing language: an architect reads the profile and replies. */
+  'business-profile': {
+    subject: 'Your business profile is in review',
+    body: 'Thank you for telling us about your business. An Arinox architect will read your profile before we speak.',
+    steps: [
+      'An architect reviews your profile and replies soon',
+      'If it helps, we book a 30-minute conversation built around your answers',
     ],
   },
 };

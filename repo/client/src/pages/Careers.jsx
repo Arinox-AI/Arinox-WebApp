@@ -25,7 +25,7 @@ const getJdBySlug = (roles, role) => {
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
 
 const Chip = ({ children }) => (
-  <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">
+  <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">
     {children}
   </span>
 );
@@ -208,7 +208,7 @@ const Careers = () => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
           <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
         </div>
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-[68.5rem]">
           <Label>Careers</Label>
           <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
             Build systems that <span className="italic text-ember">have to work.</span>
@@ -275,7 +275,7 @@ const Careers = () => {
                     }`}
                   >
                     {d}
-                    <span className={`num text-[10px] ${on ? 'text-white/60' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
+                    <span className={`num text-[11px] ${on ? 'text-white/60' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
                   </button>
                 );
               })}

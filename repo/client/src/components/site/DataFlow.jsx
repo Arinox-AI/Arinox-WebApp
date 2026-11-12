@@ -45,7 +45,7 @@ export function DataFlow({ className = '' }) {
               <span className="pointer-events-none absolute left-[13px] top-[27px] hidden h-6 w-px bg-line lg:block" aria-hidden />
 
               <span
-                className={`relative z-10 flex h-[27px] w-[27px] items-center justify-center rounded-full border font-mono text-[10.5px] ${DOT[node.tone] ?? DOT.light}`}
+                className={`relative z-10 flex h-[27px] w-[27px] items-center justify-center rounded-full border font-mono text-[11px] ${DOT[node.tone] ?? DOT.light}`}
               >
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -55,7 +55,7 @@ export function DataFlow({ className = '' }) {
                   <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${TONES[node.tone] ?? TONES.light}`}>
                     {ICONS[i]}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.13em] text-ember-deep">{node.k}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.13em] text-ember-deep">{node.k}</span>
                 </div>
                 <p className="mt-4 font-display text-[20px] leading-[1.15] tracking-[-0.01em] text-ink">{node.t}</p>
                 <p className="mt-2.5 text-[13px] leading-relaxed text-ink-soft">{node.d}</p>
@@ -67,8 +67,8 @@ export function DataFlow({ className = '' }) {
 
       <div className="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-line pt-4">
         <span className="h-1.5 w-1.5 rounded-full bg-ember" aria-hidden />
-        <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-ember-deep">{dataReadiness.governance}</span>
-        <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">· {dataReadiness.governanceNote}</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep">{dataReadiness.governance}</span>
+        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">· {dataReadiness.governanceNote}</span>
       </div>
     </div>
   )

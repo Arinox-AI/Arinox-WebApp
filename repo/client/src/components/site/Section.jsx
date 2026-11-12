@@ -28,7 +28,7 @@ export function Section({
             {eyebrow && <Eyebrow dark={dark} centered={centered}>{eyebrow}</Eyebrow>}
             {title && (
               <h2
-                className={`${centered ? 'max-w-2xl mx-auto' : 'max-w-2xl'} font-display text-3xl md:text-[44px] leading-[1.08] tracking-[-0.01em] ${
+                className={`${centered ? 'max-w-2xl mx-auto' : 'max-w-2xl'} font-display text-[34px] md:text-[46px] leading-[1.08] tracking-[-0.02em] ${
                   dark ? 'text-phos' : ''
                 }`}
               >

@@ -12,13 +12,32 @@
 
 export const industriesMeta = {
   overline: 'All products',
-  titleLead: 'AI operating systems.',
-  titleAccent: 'Built for your sector.',
-  lead: 'Packaged AI products, built sector by sector — your data inside, every decision yours.',
+  titleLead: 'One AI appliance.',
+  titleAccent: 'Five operating systems.',
+  lead: 'CommandCore, our sovereign AI appliance, and packaged AI operating systems built sector by sector — your data inside, every decision yours.',
   spine: 'Signals in, decisions out, you approve — the same loop under every product.',
 };
 
 export const products = [
+  /* The appliance comes first: "Products" in the nav lands here, so the
+     flagship must be on this page, not only in the dropdown. */
+  {
+    id: 'commandcore',
+    name: 'CommandCore™',
+    status: '',
+    available: true,
+    tagline: 'Agentic AI in a box.',
+    line: 'Our sovereign AI appliance: a self-contained micro-datacenter that brings compute, models, agentic intelligence and governance inside your perimeter.',
+    info: [
+      { t: 'Runs', d: 'in your building, air-gapped' },
+      { t: 'Inside', d: 'compute, models, KOGO OS' },
+      { t: 'Out', d: 'zero data egress' },
+    ],
+    visual: '/images/commandcore/commandcore-xl2.webp',
+    visualAlt: 'The CommandCore XL appliance',
+    to: '/commandcore',
+    cta: 'Open CommandCore',
+  },
   {
     id: 'marketing-os',
     name: 'Marketing OS',
@@ -88,6 +107,24 @@ export const products = [
     visualAlt: 'A person standing beside a large shield — an unDraw illustration recoloured to the site palette',
     to: '/industries/secure',
     cta: 'Open Secure OS',
+  },
+  {
+    id: 'digital-twin',
+    name: 'Digital Twin++',
+    status: '',
+    available: true,
+    tagline: 'A twin that sees, predicts and acts.',
+    line: 'The sovereign, AI-native digital twin for government and defence sites: operations, security, assets, simulation, cyber and crisis response in one live picture — air-gapped, with a human approving every action.',
+    info: [
+      { t: 'Signals in', d: 'cameras, sensors, systems, drawings' },
+      { t: 'Agents', d: 'see, understand, predict' },
+      { t: 'Decisions out', d: 'work orders, alerts, re-plans' },
+    ],
+    visual: '/images/industries/digital-twin.svg',
+    visualAlt: 'A site with a runway and buildings, and above it a floating twin layer of the same buildings in outline, linked by dotted lines',
+    to: '/industries/digital-twin',
+    cta: 'Open Digital Twin++',
+    sectors: 'Airports · Defence bases · Ports · Rail · Power · Secure campuses',
   },
 ];
 

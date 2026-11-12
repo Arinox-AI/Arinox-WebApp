@@ -17,7 +17,7 @@ const NotFound = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-[68.5rem]">
         <Label>404</Label>
         <h1 className="mt-5 max-w-3xl font-display text-[44px] leading-[1.04] tracking-[-0.025em] md:text-[64px]">
           This page left the <span className="italic text-ember">perimeter.</span>

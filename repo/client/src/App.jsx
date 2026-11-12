@@ -14,16 +14,18 @@ const CommandCore = lazy(() => import('./pages/CommandCore'));
 const CaseStudies = lazy(() => import('./pages/CaseStudies'));
 const CaseStudyDetail = lazy(() => import('./pages/CaseStudyDetail'));
 const Partners = lazy(() => import('./pages/Partners'));
+const People = lazy(() => import('./pages/People'));
+const GetStarted = lazy(() => import('./pages/GetStarted'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Industries = lazy(() => import('./pages/Industries'));
 const Pricing = lazy(() => import('./pages/Pricing'));
-const PriceDiscovery = lazy(() => import('./pages/PriceDiscovery'));
 const MarketingSuite = lazy(() => import('./pages/MarketingSuite'));
 const FashionLifestyleSuite = lazy(() => import('./pages/FashionLifestyleSuite'));
 const IndustrialSuite = lazy(() => import('./pages/IndustrialSuite'));
 const SecureOsSuite = lazy(() => import('./pages/SecureOsSuite'));
+const DigitalTwinSuite = lazy(() => import('./pages/DigitalTwinSuite'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
@@ -53,17 +55,32 @@ const Loader = () => (
 // Scroll to top on route change
 if (typeof window !== 'undefined') window.history.scrollRestoration = 'manual';
 const ScrollReset = () => {
-  const { pathname } = useLocation();
-  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: 'instant' }); }, [pathname]);
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+      return undefined;
+    }
+    /* Anchor links (e.g. /#intake): the lazy page may not be mounted yet, so
+       retry briefly until the target exists, then scroll to it. */
+    let tries = 0;
+    let timer = 0;
+    const seek = () => {
+      const el = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (el) {
+        el.scrollIntoView({ behavior: 'instant', block: 'start' });
+        return;
+      }
+      if (tries++ < 30) timer = setTimeout(seek, 100);
+    };
+    seek();
+    return () => clearTimeout(timer);
+  }, [pathname, hash]);
   return null;
 };
 
 const AppInner = () => {
   const location = useLocation();
-  /* The wizard is a focused flow: it suppresses the site footer + chatbot
-     and keeps only the nav chrome. */
-  const isWizard = location.pathname.startsWith('/pricing/discovery');
-
   return (
     <BookCtaProvider>
       <ScrollReset />
@@ -79,14 +96,17 @@ const AppInner = () => {
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
               <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
               <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
-              {/* Wizard: no PageTransition wrap — it manages its own animated steps */}
-              <Route path="/pricing/discovery" element={<PriceDiscovery />} />
+              {/* The Price Discovery wizard became the client intake page (/get-started) */}
+              <Route path="/pricing/discovery" element={<Navigate to="/get-started" replace />} />
               <Route path="/industries/marketing" element={<PageTransition><MarketingSuite /></PageTransition>} />
               <Route path="/industries/fashion-lifestyle" element={<PageTransition><FashionLifestyleSuite /></PageTransition>} />
               <Route path="/industries/industrial" element={<PageTransition><IndustrialSuite /></PageTransition>} />
               <Route path="/industries/secure" element={<PageTransition><SecureOsSuite /></PageTransition>} />
+              <Route path="/industries/digital-twin" element={<PageTransition><DigitalTwinSuite /></PageTransition>} />
               <Route path="/industries/apparel" element={<Navigate to="/industries/fashion-lifestyle" replace />} />
               <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
+              <Route path="/get-started" element={<PageTransition><GetStarted /></PageTransition>} />
+              <Route path="/people" element={<PageTransition><People /></PageTransition>} />
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
               <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
@@ -102,8 +122,8 @@ const AppInner = () => {
           </AnimatePresence>
         </Suspense>
       </main>
-      {!isWizard && <Footer />}
-      {!isWizard && <ArinoxChatBot />}
+      <Footer />
+      <ArinoxChatBot />
       <Analytics route={location.pathname} path={location.pathname} />
     </BookCtaProvider>
   );

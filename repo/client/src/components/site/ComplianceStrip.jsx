@@ -31,12 +31,12 @@ export function ComplianceStrip({ groups = complianceGroups, className = '' }) {
                   className="inline-flex items-baseline gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 transition-colors hover:border-ink/25"
                 >
                   <span className="font-mono text-[11.5px] tracking-[0.02em] text-ink-soft">{it.k}</span>
-                  <span className="font-mono text-[9.5px] uppercase tracking-[0.1em] text-ink-faint">{it.v}</span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{it.v}</span>
                 </li>
               ))}
             </ul>
             {g.note && (
-              <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{g.note}</p>
+              <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{g.note}</p>
             )}
           </div>
         </div>

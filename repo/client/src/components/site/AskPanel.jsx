@@ -24,7 +24,7 @@ export function AskPanel({ ask }) {
         <ul className="mt-10 border-t border-ink/80">
           {ask.questions.map((q) => (
             <li key={q.t} className="grid items-baseline gap-x-6 border-b border-line py-5 sm:grid-cols-[9rem_1fr]">
-              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">{q.t}</span>
+              <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">{q.t}</span>
               <p className="font-display text-[19px] leading-snug tracking-[-0.01em] md:text-[21px]">
                 &ldquo;{q.q}&rdquo;
               </p>

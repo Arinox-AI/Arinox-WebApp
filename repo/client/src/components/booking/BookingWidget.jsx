@@ -272,7 +272,7 @@ export default function BookingWidget() {
             </span>
           </div>
           <div className="mt-4 grid grid-cols-7 gap-1">
-            {DOW.map((x) => <div key={x} className="pb-1 text-center font-mono text-[10.5px] text-ink-faint">{x}</div>)}
+            {DOW.map((x) => <div key={x} className="pb-1 text-center font-mono text-[11px] text-ink-faint">{x}</div>)}
             {cells}
           </div>
         </div>

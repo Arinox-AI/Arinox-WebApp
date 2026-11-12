@@ -5,7 +5,7 @@ const { generateSlots } = require('../booking/availability');
 const google = require('../booking/googleCalendar');
 const { buildInvite } = require('../booking/ics');
 const store = require('../booking/store');
-const { sendMail, teamCc, bookingConfirmation, bookingNotification } = require('../utils/mailer');
+const { sendMail, teamCc, customerCc, bookingConfirmation, bookingNotification } = require('../utils/mailer');
 
 const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
 // Visitor text that lands in a Google event / invite: no angle brackets (so it can never render as markup or a link
@@ -142,7 +142,7 @@ const createBooking = async (req, res, next) => {
     // Awaited so serverless doesn't freeze before SMTP finishes; failures never fail the booking.
     const results = await Promise.allSettled([
       sendMail({
-        to: clean.email, cc: guests.length ? guests : undefined,
+        to: clean.email, cc: [...new Set([...guests, ...customerCc(clean.email)])],
         subject: `Your discovery session — ${fmt(startAt, cfg.timezone, true)}`,
         html: bookingConfirmation({ name: clean.name, when, visitorWhen, topic: clean.topic, meetLink }),
         ...ical,

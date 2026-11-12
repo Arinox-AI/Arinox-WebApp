@@ -37,7 +37,7 @@ export function ProductTour({ tour }) {
                   selected ? 'text-ink shadow-[inset_0_-2px_0_var(--color-ember)]' : 'text-ink-faint hover:text-ink'
                 }`}
               >
-                <span className="font-mono text-[10px] text-ink-faint/70">{String(i + 1).padStart(2, '0')}</span>
+                <span className="font-mono text-[11px] text-ink-faint/70">{String(i + 1).padStart(2, '0')}</span>
                 <span className="text-[13.5px] font-medium">{s.name}</span>
               </button>
             );
@@ -51,7 +51,7 @@ export function ProductTour({ tour }) {
             <p className="mt-4 font-display text-[20px] leading-snug tracking-[-0.01em] md:text-[22px]">
               {active.blurb}
             </p>
-            <p className="mt-7 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-7 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
               Systems on this stage
             </p>
             <ul className="mt-3 border-t border-line">
@@ -66,7 +66,7 @@ export function ProductTour({ tour }) {
 
           {/* the stage's own read — signals, then what the OS drafts */}
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
               Signals on this stage
             </p>
             <ul className="mt-3 border-t border-line">
@@ -78,7 +78,7 @@ export function ProductTour({ tour }) {
                       r.tone === 'flag' ? 'bg-ember' : r.tone === 'new' ? 'bg-ember/50' : 'bg-ink-faint/50'
                     }`}
                   />
-                  <span className="w-24 shrink-0 font-mono text-[10px] uppercase tracking-[0.08em] text-ink-faint">
+                  <span className="w-24 shrink-0 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">
                     {r.k}
                   </span>
                   <span className="min-w-0 text-[13.5px] leading-relaxed text-ink-soft">{r.v}</span>
@@ -88,7 +88,7 @@ export function ProductTour({ tour }) {
 
             {active.console.approve ? (
               <div className="mt-7">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">
                   {active.console.approve.label}
                 </p>
                 <ul className="mt-3 border-t border-ember/30">

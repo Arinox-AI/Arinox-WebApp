@@ -20,7 +20,7 @@ function NavDropdown({ item }) {
   }
   const closeSoon = () => {
     clearTimeout(timeout.current)
-    timeout.current = setTimeout(() => setOpen(false), 140)
+    timeout.current = setTimeout(() => setOpen(false), 320)
   }
 
   useEffect(() => {
@@ -64,9 +64,20 @@ function NavDropdown({ item }) {
                 className="block rounded-btn px-3.5 py-2.5 transition-colors hover:bg-paper-2"
               >
                 <span className="block font-display text-[16.5px] leading-tight tracking-[-0.01em] text-ink">{c.label}</span>
-                <span className="mt-0.5 block font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{c.note}</span>
+                <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{c.note}</span>
               </Link>
             ))}
+            {/* Opt-in footer link (item.allLabel), so the hub page is one click away */}
+            {item.allLabel && (
+              <Link
+                to={item.to}
+                onClick={() => setOpen(false)}
+                className="mt-1 flex items-center justify-between border-t border-line px-3.5 pb-1.5 pt-3 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep transition-colors hover:text-ink"
+              >
+                {item.allLabel}
+                <span aria-hidden>&rarr;</span>
+              </Link>
+            )}
           </div>
         </div>
       )}
@@ -136,7 +147,7 @@ export function Nav() {
             style={{ pointerEvents: showNavCta ? 'auto' : 'none' }}
             aria-hidden={!showNavCta}
           >
-            <Button to="/pricing" variant="ember" size="sm">Talk pricing</Button>
+            <Button to="/pricing" variant="dark" size="sm">Talk pricing</Button>
           </motion.div>
         </div>
 
@@ -168,7 +179,7 @@ export function Nav() {
                   onClick={() => setOpen(false)}
                   className={({ isActive }) => {
                     if (l.heading) {
-                      return `pt-7 pb-2 font-mono text-[10.5px] uppercase tracking-[0.16em] ${isActive ? 'text-ember-deep' : 'text-ink-faint'}`
+                      return `pt-7 pb-2 font-mono text-[11px] uppercase tracking-[0.16em] ${isActive ? 'text-ember-deep' : 'text-ink-faint'}`
                     }
                     return `border-b border-line py-3.5 font-display text-2xl tracking-[-0.01em] transition-colors ${
                       isActive ? 'text-ember' : 'text-ink'

@@ -38,7 +38,7 @@ export function IndexStrip({ items, cols = 'sm:grid-cols-3', className = '' }) {
                   i === active ? 'text-ember-deep' : ''
                 }`}
               >
-                <span className="num font-mono text-[10.5px] text-ember-deep">{it.n}</span>
+                <span className="num font-mono text-[11px] text-ember-deep">{it.n}</span>
                 <span
                   className={`font-display text-[17px] tracking-[-0.01em] transition-colors ${
                     i === active ? 'text-ember-deep' : 'text-ink group-hover:text-ember-deep'

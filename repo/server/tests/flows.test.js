@@ -394,6 +394,25 @@ describe('leads flow (deck requests)', () => {
     expect(writes[0].row.role).toBe('Price Discovery');
   });
 
+  it('recognises the home-page business profile intent', async () => {
+    const res = await request(app).post('/api/v1/inquiries').send({
+      name: 'Vikram N',
+      email: 'visitor@example.com',
+      company: 'Meridian Apparels',
+      intent: 'profile',
+      source: 'home',
+      message: 'Business profile answers - Industry: Manufacturing',
+    });
+
+    expect(res.status).toBe(201);
+    expect(writes[0].row.role).toBe('Business Profile · home intake');
+    const team = sent.find((m) => m.to.includes('assist@arinox.ai'));
+    expect(team.subject).toContain('Business Profile');
+    // The visitor gets the profile reply, with no pricing language.
+    expect(visitorMail().subject).toBe('Your business profile is in review');
+    expect(visitorMail().html).not.toMatch(/price|pricing/i);
+  });
+
   it('carries campaign attribution onto the row', async () => {
     const res = await request(app).post('/api/v1/inquiries').send({
       ...payload,

@@ -21,7 +21,7 @@ export const pricingHero = {
   titleAccent: 'outcomes.',
   lead:
     'Every Arinox deployment is sized to your business, your teams, your data and the result you want. Below is exactly how we work. Your number comes from a few questions and a conversation with an architect.',
-  ctaPrimary: `Answer ${QUESTION_COUNT} questions`,
+  ctaPrimary: 'Tell us about your business',
   ctaSecondary: 'Or talk to us first',
   microcopy: 'About 4 minutes \u00B7 No obligation \u00B7 Your price is shared in a conversation',
 };
@@ -155,8 +155,8 @@ export const discoverySteps = {
   title: `From ${QUESTION_COUNT} questions to a price conversation.`,
   steps: [
     {
-      title: `Answer ${QUESTION_COUNT} questions`,
-      body: 'About your business, teams, apps, data, budget and goals. Takes about 4 minutes.',
+      title: 'Tell us about your business',
+      body: `${QUESTION_COUNT} quick questions about your teams, systems, data and goals, on the home page. Takes about 4 minutes.`,
     },
     {
       title: 'Talk to an architect',
@@ -186,7 +186,7 @@ export const pricingFaq = {
     },
     {
       q: 'What happens after I submit?',
-      a: 'An Arinox architect reviews your answers and gets in touch within one business day to set up a 30-minute conversation. Your price is shared in that conversation, built around what you told us.',
+      a: 'An Arinox architect reviews your answers and gets in touch soon to set up a 30-minute conversation. Your price is shared in that conversation, built around what you told us.',
     },
   ],
 };
@@ -194,7 +194,7 @@ export const pricingFaq = {
 export const closingBand = {
   titleA: 'Your price depends on your business.',
   titleAccent: 'So let\u2019s start there.',
-  cta: `Answer ${QUESTION_COUNT} questions`,
+  cta: 'Tell us about your business',
   talk: 'Or talk to us first',
   microcopy: '4 minutes \u00B7 No obligation \u00B7 Price shared in a conversation',
 };
@@ -247,15 +247,22 @@ export const wizard = {
     {
       key: 'data',
       type: 'single',
-      question: 'Where does your data live?',
-      sub: 'Choose one. This decides SaaS, PaaS or On-Prem (CommandCORE\u2122).',
-      options: ['In the cloud, and that is fine', 'In our own cloud account', 'On our own servers', 'A mix of both', 'It can never leave our premises'],
+      question: 'Where is your company\u2019s data kept today?',
+      sub: 'Pick the closest one. Not sure? That\u2019s fine, we\u2019ll work it out together.',
+      options: [
+        'Online, in tools like Google Workspace, Microsoft 365 or Salesforce',
+        'With a cloud provider we pay for, like AWS, Azure or Google Cloud',
+        'On computers and servers in our own office',
+        'A bit of both',
+        'It must never leave our building',
+        'I\u2019m not sure',
+      ],
     },
     {
       key: 'outcome',
       type: 'multi',
       question: 'What outcome matters most?',
-      sub: 'Choose all that apply. This is what we price against.',
+      sub: 'Choose all that apply. This is what we scope against.',
       options: ['Cut operating costs', 'Faster, better decisions', 'Automate manual workflows', 'Better customer experience', 'Compliance & security', 'New revenue streams', 'Get our data AI-ready'],
     },
     {
@@ -284,8 +291,8 @@ export const wizard = {
       key: 'budget',
       type: 'text',
       optional: true,
-      question: 'What budget have you set aside for AI over the next 12 months?',
-      sub: 'Pick a currency and type the amount, in your own words. It shapes the scope we recommend. It is not a quote. Skip it if you are not sure yet.',
+      question: 'What have you set aside for AI over the next 12 months?',
+      sub: 'Helps us scope; never shared. Pick a currency and type an amount in your own words, or skip it.',
       currencies: [
         { symbol: '$', label: 'Dollars' },
         { symbol: '\u20B9', label: 'Rupees' },
@@ -303,7 +310,7 @@ export const wizard = {
   ],
   contact: {
     heading: 'Who should we talk to?',
-    sub: 'An architect reviews your answers first, so the conversation is about your business. They will get in touch within one business day to set up 30 minutes.',
+    sub: 'An architect reviews your answers first, so the conversation is about your business. They will get in touch soon to set up 30 minutes.',
     fields: [
       { name: 'name', label: 'Full name', type: 'text', autoComplete: 'name', required: true },
       { name: 'email', label: 'Work email', type: 'email', autoComplete: 'email', required: true },
@@ -316,13 +323,13 @@ export const wizard = {
     errors: {
       name: 'Your name \u2014 we reply person to person.',
       email: 'That email doesn\u2019t look complete.',
-      company: 'Your company \u2014 it sizes your price.',
+      company: 'Your company \u2014 it shapes the scope.',
       role: 'Your role \u2014 it tells us who we\u2019re building with.',
     },
   },
   completion: {
     heading: 'Thank you. An architect will be in touch.',
-    sub: 'We will reach out within one business day to set up your 30-minute conversation, where your price is shared.',
+    sub: 'We will reach out soon to set up your 30-minute conversation, where your price is shared.',
     bookingCta: 'Book your 30-minute session',
     backCta: 'Back to pricing',
     summaryLabel: 'Your answers',

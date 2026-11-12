@@ -53,14 +53,14 @@ export function SectorExplorer({ explorer, icons = {} }) {
           </p>
         </div>
         <div>
-          <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+          <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
             {explorer.watchLabel}
           </p>
           <ul className="mt-3 border-t border-ink/80">
             {active.watch.map((r) => (
               <li key={r.t} className="grid grid-cols-[auto_7.5rem_1fr] items-start gap-x-3 border-b border-line py-3">
                 <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-ember/80" />
-                <span className="pt-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">{r.t}</span>
+                <span className="pt-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{r.t}</span>
                 <span className="text-[13.5px] leading-relaxed text-ink-soft">{r.d}</span>
               </li>
             ))}

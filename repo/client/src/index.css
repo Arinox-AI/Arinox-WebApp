@@ -356,14 +356,8 @@ h1, h2, h3, h4, h5, h6 {
 .hero-fade {
   background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(255, 99, 1, 0.14), transparent 65%);
 }
-.app-glow {
-  box-shadow:
-    0 0 0 1px rgba(23, 23, 26, 0.08),
-    0 30px 80px -20px rgba(23, 23, 26, 0.35),
-    0 0 90px -18px rgba(255, 99, 1, 0.45);
-}
 .btn-ember-glow {
-  box-shadow: 0 10px 30px -8px rgba(255, 99, 1, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 14px 30px -14px rgba(23, 23, 26, 0.35);
 }
 
 /* Hero backdrop, dot-matrix earth + warm vignette + pointer light */

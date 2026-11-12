@@ -42,9 +42,9 @@ const MultiplyMotif = () => {
         <div className="flex shrink-0 flex-col items-center gap-4">
           <span
             aria-hidden
-            className="h-14 w-14 rounded-full bg-ember shadow-[0_0_46px_-8px_rgba(255,99,1,0.65)] sm:h-16 sm:w-16"
+            className="h-14 w-14 rounded-full bg-ember sm:h-16 sm:w-16"
           />
-          <span className="whitespace-nowrap font-mono text-[9.5px] uppercase tracking-[0.16em] text-ghost/70">
+          <span className="whitespace-nowrap font-mono text-[11px] uppercase tracking-[0.16em] text-ghost/70">
             One output
           </span>
         </div>
@@ -60,7 +60,7 @@ const MultiplyMotif = () => {
                 aria-hidden
                 className={`aspect-square rounded-full ${
                   i === 37
-                    ? 'bg-ember shadow-[0_0_18px_-2px_rgba(255,99,1,0.75)]'
+                    ? 'bg-ember'
                     : i % 5 === 0
                       ? 'bg-ember/40'
                       : 'bg-ember/[0.14]'
@@ -68,7 +68,7 @@ const MultiplyMotif = () => {
               />
             ))}
           </div>
-          <p className="mt-3 text-right font-mono text-[9.5px] uppercase tracking-[0.16em] text-ghost/70">
+          <p className="mt-3 text-right font-mono text-[11px] uppercase tracking-[0.16em] text-ghost/70">
             The watch list
           </p>
         </div>
@@ -94,7 +94,7 @@ const LoopBoard = () => {
             {cockpit.signalsIn.map((s) => (
               <li key={s.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
                 <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{s.t}</span>
-                <span className="text-right font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{s.d}</span>
+                <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{s.d}</span>
               </li>
             ))}
           </ul>
@@ -108,7 +108,7 @@ const LoopBoard = () => {
           <ol className="mt-4 border-t border-ember/30">
             {cockpit.agents.map((a, i) => (
               <li key={a.t} className="grid grid-cols-[auto_1fr] items-start gap-x-3.5 border-b border-ember/20 py-4 last:border-b-0">
-                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[10px] text-ember-deep">
+                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[11px] text-ember-deep">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -136,7 +136,7 @@ const LoopBoard = () => {
             {cockpit.decisionsOut.map((d) => (
               <li key={d.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
                 <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{d.t}</span>
-                <span className="text-right font-mono text-[10.5px] uppercase tracking-[0.08em] text-ink-faint">{d.d}</span>
+                <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{d.d}</span>
               </li>
             ))}
           </ul>
@@ -145,7 +145,7 @@ const LoopBoard = () => {
 
       {/* Return rail: the decision feeds the next signal */}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line bg-paper-2/60 px-5 py-3.5 md:px-6">
-        <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">
+        <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">
           <RefreshCw size={12} strokeWidth={2.4} className="animate-spin [animation-duration:8s]" aria-hidden />
           the loop
         </span>
@@ -153,7 +153,7 @@ const LoopBoard = () => {
           aria-hidden
           className="hidden h-px min-w-[48px] flex-1 bg-[repeating-linear-gradient(90deg,var(--color-line)_0_5px,transparent_5px_10px)] sm:block"
         />
-        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
           every action becomes the next signal
         </span>
       </div>
@@ -174,13 +174,13 @@ const MarketingSuite = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-[68.5rem]">
         <Link
           to="/industries"
-          className="inline-flex items-center gap-2 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
+          className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
         >
           <ArrowLeft size={13} strokeWidth={2.2} />
-          Industry suites
+          All products
         </Link>
 
         <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
@@ -265,7 +265,7 @@ const MarketingSuite = () => (
                 key={s.t}
                 className="group relative flex items-start gap-4 border-b border-white/10 py-4 transition-colors hover:bg-white/[0.03] md:py-5"
               >
-                <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ember/40 font-mono text-[10px] text-ember">
+                <span className="num mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-ember/40 font-mono text-[11px] text-ember">
                   {i + 1}
                 </span>
                 <div>
@@ -323,9 +323,9 @@ const MarketingSuite = () => (
                 <span className="font-mono text-[6px] uppercase tracking-[0.16em] text-white/40">The deck</span>
               </div>
               <div className="min-w-0">
-                <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-ember-deep">Marketing OS</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">Marketing OS</p>
                 <p className="mt-1 font-display text-[19px] tracking-[-0.01em]">The deck</p>
-                <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint">
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">
                   Straight to your inbox · .pptx
                 </p>
               </div>

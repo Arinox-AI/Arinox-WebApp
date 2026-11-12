@@ -1,6 +1,6 @@
 const validator = require('validator');
 const supabase = require('../config/supabase');
-const { sendMail, teamCc, inquiryNotification, contactAutoReply } =require('../utils/mailer');
+const { sendMail, teamCc, customerCc, inquiryNotification, contactAutoReply } = require('../utils/mailer');
 const { getAutoReply } = require('../utils/autoReplies');
 const { resolveInquiry, sourceTag } = require('../utils/intents');
 
@@ -121,6 +121,7 @@ const submitInquiry = async (req, res, next) => {
       }),
       sendMail({
         to: inquiry.email,
+        cc: customerCc(inquiry.email),
         subject: inquiry.autoReply?.subject || 'We received your message - Arinox AI',
         html: contactAutoReply({
           name: inquiry.name,

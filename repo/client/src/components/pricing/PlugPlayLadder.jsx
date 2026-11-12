@@ -34,7 +34,7 @@ export function PlugPlayLadder({ levels, deploymentLabel = 'SaaS' }) {
               initial={{ opacity: 0, y: 3 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.2 }}
-              className={`mt-2 block font-mono text-[10px] uppercase tracking-[0.1em] ${
+              className={`mt-2 block font-mono text-[11px] uppercase tracking-[0.1em] ${
                 lvl.dark ? 'text-ghost/70' : 'text-ink-faint'
               }`}
             >

@@ -116,7 +116,7 @@ const Contact = () => {
                 href={company.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep transition-opacity hover:opacity-75"
+                className="-mb-3 mt-1 inline-flex items-center gap-2 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep transition-opacity hover:opacity-75"
               >
                 <LinkedinIcon size={15} />
                 LinkedIn

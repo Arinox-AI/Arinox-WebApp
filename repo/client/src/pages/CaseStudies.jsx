@@ -35,7 +35,7 @@ const UseCase = ({ index, useCase: c }) => {
           </Link>
         </h3>
         {c.agent && (
-          <span className="font-mono text-[10.5px] uppercase tracking-[0.08em] text-ember-deep md:ml-auto">{c.agent}</span>
+          <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep md:ml-auto">{c.agent}</span>
         )}
       </div>
 
@@ -59,9 +59,9 @@ const UseCase = ({ index, useCase: c }) => {
                   <p className={`num break-words font-display leading-[1.05] tracking-[-0.02em] text-ink ${valueSize(m.value)}`}>
                     {m.value}
                   </p>
-                  <p className="mt-1.5 font-mono text-[10.5px] uppercase leading-snug tracking-[0.1em] text-ink-faint">{m.label}</p>
+                  <p className="mt-1.5 font-mono text-[11px] uppercase leading-snug tracking-[0.1em] text-ink-faint">{m.label}</p>
                   {basis && (
-                    <p className="mt-1 font-mono text-[9px] uppercase leading-none tracking-[0.14em] text-ink-faint/70" title={basis.title}>
+                    <p className="mt-1 font-mono text-[11px] uppercase leading-none tracking-[0.14em] text-ink-faint/70" title={basis.title}>
                       {basis.tag}
                     </p>
                   )}
@@ -91,7 +91,7 @@ const UseCase = ({ index, useCase: c }) => {
           <div className="mt-4 grid gap-x-10 gap-y-6 sm:grid-cols-2">
             {architecture.map((a, i) => (
               <div key={a.title} className="grid grid-cols-[auto_1fr] gap-x-3.5">
-                <span className="num pt-1 font-mono text-[10.5px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
+                <span className="num pt-1 font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
                 <div>
                   <h4 className="font-display text-[16px] tracking-[-0.01em]">{a.title}</h4>
                   <ul className="mt-2 space-y-1">
@@ -135,7 +135,7 @@ const CaseStudies = () => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
           <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
         </div>
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto max-w-[68.5rem]">
           <Label>Case studies</Label>
           <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
             Deployed inside the <span className="italic text-ember">perimeter.</span>
@@ -173,7 +173,7 @@ const CaseStudies = () => {
                 onClick={() => setActive(i)}
                 className={`group flex items-center justify-between gap-2 rounded-card border px-3.5 py-2.5 text-left transition-all duration-200 ${
                   on
-                    ? 'border-ember bg-ember text-white shadow-[0_10px_30px_-12px_rgba(255,99,1,0.65)]'
+                    ? 'border-ember bg-ember text-white'
                     : 'border-line bg-white text-ink hover:border-ink/25 hover:bg-paper-2'
                 }`}
               >

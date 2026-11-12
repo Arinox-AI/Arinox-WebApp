@@ -62,7 +62,7 @@ const BlogPost = () => {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4 px-7">
         <p className="text-[16px] text-ink-soft">Post not found.</p>
-        <Link to="/blog" className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] text-ember-deep hover:text-ink">
+        <Link to="/blog" className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ember-deep hover:text-ink">
           <ArrowLeft size={14} strokeWidth={2.2} />
           Back to Blog
         </Link>
@@ -106,9 +106,9 @@ const BlogPost = () => {
 
         {/* Meta */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-3">
-          <span className="rounded-full border border-ember/30 bg-ember/10 px-3 py-1 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ember-deep">{post.category}</span>
-          {post.domain && <span className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">{post.domain}</span>}
-          <span className="ml-auto font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">
+          <span className="rounded-full border border-ember/30 bg-ember/10 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep">{post.category}</span>
+          {post.domain && <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{post.domain}</span>}
+          <span className="ml-auto font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">
             {formatDate(post.publishedAt)} · {post.readTime} min read
           </span>
         </motion.div>
@@ -140,7 +140,7 @@ const BlogPost = () => {
           </div>
           <div>
             <p className="font-display text-[17px] tracking-[-0.01em] text-ink">{post.author.name}</p>
-            <p className="mt-0.5 font-mono text-[10.5px] uppercase tracking-[0.1em] text-ink-faint">{post.author.role}</p>
+            <p className="mt-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{post.author.role}</p>
           </div>
         </motion.div>
 

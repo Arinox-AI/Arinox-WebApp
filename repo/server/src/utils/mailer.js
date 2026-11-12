@@ -28,16 +28,33 @@ const sendMail = async (options) => {
   });
 };
 
-/* Always-CC list for every email that goes to the team (inquiries, careers,
-   bookings). TEAM_CC env overrides (comma list; set empty to disable). */
-const teamCc = (exclude = []) => {
+/* solutions@arinox.ai is copied on EVERY mail chain — team notifications and
+   the emails sent to visitors/applicants — so the whole thread lands in the
+   shared inbox. Hard-wired on purpose: TEAM_CC can't drop it. */
+const ALWAYS_CC = 'solutions@arinox.ai';
+
+const ccList = (extra, exclude = []) => {
   const skip = new Set(
     (Array.isArray(exclude) ? exclude : String(exclude).split(','))
       .map((s) => s.trim().toLowerCase()).filter(Boolean),
   );
-  return (process.env.TEAM_CC === undefined ? 'ajay@arinox.ai' : process.env.TEAM_CC)
-    .split(',').map((s) => s.trim()).filter((s) => s && !skip.has(s.toLowerCase()));
+  const out = [];
+  for (const s of [...extra, ALWAYS_CC].map((x) => x.trim()).filter(Boolean)) {
+    const k = s.toLowerCase();
+    if (!skip.has(k) && !out.some((o) => o.toLowerCase() === k)) out.push(s);
+  }
+  return out;
 };
+
+/* CC list for every email that goes to the team (inquiries, careers,
+   bookings). TEAM_CC env overrides the default extra names (comma list; set
+   empty to drop them) — ALWAYS_CC stays either way. */
+const teamCc = (exclude = []) =>
+  ccList((process.env.TEAM_CC === undefined ? 'ajay@arinox.ai' : process.env.TEAM_CC).split(','), exclude);
+
+/* CC for emails that go to a visitor/applicant: the shared inbox only, so
+   replies reach the team. */
+const customerCc = (exclude = []) => ccList([], exclude);
 
 const verifyMailer = () => {
   if (!isConfigured()) return;
@@ -156,27 +173,47 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
    else keeps the steps box and reply line. */
 const contactAutoReply = ({ name, subject, body, steps, asset }) => {
   const minimal = Boolean(asset?.name);
-  const stepsList = Array.isArray(steps) && steps.length
-    ? steps.map((s, i) => `${i + 1}. ${esc(s)}`).join('<br>')
-    : `1. Our team reviews your message<br>
-       2. We schedule a free discovery call<br>
-       3. You get a tailored plan`;
+  const list = Array.isArray(steps) && steps.length
+    ? steps
+    : ['Our team reads your message', 'We reply soon', 'If it helps, we book a 30-minute call with you'];
+
+  /* Numbered steps as a table: ember number discs line up in every client
+     (Gmail/Outlook ignore flexbox). */
+  const stepsTable = `
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;margin-top:14px;">
+        ${list.map((s, i) => `
+        <tr>
+          <td width="40" valign="top" style="padding:0 0 14px;">
+            <div style="width:28px;height:28px;border-radius:14px;background:#ff6301;color:#ffffff;font-family:${FONT_BODY};font-size:13px;font-weight:bold;line-height:28px;text-align:center;">${i + 1}</div>
+          </td>
+          <td valign="top" style="padding:4px 0 14px;font-family:${FONT_BODY};font-size:15px;line-height:1.55;color:#17171a;">${esc(s)}</td>
+        </tr>`).join('')}
+      </table>`;
+
+  const button = (href, label) => `
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:26px 0 4px;">
+        <tr><td style="background:#ff6301;border-radius:999px;">
+          <a href="${href}" style="display:inline-block;padding:13px 26px;font-family:${FONT_BODY};font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;">${label}</a>
+        </td></tr>
+      </table>`;
 
   return emailWrapper(`
-    ${header("We've received your message", subject || 'Arinox AI')}
+    ${header('Thank you, we have it', subject || 'Arinox AI')}
     <div style="${bodyStyle}">
-      <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${esc(name)},</p>
-      <p style="font-size:15px;color:${minimal ? '#17171a' : '#5b5b60'};line-height:1.7;margin:0 0 ${minimal ? '4px' : '22px'};">
+      <p style="font-family:${FONT_DISPLAY};font-size:22px;color:#17171a;margin:0 0 12px;">Hi ${esc(name)},</p>
+      <p style="font-size:15.5px;color:#3a3a3f;line-height:1.7;margin:0;">
         ${body ? esc(body) : `Thank you for reaching out to <strong style="color:#17171a;">Arinox AI</strong>. We've received your
         message regarding <em>"${esc(subject || 'your inquiry')}"</em> and we will get back to you
         <strong style="color:#17171a;">soon</strong>.`}
       </p>
       ${minimal ? '' : `
-      <div style="${noteBoxStyle}">
-        <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.2px;font-size:11px;color:#b84300;">What happens next</span><br>
-        <span style="display:inline-block;margin-top:8px;">${stepsList}</span>
+      <div style="margin-top:26px;padding:22px 22px 8px;background:#f8f7f5;border:1px solid #e2e1dd;border-radius:10px;">
+        <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.4px;font-size:11px;color:#b84300;">What happens next</span>
+        ${stepsTable}
       </div>
-      <p style="font-size:13px;color:#8a8a93;line-height:1.6;margin:20px 0 0;">You can reply directly to this email — it reaches the Arinox team.</p>`}
+      ${button('https://www.arinox.ai/contact', 'Book a 30-minute call')}`}
+      <p style="font-size:15px;color:#17171a;line-height:1.6;margin:26px 0 0;">Warm regards,<br><span style="font-family:${FONT_DISPLAY};font-size:17px;">The Arinox team</span></p>
+      <p style="font-size:12.5px;color:#8a8a93;line-height:1.6;margin:18px 0 0;">Just reply to this email, it reaches a person on our team.</p>
     </div>`);
 };
 
@@ -282,24 +319,64 @@ const bookingNotification = ({ name, email, company, phone, topic, notes, guests
    is loud when a document was asked for, and the source page tells the team
    which surface the inquiry came from. Rows render only when they carry a
    value - no N/A noise. */
+/* Built for scanning, not for looks: a plain two-column table per block
+   (Who / Their answers / Tracking). Structured messages ("Label: value" lines,
+   as the ten-question intake sends) become table rows; a free-text message
+   stays a paragraph. Rows render only when they carry a value. */
+const splitAnswers = (message) => {
+  const rows = [];
+  const text = [];
+  let title = null;
+  String(message || '').split('\n').map((l) => l.trim()).filter(Boolean).forEach((line, i) => {
+    const m = line.match(/^([^:]{1,40}):\s*(.*)$/);
+    if (m && !/^https?$/i.test(m[1])) rows.push([m[1], m[2]]);
+    else if (i === 0 && !title) title = line;
+    else text.push(line);
+  });
+  return { title, rows, text };
+};
+
 const inquiryNotification = (lead) => {
-  const row = (label, value) =>
-    value ? `<div style="${rowStyle}"><span style="${labelStyle}">${label}</span> ${value}</div>` : '';
-  return emailWrapper(`
-    ${header('New inquiry', 'Via the Arinox website')}
-    <div style="${bodyStyle}">
-      ${row('Intent', `<strong style="color:#b84300;">${esc(lead.intentLabel || 'General inquiry')}</strong>`)}
-      ${lead.sourceLabel ? row('Came in via', esc(lead.sourceLabel)) : ''}
-      ${lead.assetLabel ? `<div style="${rowStyle}"><span style="${labelStyle}">Requested</span> <strong style="color:#b84300;">${esc(lead.assetLabel)}</strong> &mdash; a person from the team sends it by email.</div>` : ''}
-      ${row('Name', esc(lead.name))}
-      ${row('Email', lead.email ? `<a href="mailto:${esc(lead.email)}" style="${linkStyle}">${esc(lead.email)}</a>` : '')}
-      ${row('Company', esc(lead.company))}
-      ${row('Phone', esc(lead.phone))}
-      ${lead.subject ? row('Subject', esc(lead.subject)) : ''}
-      ${lead.message ? `<div style="padding-top:14px;"><span style="${labelStyle}">Message</span><p style="${quoteBoxStyle}">${para(lead.message)}</p></div>` : ''}
-      ${lead.landingPage ? `<div style="padding-top:10px;">${row('Source page', `<span style="word-break:break-all;font-size:12px;">${esc(lead.landingPage)}</span>`)}</div>` : ''}
-      ${lead.utmSource || lead.referrer ? `<div style="padding-top:10px;">${row('Campaign', `${esc(lead.utmSource || '')}${lead.utmCampaign ? ' / ' + esc(lead.utmCampaign) : ''}${lead.referrer ? ' &middot; ' + esc(lead.referrer) : ''}`)}</div>` : ''}
-    </div>`);
+  const tdL = `padding:9px 14px 9px 0;border-bottom:1px solid #ecebe8;font-family:${FONT_BODY};font-size:13px;color:#5b5b60;width:150px;vertical-align:top;`;
+  const tdV = `padding:9px 0;border-bottom:1px solid #ecebe8;font-family:${FONT_BODY};font-size:14.5px;color:#17171a;vertical-align:top;line-height:1.5;`;
+  const tr = (label, value) => (value ? `<tr><td style="${tdL}">${esc(label)}</td><td style="${tdV}">${value}</td></tr>` : '');
+  const table = (rows) => `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse;">${rows}</table>`;
+  const block = (title, inner) => (inner ? `
+      <p style="margin:26px 0 6px;font-family:${FONT_BODY};font-size:12px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;color:#b84300;">${esc(title)}</p>${inner}` : '');
+  /* Multi-select answers arrive joined with " | " - one per line reads better. */
+  const val = (v) => (String(v).includes(' | ') ? String(v).split(' | ').map((x) => `&bull; ${esc(x)}`).join('<br>') : esc(v));
+
+  const { title, rows, text } = splitAnswers(lead.message);
+  const answerRows = rows.filter(([, v]) => v && v !== 'n/a').map(([k, v]) => tr(k, val(v))).join('');
+  const contactRows = [
+    tr('Name', `<strong>${esc(lead.name)}</strong>`),
+    tr('Email', lead.email ? `<a href="mailto:${esc(lead.email)}" style="${linkStyle}">${esc(lead.email)}</a>` : ''),
+    tr('Company', esc(lead.company)),
+    tr('Phone', esc(lead.phone)),
+    lead.subject ? tr('Subject', esc(lead.subject)) : '',
+  ].join('');
+  const tracking = [
+    tr('Came in via', esc(lead.sourceLabel)),
+    tr('Source page', lead.landingPage ? `<span style="word-break:break-all;font-size:12.5px;">${esc(lead.landingPage)}</span>` : ''),
+    tr('Campaign', lead.utmSource || lead.referrer ? `${esc(lead.utmSource || '')}${lead.utmCampaign ? ' / ' + esc(lead.utmCampaign) : ''}${lead.referrer ? ' &middot; ' + esc(lead.referrer) : ''}` : ''),
+  ].join('');
+
+  return `
+<html><body style="margin:0;padding:0;background:#ffffff;">
+  <div style="max-width:640px;margin:0 auto;padding:24px 20px;font-family:${FONT_BODY};color:#17171a;">
+    <p style="margin:0;font-size:12px;color:#8a8a93;">New website inquiry</p>
+    <h2 style="margin:4px 0 0;font-family:${FONT_BODY};font-size:22px;font-weight:bold;color:#17171a;">
+      ${esc(lead.intentLabel || 'General inquiry')} <span style="font-weight:normal;color:#5b5b60;">from ${esc(lead.name)}${lead.company ? `, ${esc(lead.company)}` : ''}</span>
+    </h2>
+    ${lead.assetLabel ? `<p style="margin:14px 0 0;padding:12px 14px;background:#ffe8d9;border-radius:6px;font-size:14px;"><strong>Requested</strong>: ${esc(lead.assetLabel)} &mdash; send it to them by email.</p>` : ''}
+    ${block('Who', table(contactRows))}
+    ${answerRows ? block(title || 'Their answers', table(answerRows)) : ''}
+    ${text.length ? block(answerRows ? 'Notes' : 'Message', `<p style="margin:6px 0 0;font-size:14.5px;line-height:1.65;color:#17171a;">${text.map(esc).join('<br>')}</p>`) : ''}
+    ${!answerRows && !text.length && title ? block('Message', `<p style="margin:6px 0 0;font-size:14.5px;line-height:1.65;">${esc(title)}</p>`) : ''}
+    ${tracking ? block('Tracking', table(tracking)) : ''}
+    <p style="margin:28px 0 0;font-size:12px;color:#8a8a93;">Hit reply to answer them directly.</p>
+  </div>
+</body></html>`;
 };
 
 module.exports = {
@@ -307,6 +384,7 @@ module.exports = {
   bookingNotification,
   sendMail,
   teamCc,
+  customerCc,
   verifyMailer,
   contactNotification,
   contactAutoReply,

@@ -49,6 +49,7 @@ export function Footer() {
             <FooterLink to="/industries/fashion-lifestyle">Fashion &amp; Lifestyle OS</FooterLink>
             <FooterLink to="/industries/industrial">Manufacturing OS</FooterLink>
             <FooterLink to="/industries/secure">Secure OS</FooterLink>
+            <FooterLink to="/industries/digital-twin">Digital Twin++</FooterLink>
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Resources</h5>
@@ -57,6 +58,7 @@ export function Footer() {
             <FooterLink to="/blog">Blog</FooterLink>
             <FooterLink to="/careers">Careers</FooterLink>
             <FooterLink to="/partners">Partners</FooterLink>
+            <FooterLink to="/people">People</FooterLink>
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Contact</h5>

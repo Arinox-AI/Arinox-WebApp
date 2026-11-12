@@ -24,6 +24,11 @@ export function blankAnswers() {
 const join = (list) =>
   Array.isArray(list) ? (list.length ? list.join(', ') : null) : list || null;
 
+/* Multi-select answers in the email summary: " | " so the team email can split
+   them into one-per-line (answers themselves may contain commas). */
+const joinLines = (list) =>
+  Array.isArray(list) ? (list.length ? list.join(" | ") : null) : list || null;
+
 /* Toggle an option in a multi-select answer, honouring the cap. Attempting to
  * exceed `max` is a no-op (the page surfaces a cap note instead). */
 export function toggleOption(list, value, max) {
@@ -71,10 +76,32 @@ export function loadAnswers() {
     const raw = sessionStorage.getItem(ANSWERS_KEY);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
-    return { ...blankAnswers(), ...parsed };
+    /* Keep only answers that are still valid options: a draft saved before a
+       question was reworded must not resurface with a dead answer. */
+    const out = blankAnswers();
+    for (const q of QUESTIONS) {
+      const v = parsed?.[q.key];
+      if (!Array.isArray(q.options)) {
+        if (typeof v === 'string') out[q.key] = v.slice(0, q.maxLength || 200);
+      } else if (q.type === 'multi') {
+        out[q.key] = Array.isArray(v) ? v.filter((x) => q.options.includes(x)) : [];
+      } else if (q.options.includes(v)) {
+        out[q.key] = v;
+      }
+    }
+    if (typeof parsed?.budgetCurrency === 'string') out.budgetCurrency = parsed.budgetCurrency;
+    return out;
   } catch {
     return null;
   }
+}
+
+/* True when a restored draft actually carries at least one answer. */
+export function hasAnyAnswer(answers) {
+  return QUESTIONS.some((q) => {
+    const v = answers?.[q.key];
+    return Array.isArray(v) ? v.length > 0 : Boolean(String(v || '').trim());
+  });
 }
 
 export function saveAnswers(answers) {
@@ -109,17 +136,17 @@ export function validateContact(contact, errorText) {
  * the server-owned auto-reply are all inherited). `intent` is what the team
  * sees; the answers ride along in the ICP columns the Leads table already
  * had. */
-export function buildLeadPayload({ answers, contact, context = {} }) {
+export function buildLeadPayload({ answers, contact, context = {}, intent = 'pricing', heading = 'Price Discovery answers' }) {
   const summary = [
-    'Price Discovery answers',
+    heading,
     `Industry: ${answers.industry || 'n/a'}`,
     `Organisation size: ${answers.size || 'n/a'}`,
-    `Teams: ${join(answers.teams) || 'n/a'}`,
-    `Applications: ${join(answers.apps) || 'n/a'}`,
+    `Teams: ${joinLines(answers.teams) || 'n/a'}`,
+    `Applications: ${joinLines(answers.apps) || 'n/a'}`,
     `Data: ${answers.data || 'n/a'}`,
-    `Outcomes: ${join(answers.outcome) || 'n/a'}`,
+    `Outcomes: ${joinLines(answers.outcome) || 'n/a'}`,
     `AI today: ${answers.stage || 'n/a'}`,
-    `Blockers: ${join(answers.blockers) || 'n/a'}`,
+    `Blockers: ${joinLines(answers.blockers) || 'n/a'}`,
     `Budget (next 12 months): ${budgetLabel(answers) || 'n/a'}`,
     `Wants to be live: ${answers.timeline || 'n/a'}`,
     context.deployment ? `Deployment context: ${context.deployment}` : null,
@@ -139,8 +166,8 @@ export function buildLeadPayload({ answers, contact, context = {} }) {
     aiTools: join(answers.apps),
     useCases: join([...(answers.teams || []), ...(answers.outcome || [])]),
     message: summary,
-    intent: 'pricing',
-    source: 'survey',
+    intent,
+    source: intent === 'profile' ? 'home' : 'survey',
     website: contact.website, // honeypot: '' for humans, bot junk for bots
     turnstileToken: context.token || undefined,
     landing_page: typeof window !== 'undefined' ? window.location.href : undefined,

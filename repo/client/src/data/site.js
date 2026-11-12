@@ -6,19 +6,22 @@
    link, so nothing is ever hidden behind a hover. */
 export const nav = [
   { label: 'Home', to: '/' },
-  { label: 'CommandCore', to: '/commandcore' },
   {
     label: 'Products',
     to: '/industries',
+    allLabel: 'All products',
     group: [
+      { to: '/commandcore', label: 'CommandCore', note: 'Sovereign AI appliance' },
       { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
       { to: '/industries/fashion-lifestyle', label: 'Fashion & Lifestyle OS', note: 'From concept to delivery' },
       { to: '/industries/industrial', label: 'Manufacturing OS', note: 'Machines, lines and orders' },
       { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
+      { to: '/industries/digital-twin', label: 'Digital Twin++', note: 'See, predict, act' },
     ],
   },
   { label: 'Pricing', to: '/pricing' },
   { label: 'Partners', to: '/partners' },
+  { label: 'People', to: '/people' },
   {
     label: 'Resources',
     to: '/blog',
@@ -47,17 +50,17 @@ export const company = {
     {
       group: 'India',
       cities: [
-        { city: 'Bengaluru', note: 'Headquarters' },
-        { city: 'Hyderabad' },
-        { city: 'New Delhi' },
+        { city: 'Bengaluru', country: 'India', lat: 12.97, lon: 77.59, note: 'Headquarters' },
+        { city: 'Hyderabad', country: 'India', lat: 17.385, lon: 78.487 },
+        { city: 'New Delhi', country: 'India', lat: 28.614, lon: 77.209 },
       ],
     },
     {
       group: 'International',
       cities: [
-        { city: 'New York', note: 'USA' },
-        { city: 'Bangkok', note: 'Thailand' },
-        { city: 'Dubai', note: 'UAE' },
+        { city: 'New York', country: 'USA', lat: 40.713, lon: -74.006, note: 'USA' },
+        { city: 'Bangkok', country: 'Thailand', lat: 13.756, lon: 100.502, note: 'Thailand' },
+        { city: 'Dubai', country: 'UAE', lat: 25.205, lon: 55.271, note: 'UAE' },
       ],
     },
   ],
@@ -78,6 +81,19 @@ export const story = {
     { label: 'Recognition',  value: 'Startup India (DPIIT)' },
     { label: 'Entity',       value: 'Adisen Tech Pvt Ltd' },
   ],
+};
+
+/* People page copy */
+export const people = {
+  eyebrow: 'People',
+  title: 'The people behind Arinox.',
+  intro: 'Operators, not evangelists: a leadership team and advisory bench that have run enterprise transformation, defence deployments and global delivery.',
+  leadershipLabel: 'Leadership',
+  advisorsLabel: 'Advisors',
+  galleryEyebrow: 'On the ground',
+  galleryTitle: 'Real rooms. Real partners.',
+  ctaTitle: 'Want to work with this team?',
+  ctaOffer: 'Join us, or book a working session and meet the architects who would run your deployment.',
 };
 
 export const team = [
@@ -124,3 +140,44 @@ export const gallery = [
   { photo: 'ansr-workshop',       caption: 'ANSR Tech Workshop, agentic AI in GCC operations' },
   { photo: 'hitachi-2026',        caption: 'With partners at the Hitachi leadership forum' },
 ];
+
+/* Home page copy: the company essentials. Anything with its own tab lives there. */
+export const home = {
+  problem: {
+    label: 'The problem',
+    title: 'Most AI never leaves the demo stage.',
+    lead: 'Three questions decide whether AI ships: where the data goes, who owns the model, and what happens at the security review. We answer all three before we build.',
+    rows: [
+      ['The data can\u2019t move', 'Regulated data can\u2019t be shipped to a vendor\u2019s cloud, so the pilot never survives compliance. We run the models where the data already lives.'],
+      ['The pilot never ends', 'Six months of \u201Cevaluation\u201D and nothing in production. We deploy in days and expand workflow by workflow, with results at each step.'],
+      ['Nobody can audit it', 'A model that can\u2019t explain its decisions will never pass review. Every agent decision is logged, every time.'],
+    ],
+  },
+  how: {
+    label: 'How we work',
+    title: 'One partner for the whole AI journey.',
+    lead: 'Accountable for the outcome, from the first working session to the workflows running in production.',
+    steps: [
+      { n: '01', t: 'Assess', d: 'One free working session. We find the workflows worth transforming first, by cost, risk and payback speed. You keep the map either way.' },
+      { n: '02', t: 'Architect', d: 'The design that fits your constraints: your data, your systems, your compliance regime.' },
+      { n: '03', t: 'Deploy', d: 'Agents on a proven agentic operating system, inside your cloud, your infrastructure or a CommandCore appliance in your building.' },
+      { n: '04', t: 'Operate', d: 'We keep it delivering, governed end to end, from the first agent to an enterprise-wide AI practice.' },
+    ],
+  },
+  build: {
+    label: 'What we build',
+    title: 'One platform. Five operating systems.',
+    lead: 'CommandCore is the sovereign foundation. The OS suites run on top of it, each built for a sector.',
+    cta: 'Compare all products',
+  },
+  closing: {
+    label: 'Arinox AI',
+    title: 'Start with one workflow.',
+    offer: 'A free working session. We map the first workflow worth transforming, and you keep the roadmap either way.',
+    links: [
+      { label: 'Meet the people', to: '/people' },
+      { label: 'Case studies', to: '/case-studies' },
+      { label: 'Contact', to: '/contact' },
+    ],
+  },
+};

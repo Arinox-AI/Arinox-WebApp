@@ -1,5 +1,5 @@
 /* ─── Data readiness content ────────────────────────────────
-   Sits under the transformation narrative on the Home page:
+   Sits on the CommandCore page (id data-readiness):
    the stack's data layer, then one supporting section.
    ──────────────────────────────────────────────────────────── */
 

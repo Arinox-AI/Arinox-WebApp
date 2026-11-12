@@ -6,7 +6,6 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import {
   QUESTIONS,
   STEP_TOTAL,
@@ -21,26 +20,29 @@ import {
   clearAnswers,
   loadAnswers,
   saveAnswers,
+  hasAnyAnswer,
 } from '../src/components/pricing/wizardLogic';
 import { models } from '../src/data/pricing';
 import { PlugPlayLadder } from '../src/components/pricing/PlugPlayLadder';
-import PriceDiscovery from '../src/pages/PriceDiscovery';
+import { ClientIntake } from '../src/components/site/ClientIntake';
+import { StartHere } from '../src/components/site/StartHere';
+import axios from 'axios';
 
-/* Axios (HumanCheck/submit paths are gated behind step 7; still keep net off) */
+/* Axios stays mocked: the intake submit must never reach the network. */
 vi.mock('axios', () => ({
   default: { post: vi.fn(async () => ({ data: { success: true } })) },
 }));
 
-const renderWizard = (entry = '/pricing/discovery') =>
+const renderIntake = () =>
   render(
-    <MemoryRouter initialEntries={[entry]}>
-      <HelmetProvider>
-        <PriceDiscovery />
-      </HelmetProvider>
+    <MemoryRouter initialEntries={['/']}>
+      <ClientIntake />
     </MemoryRouter>
   );
 
-describe('wizard live flow', () => {
+const wait = { timeout: 3000 };
+
+describe('home client intake live flow', () => {
   beforeEach(() => {
     window.sessionStorage.clear();
     clearAnswers();
@@ -49,63 +51,43 @@ describe('wizard live flow', () => {
     cleanup();
   });
 
-  /* Option rows are hairline ledger rows whose accessible name contains the
-   * mono index ("01 BFSI"), so queries match on partial regexes. */
-  it('next is disabled until the step is answered', () => {
-    renderWizard();
-    const next = screen.getByRole('button', { name: 'Next' });
+  it('Continue is disabled until the step is answered', () => {
+    renderIntake();
+    const next = screen.getByRole('button', { name: 'Continue' });
     expect(next.disabled).toBe(true);
     fireEvent.click(screen.getByRole('button', { name: /BFSI/ }));
     expect(next.disabled).toBe(false);
   });
 
-  it('auto-advances ~250ms after a single-select pick', async () => {
-    renderWizard();
-    expect(screen.getByText(/Which industry are you in\?/)).toBeTruthy();
+  it('auto-advances ~250ms after a single-select pick and fills the profile card', async () => {
+    renderIntake();
+    expect(screen.getAllByText(/Which industry are you in\?/).length).toBeGreaterThan(0);
     fireEvent.click(screen.getByRole('button', { name: /BFSI/ }));
-    // 250ms later we are on the size step (URL drives the step)
-    expect(
-      await screen.findByText(/How many people work in your organisation\?/, {}, { timeout: 3000 })
-    ).toBeTruthy();
+    expect(await screen.findByText(/How many people work in your organisation\?/, {}, wait)).toBeTruthy();
+    // The live profile card now shows the industry.
+    expect(screen.getAllByText('BFSI').length).toBeGreaterThan(0);
   });
 
-  it('multi-select waits for Next and Back keeps answers', async () => {
-    renderWizard('/pricing/discovery?step=3'); // teams (multi)
-    const next = screen.getByRole('button', { name: 'Next' });
+  it('multi-select waits for Continue and Back keeps answers', async () => {
+    renderIntake();
+    fireEvent.click(screen.getByRole('button', { name: /BFSI/ }));
+    await screen.findByText(/How many people work in your organisation\?/, {}, wait);
+    fireEvent.click(screen.getByRole('button', { name: /50–250/ }));
+    await screen.findByText(/Which teams should benefit first\?/, {}, wait);
+
+    const next = screen.getByRole('button', { name: 'Continue' });
     expect(next.disabled).toBe(true);
     fireEvent.click(screen.getByRole('button', { name: /Operations/ }));
-    expect(next.disabled).toBe(false);
     fireEvent.click(screen.getByRole('button', { name: /Finance/ }));
+    expect(next.disabled).toBe(false);
+    expect(screen.queryByText(/Unselect one first/i)).toBeNull();
     fireEvent.click(next);
 
-    // Now on the apps step; pick one app, then Back — answers persist.
-    await screen.findByText(/What do your teams run on today\?/, {}, { timeout: 3000 });
-    fireEvent.click(screen.getByRole('button', { name: /ERP/ }));
+    await screen.findByText(/What do your teams run on today\?/, {}, wait);
     fireEvent.click(screen.getByRole('button', { name: 'Back' }));
-    await screen.findByText(/Which teams should benefit first\?/, {}, { timeout: 3000 });
+    await screen.findByText(/Which teams should benefit first\?/, {}, wait);
     expect(screen.getByRole('button', { name: /Operations/ }).getAttribute('aria-pressed')).toBe('true');
     expect(screen.getByRole('button', { name: /Finance/ }).getAttribute('aria-pressed')).toBe('true');
-  });
-
-  it('lets the outcome question take every pick, no cap', async () => {
-    renderWizard('/pricing/discovery?step=6'); // outcome (multi, uncapped)
-    await screen.findByText(/What outcome matters most\?/, {}, { timeout: 3000 });
-    for (const name of [/Cut operating costs/, /Automate manual workflows/, /Compliance & security/, /New revenue streams/, /Get our data AI-ready/]) {
-      fireEvent.click(screen.getByRole('button', { name }));
-    }
-    expect(screen.getByRole('button', { name: /New revenue streams/ }).getAttribute('aria-pressed')).toBe('true');
-    expect(screen.getByRole('button', { name: /Get our data AI-ready/ }).getAttribute('aria-pressed')).toBe('true');
-    expect(screen.queryByText(/Unselect one first/i)).toBeNull();
-  });
-
-  it('lets the blockers question take every pick, no cap', async () => {
-    renderWizard('/pricing/discovery?step=8'); // blockers (multi, uncapped)
-    await screen.findByText(/What is holding AI back today\?/, {}, { timeout: 3000 });
-    for (const name of [/Data privacy/, /No in-house AI skills/, /Unclear return/, /Leadership buy-in/]) {
-      fireEvent.click(screen.getByRole('button', { name }));
-    }
-    expect(screen.getByRole('button', { name: /Leadership buy-in/ }).getAttribute('aria-pressed')).toBe('true');
-    expect(screen.queryByText(/Unselect one first/i)).toBeNull();
   });
 
   it('no survey question carries a cap', () => {
@@ -113,18 +95,58 @@ describe('wizard live flow', () => {
   });
 
   it('persistence: answers survive a simulated refresh', async () => {
-    const first = renderWizard();
+    const first = renderIntake();
     fireEvent.click(first.getByRole('button', { name: /BFSI/ }));
-    // auto-advance fires and persists the answer via sessionStorage
-    await first.findByText(/How many people work in your organisation\?/, {}, { timeout: 3000 });
+    await first.findByText(/How many people work in your organisation\?/, {}, wait);
     cleanup();
 
-    // A cold render (same storage) shows the selection intact on step 1
-    const second = renderWizard();
+    const second = renderIntake();
     expect(second.getByRole('button', { name: /BFSI/ }).getAttribute('aria-pressed')).toBe('true');
     second.unmount();
     clearAnswers();
   });
+
+  it('shows a typed budget, with its currency, in the profile card', () => {
+    saveAnswers({ ...blankAnswers(), industry: 'BFSI', budget: '60 lakh', budgetCurrency: '₹' });
+    renderIntake();
+    expect(screen.getAllByText('₹ 60 lakh').length).toBeGreaterThan(0);
+    clearAnswers();
+  });
+
+  it('has no price wording anywhere in the intake copy', async () => {
+    const { intake } = await import('../src/data/inquiries');
+    expect(JSON.stringify(intake)).not.toMatch(/pric/i);
+    const budget = QUESTIONS.find((q) => q.key === 'budget');
+    expect(budget.question).toBe('What have you set aside for AI over the next 12 months?');
+    expect(budget.sub).toContain('Helps us scope; never shared.');
+    expect(JSON.stringify(QUESTIONS)).not.toMatch(/pric/i);
+  });
+
+  it('submits the profile intent (axios mocked, nothing is sent)', async () => {
+    saveAnswers({
+      ...blankAnswers(),
+      industry: 'BFSI', size: '50–250', teams: ['Finance'], apps: ['ERP'], data: 'On computers and servers in our own office',
+      outcome: ['Cut operating costs'], stage: 'Haven’t started', blockers: ['Leadership buy-in'], timeline: 'ASAP',
+    });
+    renderIntake();
+    for (let i = 0; i < QUESTION_COUNT; i += 1) {
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }));
+      await new Promise((r) => setTimeout(r, 330));
+    }
+    fireEvent.change(await screen.findByLabelText(/full name/i), { target: { name: 'name', value: 'Test Visitor' } });
+    fireEvent.change(screen.getByLabelText(/work email/i), { target: { name: 'email', value: 'visitor@example.com' } });
+    fireEvent.change(screen.getByLabelText(/^company/i), { target: { name: 'company', value: 'Example Co' } });
+    fireEvent.change(screen.getByLabelText(/your role/i), { target: { name: 'role', value: 'COO' } });
+    fireEvent.click(screen.getByRole('button', { name: /send my profile/i }));
+
+    expect(await screen.findByText(/An architect will be in touch/i, {}, wait)).toBeTruthy();
+    const call = axios.post.mock.calls.at(-1);
+    expect(call[0]).toBe('/api/v1/inquiries');
+    expect(call[1].intent).toBe('profile');
+    expect(call[1].source).toBe('home');
+    expect(call[1].message).toContain('Business profile answers');
+    expect(call[1].message).not.toMatch(/Price Discovery/);
+  }, 20000);
 });
 
 describe('wizard gating', () => {
@@ -212,6 +234,18 @@ describe('contact validation + lead payload', () => {
     expect(payload.autoReplyId).toBeUndefined();
   });
 
+  it('tags the home intake as a business profile', () => {
+    const { intent, source, message } = buildLeadPayload({
+      answers: { ...blankAnswers(), industry: 'BFSI' },
+      contact: { name: 'A', email: 'a@company.com', company: 'C', website: '' },
+      intent: 'profile',
+      heading: 'Business profile answers',
+    });
+    expect(intent).toBe('profile');
+    expect(source).toBe('home');
+    expect(message.startsWith('Business profile answers')).toBe(true);
+  });
+
   it('never includes the honeypot-junk path in clean submits', () => {
     const answers = blankAnswers();
     const payload = buildLeadPayload({
@@ -282,19 +316,6 @@ describe('the longer survey', () => {
     expect(message).toContain('Wants to be live: Within 3 months');
   });
 
-  it('completes with a typed budget without breaking the summary', async () => {
-    saveAnswers({ ...blankAnswers(), industry: 'BFSI', budget: '60 lakh', budgetCurrency: '₹' });
-    render(
-      <HelmetProvider>
-        <MemoryRouter initialEntries={['/pricing/discovery?step=done']}>
-          <PriceDiscovery />
-        </MemoryRouter>
-      </HelmetProvider>
-    );
-    expect(await screen.findByText('₹ 60 lakh')).toBeTruthy();
-    clearAnswers();
-  });
-
   it('lets the visitor type the budget, and skip it', () => {
     const budget = QUESTIONS.find((q) => q.key === 'budget');
     expect(budget.type).toBe('text');
@@ -302,5 +323,59 @@ describe('the longer survey', () => {
     const a = blankAnswers();
     expect(a.budget).toBe('');
     expect(stepAnswered(QUESTIONS.indexOf(budget) + 1, a)).toBe(true); // optional
+  });
+});
+
+describe('home Start here', () => {
+  afterEach(() => cleanup());
+
+  it('only links out to /get-started and hosts no question', () => {
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <StartHere />
+      </MemoryRouter>
+    );
+    const link = screen.getByRole('link', { name: /tell us about your business/i });
+    expect(link.getAttribute('href')).toBe('/get-started');
+    expect(screen.queryByText(QUESTIONS[0].question)).toBeNull();
+    expect(screen.queryAllByRole('button')).toHaveLength(0);
+  });
+});
+
+describe('intake draft restore', () => {
+  beforeEach(() => {
+    window.sessionStorage.clear();
+    clearAnswers();
+  });
+  afterEach(() => cleanup());
+
+  it('drops answers that are no longer valid options', () => {
+    saveAnswers({ ...blankAnswers(), industry: 'BFSI', data: 'It can never leave our premises', teams: ['Finance', 'Gone team'] });
+    const a = loadAnswers();
+    expect(a.industry).toBe('BFSI');
+    expect(a.data).toBe('');
+    expect(a.teams).toEqual(['Finance']);
+  });
+
+  it('announces a restored draft and Start over wipes it', () => {
+    saveAnswers({ ...blankAnswers(), industry: 'BFSI' });
+    render(
+      <MemoryRouter initialEntries={['/get-started']}>
+        <ClientIntake />
+      </MemoryRouter>
+    );
+    expect(screen.getAllByText(/picked up from earlier/i).length).toBeGreaterThan(0);
+    fireEvent.click(screen.getAllByRole('button', { name: /start over/i })[0]);
+    expect(screen.queryAllByText(/picked up from earlier/i)).toHaveLength(0);
+    expect(hasAnyAnswer(loadAnswers())).toBe(false);
+  });
+
+  it('shows no notice on a fresh visit', () => {
+    render(
+      <MemoryRouter initialEntries={['/get-started']}>
+        <ClientIntake />
+      </MemoryRouter>
+    );
+    expect(screen.queryAllByText(/picked up from earlier/i)).toHaveLength(0);
   });
 });
