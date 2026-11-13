@@ -65,7 +65,6 @@ app.use('/api/v1/inquiries', require('./routes/inquiries'));
 app.use('/api/v1/contact', require('./routes/contact'));
 app.use('/api/v1/leads', require('./routes/leads'));
 app.use('/api/v1/booking', require('./routes/booking'));
-app.use('/api/v1/chat', require('./routes/chat'));
 
 // Canonical origin used in SEO output (sitemap, robots, RSS, meta shells),
 // shared with the serverless controllers via utils/seoOrigin.

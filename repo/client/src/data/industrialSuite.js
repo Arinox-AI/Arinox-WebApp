@@ -8,7 +8,7 @@
      materials, quality, maintenance, procurement, analytics, accounts) —
      the eight connected capabilities below.
    • No industry line-sheet cards: the industries are named in the FAQ
-     and chat knowledge, not rendered as a tile grid on the page.
+     and the sales conversation, not rendered as a tile grid on the page.
    • Positioned as an AI intelligence & orchestration layer across the
      systems manufacturers already run (ERP, MES, SCM, CRM, QMS, CMMS,
      IoT, spreadsheets, documents) — never as an ERP/MES replacement.

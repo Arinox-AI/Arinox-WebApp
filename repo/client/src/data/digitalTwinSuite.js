@@ -7,7 +7,7 @@
    • Say what the twin does for the operator, not how it is built.
      Architecture layers, standards lists, the 90-day build plan,
      team roles, partner candidates and the commercial model live in
-     the brief (request-only) and in the ARIN chat knowledge — not here.
+     the brief (request-only) and in the sales conversation — not here.
    • HONEST STATUS: the paper describes a vision + a 90-day plan to a
      showcase demo. No customer, deployment, KPI result or
      certification is claimed on the page. Outcomes are design goals.

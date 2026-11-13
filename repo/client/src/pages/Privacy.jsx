@@ -41,7 +41,6 @@ const Privacy = () => (
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-ink">Contact &amp; enquiry forms:</strong> Name, email address, company name, phone number (optional), the subject you select, and the message you write to us</li>
               <li><strong className="text-ink">Career applications:</strong> Name, email address, phone number, LinkedIn profile, the role you apply for, your cover note, and the CV or résumé you upload</li>
-              <li><strong className="text-ink">Chatbot conversations:</strong> The messages you send through our website assistant. They are used to generate a reply and are not stored on our servers once the reply has been produced</li>
             </ul>
 
             <p className="pt-1"><strong className="text-ink">B. Data collected automatically when you visit our website</strong></p>
@@ -53,7 +52,7 @@ const Privacy = () => (
 
             <p className="pt-1"><strong className="text-ink">C. Cookies and tracking technologies</strong></p>
             <p>We do not set cookies on this website. We do not use advertising or marketing cookies, social tracking pixels, or cross-site tracking of any kind.</p>
-            <p>We store one session-storage flag in your browser to remember that you dismissed our chat prompt. It is not a cookie and is never sent to us; your browser clears it when you close the tab.</p>
+            <p>We store one session-storage flag in your browser to remember which page first brought you here, so that an enquiry carries its campaign source. It is not a cookie and is never sent to us; your browser clears it when you close the tab.</p>
             <p>We use Vercel Web Analytics to understand aggregate traffic to the site. It is cookieless: it does not place cookies, does not store personal data, does not fingerprint your device, and does not follow you across other websites. It records aggregate page views, referrers, and coarse device and country information only.</p>
             <p>Because we do not set cookies or use tracking that requires consent, no cookie consent banner is shown. You can block or disable analytics requests in your browser or with an ad blocker without affecting how the website works.</p>
 
@@ -78,7 +77,7 @@ const Privacy = () => (
           <Section title="3. Legal Basis for Processing">
             <p>We process your personal data on the following bases under the DPDP Act 2023 and applicable Indian law:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
-              <li><strong className="text-ink">Consent:</strong> Where you submit an enquiry, apply for a role, or use the chat assistant</li>
+              <li><strong className="text-ink">Consent:</strong> Where you submit an enquiry or apply for a role</li>
               <li><strong className="text-ink">Legitimate uses:</strong> Recruitment, where the DPDP Act permits processing for employment purposes</li>
               <li><strong className="text-ink">Legal obligation:</strong> Where processing is required to comply with applicable Indian law</li>
             </ul>
@@ -88,7 +87,6 @@ const Privacy = () => (
             <p>We share your personal data only in the following limited circumstances:</p>
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-ink">Hosting and storage:</strong> Vercel Inc. hosts the website and its serverless functions. Supabase stores our database records and files, including enquiries, leads, job applications and uploaded résumés</li>
-              <li><strong className="text-ink">AI inference:</strong> Groq, Inc. generates replies for our website chat assistant. Your messages are sent to it together with a fixed Arinox knowledge prompt, and are not stored on our servers. Please do not share confidential information in the chat</li>
               <li><strong className="text-ink">Email delivery:</strong> Our email provider transmits the messages you send us, our replies, and job applications with their attachments</li>
               <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. Typefaces are served from our own domain, so no font provider receives your IP address</li>
               <li><strong className="text-ink">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>

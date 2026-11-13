@@ -4,8 +4,8 @@
    • TEASER, NOT SPEC. The page says what the OS does to the
      adversary and to the reader's fears — not how it is built.
      Mechanisms (Kali tooling, model names, timings, wiring)
-     live in the deck and in the ARIN chat knowledge below the
-     page, not in this file. The copy should make a reader
+     live in the deck and in the sales conversation,
+     not in this file. The copy should make a reader
      contact us; it should not teach a reader anything.
    • Voice: same messaging system as the other suite pages —
      signals, decisions, the loop, "you approve" — but shorter,

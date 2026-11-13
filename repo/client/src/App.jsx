@@ -6,7 +6,6 @@ import { Nav } from './components/site/Nav';
 import { HalftoneBackground } from './components/site/HalftoneBackground';
 import { ScrollProgress } from './components/site/ScrollProgress';
 import { Footer } from './components/site/Shell';
-import ArinoxChatBot from './components/ui/ArinoxChatBot';
 
 const Home = lazy(() => import('./pages/Home'));
 const CommandCore = lazy(() => import('./pages/CommandCore'));
@@ -124,7 +123,6 @@ const AppInner = () => {
         </Suspense>
       </main>
       <Footer />
-      <ArinoxChatBot />
       <Analytics route={location.pathname} path={location.pathname} />
     </>
   );

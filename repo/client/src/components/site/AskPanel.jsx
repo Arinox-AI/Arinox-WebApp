@@ -1,6 +1,5 @@
-/* AskPanel — "Ask the OS anything", in the spirit of the best product
-   sites' embedded-AI sections: sample questions by function, pointed at
-   ARIN (the site-wide assistant) — no fake chat UI, no fake answers.
+/* AskPanel — "Ask the OS anything": sample questions by function —
+   no fake chat UI, no fake answers.
    Data shape (src/data/*.js → `ask`):
      { label, titleLead, titleAccent, hint,
        questions: [{ t, q }] }
