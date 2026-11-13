@@ -129,6 +129,8 @@ const submitInquiry = async (req, res, next) => {
           body: inquiry.autoReply?.body,
           steps: inquiry.autoReply?.steps,
           asset: inquiry.autoReply?.asset,
+          // Everyone except those who just sent the intake gets the link to it.
+          surveyLink: resolved.intent !== 'profile',
         }),
       }),
     ]);

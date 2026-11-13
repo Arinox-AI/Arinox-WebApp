@@ -129,7 +129,7 @@ const Blog = () => {
         title="Want the thinking before it is published?"
         offer={
           <>
-            Book a discovery session and we will walk through the same material against your stack.{' '}
+            Book a call and we will walk through the same material against your stack.{' '}
             <b className="font-medium text-white">No slides, just the architecture.</b>
           </>
         }

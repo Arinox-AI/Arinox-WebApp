@@ -46,6 +46,10 @@ const INQUIRY_SOURCES = {
   survey: 'survey',
   hub: 'contact hub',
   home: 'home intake',
+  /* The intake offered as a dialog right after someone reached us. */
+  'after-message': 'after their message',
+  'after-booking': 'after booking a session',
+  'contact-page': 'contact page',
 };
 
 const isIntent = (v) => typeof v === 'string' && Object.prototype.hasOwnProperty.call(INQUIRY_INTENTS, v);

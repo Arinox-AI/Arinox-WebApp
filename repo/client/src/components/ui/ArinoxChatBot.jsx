@@ -302,6 +302,7 @@ export default function ArinoxChatBot() {
 
   const openChat = () => { if (popup) dismissPopup(); setOpen(true); };
 
+
   return (
     <div data-chatbot className="fixed bottom-4 right-4 z-[50] sm:bottom-6 sm:right-6">
       <div className="relative">

@@ -6,7 +6,6 @@ import { Nav } from './components/site/Nav';
 import { HalftoneBackground } from './components/site/HalftoneBackground';
 import { ScrollProgress } from './components/site/ScrollProgress';
 import { Footer } from './components/site/Shell';
-import { BookCtaProvider } from './components/site/BookCtaContext';
 import ArinoxChatBot from './components/ui/ArinoxChatBot';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -82,7 +81,7 @@ const ScrollReset = () => {
 const AppInner = () => {
   const location = useLocation();
   return (
-    <BookCtaProvider>
+    <>
       <ScrollReset />
       <ScrollProgress />
       <Nav />
@@ -106,6 +105,8 @@ const AppInner = () => {
               <Route path="/industries/apparel" element={<Navigate to="/industries/fashion-lifestyle" replace />} />
               <Route path="/partners" element={<PageTransition><Partners /></PageTransition>} />
               <Route path="/get-started" element={<PageTransition><GetStarted /></PageTransition>} />
+              {/* Sales say "fill the survey" - a typed /survey lands on the intake */}
+              <Route path="/survey" element={<Navigate to="/get-started" replace />} />
               <Route path="/people" element={<PageTransition><People /></PageTransition>} />
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
@@ -125,7 +126,7 @@ const AppInner = () => {
       <Footer />
       <ArinoxChatBot />
       <Analytics route={location.pathname} path={location.pathname} />
-    </BookCtaProvider>
+    </>
   );
 };
 

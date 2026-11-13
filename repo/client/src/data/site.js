@@ -5,7 +5,6 @@
    dropdown on desktop (hover + focus). Mobile always renders every child
    link, so nothing is ever hidden behind a hover. */
 export const nav = [
-  { label: 'Home', to: '/' },
   {
     label: 'Products',
     to: '/industries',
@@ -20,20 +19,17 @@ export const nav = [
     ],
   },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'Partners', to: '/partners' },
-  { label: 'People', to: '/people' },
+  { label: 'Case studies', to: '/case-studies' },
   {
-    label: 'Resources',
-    to: '/blog',
+    label: 'Company',
+    to: '/people',
     group: [
-      { to: '/blog', label: 'Blog', note: 'Field notes and events' },
+      { to: '/people', label: 'People', note: 'Leadership and advisors' },
+      { to: '/partners', label: 'Partners', note: 'Who we build with' },
       { to: '/careers', label: 'Careers', note: 'Open roles' },
-      { to: '/case-studies', label: 'Case Studies', note: 'Deployed inside the perimeter' },
     ],
   },
-  /* Contact is a plain nav link: on desktop it used to live only in the
-     footer, which made "talk to us" hard to find. */
-  { label: 'Contact', to: '/contact' },
+  { label: 'Blog', to: '/blog' },
 ];
 
 export const company = {
@@ -93,7 +89,7 @@ export const people = {
   galleryEyebrow: 'On the ground',
   galleryTitle: 'Real rooms. Real partners.',
   ctaTitle: 'Want to work with this team?',
-  ctaOffer: 'Join us, or book a working session and meet the architects who would run your deployment.',
+  ctaOffer: 'We hire builders who ship AI into real operations. See the open roles.',
 };
 
 export const team = [
@@ -131,14 +127,14 @@ export const advisors = [
 
 /* On-the-ground gallery, real events, real rooms, real people */
 export const gallery = [
-  { photo: 'sovereign-launch',    caption: 'Launching our sovereign AI platform with Langoor, on AIM\u2019s Front Page' },
-  { photo: 'hitachi-shori',       caption: 'Hitachi Shori 2026, industrial intelligence for manufacturing leaders' },
-  { photo: 'hitachi-systems',     caption: 'Formalising the Hitachi Systems India delivery partnership' },
-  { photo: 'ai-summit',           caption: 'With India\u2019s defence & enterprise ecosystem at the AI Summit' },
-  { photo: 'bharat-digital',      caption: 'Bharat Digital Summit, on India\u2019s digital infrastructure roadmap' },
-  { photo: 'aks-workshop',        caption: 'AKS Workshop Global, sovereign AI for Kubernetes-native estates' },
-  { photo: 'ansr-workshop',       caption: 'ANSR Tech Workshop, agentic AI in GCC operations' },
-  { photo: 'hitachi-2026',        caption: 'With partners at the Hitachi leadership forum' },
+  { photo: 'sovereign-launch',    event: 'Sovereign AI launch · AIM',   caption: 'Launching our sovereign AI platform with Langoor, on AIM’s Front Page' },
+  { photo: 'hitachi-shori',       event: 'Hitachi Shori 2026',                 caption: 'Industrial intelligence for manufacturing leaders' },
+  { photo: 'hitachi-systems',     event: 'Hitachi Systems India',              caption: 'Formalising the delivery partnership' },
+  { photo: 'ai-summit',           event: 'AI Summit',                          caption: 'With India’s defence & enterprise ecosystem' },
+  { photo: 'bharat-digital',      event: 'Bharat Digital Summit',              caption: 'On India’s digital infrastructure roadmap' },
+  { photo: 'aks-workshop',        event: 'AKS Workshop Global',                caption: 'Sovereign AI for Kubernetes-native estates' },
+  { photo: 'ansr-workshop',       event: 'ANSR Tech Workshop',                 caption: 'Agentic AI in GCC operations' },
+  { photo: 'hitachi-2026',        event: 'Hitachi leadership forum',           caption: 'With partners at the forum' },
 ];
 
 /* Home page copy: the company essentials. Anything with its own tab lives there. */
@@ -147,37 +143,58 @@ export const home = {
     label: 'The problem',
     title: 'Most AI never leaves the demo stage.',
     lead: 'Three questions decide whether AI ships: where the data goes, who owns the model, and what happens at the security review. We answer all three before we build.',
+    heard: 'What we hear in every first meeting',
     rows: [
-      ['The data can\u2019t move', 'Regulated data can\u2019t be shipped to a vendor\u2019s cloud, so the pilot never survives compliance. We run the models where the data already lives.'],
-      ['The pilot never ends', 'Six months of \u201Cevaluation\u201D and nothing in production. We deploy in days and expand workflow by workflow, with results at each step.'],
-      ['Nobody can audit it', 'A model that can\u2019t explain its decisions will never pass review. Every agent decision is logged, every time.'],
+      { who: 'The security review', objection: 'This data can’t leave the building.', answer: 'We run the models where the data already lives.' },
+      { who: 'The board', objection: 'Six months of pilot. Nothing in production.', answer: 'We deploy in days and expand workflow by workflow.' },
+      { who: 'The auditor', objection: 'Show me why the model decided that.', answer: 'Every agent decision is logged, every time.' },
     ],
   },
-  how: {
-    label: 'How we work',
-    title: 'One partner for the whole AI journey.',
-    lead: 'Accountable for the outcome, from the first working session to the workflows running in production.',
+  /* Customers: slugs of published case studies; the figure is read from the case data (first metric labelled `metric`) */
+  proof: {
+    label: 'Case studies',
+    title: 'Deployed, not demoed.',
+    note: 'Three results from live deployments, in three sectors.',
+    linkLabel: 'Read the case',
+    button: 'See all case studies',
+    cases: [
+      { slug: 'one-cockpit-for-the-entire-bpo-floor', metric: 'Agents live', image: '/images/proof/live-support.svg', line: 'Voice, chat, video and email in one AI-orchestrated layer, live at a PSU bank.' },
+      { slug: 'enterprise-scale-data-intelligence', metric: 'Cost reduction', image: '/images/proof/data-processing.svg', line: 'A multi-agent pipeline that scales across 100K+ part lines without adding headcount.' },
+      { slug: 'golden-record-and-enterprise-data-unification', metric: 'Data systems unified', image: '/images/proof/data-unified.svg', line: 'One governed data layer across 7+ business units, one source of truth.' },
+    ],
+  },
+  method: {
+    label: 'The method',
+    title: 'Three moves. That’s the whole method.',
+    note: 'You focus on your business. We carry the technical weight, from your first working session to workflows running in production.',
     steps: [
-      { n: '01', t: 'Assess', d: 'One free working session. We find the workflows worth transforming first, by cost, risk and payback speed. You keep the map either way.' },
-      { n: '02', t: 'Architect', d: 'The design that fits your constraints: your data, your systems, your compliance regime.' },
-      { n: '03', t: 'Deploy', d: 'Agents on a proven agentic operating system, inside your cloud, your infrastructure or a CommandCore appliance in your building.' },
-      { n: '04', t: 'Operate', d: 'We keep it delivering, governed end to end, from the first agent to an enterprise-wide AI practice.' },
-    ],
-  },
-  build: {
-    label: 'What we build',
-    title: 'One platform. Five operating systems.',
-    lead: 'CommandCore is the sovereign foundation. The OS suites run on top of it, each built for a sector.',
-    cta: 'Compare all products',
-  },
-  closing: {
-    label: 'Arinox AI',
-    title: 'Start with one workflow.',
-    offer: 'A free working session. We map the first workflow worth transforming, and you keep the roadmap either way.',
-    links: [
-      { label: 'Meet the people', to: '/people' },
-      { label: 'Case studies', to: '/case-studies' },
-      { label: 'Contact', to: '/contact' },
+      { n: '01', t: 'Map', d: 'One free working session. We find the workflows worth transforming first, by cost, risk, and payback speed. You keep the map either way.', tag: 'One session', image: '/images/method/map.svg' },
+      { n: '02', t: 'Build', d: 'We assemble agents on a proven agentic operating system, documents, voice, vision, decisions, wired into the tools your teams already use.', tag: 'Built on KOGO OS', image: '/images/method/build.svg' },
+      { n: '03', t: 'Run', d: 'You choose where it lives: your cloud, your infrastructure, or a CommandCore appliance in your building. Governed end to end.', tag: 'Inside your perimeter', image: '/images/method/run.svg' },
     ],
   },
 };
+
+/* Where it runs: shared by Home (Deployment) and Pricing (#deploy) so both say the same thing. */
+export const deployOptions = [
+  {
+    t: 'Your public cloud',
+    d: 'Dedicated, isolated compute that slots into the estate you already run.',
+    li: ['Deploys into your cloud', 'Isolated tenancy', 'Scales as adoption spreads'],
+    image: '/images/deploy/public-cloud.svg',
+  },
+  {
+    t: 'Your virtual private cloud',
+    d: 'We host it for you in a private cloud that stays yours alone.',
+    li: ['Hosted by us in a private VPC', 'Dedicated, not shared', 'No hardware to own or manage'],
+    image: '/images/deploy/private-cloud.svg',
+  },
+  {
+    t: 'CommandCore\u2122',
+    d: 'The machine itself, air-gapped, in your building, answering to nobody\u2019s cloud.',
+    li: ['Zero data egress', 'Full audit trails', 'Remote and tactical sites'],
+    sovereign: true,
+    image: '/images/deploy/commandcore.svg',
+  },
+];
+

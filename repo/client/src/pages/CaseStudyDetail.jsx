@@ -178,7 +178,7 @@ const CaseStudyDetail = () => {
           </div>
 
           <div className="mt-12 flex flex-wrap items-center gap-4 border-t border-ink/80 pt-6">
-            <Button to="/contact" variant="ember">Book a discovery session</Button>
+            <Button to="/contact" variant="ember">Book a call</Button>
             <Link to="/case-studies" className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft hover:text-ember-deep">
               <ArrowLeft size={14} strokeWidth={2.2} />
               All case studies

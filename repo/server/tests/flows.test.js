@@ -411,6 +411,34 @@ describe('leads flow (deck requests)', () => {
     // The visitor gets the profile reply, with no pricing language.
     expect(visitorMail().subject).toBe('Your business profile is in review');
     expect(visitorMail().html).not.toMatch(/price|pricing/i);
+    // They just sent the intake - their reply does not ask for it again.
+    expect(visitorMail().html).not.toContain('arinox.ai/get-started');
+  });
+
+  it('tags an intake sent from the post-booking dialog', async () => {
+    const res = await request(app).post('/api/v1/inquiries').send({
+      name: 'Vikram N',
+      email: 'visitor@example.com',
+      company: 'Meridian Apparels',
+      intent: 'profile',
+      source: 'after-booking',
+      message: 'Business profile answers - Industry: Manufacturing',
+    });
+
+    expect(res.status).toBe(201);
+    expect(writes[0].row.role).toBe('Business Profile · after booking a session');
+  });
+
+  it('links the intake from the reply to an ordinary message', async () => {
+    const res = await request(app).post('/api/v1/inquiries').send({
+      name: 'Asha Rao',
+      email: 'visitor@example.com',
+      intent: 'question',
+      message: 'We run 40 lines of cutting machines.',
+    });
+
+    expect(res.status).toBe(201);
+    expect(visitorMail().html).toContain('https://www.arinox.ai/get-started');
   });
 
   it('carries campaign attribution onto the row', async () => {

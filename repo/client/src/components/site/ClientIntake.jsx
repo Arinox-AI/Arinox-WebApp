@@ -9,7 +9,7 @@ import { Button } from './Button'
 import { Section } from './Section'
 import { Label } from './Layout'
 import { wizard } from '../../data/pricing'
-import { intake } from '../../data/inquiries'
+import { intake, intakeOffer } from '../../data/inquiries'
 import {
   QUESTIONS,
   STEP_TOTAL,
@@ -26,6 +26,7 @@ import {
   clearAnswers,
   blankAnswers,
   hasAnyAnswer,
+  markIntakeDone,
 } from '../pricing/wizardLogic'
 import { track } from '../pricing/track'
 
@@ -195,8 +196,22 @@ function ProfileCard({ answers, activeKey, restored, onStartOver }) {
  * ClientIntake: the ten-question business-profile form (its own page, /get-started).
  * Local state (not URL driven); only the answers persist in sessionStorage,
  * contact fields never do. Submits to /api/v1/inquiries with intent `profile`.
+ *
+ * variant="dialog" renders only the question flow (IntakeDialog supplies the
+ * frame). `prefill` seeds the contact step from a form the visitor has just
+ * sent, `source` tags the lead (after-message | after-booking | contact-page),
+ * and `onClose` turns the finish screen's button into a close.
  */
-export function ClientIntake({ headingLevel = 'h2' }) {
+export function ClientIntake({
+  headingLevel = 'h2',
+  variant = 'page',
+  prefill = null,
+  source = null,
+  showBooking = true,
+  onDone = null,
+  onClose = null,
+}) {
+  const dialog = variant === 'dialog'
   const Heading = headingLevel
   const reduce = useReducedMotion()
   const [step, setStep] = useState(1)
@@ -211,7 +226,14 @@ export function ClientIntake({ headingLevel = 'h2' }) {
     setRestored(false)
   }
   const [capNote, setCapNote] = useState(null)
-  const [contact, setContact] = useState({ name: '', email: '', company: '', role: '', notes: '', website: '' })
+  const [contact, setContact] = useState(() => ({
+    name: prefill?.name || '',
+    email: prefill?.email || '',
+    company: prefill?.company || '',
+    role: '',
+    notes: '',
+    website: '',
+  }))
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState(null)
@@ -313,13 +335,15 @@ export function ClientIntake({ headingLevel = 'h2' }) {
       const payload = buildLeadPayload({
         answers,
         contact,
-        context: { cta: 'home-intake', token },
+        context: { cta: dialog ? 'intake-dialog' : 'home-intake', token, source },
         intent: 'profile',
         heading: 'Business profile answers',
       })
       const res = await axios.post('/api/v1/inquiries', payload)
-      track('intake_submit', { successful: true, id: res.data?.id ?? null })
+      track('intake_submit', { successful: true, id: res.data?.id ?? null, source: source || 'page' })
       clearAnswers()
+      markIntakeDone()
+      onDone?.()
       setSubmitError(null)
       interacted.current = true
       setDone(true)
@@ -334,10 +358,8 @@ export function ClientIntake({ headingLevel = 'h2' }) {
   const cardCls = 'rounded-card border border-line bg-white p-6 md:p-9'
   const headCls = 'mt-4 max-w-xl font-display text-[24px] leading-[1.15] tracking-[-0.01em] outline-none md:text-[30px]'
 
-  return (
-    <Section id="intake" className="scroll-mt-[72px]" border>
-      <div className="grid items-start gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
-        {/* Left: framing + live profile */}
+  /* Left: framing + live profile (page only - the dialog has its own head). */
+  const framing = (
         <div className="lg:sticky lg:top-24">
           <Label>{intake.eyebrow}</Label>
           <Heading className="mt-5 max-w-md font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
@@ -359,8 +381,10 @@ export function ClientIntake({ headingLevel = 'h2' }) {
             })}
           </ul>
         </div>
+  )
 
-        {/* Right: one question per card */}
+  /* Right: one question per card. */
+  const flow = (
         <div>
           <div className="flex items-center gap-4">
             <ProgressBar step={done ? STEP_TOTAL : step} />
@@ -391,10 +415,18 @@ export function ClientIntake({ headingLevel = 'h2' }) {
                         </li>
                       ))}
                     </ol>
-                    <div className="mt-8">
-                      <Button to="/contact?tab=book" variant="ember" onClick={() => track('booking_click')}>
-                        {intake.success.cta}
-                      </Button>
+                    <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+                      {/* Someone who already booked is not asked to book again. */}
+                      {showBooking ? (
+                        <Button to="/contact?tab=book" variant="ember" onClick={() => track('booking_click')}>
+                          {intake.success.cta}
+                        </Button>
+                      ) : null}
+                      {onClose ? (
+                        <Button variant={showBooking ? 'ghost' : 'dark'} onClick={onClose}>
+                          {intakeOffer.doneClose}
+                        </Button>
+                      ) : null}
                     </div>
                   </div>
                 ) : question ? (
@@ -499,10 +531,21 @@ export function ClientIntake({ headingLevel = 'h2' }) {
           </div>
 
           {/* On small screens the profile sits under the card. */}
-          <div className="mt-8 lg:hidden">
-            <ProfileCard answers={answers} activeKey={question?.key} restored={restored} onStartOver={startOver} />
-          </div>
+          {dialog ? null : (
+            <div className="mt-8 lg:hidden">
+              <ProfileCard answers={answers} activeKey={question?.key} restored={restored} onStartOver={startOver} />
+            </div>
+          )}
         </div>
+  )
+
+  if (dialog) return flow
+
+  return (
+    <Section id="intake" className="scroll-mt-[72px]" border>
+      <div className="grid items-start gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-14">
+        {framing}
+        {flow}
       </div>
     </Section>
   )

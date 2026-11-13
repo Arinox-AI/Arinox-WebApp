@@ -171,7 +171,16 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
    requests) stay minimal: greeting + one short line — the file is sent by a
    person from the team shortly, never attached automatically. Everything
    else keeps the steps box and reply line. */
-const contactAutoReply = ({ name, subject, body, steps, asset }) => {
+/* The client intake, linked from customer emails so a visitor who closed the
+   on-site offer can still fill it in before we speak. A text link, not a
+   second button: the email keeps one orange action. */
+const INTAKE_URL = 'https://www.arinox.ai/get-started';
+const intakeLine = (lead) => `
+      <p style="font-size:14.5px;color:#3a3a3f;line-height:1.65;margin:22px 0 0;">
+        ${esc(lead)} <a href="${INTAKE_URL}" style="${linkStyle}">Tell us about your business</a>: ten quick questions, about 4 minutes.
+      </p>`;
+
+const contactAutoReply = ({ name, subject, body, steps, asset, surveyLink = false }) => {
   const minimal = Boolean(asset?.name);
   const list = Array.isArray(steps) && steps.length
     ? steps
@@ -212,6 +221,7 @@ const contactAutoReply = ({ name, subject, body, steps, asset }) => {
         ${stepsTable}
       </div>
       ${button('https://www.arinox.ai/contact', 'Book a 30-minute call')}`}
+      ${surveyLink ? intakeLine('Before we speak:') : ''}
       <p style="font-size:15px;color:#17171a;line-height:1.6;margin:26px 0 0;">Warm regards,<br><span style="font-family:${FONT_DISPLAY};font-size:17px;">The Arinox team</span></p>
       <p style="font-size:12.5px;color:#8a8a93;line-height:1.6;margin:18px 0 0;">Just reply to this email, it reaches a person on our team.</p>
     </div>`);
@@ -294,6 +304,7 @@ const bookingConfirmation = ({ name, when, visitorWhen, topic, meetLink }) =>
       <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${esc(name)},</p>
       <p style="font-size:15px;color:#5b5b60;line-height:1.7;margin:0 0 18px;">You're booked. You'll get a calendar invite as well — accept it and it lands in your calendar.</p>
       ${bookingRows({ when, visitorWhen, topic, meetLink })}
+      ${intakeLine('Help us prepare:')}
       <div style="${noteBoxStyle};margin-top:22px;">
         Need to move it? Just reply to this email — a person will sort it out with you. If our schedule ever has to change, we'll tell you straight away.
       </div>

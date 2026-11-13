@@ -104,7 +104,8 @@ Arinox works with an ecosystem of technology, infrastructure, hardware and syste
 - /people — leadership team, advisors and event gallery
 - /blog — insights
 - /careers — open roles
-- /contact — book a discovery session
+- /contact — book a call (a free 30-minute call with an Arinox architect; the page opens on the calendar)
+- /get-started — the client survey: ten quick questions about the business (teams, systems, data, goals, budget, timeline), about 4 minutes. Prospects fill it in before a meeting so the team comes prepared. Also reachable as /survey. When someone asks for "the survey", "the form" or "the questionnaire", point them here.
 There is no other page. Never invent a page, URL or document name. If you point a user somewhere, use one of these or the Contact page. The CommandCore page also carries the data-readiness section "Make your data AI-ready?".
 There is no public implementation-brief or use-cases page and no direct PDF download. If a user asks about an implementation brief, say it is available from the Arinox team on request through the Contact page.
 

@@ -17,7 +17,15 @@ export function blankAnswers() {
   return {
     industry: '', size: '', teams: [], apps: [], data: '', outcome: [],
     stage: '', blockers: [], budget: '', budgetCurrency: '', timeline: '',
+    appsOther: '',
   };
+}
+
+/* A multi question's picks plus its typed "other" answer (question.other). */
+export const otherKey = (key) => `${key}Other`;
+export function multiValue(answers, key) {
+  const typed = String(answers?.[otherKey(key)] || '').trim();
+  return [...(answers?.[key] || []), ...(typed ? [typed] : [])];
 }
 
 /* Join selected options for the lead payload (empty → null, like the server). */
@@ -49,7 +57,8 @@ export function stepAnswered(step, answers) {
   const question = QUESTIONS[step - 1];
   const a = answers[question.key];
   if (question.type === 'text') return question.optional ? true : Boolean(String(a || '').trim());
-  return question.type === 'single' ? Boolean(a) : Array.isArray(a) && a.length > 0;
+  if (question.type === 'single') return Boolean(a);
+  return multiValue(answers, question.key).length > 0;
 }
 
 /* Default currency symbol for the budget: rupees for an Indian locale, else dollars. */
@@ -85,6 +94,8 @@ export function loadAnswers() {
         if (typeof v === 'string') out[q.key] = v.slice(0, q.maxLength || 200);
       } else if (q.type === 'multi') {
         out[q.key] = Array.isArray(v) ? v.filter((x) => q.options.includes(x)) : [];
+        const typed = parsed?.[otherKey(q.key)];
+        if (q.other && typeof typed === 'string') out[otherKey(q.key)] = typed.slice(0, q.other.maxLength || 200);
       } else if (q.options.includes(v)) {
         out[q.key] = v;
       }
@@ -100,6 +111,7 @@ export function loadAnswers() {
 export function hasAnyAnswer(answers) {
   return QUESTIONS.some((q) => {
     const v = answers?.[q.key];
+    if (q.type === 'multi') return multiValue(answers, q.key).length > 0;
     return Array.isArray(v) ? v.length > 0 : Boolean(String(v || '').trim());
   });
 }
@@ -109,6 +121,26 @@ export function saveAnswers(answers) {
     sessionStorage.setItem(ANSWERS_KEY, JSON.stringify(answers));
   } catch {
     /* storage unavailable (private mode) — in-memory state still works */
+  }
+}
+
+/* "This browser already sent the intake" - a bare flag (no answers, no
+   contact details) so the post-contact offer is not shown again. */
+export const DONE_KEY = 'arinox-intake-done';
+
+export function hasCompletedIntake() {
+  try {
+    return localStorage.getItem(DONE_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+export function markIntakeDone() {
+  try {
+    localStorage.setItem(DONE_KEY, '1');
+  } catch {
+    /* storage unavailable - the offer simply shows again next time */
   }
 }
 
@@ -142,7 +174,7 @@ export function buildLeadPayload({ answers, contact, context = {}, intent = 'pri
     `Industry: ${answers.industry || 'n/a'}`,
     `Organisation size: ${answers.size || 'n/a'}`,
     `Teams: ${joinLines(answers.teams) || 'n/a'}`,
-    `Applications: ${joinLines(answers.apps) || 'n/a'}`,
+    `Applications: ${joinLines(multiValue(answers, 'apps')) || 'n/a'}`,
     `Data: ${answers.data || 'n/a'}`,
     `Outcomes: ${joinLines(answers.outcome) || 'n/a'}`,
     `AI today: ${answers.stage || 'n/a'}`,
@@ -163,11 +195,11 @@ export function buildLeadPayload({ answers, contact, context = {}, intent = 'pri
     company: contact.company.trim().slice(0, 160),
     companyType: answers.industry || null,
     companySize: answers.size || null,
-    aiTools: join(answers.apps),
+    aiTools: join(multiValue(answers, 'apps')),
     useCases: join([...(answers.teams || []), ...(answers.outcome || [])]),
     message: summary,
     intent,
-    source: intent === 'profile' ? 'home' : 'survey',
+    source: context.source || (intent === 'profile' ? 'home' : 'survey'),
     website: contact.website, // honeypot: '' for humans, bot junk for bots
     turnstileToken: context.token || undefined,
     landing_page: typeof window !== 'undefined' ? window.location.href : undefined,

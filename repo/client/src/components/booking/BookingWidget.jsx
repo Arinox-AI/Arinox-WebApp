@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import { Button } from '../site/Button';
 import HumanCheck from '../site/HumanCheck';
 import { booking } from '../../data/booking';
+import { IntakeOffer } from '../site/IntakeDialog';
+import { intakeOffer } from '../../data/inquiries';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DOW = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
@@ -174,6 +176,17 @@ export default function BookingWidget() {
           {result?.meetLink && <div className="grid grid-cols-[90px_1fr] gap-2"><dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-faint">Join</dt><dd><a href={result.meetLink} className="text-ember-deep underline underline-offset-2">Video call</a></dd></div>}
         </dl>
         <p className="mt-5 text-[13.5px] text-ink-faint">{booking.done.move}</p>
+        {/* Booked: ask for the intake now, prefilled, so the call starts informed.
+            The finish screen does not offer a second booking. */}
+        <IntakeOffer
+          source="after-booking"
+          showBooking={false}
+          prefill={{ name: form.name.trim(), email: form.email.trim(), company: form.company.trim() }}
+          eyebrow={intakeOffer.afterBooking.eyebrow}
+          text={intakeOffer.afterBooking.text(dayLabel(start))}
+          cta={intakeOffer.afterBooking.cta}
+          className="mt-7"
+        />
         <button onClick={reset} className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-ember-deep hover:opacity-75">{booking.done.again}</button>
       </div>
     );

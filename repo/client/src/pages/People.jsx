@@ -1,7 +1,6 @@
 import SEO from '../components/ui/SEO'
 import { Section } from '../components/site/Section'
 import { Label } from '../components/site/Layout'
-import { Button } from '../components/site/Button'
 import { HalftoneBackground } from '../components/site/HalftoneBackground'
 import { CtaBand } from '../components/site/Shell'
 import { team, advisors, gallery, people } from '../data/site'
@@ -19,17 +18,17 @@ function PersonGroup({ label, list }) {
       </div>
       <div className={`grid gap-4 sm:grid-cols-2 ${layout}`}>
         {list.map((p) => (
-          <div key={p.name} className="group overflow-hidden card-light">
+          <div key={p.name} className="group">
             <div className="aspect-square overflow-hidden bg-paper-2">
               <img
                 src={p.photo}
                 alt={p.name}
                 loading="lazy"
-                className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
               />
             </div>
-            <div className="p-4">
-              <p className="font-display text-[16px] leading-tight tracking-[-0.01em]">{p.name}</p>
+            <div className="mt-3 border-t border-ink/80 pt-3">
+              <p className="font-display text-[17px] leading-tight tracking-[-0.01em]">{p.name}</p>
               <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep">{p.role}</p>
             </div>
           </div>
@@ -38,6 +37,8 @@ function PersonGroup({ label, list }) {
     </div>
   )
 }
+
+const [lead, ...rest] = gallery
 
 const People = () => (
   <>
@@ -68,23 +69,37 @@ const People = () => (
     </Section>
 
     <Section border eyebrow={people.galleryEyebrow} title={people.galleryTitle}>
-      <div className="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-        {gallery.map((g) => (
+      <div className="grid gap-x-10 gap-y-8 lg:grid-cols-12">
+        <figure className="lg:col-span-8">
+          <div className="aspect-[3/2] overflow-hidden bg-paper-2">
+            <img src={img(lead.photo)} alt={`${lead.event}: ${lead.caption}`} loading="lazy" className="h-full w-full object-cover" />
+          </div>
+        </figure>
+        <div className="border-t border-ink/80 pt-4 lg:col-span-4 lg:self-end">
+          <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-ember-deep">{lead.event}</p>
+          <p className="mt-3 font-display text-[24px] leading-[1.2] tracking-[-0.01em]">{lead.caption}</p>
+        </div>
+      </div>
+      <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+        {rest.map((g) => (
           <figure key={g.photo}>
-            <div className="img-frame aspect-[4/3] overflow-hidden rounded-xl border border-line">
-              <img src={img(g.photo)} alt={g.caption} loading="lazy" className="h-full w-full object-cover" />
+            <div className="aspect-[4/3] overflow-hidden bg-paper-2">
+              <img src={img(g.photo)} alt={`${g.event}: ${g.caption}`} loading="lazy" className="h-full w-full object-cover" />
             </div>
-            <figcaption className="mt-3 text-[13.5px] leading-relaxed text-ink-soft">{g.caption}</figcaption>
+            <figcaption className="mt-3 border-t border-line pt-3">
+              <span className="block font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{g.event}</span>
+              <span className="mt-1.5 block text-[14px] leading-relaxed text-ink-soft">{g.caption}</span>
+            </figcaption>
           </figure>
         ))}
       </div>
-      <div className="mt-12 flex flex-wrap gap-3.5">
-        <Button to="/careers" variant="dark">Join us</Button>
-        <Button to="/contact" variant="ghost">Talk to the team</Button>
-      </div>
     </Section>
 
-    <CtaBand title={people.ctaTitle} offer={people.ctaOffer} />
+    <CtaBand
+      title={people.ctaTitle}
+      offer={people.ctaOffer}
+      primary={{ label: 'Join us', to: '/careers' }}
+    />
   </>
 )
 

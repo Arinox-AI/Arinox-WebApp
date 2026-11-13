@@ -6,8 +6,8 @@ import { ClientIntake } from '../components/site/ClientIntake'
 const GetStarted = () => (
   <>
     <SEO
-      title="Tell Us About Your Business | Arinox AI"
-      description="Ten quick questions so Arinox architects arrive at the first call already knowing your teams, systems, data and goals. About 4 minutes."
+      title="Get Started: Tell Us About Your Business | Arinox AI"
+      description="The Arinox client survey: ten quick questions before your meeting, so our architects arrive already knowing your teams, systems, data and goals. About 4 minutes."
       canonical="https://www.arinox.ai/get-started"
     />
     <div className="pt-6 md:pt-10">

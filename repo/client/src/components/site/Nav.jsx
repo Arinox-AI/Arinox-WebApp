@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
 import { Button } from './Button'
 import { nav } from '../../data/site'
-import { useBookCta, BOOK_CTA_TRANSITION } from './BookCtaContext'
 
 /* Minimal dropdown: opens on hover and on keyboard focus, closes on leave,
    blur or Escape. The panel sits inside the header so there is no hover gap. */
@@ -43,7 +41,7 @@ function NavDropdown({ item }) {
       <NavLink
         to={item.to}
         end={item.to === '/'}
-        className={`flex items-center gap-1 pb-1 transition-colors duration-150 ${active ? 'text-ink shadow-[inset_0_-2px_0_var(--color-ember)]' : 'text-ink-soft hover:text-ink'}`}
+        className={`flex items-center gap-1 whitespace-nowrap pb-1 transition-colors duration-150 ${active ? 'text-ink shadow-[inset_0_-2px_0_var(--color-ember)]' : 'text-ink-soft hover:text-ink'}`}
         aria-haspopup="true"
         aria-expanded={open}
         onFocus={openNow}
@@ -86,7 +84,7 @@ function NavDropdown({ item }) {
 }
 
 function navCls({ isActive }) {
-  return `text-[12.5px] transition-colors duration-150 pb-1 ${
+  return `whitespace-nowrap text-[12.5px] transition-colors duration-150 pb-1 ${
     isActive ? 'text-ink shadow-[inset_0_-2px_0_var(--color-ember)]' : 'text-ink-soft hover:text-ink'
   }`
 }
@@ -94,12 +92,6 @@ function navCls({ isActive }) {
 export function Nav() {
   const [open, setOpen] = useState(false)
   const { pathname } = useLocation()
-  const { passed, hasHero } = useBookCta()
-  /* The header CTA is the pricing entry point sitewide (the page carries the
-     price form and the survey door). It hides on the pricing routes - it
-     would point at its own page. */
-  const onPricing = pathname.startsWith('/pricing')
-  const showNavCta = (!hasHero || passed) && !onPricing
 
   useEffect(() => { setOpen(false) }, [pathname])
   useEffect(() => {
@@ -123,7 +115,7 @@ export function Nav() {
         <nav className="chip hidden items-center lg:flex" aria-label="Main">
           {nav.map((item, i) => (
             <span key={item.label} className="flex items-center">
-              {i > 0 && <span className="px-2.5 text-ink-faint" aria-hidden>·</span>}
+              {i > 0 && <span className="px-1.5 text-ink-faint xl:px-2.5" aria-hidden>·</span>}
               {item.group ? (
                 <NavDropdown item={item} />
               ) : (
@@ -135,22 +127,14 @@ export function Nav() {
           ))}
         </nav>
 
-        <div className="hidden lg:block">
-          <motion.div
-            initial={false}
-            animate={{
-              opacity: showNavCta ? 1 : 0,
-              y: showNavCta ? 0 : -10,
-              scale: showNavCta ? 1 : 0.9,
-            }}
-            transition={BOOK_CTA_TRANSITION}
-            style={{ pointerEvents: showNavCta ? 'auto' : 'none' }}
-            aria-hidden={!showNavCta}
-          >
-            <Button to="/pricing" variant="dark" size="sm">Talk pricing</Button>
-          </motion.div>
+        {/* Always visible, no animation. The roadmap button shows from xl; Book a call always. */}
+        <div className="hidden items-center gap-2.5 lg:flex">
+          <Button to="/get-started" variant="ghost" size="sm" className="hidden whitespace-nowrap xl:inline-flex">Get your AI roadmap</Button>
+          <Button to="/contact" variant="dark" size="sm" className="whitespace-nowrap">Book a call</Button>
         </div>
 
+        <div className="flex items-center gap-2 lg:hidden">
+          <Button to="/contact" variant="dark" size="sm" className="whitespace-nowrap">Book a call</Button>
         <button
           className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -160,7 +144,9 @@ export function Nav() {
           <span className="h-px w-6 bg-ink" />
           <span className="h-px w-6 bg-ink" />
           <span className="h-px w-6 bg-ink" />
-        </button>      </div>
+        </button>
+        </div>
+      </div>
 
       {open && (
         <>
@@ -190,9 +176,12 @@ export function Nav() {
                 </NavLink>
               ))}
             </nav>
-            <div className="mt-7">
-              <Button to="/pricing" variant="ember" className="w-full" onClick={() => setOpen(false)}>
-                Talk pricing
+            <div className="mt-7 flex flex-col gap-3">
+              <Button to="/get-started" variant="ghost" className="w-full" onClick={() => setOpen(false)}>
+                Get your AI roadmap
+              </Button>
+              <Button to="/contact" variant="ember" className="w-full" onClick={() => setOpen(false)}>
+                Book a call
               </Button>
             </div>
           </div>

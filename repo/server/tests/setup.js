@@ -13,3 +13,7 @@ process.env.GOOGLE_SERVICE_ACCOUNT_FILE = '';
 process.env.GOOGLE_SERVICE_ACCOUNT_JSON = '';
 process.env.GOOGLE_DELEGATION = '';
 process.env.BOOKING_MEET_LINK = '';
+// A real Turnstile secret in repo/.env would make every form POST demand a
+// token (403). Tests that exercise the check set their own secret.
+process.env.TURNSTILE_SECRET_KEY = '';
+process.env.VITE_TURNSTILE_SITE_KEY = '';

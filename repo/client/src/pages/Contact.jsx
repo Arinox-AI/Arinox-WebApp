@@ -8,7 +8,8 @@ import { Pill } from '../components/site/Pill';
 import BookingWidget from '../components/booking/BookingWidget';
 import { InquiryForm } from '../components/site/InquiryForm';
 import { booking } from '../data/booking';
-import { inquiries } from '../data/inquiries';
+import { inquiries, intakeOffer } from '../data/inquiries';
+import { IntakeOffer } from '../components/site/IntakeDialog';
 import { company } from '../data/site';
 
 const Contact = () => {
@@ -61,6 +62,14 @@ const Contact = () => {
               </button>
             ))}
           </div>
+          {/* Sales send prospects here before a meeting: the intake is one click away. */}
+          <IntakeOffer
+            inline
+            source="contact-page"
+            lead={intakeOffer.contactPage.lead}
+            cta={intakeOffer.contactPage.link}
+            className="mt-6"
+          />
         </div>
       </section>
 

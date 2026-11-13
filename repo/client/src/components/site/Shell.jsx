@@ -4,7 +4,7 @@ import { HalftoneBackground } from './HalftoneBackground'
 import { LinkedinIcon } from './Icons'
 import { company } from '../../data/site'
 
-export function CtaBand({ title, offer }) {
+export function CtaBand({ title, offer, primary = { label: 'Book a call', to: '/contact' }, secondary, facts }) {
   return (
     <section className="relative overflow-hidden bg-void py-28 text-white md:py-36">
       <div className="pointer-events-none absolute inset-0 opacity-60">
@@ -13,11 +13,22 @@ export function CtaBand({ title, offer }) {
       <div className="relative mx-auto max-w-3xl px-7 text-center">
         <h2 className="font-display text-[34px] leading-[1.08] tracking-[-0.01em] text-phos md:text-[54px]">{title}</h2>
         <p className="mx-auto mt-5 max-w-md text-[17px] leading-relaxed text-ghost">{offer}</p>
-        <div className="mt-10">
-          <Button to="/contact" variant="ember">
-            Book a discovery session
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
+          <Button to={primary.to} variant="ember">
+            {primary.label}
           </Button>
+          {secondary && (
+            <Link
+              to={secondary.to}
+              className="border-b border-white/30 pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-phos transition-colors hover:border-white"
+            >
+              {secondary.label}
+            </Link>
+          )}
         </div>
+        {facts && facts.length > 0 && (
+          <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.12em] text-ghost">{facts.join(' · ')}</p>
+        )}
       </div>
     </section>
   )
@@ -54,7 +65,7 @@ export function Footer() {
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Resources</h5>
             <FooterLink to="/pricing">Pricing</FooterLink>
-            <FooterLink to="/case-studies">Case Studies</FooterLink>
+            <FooterLink to="/case-studies">Case studies</FooterLink>
             <FooterLink to="/blog">Blog</FooterLink>
             <FooterLink to="/careers">Careers</FooterLink>
             <FooterLink to="/partners">Partners</FooterLink>
@@ -62,7 +73,8 @@ export function Footer() {
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Contact</h5>
-            <FooterLink to="/contact">Book a session</FooterLink>
+            <FooterLink to="/contact">Book a call</FooterLink>
+            <FooterLink to="/get-started">Get your AI roadmap</FooterLink>
             <a
               href={company.linkedin}
               target="_blank"

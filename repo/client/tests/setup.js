@@ -39,7 +39,7 @@ if (typeof window !== 'undefined') {
   }
 }
 
-// jsdom has no 2D canvas; canvas components (PresenceGlobe) get a no-op 2D context.
+// jsdom has no 2D canvas; canvas components get a no-op 2D context.
 if (typeof HTMLCanvasElement !== 'undefined') {
   HTMLCanvasElement.prototype.getContext = function getContext() {
     return {

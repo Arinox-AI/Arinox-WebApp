@@ -1,96 +1,20 @@
-import { useRef, useEffect } from 'react'
-import { motion } from 'framer-motion'
-import { Map, Rocket, Layers } from 'lucide-react'
+import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
-import { useBookCta, BOOK_CTA_TRANSITION } from '../components/site/BookCtaContext'
 import { Button } from '../components/site/Button'
 import { Section } from '../components/site/Section'
 import { Label } from '../components/site/Layout'
 import { CtaBand } from '../components/site/Shell'
 import { PresenceGlobe } from '../components/site/PresenceGlobe'
-import { StartHere } from '../components/site/StartHere'
 import { LayerStack } from '../components/site/LayerStack'
 import { Marquee } from '../components/site/Marquee'
+import { CountUp, DrawRule } from '../components/site/CountUp'
 import { SplitText } from '../components/site/motion/SplitText'
 import { Magnet } from '../components/site/motion/Magnet'
+import { startHere } from '../data/inquiries'
+import { deployOptions, home } from '../data/site'
+import { caseIndex } from '../data/caseStudies'
 import { powerUseCases, businessApps, kogoHome } from '../data/commandcore'
-
-const moves = [
-  {
-    n: '01',
-    Icon: Map,
-    t: 'Map',
-    d: 'One free working session. We find the workflows worth transforming first, by cost, risk, and payback speed. You keep the map either way.',
-    tag: 'One session',
-    image: '/images/method/map.svg',
-  },
-  {
-    n: '02',
-    Icon: Layers,
-    t: 'Build',
-    d: 'We assemble agents on a proven agentic operating system, documents, voice, vision, decisions, wired into the tools your teams already use.',
-    tag: 'Built on KOGO OS',
-    image: '/images/method/build.svg',
-  },
-  {
-    n: '03',
-    Icon: Rocket,
-    t: 'Run',
-    d: 'You choose where it lives: your cloud, your infrastructure, or a CommandCore appliance in your building. Governed end to end.',
-    tag: 'Inside your perimeter',
-    image: '/images/method/run.svg',
-  },
-]
-
-const deploy = [
-  {
-    t: 'Your public cloud',
-    d: 'Dedicated, isolated compute that slots into the estate you already run.',
-    li: ['Deploys into your cloud', 'Isolated tenancy', 'Scales as adoption spreads'],
-    image: '/images/deploy/public-cloud.svg',
-  },
-  {
-    t: 'Your virtual private cloud',
-    d: 'We host it for you in a private cloud that stays yours alone.',
-    li: ['Hosted by us in a private VPC', 'Dedicated, not shared', 'No hardware to own or manage'],
-    image: '/images/deploy/private-cloud.svg',
-  },
-  {
-    t: 'CommandCore™',
-    d: 'The machine itself, air-gapped, in your building, answering to nobody’s cloud.',
-    li: ['Zero data egress', 'Full audit trails', 'Remote and tactical sites'],
-    sovereign: true,
-    image: '/images/deploy/commandcore.svg',
-  },
-]
-
-const model = [
-  {
-    n: '01',
-    k: 'What',
-    image: '/images/partnership/what.svg',
-    title: 'We solve with purpose',
-    desc: 'We build AI that drives business transformation, from roadmap to rollout: strategy, systems, and scale.',
-    tags: ['Strategy', 'Systems', 'Scale'],
-  },
-  {
-    n: '02',
-    k: 'Who',
-    image: '/images/partnership/who.svg',
-    title: 'Trusted by the regulated',
-    desc: 'Enterprises, governments, defence, and global system integrators, environments where AI has to survive the security review.',
-    tags: ['BFSI', 'Healthcare', 'Defence', 'Government'],
-  },
-  {
-    n: '03',
-    k: 'How',
-    image: '/images/partnership/how.svg',
-    title: 'An end-to-end ecosystem',
-    desc: 'Data readiness, implementation, and adoption, managed end to end so strategy becomes measurable value.',
-    tags: ['Data readiness', 'Implementation', 'Adoption'],
-  },
-]
-
 /* Trusted-by strip. Same sizing rule as the Partners page: explicit w/h
    per logo (equal ~4,200px² footprint, max 150×44) so wide wordmarks don't
    dwarf square marks and vice versa. The flex row center-aligns everything,
@@ -116,34 +40,19 @@ const trustedLogos = [
   { src: '/images/logos/informage.png', alt: 'Informage', w: 133, h: 31 },
 ]
 
+/* Customers: slug + metric label come from home.proof; the figure is read from the case data */
+const proofCases = home.proof.cases
+  .map((p) => {
+    const entry = caseIndex.find((e) => e.slug === p.slug)
+    const m = entry?.useCase.metrics.find((x) => x.label === p.metric && x.basis === 'published')
+    return entry && m ? { ...p, title: entry.useCase.title, sector: entry.sectorLabel, value: m.value } : null
+  })
+  .filter(Boolean)
+
 const Home = () => {
   const heroRef = useRef(null)
-  const ctaSlotRef = useRef(null)
-  const { passed, setPassed, setHasHero } = useBookCta()
 
-  useEffect(() => {
-    setHasHero(true)
-    return () => {
-      setHasHero(false)
-      setPassed(false)
-    }
-  }, [setHasHero, setPassed])
-
-  useEffect(() => {
-    const onScroll = () => {
-      const el = ctaSlotRef.current
-      if (!el) return
-      setPassed(el.getBoundingClientRect().bottom < 76)
-    }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [setPassed])
-
+  /* Pointer light in the hero (CSS vars read by .hero-light). */
   const onHeroMove = (e) => {
     const el = heroRef.current
     if (!el) return
@@ -160,7 +69,7 @@ const Home = () => {
         canonical="https://www.arinox.ai/"
       />
 
-      {/* Hero */}
+      {/* Hero: headline left, presence globe right (restored 2026-11-13 on the user's call). */}
       <section
         ref={heroRef}
         onMouseMove={onHeroMove}
@@ -182,7 +91,7 @@ const Home = () => {
                 { t: 'AI native.', accent: 'italic text-ember' },
               ]}
             />
-            <p className="mt-5 font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft">
+            <p className="mt-5 hidden font-mono text-[12px] uppercase tracking-[0.16em] text-ink-soft sm:block">
               AI transformation, implemented end-to-end.
             </p>
             <p className="mx-auto mt-6 max-w-[560px] text-[17px] leading-relaxed text-ink-soft md:text-lg lg:mx-0">
@@ -190,26 +99,13 @@ const Home = () => {
               decision intelligence, Arinox delivers enterprise AI across every industry and domain, entirely within your environment.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
-              <motion.div
-                ref={ctaSlotRef}
-                initial={false}
-                animate={{
-                  opacity: passed ? 0 : 1,
-                  y: passed ? -18 : 0,
-                  scale: passed ? 0.94 : 1,
-                }}
-                transition={BOOK_CTA_TRANSITION}
-                style={{ pointerEvents: passed ? 'none' : 'auto' }}
-                aria-hidden={passed}
-              >
-                <Button to="/contact" variant="ember">Book a discovery session</Button>
-              </motion.div>
+              <Button to="/contact" variant="ember">Book a call</Button>
               <Magnet>
                 <Button to="/case-studies" variant="ghost">Explore case studies</Button>
               </Magnet>
             </div>
             <p className="num mt-6 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
-              Free discovery session · the roadmap is yours · zero egress
+              Free first call · the roadmap is yours · zero egress
             </p>
           </div>
 
@@ -245,91 +141,72 @@ const Home = () => {
         </div>
       </section>
 
-      {/* The problem, dark statement, hairline rows */}
+      {/* The problem, dark statement: the objections buyers voice */}
       <Section dark border={false}>
-        <Label dark>The problem</Label>
+        <Label dark>{home.problem.label}</Label>
         <h2 className="mt-5 max-w-3xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[52px]">
-          Most AI never leaves the demo stage.
+          {home.problem.title}
         </h2>
-        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">
-          Three questions decide whether AI ships: where the data goes, who owns the model, and what
-          happens at the security review. We answer all three before we build.
-        </p>
-        <div className="mt-12 grid gap-x-16 gap-y-10 md:grid-cols-3">
-          {[
-            ['The data can’t move', 'Regulated data can’t be shipped to a vendor’s cloud, so the pilot never survives compliance. We run the models where the data already lives.'],
-            ['The pilot never ends', 'Six months of “evaluation” and nothing in production. We deploy in days and expand workflow by workflow, with results at each step.'],
-            ['Nobody can audit it', 'A model that can’t explain its decisions will never pass review. Every agent decision is logged, every time.'],
-          ].map(([t, d]) => (
-            <div key={t} className="border-t border-white/20 pt-6">
-              <h3 className="font-display text-[22px] leading-tight tracking-[-0.01em] text-phos">{t}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-ghost">{d}</p>
+        <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">{home.problem.lead}</p>
+        <p className="mt-12 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ghost">{home.problem.heard}</p>
+        <div className="mt-5 grid gap-x-16 gap-y-10 md:grid-cols-3">
+          {home.problem.rows.map((r) => (
+            <div key={r.who} className="border-t border-white/20 pt-6">
+              <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-phos">{r.who}</p>
+              <p className="mt-4 font-display text-[24px] leading-[1.2] tracking-[-0.01em] text-phos">
+                {'“'}{r.objection}{'”'}
+              </p>
+              <p className="mt-4 text-[15px] leading-relaxed text-ghost">{r.answer}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      {/* The partnership */}
-      <Section border>
-        <Label>The partnership</Label>
+      {/* Customers: deployed, not demoed */}
+      <Section border={false}>
+        <Label>{home.proof.label}</Label>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
-            One partner for the whole AI journey.
+            {home.proof.title}
           </h2>
-          <p className="max-w-xs text-[15px] leading-relaxed text-ink-soft">
-            Accountable for the outcome, from the first working session to the workflows running in
-            production.
-          </p>
+          <p className="max-w-xs text-[15px] leading-relaxed text-ink-soft">{home.proof.note}</p>
         </div>
-
-        <p className="mt-10 max-w-2xl text-[17px] leading-relaxed text-ink-soft">
-          You focus on your business. We carry the technical weight, from setting up your VPC to
-          keeping your{' '}
-          <span className="border-b border-ember pb-0.5 text-ink">AI journey safe and compliant.</span>
-        </p>
-
-        <div className="mt-12 grid gap-x-12 gap-y-14 md:grid-cols-3">
-          {model.map((m) => (
-            <div key={m.k} className="group">
-              <div className="flex items-center gap-3 border-t border-ink/80 pt-6">
-                <span className="num font-mono text-[12px] text-ember-deep">{m.n}</span>
-                <span className="eyebrow text-ink-faint">{m.k}</span>
-                <span
-                  className="ml-auto h-px w-8 bg-line transition-all duration-300 group-hover:w-14 group-hover:bg-ember"
-                  aria-hidden
-                />
+        <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3">
+          {proofCases.map((c) => (
+            <div key={c.slug} className="relative flex flex-col pt-6">
+              <DrawRule />
+              <div className="mb-6 flex h-[120px] items-center">
+                <img src={c.image} alt="" loading="lazy" className="max-h-full w-auto max-w-full object-contain object-left" />
               </div>
-
-              <div className="mt-7 flex h-[136px] items-center">
-                <img
-                  src={m.image}
-                  alt=""
-                  loading="lazy"
-                  className="max-h-full w-full object-contain object-left transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              </div>
-
-              <h3 className="mt-6 font-display text-[27px] leading-tight tracking-[-0.01em]">{m.title}</h3>
-              <p className="mt-3 text-[16px] leading-relaxed text-ink-soft">{m.desc}</p>
-
-              <p className="mt-6 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">
-                {m.tags.join(' · ')}
-              </p>
+              <CountUp value={c.value} className="num block font-display text-[48px] leading-none tracking-[-0.03em] text-ink" />
+              <p className="mt-3 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{c.metric}</p>
+              <h3 className="mt-6 font-display text-[22px] leading-tight tracking-[-0.01em]">{c.title}</h3>
+              <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{c.line}</p>
+              <Link
+                to={`/case-studies/${c.slug}`}
+                className="mt-auto self-start pt-5 border-b border-ink/40 pb-0.5 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ember hover:text-ember-deep"
+              >
+                {home.proof.linkLabel} {'→'}
+              </Link>
             </div>
           ))}
+        </div>
+        <div className="mt-10">
+          <Button to="/case-studies" variant="ghost" size="sm">{home.proof.button}</Button>
         </div>
       </Section>
 
       {/* The method, big numerals, no tiles */}
-      <Section border={false}>
-        <Label>The method</Label>
-        <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
+      <Section border>
+        <Label>{home.method.label}</Label>
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
-            Three moves. That’s the whole method.
+            {home.method.title}
           </h2>
+          <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">{home.method.note}</p>
         </div>
         <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3">
-          {moves.map((m) => (
+          {home.method.steps.map((m) => (
             <div key={m.n} className="border-t border-ink/80 pt-7">
               <p className="num font-display text-[48px] leading-none tracking-[-0.03em] text-ink">{m.n}</p>
               <div className="mt-7 flex h-[136px] items-center">
@@ -404,7 +281,7 @@ const Home = () => {
           </p>
         </div>
         <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3">
-          {deploy.map((d) => (
+          {deployOptions.map((d) => (
             <div key={d.t} className="border-t border-ink/80 pt-7">
               <div className="flex h-[136px] items-center">
                 <img src={d.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
@@ -465,18 +342,18 @@ const Home = () => {
         </div>
       </Section>
 
-      {/* Get started: the client intake lives on its own page (/get-started);
-          the people section moved to /people */}
-      <StartHere />
-
+      {/* Closing band: the intake and the booking, side by side */}
       <CtaBand
-        title="Start with one workflow."
-        offer={
+        title={
           <>
-            A free working session. We map the first workflow worth transforming, and{' '}
-            <b className="font-medium text-white">you keep the roadmap either way.</b>
+            {startHere.titleLead}{' '}
+            <span className="italic text-ember">{startHere.titleAccent}</span>
           </>
         }
+        offer={startHere.offer}
+        primary={startHere.primary}
+        secondary={startHere.secondary}
+        facts={startHere.facts}
       />
     </>
   )

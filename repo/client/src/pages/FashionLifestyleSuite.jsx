@@ -80,7 +80,7 @@ const FashionLifestyleSuite = () => (
                 to="/contact"
                 className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
               >
-                Book a discovery session
+                Book a call
                 <ArrowRight size={14} strokeWidth={2.2} />
               </Link>
             </div>
@@ -216,8 +216,6 @@ const FashionLifestyleSuite = () => (
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{fashionLifestyleSuite.request.note}</p>
 
           <div className="relative mt-10 max-w-md">
-            <span aria-hidden className="absolute left-5 right-5 top-0 h-full translate-y-3 rounded-xl border border-line bg-white/50" />
-            <span aria-hidden className="absolute left-2.5 right-2.5 top-0 h-full translate-y-1.5 rounded-xl border border-line bg-white/75" />
             <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
               <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Fashion &amp; Lifestyle OS</span>

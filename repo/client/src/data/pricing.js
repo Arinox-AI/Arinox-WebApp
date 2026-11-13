@@ -1,16 +1,12 @@
-/* Pricing page + Price Discovery wizard — single-source copy.
+/* Pricing page + intake wizard — single-source copy.
  *
- * Copy is final per the design brief (do not paraphrase on-page). Anything in
- * [BRACKETS] is a placeholder the team must fill before launch:
- *   - [YOUR PRICE]  → Plug & Play Level 1 monthly price (USD + INR)
- *   - [X]+          → verified enterprise deployment count
- *   - Enterprise card heading/intro → confirm against the mockup canvas
- *
- * Prices stay hidden by design: `ladder.levels[].visible` is the ONLY place a
- * visible price line exists. Never add a real price anywhere on this page.
+ * Copy is final per the design brief. Prices stay hidden by design: the page
+ * never shows a price figure; the number is shared in a conversation.
+ * (The "where it runs" copy lives in data/site.js `deployOptions`, shared
+ * with Home.)
  */
 
-/* How many questions the Price Discovery survey asks. Copy below quotes it;
+/* How many questions the intake asks. Copy below quotes it;
    a test asserts wizard.questions.length === QUESTION_COUNT. */
 export const QUESTION_COUNT = 10;
 
@@ -21,14 +17,68 @@ export const pricingHero = {
   titleAccent: 'outcomes.',
   lead:
     'Every Arinox deployment is sized to your business, your teams, your data and the result you want. Below is exactly how we work. Your number comes from a few questions and a conversation with an architect.',
-  ctaPrimary: 'Tell us about your business',
-  ctaSecondary: 'Or talk to us first',
+  ctaPrimary: 'Get your AI roadmap',
+  ctaSecondary: 'Or book a call',
   microcopy: 'About 4 minutes \u00B7 No obligation \u00B7 Your price is shared in a conversation',
 };
 
+export const plans = {
+  eyebrow: 'Plans',
+  title: 'Three ways to work with us.',
+  note: 'Every plan runs wherever you need it, see below. No price on this page: yours is shared in a conversation.',
+  stagesLabel: 'What you get, stage by stage',
+  items: [
+    {
+      name: 'Platform',
+      forWhom: 'Go live on KOGO, our flagship Agentic OS, then climb one step at a time as results come in.',
+      stages: [
+        { t: 'KOGO platform', d: 'Ready-made agents, live from day one' },
+        { t: 'Modules', d: 'Add the capabilities your teams need' },
+        { t: 'People', d: 'Bring more of your teams onto it' },
+        { t: 'Applications', d: 'Connect the tools you already run' },
+        { t: 'Custom build', d: 'Agents and apps made for your work' },
+      ],
+      priced: 'Grows a level at a time \u00B7 nothing rebuilt',
+      cta: 'Get your AI roadmap',
+      to: '/get-started',
+    },
+    {
+      name: 'Enterprise',
+      forWhom: 'For organisations rolling Arinox out across teams.',
+      stages: [
+        { t: 'Scope and agree', d: 'Users, modules, applications and where it runs' },
+        { t: 'Roll out', d: 'Modules and agents enabled, applications connected' },
+        { t: 'Run with support', d: 'Support and Forward Deployed Engineer coverage' },
+      ],
+      priced: 'One annual number \u00B7 fixed once scope is agreed',
+      cta: 'Get your AI roadmap',
+      to: '/get-started',
+    },
+    {
+      name: 'Custom build',
+      forWhom: 'For organisations whose work doesn\u2019t fit a template.',
+      stages: [
+        { t: 'Discover', d: 'Discovery, architecture and an AI roadmap' },
+        { t: 'Build', d: 'Custom agents and applications' },
+        { t: 'Embed', d: 'Forward Deployed Engineers inside your team' },
+        { t: 'Ship', d: 'A 90-day transformation sprint to production' },
+        { t: 'Sovereign (optional)', d: 'Deployment on CommandCore\u2122' },
+      ],
+      priced: 'Custom pricing \u00B7 90-day sprint to production',
+      cta: 'Book a call',
+      to: '/contact',
+    },
+  ],
+};
+
+export const deployIntro = {
+  eyebrow: 'Where it runs',
+  title: 'Where it runs is your call.',
+  note: 'Whichever you choose, the platform and agents are the same.',
+};
+
 export const factors = {
-  eyebrow: 'What shapes your price',
-  title: 'Six things decide your number. We ask about all six.',
+  label: 'What we ask about',
   items: [
     { title: 'Your business', body: 'Industry, scale and the rules you operate under.' },
     { title: 'Your teams', body: 'Who will use it, how many of them, and where.' },
@@ -39,97 +89,9 @@ export const factors = {
   ],
 };
 
-export const currencies = [
-  { id: 'USD', symbol: '$' },
-  { id: 'INR', symbol: '\u20B9' },
-];
-
-export const deployments = [
-  {
-    id: 'saas',
-    label: 'SaaS',
-    callout:
-      'SaaS: fully managed by Arinox. Live fastest, with nothing to install. Updates, security and scaling are handled for you.',
-  },
-  {
-    id: 'paas',
-    label: 'PaaS',
-    callout:
-      'PaaS: your cloud, our platform. KOGO runs in your own cloud tenancy. Your team extends it and we support it.',
-  },
-  {
-    id: 'onprem',
-    label: 'On-Prem (Sovereign)',
-    callout:
-      'On-Prem: Sovereign AI Infrastructure. CommandCORE\u2122, our Agentic AI-in-a-Box, runs air-gapped on your premises. Your data never leaves.',
-  },
-];
-
-export const models = {
-  eyebrow: 'Engagement models',
-  title: 'Choose how you want to work with us.',
-  lead: 'Three ways in, and each runs wherever you need it. Choose a deployment to see what changes.',
-  ladder: {
-    label: 'Plug & Play',
-    title: 'Start fast. Climb one step at a time.',
-    body:
-      'Go live on KOGO, Arinox\u2019s flagship Agentic OS, then add modules, people, applications and custom builds as results come in. Nothing you\u2019ve built gets rebuilt.',
-    levels: [
-      {
-        level: 'Level 1',
-        name: 'Basic',
-        body: 'The KOGO platform, ready-made agents and standard integrations.',
-        // The ONLY visible price line on the page. [YOUR PRICE] = placeholder.
-        visible: true,
-        priceLine: 'Start here',
-      },
-      { level: 'Level 2', name: '+ Modules', body: 'Functional modules for Sales, Operations, Finance, HR and more.' },
-      { level: 'Level 3', name: '+ People', body: 'A dedicated success team, onboarding and training for your staff.' },
-      { level: 'Level 4', name: '+ Applications', body: 'Your ERP, CRM, data and in-house apps connected and working together.' },
-      {
-        level: 'Level 5',
-        name: '+ Custom build',
-        body: 'Custom agents built for you, with ongoing support and Forward Deployed Engineers.',
-        dark: true,
-      },
-    ],
-    footer: 'Prices are shared in a conversation, after a short discovery.',
-    cta: 'Talk pricing with an architect',
-  },
-  enterprise: {
-    // Drafted copy (was a bracket placeholder) \u2014 team to confirm wording.
-    label: 'Enterprise',
-    heading: 'One annual number, sized to your estate.',
-    intro: 'For organisations rolling Arinox out across teams. Priced per year around the five things below, and fixed once the scope is agreed.',
-    depends: [
-      'Number of users',
-      'Modules and agents enabled',
-      'Applications connected',
-      'Deployment: SaaS, PaaS or On-Prem',
-      'Support and FDE coverage',
-    ],
-    per: 'year',
-    cta: 'Talk pricing with an architect',
-  },
-  custom: {
-    label: 'Full Custom Build',
-    title: 'Built from zero, around your process.',
-    lead: 'For organisations whose work doesn\u2019t fit a template. Includes:',
-    includes: [
-      'Discovery, architecture and an AI roadmap',
-      'Custom agents and applications',
-      'Forward Deployed Engineers embedded with your team',
-      'A 90-day transformation sprint to production',
-      'Optional sovereign deployment on CommandCORE\u2122',
-    ],
-    footer: 'Custom pricing',
-    cta: 'Start the conversation',
-  },
-};
-
 export const inEvery = {
   eyebrow: 'In every engagement',
-  title: 'Whichever model you choose, you get this.',
+  title: 'Whichever plan you choose, you get this.',
   items: [
     {
       title: 'KOGO at the core',
@@ -145,18 +107,18 @@ export const inEvery = {
     },
     {
       title: 'Your data, your rules',
-      body: 'Run it as SaaS, PaaS or fully air-gapped on your own premises.',
+      body: 'Run it in our private cloud, in your own cloud, or fully air-gapped on your premises.',
     },
   ],
 };
 
 export const discoverySteps = {
-  eyebrow: 'How Price Discovery works',
+  eyebrow: 'How pricing works',
   title: `From ${QUESTION_COUNT} questions to a price conversation.`,
   steps: [
     {
       title: 'Tell us about your business',
-      body: `${QUESTION_COUNT} quick questions about your teams, systems, data and goals, on the home page. Takes about 4 minutes.`,
+      body: `${QUESTION_COUNT} quick questions about your teams, systems, data and goals, on /get-started. Takes about 4 minutes.`,
     },
     {
       title: 'Talk to an architect',
@@ -178,15 +140,27 @@ export const pricingFaq = {
     },
     {
       q: 'Can we start small and grow?',
-      a: 'Yes. Plug & Play starts at Level 1. You move up the ladder as results come in, and nothing is rebuilt along the way.',
+      a: 'Yes. The Platform plan starts on KOGO with ready-made agents. You add modules, people and applications as results come in, and nothing is rebuilt along the way.',
     },
     {
       q: 'Can it run fully on our own premises?',
-      a: 'Yes. CommandCORE\u2122, our Agentic AI-in-a-Box, runs the full stack air-gapped on your own hardware. Your data never leaves the building.',
+      a: 'Yes. CommandCore\u2122, our Agentic AI-in-a-Box, runs the full stack air-gapped on your own hardware. Your data never leaves the building.',
     },
     {
       q: 'What happens after I submit?',
       a: 'An Arinox architect reviews your answers and gets in touch soon to set up a 30-minute conversation. Your price is shared in that conversation, built around what you told us.',
+    },
+    {
+      q: 'Which plan is right for us?',
+      a: 'Tell us about your business. The architect on your first call recommends the plan that fits, based on your answers.',
+    },
+    {
+      q: 'What does the first call cover?',
+      a: 'Thirty minutes with an architect who has already read your answers. It\u2019s not a sales pitch, and your price is shared there.',
+    },
+    {
+      q: 'Do we have to commit before we see value?',
+      a: 'No. The first working session is free, and you keep the map of where AI fits either way.',
     },
   ],
 };
@@ -194,8 +168,9 @@ export const pricingFaq = {
 export const closingBand = {
   titleA: 'Your price depends on your business.',
   titleAccent: 'So let\u2019s start there.',
-  cta: 'Tell us about your business',
-  talk: 'Or talk to us first',
+  offer: 'A few questions and a conversation, and the number you get is built around you.',
+  cta: 'Get your AI roadmap',
+  talk: 'Or book a call',
   microcopy: '4 minutes \u00B7 No obligation \u00B7 Price shared in a conversation',
 };
 
@@ -243,6 +218,8 @@ export const wizard = {
       question: 'What do your teams run on today?',
       sub: 'Choose all that apply. These are what the agents plug into.',
       options: ['ERP', 'CRM', 'Microsoft 365', 'Google Workspace', 'In-house or custom software', 'Legacy or on-premise systems', 'Mostly spreadsheets & email'],
+      /* A typed answer next to the tiles: names (SAP, Tally, Zoho…) matter here. */
+      other: { label: 'Anything else, or the names of your systems?', placeholder: 'e.g. SAP, Tally, Salesforce, Zoho', maxLength: 200 },
     },
     {
       key: 'data',

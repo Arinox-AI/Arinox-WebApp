@@ -53,7 +53,7 @@ export const inquiries = {
 
   /* Shown under the picker when the enquiry is about a price - the survey is
      the precise path, and the hub is where people land first. */
-  pricingSurvey: { lead: 'Want a number built around you?', link: 'Tell us about your business', to: '/get-started' },
+  pricingSurvey: { lead: 'Want a number built around you?', link: 'Get your AI roadmap', to: '/get-started' },
 
   /* Where each enquiry type is sent from — used by the CTAs that deep-link
      into the hub (/contact?intent=deck&asset=industrial-os). */
@@ -133,10 +133,37 @@ export const intake = {
 
 /* Home "Start here": a pointer to /get-started (the form never lives on Home). */
 export const startHere = {
-  label: 'Start here',
   titleLead: 'Tell us about your business.',
-  titleAccent: 'We\u2019ll come prepared.',
-  sub: 'Ten quick questions so our architects arrive at the first call already knowing your teams, systems, data and goals.',
+  titleAccent: 'Let’s get to work.',
+  offer: 'Ten quick questions, so the architect on your first call already knows your teams, systems and goals.',
+  primary: { label: 'Get your AI roadmap', to: '/get-started' },
+  secondary: { label: 'Or book a call', to: '/contact' },
   facts: ['10 questions', 'About 4 minutes', 'Read by an architect'],
-  cta: 'Tell us about your business',
+};
+
+/* The intake offered as a dialog at the moments someone has just reached us
+   (message sent, session booked) and on /contact. Same form as /get-started. */
+export const intakeOffer = {
+  afterMessage: {
+    eyebrow: 'Before we reply',
+    text: 'Ten quick questions about your business, so the team comes prepared. About 4 minutes.',
+    cta: 'Answer 10 questions',
+  },
+  afterBooking: {
+    eyebrow: 'Before we meet',
+    text: (when) => `Help us prepare for ${when}: ten quick questions about your business. About 4 minutes.`,
+    cta: 'Answer 10 questions',
+  },
+  contactPage: {
+    lead: 'Meeting us soon?',
+    link: 'Get your AI roadmap with 10 quick questions',
+  },
+  dialog: {
+    label: 'Get your AI roadmap',
+    title: 'Tell us about your business.',
+    close: 'Close',
+    later: 'Maybe later',
+    saved: 'Close any time: your answers are kept until you close this browser tab.',
+  },
+  doneClose: 'Done',
 };

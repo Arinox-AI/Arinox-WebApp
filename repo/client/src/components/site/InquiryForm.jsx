@@ -6,6 +6,8 @@ import { Button } from './Button';
 import HumanCheck from './HumanCheck';
 import { ContactFields, validateContact, fieldCls, labelCls } from './ContactFields';
 import { readAttribution } from '../../lib/attribution';
+import { IntakeOffer } from './IntakeDialog';
+import { intakeOffer } from '../../data/inquiries';
 
 /* THE enquiry form for the whole site.
  *
@@ -114,6 +116,16 @@ export function InquiryForm({
         <p className="mt-3 max-w-md text-[15.5px] leading-relaxed text-ink-soft">
           {sentCopy?.body || success || 'Request received — we’ll email your copy shortly. It comes from a person, not a mailing robot.'}
         </p>
+        {/* They just reached us: the best moment to ask for the intake,
+            with what they typed carried over. */}
+        <IntakeOffer
+          source="after-message"
+          prefill={{ name: values.name.trim(), email: values.email.trim(), company: values.company.trim() }}
+          eyebrow={intakeOffer.afterMessage.eyebrow}
+          text={intakeOffer.afterMessage.text}
+          cta={intakeOffer.afterMessage.cta}
+          className="mt-7"
+        />
         <button
           onClick={() => setSent(false)}
           className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-ember-deep hover:opacity-75"

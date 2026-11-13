@@ -1,10 +1,10 @@
 // @vitest-environment jsdom
 // Pricing + Price Discovery: wizard state logic (gates, caps, payload), the
-// locked-price contract — Level 1 is the ONLY visible price line — and the
+// pricing page (three plans, no toggle, no price figure) and the
 // wizard's live step flow (auto-advance, gating, cap note).
 // Hermetic: no network, no real timers.
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import {
   QUESTIONS,
@@ -22,10 +22,11 @@ import {
   saveAnswers,
   hasAnyAnswer,
 } from '../src/components/pricing/wizardLogic';
-import { models } from '../src/data/pricing';
-import { PlugPlayLadder } from '../src/components/pricing/PlugPlayLadder';
+import { HelmetProvider } from 'react-helmet-async';
+import Pricing from '../src/pages/Pricing';
+import { plans, pricingFaq } from '../src/data/pricing';
+import { deployOptions } from '../src/data/site';
 import { ClientIntake } from '../src/components/site/ClientIntake';
-import { StartHere } from '../src/components/site/StartHere';
 import axios from 'axios';
 
 /* Axios stays mocked: the intake submit must never reach the network. */
@@ -269,20 +270,62 @@ describe('sessionStorage persistence (answers only)', () => {
   });
 });
 
-describe('locked price contract — only Level 1 shows a price', () => {
-  it('renders exactly one visible price line and four locked levels', () => {
-    render(<PlugPlayLadder levels={models.ladder.levels} deploymentLabel="SaaS" />);
+describe('pricing page', () => {
+  afterEach(() => cleanup());
+  const renderPricing = () =>
+    render(
+      <MemoryRouter initialEntries={['/pricing']}>
+        <HelmetProvider>
+          <Pricing />
+        </HelmetProvider>
+      </MemoryRouter>
+    );
 
-    // The single visible chip (the entry level) — never a number
-    expect(screen.getAllByText(/Start here/i)).toHaveLength(1);
+  it('hero CTA is Get your AI roadmap and goes to /get-started', () => {
+    renderPricing();
+    const hero = screen.getAllByRole('link', { name: /^Get your AI roadmap/ })[0];
+    expect(hero.getAttribute('href')).toBe('/get-started');
+    const talk = screen.getAllByRole('link', { name: 'Or book a call' });
+    expect(talk.length).toBeGreaterThan(0);
+    talk.forEach((a) => expect(a.getAttribute('href')).toBe('/contact'));
+  });
 
-    // Levels 2–5 expose the accessible label, never raw bullets
-    const locked = screen.getAllByLabelText('Price available after Price Discovery');
-    expect(locked).toHaveLength(4);
+  it('renders the three plans with the locked names', () => {
+    renderPricing();
+    ['Platform', 'Enterprise', 'Custom build'].forEach((n) => {
+      expect(screen.getByRole('heading', { level: 3, name: n })).toBeTruthy();
+    });
+    expect(plans.items.map((p) => p.name)).toEqual(['Platform', 'Enterprise', 'Custom build']);
+  });
 
-    // Every level shows a "Delivered as SaaS" pill that follows the toggle
-    expect(screen.getAllByText(/Delivered as SaaS/i)).toHaveLength(5);
-    cleanup();
+  it('has no deployment or currency toggle', () => {
+    renderPricing();
+    expect(screen.queryByRole('button', { name: /^(SaaS|PaaS)/ })).toBeNull();
+    expect(screen.queryByText(/On-Prem \(Sovereign\)/)).toBeNull();
+    expect(document.querySelector('[aria-pressed]')).toBeNull();
+  });
+
+  it('shows the three shared deployOptions under #deploy', () => {
+    renderPricing();
+    const deploy = document.getElementById('deploy');
+    expect(deploy).toBeTruthy();
+    deployOptions.forEach((d) => {
+      expect(within(deploy).getByRole('heading', { level: 3, name: d.t })).toBeTruthy();
+    });
+    expect(deployOptions).toHaveLength(3);
+  });
+
+  it('FAQ JSON-LD carries seven questions', () => {
+    expect(pricingFaq.items).toHaveLength(7);
+    renderPricing();
+    expect(screen.getAllByText(/Which plan is right for us\?/).length).toBeGreaterThan(0);
+  });
+
+  it('shows no currency symbol or price figure', () => {
+    renderPricing();
+    const text = document.body.textContent;
+    expect(text).not.toMatch(/[$₹€£]/);
+    expect(text).not.toMatch(/\b\d[\d,.]*\s?(USD|INR|per month|\/mo)\b/i);
   });
 });
 
@@ -323,22 +366,6 @@ describe('the longer survey', () => {
     const a = blankAnswers();
     expect(a.budget).toBe('');
     expect(stepAnswered(QUESTIONS.indexOf(budget) + 1, a)).toBe(true); // optional
-  });
-});
-
-describe('home Start here', () => {
-  afterEach(() => cleanup());
-
-  it('only links out to /get-started and hosts no question', () => {
-    render(
-      <MemoryRouter initialEntries={['/']}>
-        <StartHere />
-      </MemoryRouter>
-    );
-    const link = screen.getByRole('link', { name: /tell us about your business/i });
-    expect(link.getAttribute('href')).toBe('/get-started');
-    expect(screen.queryByText(QUESTIONS[0].question)).toBeNull();
-    expect(screen.queryAllByRole('button')).toHaveLength(0);
   });
 });
 

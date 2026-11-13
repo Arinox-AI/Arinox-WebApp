@@ -5,7 +5,6 @@ import { Label } from '../components/site/Layout';
 import { Button } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
-import { Pill } from '../components/site/Pill';
 import { company } from '../data/site';
 
 /* Partner logos - one flat set, no categories.
@@ -94,8 +93,8 @@ const Partners = () => (
         </div>
         </div>
         <img
-          src="/images/industries/partners-stack.svg"
-          alt="Four partner tiles — software, silicon, data and growth — connected around one Arinox hub"
+          src="/images/industries/partners-hero.svg"
+          alt="A person fitting orange building blocks into place on a large board"
           loading="eager"
           className="mx-auto w-full max-w-[460px]"
         />
@@ -105,8 +104,8 @@ const Partners = () => (
     <Section border={false}>
       {/* The partner wall: borderless, centred rows so a short last row reads
           as intentional (19 logos never form a full grid). Logos stay in full
-          brand colour; hover/focus lifts the tile and shows a mono name tag. */}
-      <div className="flex items-center justify-between gap-4 border-b border-ink/80 pb-4">
+          brand colour; hover/focus scales the logo and shows a mono name tag. */}
+      <div className="flex flex-col gap-2 border-b border-ink/80 pb-4 md:flex-row md:items-center md:justify-between md:gap-4">
         <Label>The stack</Label>
         <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
           {partners.length} partners · infrastructure · silicon · channel
@@ -117,7 +116,7 @@ const Partners = () => (
           <li
             key={p.name}
             tabIndex={0}
-            className="group relative flex h-28 basis-1/2 items-center justify-center rounded-2xl px-4 outline-none transition-colors duration-300 hover:bg-white focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-ember md:h-32 md:basis-1/4 lg:basis-1/5"
+            className="group relative flex h-28 basis-1/2 items-center justify-center px-4 outline-none focus-visible:ring-2 focus-visible:ring-ember md:h-32 md:basis-1/4 lg:basis-1/5"
           >
             <img
               src={p.logo}
@@ -155,11 +154,9 @@ const Partners = () => (
             <div className="md:col-span-5">
               <p className="text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
             </div>
-            <div className="flex flex-wrap items-start gap-2 md:col-span-3 md:justify-end">
-              {tags.map((t) => (
-                <Pill key={t} tone="paper" className="px-3.5 py-1.5 text-[11px]">{t}</Pill>
-              ))}
-            </div>
+            <p className="font-mono text-[11.5px] uppercase leading-relaxed tracking-[0.1em] text-ink-faint md:col-span-3 md:text-right">
+              {tags.join(' · ')}
+            </p>
           </div>
         ))}
       </div>

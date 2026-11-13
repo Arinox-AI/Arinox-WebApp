@@ -145,7 +145,7 @@ const CaseStudies = () => {
             leaving your premises. Pick a sector to see what we&apos;ve built, shipped, and operated.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Button to="/contact" variant="ember">Book a discovery session</Button>
+            <Button to="/contact" variant="ember">Book a call</Button>
             <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
               Zero egress · audit-ready from day one
             </span>

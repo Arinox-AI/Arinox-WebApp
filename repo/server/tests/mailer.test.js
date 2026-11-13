@@ -41,3 +41,10 @@ describe('team inquiry email', () => {
     expect(html).not.toContain('>Budget (next 12 months)</td>');
   });
 });
+
+describe('the client intake link in customer emails', () => {
+  it('the booking confirmation asks them to fill in the intake before the call', () => {
+    const html = mailer.bookingConfirmation({ name: 'Asha', when: 'Thu 20 Nov, 11:00 IST', topic: 'General' });
+    expect(html).toContain('https://www.arinox.ai/get-started');
+  });
+});

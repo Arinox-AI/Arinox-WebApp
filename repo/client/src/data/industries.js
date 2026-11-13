@@ -104,7 +104,7 @@ export const products = [
       { t: 'Decisions out', d: 'contain, flag, report' },
     ],
     visual: '/images/industries/secure-os.svg',
-    visualAlt: 'A person standing beside a large shield — an unDraw illustration recoloured to the site palette',
+    visualAlt: 'A person standing guard beside a large shield in front of a server rack',
     to: '/industries/secure',
     cta: 'Open Secure OS',
   },

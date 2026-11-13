@@ -72,13 +72,32 @@ describe('every public route renders real content', () => {
   }
 });
 
+describe('partners page', () => {
+  it('hero uses the unDraw building-blocks illustration', async () => {
+    const { container } = renderAt('/partners');
+    await heading(/assembled around/i);
+    expect(container.querySelector('img[src$="partners-hero.svg"]')).toBeTruthy();
+    expect(container.querySelector('img[src*="partners-stack"]')).toBeNull();
+  }, 20000);
+});
+
 describe('header navigation', () => {
   it('top-level nav links route between pages', async () => {
     renderAt('/');
-    fireEvent.click(mainNav().getByRole('link', { name: /^people$/i }));
-    expect(await heading(/people behind arinox/i)).toBeTruthy();
+fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
+    expect(await heading(/deployed inside the perimeter/i)).toBeTruthy();
 
-    fireEvent.click(mainNav().getByRole('link', { name: /^partners$/i }));
+    fireEvent.click(mainNav().getByRole('link', { name: /^blog$/i }));
+    expect(await heading(/from inside/i)).toBeTruthy();
+  }, 30000);
+
+  it('Company dropdown opens and routes to Partners', async () => {
+    renderAt('/');
+    const company = mainNav().getByRole('link', { name: /^company$/i });
+    fireEvent.mouseOver(company);
+    fireEvent.focus(company);
+    const partners = await mainNav().findByRole('link', { name: /^partners/i }, { timeout: 5000 });
+    fireEvent.click(partners);
     expect(await heading(/assembled around/i)).toBeTruthy();
   }, 30000);
 

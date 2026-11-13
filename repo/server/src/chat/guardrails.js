@@ -56,7 +56,7 @@ const FORBIDDEN_OUTPUT = [
 const LEAK_REPLY =
   "I can't share internal details, but I'm happy to help with anything about Arinox or AI.";
 const SAFE_FALLBACK =
-  'I want to make sure I give you something accurate rather than guess. For this one, the team can help you directly at assist@arinox.ai, or you can book a discovery session from the Contact page.';
+  'I want to make sure I give you something accurate rather than guess. For this one, the team can help you directly at assist@arinox.ai, or you can book a call from the Contact page.';
 
 const clean = (value) => (typeof value === 'string' ? value : '');
 
