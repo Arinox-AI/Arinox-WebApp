@@ -12,9 +12,9 @@ import { ProductTour } from '../components/site/ProductTour';
 import { SystemsPanel, WatchListCard, LoopBoard } from '../components/site/SuiteSections';
 import { digitalTwinSuite } from '../data/digitalTwinSuite';
 
-/* Digital Twin++ — suite page. Composition: hero → on-page index → the
+/* Digital Twin++ — suite page. Composition: hero (the film is its visual) → on-page index → the
    modules ledger → the tour → the four levels → where it lands + sovereignty →
-   what changed (dark) → the control plane → the film (theatre playback) → the brief. Ledger style:
+   what changed (dark) → the control plane → the brief. Ledger style:
    hairline rules, square corners, no card grids. */
 
 const DigitalTwinSuite = () => (
@@ -63,12 +63,12 @@ const DigitalTwinSuite = () => (
             </div>
           </div>
 
-          <div className="relative">
-            <img
-              src="/images/industries/digital-twin.svg"
-              alt="A site with a runway and buildings, and above it a floating twin layer of the same buildings in outline, linked by dotted lines"
-              loading="eager"
-              className="mx-auto w-full max-w-[480px]"
+          {/* The film is the hero visual: one place to watch, above the fold */}
+          <div className="relative mx-auto w-full max-w-[560px]">
+            <VideoEmbed
+              id={digitalTwinSuite.film.youtubeId}
+              title={digitalTwinSuite.film.videoTitle}
+              duration={digitalTwinSuite.film.duration}
             />
           </div>
         </div>
@@ -230,25 +230,6 @@ const DigitalTwinSuite = () => (
       <div className="mt-8 flex items-start gap-3 border-t border-line pt-5">
         <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-ember" aria-hidden />
         <p className="max-w-3xl text-[15.5px] leading-relaxed text-ink">{digitalTwinSuite.cockpit.command}</p>
-      </div>
-    </Section>
-
-    {/* The film: just before the brief; plays in a theatre view */}
-    <Section id="film" border className="scroll-mt-[72px]">
-      <Label>{digitalTwinSuite.film.label} &middot; {digitalTwinSuite.film.duration}</Label>
-      <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-4">
-        <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
-          {digitalTwinSuite.film.titleLead}{' '}
-          <span className="italic text-ember">{digitalTwinSuite.film.titleAccent}</span>
-        </h2>
-        <p className="max-w-sm text-[15.5px] leading-relaxed text-ink-soft">{digitalTwinSuite.film.note}</p>
-      </div>
-      <div className="mt-10 max-w-4xl">
-        <VideoEmbed
-          id={digitalTwinSuite.film.youtubeId}
-          title={digitalTwinSuite.film.videoTitle}
-          duration={digitalTwinSuite.film.duration}
-        />
       </div>
     </Section>
 

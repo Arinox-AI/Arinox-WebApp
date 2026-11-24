@@ -20,6 +20,7 @@ import { Button } from '../components/site/Button';
 import { IndexStrip } from '../components/site/IndexStrip';
 import { ProductTour } from '../components/site/ProductTour';
 import { SystemsPanel, WatchListCard, LoopBoard } from '../components/site/SuiteSections';
+import { VideoEmbed } from '../components/site/VideoEmbed';
 import { SectorExplorer } from '../components/site/SectorExplorer';
 import { fashionLifestyleSuite } from '../data/fashionLifestyleSuite';
 
@@ -86,12 +87,11 @@ const FashionLifestyleSuite = () => (
             </div>
           </div>
 
-          <div className="relative">
-            <img
-              src="/images/industries/fashion-lifestyle-control.svg"
-              alt="A person trying on clothes in front of a mirror — an unDraw illustration recoloured to the site palette"
-              loading="eager"
-              className="mx-auto w-full max-w-[560px]"
+          {/* The film is the hero visual: one place to watch, above the fold */}
+          <div className="relative mx-auto w-full max-w-[560px]">
+            <VideoEmbed
+              id={fashionLifestyleSuite.film.youtubeId}
+              title={fashionLifestyleSuite.film.videoTitle}
             />
           </div>
         </div>

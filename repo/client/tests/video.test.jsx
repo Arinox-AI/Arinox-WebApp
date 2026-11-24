@@ -5,6 +5,7 @@ import { describe, it, expect, afterEach } from 'vitest';
 import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import { VideoEmbed } from '../src/components/site/VideoEmbed';
 import { digitalTwinSuite } from '../src/data/digitalTwinSuite';
+import { fashionLifestyleSuite } from '../src/data/fashionLifestyleSuite';
 
 describe('VideoEmbed theatre', () => {
   afterEach(() => cleanup());
@@ -31,5 +32,10 @@ describe('VideoEmbed theatre', () => {
   it('Digital Twin++ page data carries the new film', () => {
     expect(digitalTwinSuite.film.youtubeId).toBe('f8V6DOHVBAE');
     expect(digitalTwinSuite.film.duration).toBe('3:05');
+  });
+
+  it('Fashion & Lifestyle OS page data carries its film', () => {
+    expect(fashionLifestyleSuite.film.youtubeId).toBe('hhXLJ05YBeU');
+    expect(fashionLifestyleSuite.film.videoTitle).toBe('Fashion and Lifestyle OS by Arinox');
   });
 });

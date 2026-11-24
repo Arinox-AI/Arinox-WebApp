@@ -26,12 +26,8 @@ export const digitalTwinSuite = {
     h1Lead: 'Digital Twin',
     h1Accent: '++',
   },
-  /* The film (YouTube, Arinox AI channel). Sits just before The brief; opens in a theatre view. */
+  /* The film (YouTube, Arinox AI channel). The hero visual: a poster that opens a theatre view. */
   film: {
-    label: 'Watch',
-    titleLead: 'The airport,',
-    titleAccent: 'and its twin.',
-    note: 'One live picture of the whole site, with a human approving every step.',
     youtubeId: 'f8V6DOHVBAE',
     videoTitle: 'Arinox Digital Twin++',
     duration: '3:05',

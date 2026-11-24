@@ -176,6 +176,11 @@ export const fashionLifestyleSuite = {
     command:
       'You stay in command. Every suggestion comes with its reason, nothing moves without your say, and every action becomes the next signal.',
   },
+  /* The film (YouTube, Arinox AI channel). The hero visual: a poster that opens a theatre view. */
+  film: {
+    youtubeId: 'hhXLJ05YBeU',
+    videoTitle: 'Fashion and Lifestyle OS by Arinox',
+  },
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
