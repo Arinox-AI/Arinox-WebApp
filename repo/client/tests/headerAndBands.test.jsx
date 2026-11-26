@@ -38,8 +38,14 @@ describe('nav data', () => {
     expect(company.group.map((c) => c.to)).toEqual(['/people', '/partners', '/careers']);
     const sol = nav.find((i) => i.label === 'Solutions');
     expect(sol.allLabel).toBe('All solutions');
-    expect(sol.columns.map((c) => c.label)).toEqual(['Hardware', 'By industry', 'By function']);
-    expect(sol.columns.flatMap((c) => c.items).length).toBe(6);
+    expect(sol.group.map((c) => c.label)).toEqual([
+      'CommandCore',
+      'Marketing OS',
+      'Fashion & Lifestyle OS',
+      'Manufacturing OS',
+      'Secure OS',
+      'Digital Twin++',
+    ]);
   });
 });
 

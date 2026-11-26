@@ -11,8 +11,8 @@ import { nav } from '../data/site';
 import Illustration from '../components/site/Illustration';
 
 /* ─── All solutions (hub) ────────────────────────────────────
-   Rows grouped exactly like the header's Solutions menu (single source:
-   nav[0].columns in data/site.js, matched to products by route `to`).
+   Rows in the same order as the header's Solutions menu (single source:
+   nav[0].group in data/site.js, matched to products by route `to`).
    One tight row per product: serif name, one line, CTA,
    illustration. No data columns, no spine section — the suite pages
    carry the depth. Status pills are design-ready in the data map; they
@@ -52,30 +52,16 @@ const LedgerRow = ({ p }) => (
   </Link>
 );
 
-/* Menu columns -> hub groups. Products absent from the menu are kept in a
-   trailing unlabelled group so nothing disappears. */
-const buildGroups = () => {
-  const columns = nav[0].columns || [];
+/* Menu order -> hub rows (one flat list, no groups). Products absent from
+   the menu are kept at the end so nothing disappears. */
+const buildRows = () => {
   const byRoute = new Map(products.map((p) => [p.to, p]));
-  const used = new Set();
-  const groups = columns
-    .map((col) => ({
-      label: col.label,
-      items: col.items
-        .map((it) => byRoute.get(it.to))
-        .filter(Boolean)
-        .map((p) => {
-          used.add(p.to);
-          return p;
-        }),
-    }))
-    .filter((g) => g.items.length);
-  const rest = products.filter((p) => !used.has(p.to));
-  if (rest.length) groups.push({ label: null, items: rest });
-  return groups;
+  const menu = (nav[0].group || []).map((it) => byRoute.get(it.to)).filter(Boolean);
+  const used = new Set(menu.map((p) => p.to));
+  return [...menu, ...products.filter((p) => !used.has(p.to))];
 };
 
-const groups = buildGroups();
+const rows = buildRows();
 
 const Industries = () => (
   <>
@@ -103,25 +89,11 @@ const Industries = () => (
     {/* The ledger — one tight row per product, closed by the spine line */}
     <Section border={false}>
       <div className="border-b border-line">
-        {groups.map((g, gi) => (
-          <section key={g.label || 'more'} aria-labelledby={`grp-${gi}`} className={gi ? 'mt-10 md:mt-12' : ''}>
-            {g.label ? (
-              <h2
-                id={`grp-${gi}`}
-                className="border-t border-ink/80 pt-3 font-mono text-[12.5px] uppercase tracking-[0.12em] text-ink-faint"
-              >
-                {g.label}
-              </h2>
-            ) : (
-              <div id={`grp-${gi}`} className="border-t border-ink/80" />
-            )}
-            <div>
-              {g.items.map((p) => (
-                <LedgerRow key={p.id} p={p} />
-              ))}
-            </div>
-          </section>
-        ))}
+        <div className="border-t border-ink/80">
+          {rows.map((p) => (
+            <LedgerRow key={p.id} p={p} />
+          ))}
+        </div>
 
         {/* No numeral column any more: dot and line start at the rows' left edge. */}
         <div className="mt-10 flex items-center gap-3 border-t border-line py-4 md:mt-12">

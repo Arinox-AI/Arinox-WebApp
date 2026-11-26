@@ -10,8 +10,7 @@ function NavDropdown({ item }) {
   const [open, setOpen] = useState(false)
   const timeout = useRef(null)
   const { pathname } = useLocation()
-  const children = item.columns ? item.columns.flatMap((col) => col.items) : item.group
-  const active = pathname === item.to || children.some((c) => c.to === pathname)
+  const active = pathname === item.to || item.group.some((c) => c.to === pathname)
 
   const openNow = () => {
     clearTimeout(timeout.current)
@@ -52,39 +51,8 @@ function NavDropdown({ item }) {
         <ChevronDown size={12} strokeWidth={2.2} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </NavLink>
 
-      {open && item.columns && (
-        <div className="absolute -left-4 top-full z-50 w-[min(680px,calc(100vw-3rem))] pt-3">
-          {/* Reset the nav bar's mono caps: names read as names, notes as quiet sans. */}
-          <div role="group" aria-label={item.label} className="border border-line bg-paper font-sans normal-case tracking-normal">
-            <div className="grid grid-cols-3 divide-x divide-line">
-              {item.columns.map((col) => (
-                <div key={col.label} className="px-5 pb-4 pt-5">
-                  <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">{col.label}</p>
-                  {col.items.map((c) => (
-                    <Link key={c.to} to={c.to} onClick={() => setOpen(false)} className="group block py-2">
-                      <span className="block font-display text-[16.5px] leading-tight tracking-[-0.01em] text-ink transition-colors group-hover:text-ember-deep">{c.label}</span>
-                      <span className="mt-0.5 block text-[12.5px] leading-snug text-ink-soft">{c.note}</span>
-                    </Link>
-                  ))}
-                </div>
-              ))}
-            </div>
-            {item.allLabel && (
-              <Link
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-t border-line px-5 py-3 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep transition-colors hover:text-ink"
-              >
-                {item.allLabel}
-                <span aria-hidden>&rarr;</span>
-              </Link>
-            )}
-          </div>
-        </div>
-      )}
-
-      {open && item.group && (
-        /* Same panel language as the Solutions menu: square paper panel, hairline
+      {open && (
+        /* Single-column panel (Solutions and Company): square paper panel, hairline
            border, no shadow; names in serif, notes in quiet sans. */
         <div className="absolute -left-4 top-full z-50 w-[300px] pt-3">
           <div role="group" aria-label={item.label} className="border border-line bg-paper font-sans normal-case tracking-normal">
@@ -132,14 +100,14 @@ export function Nav() {
   }, [open])
 
   const mobile = nav.flatMap((item) => {
-    if (item.columns) {
+    if (item.group) {
       return [
         { label: item.label, to: item.to, heading: true },
-        ...item.columns.flatMap((col) => [{ label: col.label, sub: true }, ...col.items]),
+        ...item.group,
         ...(item.allLabel ? [{ label: item.allLabel, to: item.to }] : []),
       ]
     }
-    return item.group ? [{ label: item.label, to: item.to, heading: true }, ...item.group] : [item]
+    return [item]
   })
 
   return (
@@ -153,7 +121,7 @@ export function Nav() {
           {nav.map((item, i) => (
             <span key={item.label} className="flex items-center">
               {i > 0 && <span className="px-1.5 text-ink-faint xl:px-2.5" aria-hidden>·</span>}
-              {item.group || item.columns ? (
+              {item.group ? (
                 <NavDropdown item={item} />
               ) : (
                 <NavLink to={item.to} className={navCls} end={item.to === '/'}>

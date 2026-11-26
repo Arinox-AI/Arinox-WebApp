@@ -101,14 +101,14 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     expect(await heading(/assembled around/i)).toBeTruthy();
   }, 30000);
 
-  it('Solutions dropdown shows three labelled columns, six links and All solutions', async () => {
+  it('Solutions dropdown shows six links in one list and All solutions', async () => {
     renderAt('/');
     const trigger = mainNav().getByRole('link', { name: /^solutions$/i });
     fireEvent.mouseOver(trigger);
     fireEvent.focus(trigger);
     const panel = within(await mainNav().findByRole('group', { name: 'Solutions' }));
     for (const label of ['Hardware', 'By industry', 'By function']) {
-      expect(panel.getByText(label)).toBeTruthy();
+      expect(panel.queryByText(label)).toBeNull();
     }
     for (const name of ['CommandCore', 'Fashion & Lifestyle OS', 'Manufacturing OS', 'Marketing OS', 'Secure OS', 'Digital Twin++']) {
       expect(panel.getByRole('link', { name: new RegExp(name.replace(/[+&]/g, '\\$&')) })).toBeTruthy();
@@ -116,14 +116,17 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     expect(panel.getByRole('link', { name: /all solutions/i }).getAttribute('href')).toBe('/industries');
   }, 30000);
 
-  it('mobile menu shows Solutions with its three groups and All solutions', async () => {
+  it('mobile menu lists the six Solutions items flat, plus All solutions', async () => {
     renderAt('/');
     fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
     const mobile = within(screen.getByRole('navigation', { name: 'Mobile' }));
-    for (const label of ['Solutions', 'Hardware', 'By industry', 'By function']) {
-      expect(mobile.getByText(label)).toBeTruthy();
+    expect(mobile.getByRole('link', { name: 'Solutions' })).toBeTruthy();
+    for (const label of ['Hardware', 'By industry', 'By function']) {
+      expect(mobile.queryByText(label)).toBeNull();
     }
-    expect(mobile.getByRole('link', { name: 'Secure OS' })).toBeTruthy();
+    for (const name of ['CommandCore', 'Marketing OS', 'Fashion & Lifestyle OS', 'Manufacturing OS', 'Secure OS', 'Digital Twin++']) {
+      expect(mobile.getByRole('link', { name: new RegExp(name.replace(/[+&]/g, '\\$&')) })).toBeTruthy();
+    }
     expect(mobile.getByRole('link', { name: 'All solutions' }).getAttribute('href')).toBe('/industries');
   }, 30000);
 
