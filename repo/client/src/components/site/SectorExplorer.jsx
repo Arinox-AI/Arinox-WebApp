@@ -27,7 +27,7 @@ export function SectorExplorer({ explorer, icons = {} }) {
               onClick={() => setActiveId(s.id)}
               aria-pressed={selected}
               className={`group flex flex-1 flex-col items-center gap-3 border px-4 py-6 text-center transition-colors ${
-                selected ? 'border-ember/60 bg-white' : 'border-line hover:border-ink/30'
+                selected ? 'border-ember/60 bg-paper-0' : 'border-line hover:border-ink/30'
               }`}
             >
               <Icon

@@ -10,7 +10,8 @@ function NavDropdown({ item }) {
   const [open, setOpen] = useState(false)
   const timeout = useRef(null)
   const { pathname } = useLocation()
-  const active = pathname === item.to || item.group.some((c) => c.to === pathname)
+  const children = item.columns ? item.columns.flatMap((col) => col.items) : item.group
+  const active = pathname === item.to || children.some((c) => c.to === pathname)
 
   const openNow = () => {
     clearTimeout(timeout.current)
@@ -51,26 +52,57 @@ function NavDropdown({ item }) {
         <ChevronDown size={12} strokeWidth={2.2} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </NavLink>
 
-      {open && (
-        <div className="absolute left-1/2 top-full z-50 w-[290px] -translate-x-1/2 pt-3">
-          <div className="rounded-card border border-line bg-white p-2 shadow-[0_24px_50px_-24px_rgba(11,11,13,0.28)]">
-            {item.group.map((c) => (
+      {open && item.columns && (
+        <div className="absolute -left-4 top-full z-50 w-[min(680px,calc(100vw-3rem))] pt-3">
+          {/* Reset the nav bar's mono caps: names read as names, notes as quiet sans. */}
+          <div role="group" aria-label={item.label} className="border border-line bg-paper font-sans normal-case tracking-normal">
+            <div className="grid grid-cols-3 divide-x divide-line">
+              {item.columns.map((col) => (
+                <div key={col.label} className="px-5 pb-4 pt-5">
+                  <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">{col.label}</p>
+                  {col.items.map((c) => (
+                    <Link key={c.to} to={c.to} onClick={() => setOpen(false)} className="group block py-2">
+                      <span className="block font-display text-[16.5px] leading-tight tracking-[-0.01em] text-ink transition-colors group-hover:text-ember-deep">{c.label}</span>
+                      <span className="mt-0.5 block text-[12.5px] leading-snug text-ink-soft">{c.note}</span>
+                    </Link>
+                  ))}
+                </div>
+              ))}
+            </div>
+            {item.allLabel && (
               <Link
-                key={c.to}
-                to={c.to}
+                to={item.to}
                 onClick={() => setOpen(false)}
-                className="block rounded-btn px-3.5 py-2.5 transition-colors hover:bg-paper-2"
+                className="flex items-center justify-between border-t border-line px-5 py-3 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep transition-colors hover:text-ink"
               >
-                <span className="block font-display text-[16.5px] leading-tight tracking-[-0.01em] text-ink">{c.label}</span>
-                <span className="mt-0.5 block font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{c.note}</span>
+                {item.allLabel}
+                <span aria-hidden>&rarr;</span>
               </Link>
-            ))}
+            )}
+          </div>
+        </div>
+      )}
+
+      {open && item.group && (
+        /* Same panel language as the Solutions menu: square paper panel, hairline
+           border, no shadow; names in serif, notes in quiet sans. */
+        <div className="absolute -left-4 top-full z-50 w-[300px] pt-3">
+          <div role="group" aria-label={item.label} className="border border-line bg-paper font-sans normal-case tracking-normal">
+            <div className="px-5 pb-4 pt-5">
+              <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">{item.label}</p>
+              {item.group.map((c) => (
+                <Link key={c.to} to={c.to} onClick={() => setOpen(false)} className="group block py-2">
+                  <span className="block font-display text-[16.5px] leading-tight tracking-[-0.01em] text-ink transition-colors group-hover:text-ember-deep">{c.label}</span>
+                  <span className="mt-0.5 block text-[12.5px] leading-snug text-ink-soft">{c.note}</span>
+                </Link>
+              ))}
+            </div>
             {/* Opt-in footer link (item.allLabel), so the hub page is one click away */}
             {item.allLabel && (
               <Link
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="mt-1 flex items-center justify-between border-t border-line px-3.5 pb-1.5 pt-3 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep transition-colors hover:text-ink"
+                className="flex items-center justify-between border-t border-line px-5 py-3 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep transition-colors hover:text-ink"
               >
                 {item.allLabel}
                 <span aria-hidden>&rarr;</span>
@@ -99,11 +131,16 @@ export function Nav() {
     return () => { document.body.style.overflow = '' }
   }, [open])
 
-  const mobile = nav.flatMap((item) =>
-    item.group
-      ? [{ label: item.label, to: item.to, heading: true }, ...item.group]
-      : [item]
-  )
+  const mobile = nav.flatMap((item) => {
+    if (item.columns) {
+      return [
+        { label: item.label, to: item.to, heading: true },
+        ...item.columns.flatMap((col) => [{ label: col.label, sub: true }, ...col.items]),
+        ...(item.allLabel ? [{ label: item.allLabel, to: item.to }] : []),
+      ]
+    }
+    return item.group ? [{ label: item.label, to: item.to, heading: true }, ...item.group] : [item]
+  })
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-paper/95 backdrop-blur-[10px]">
@@ -116,7 +153,7 @@ export function Nav() {
           {nav.map((item, i) => (
             <span key={item.label} className="flex items-center">
               {i > 0 && <span className="px-1.5 text-ink-faint xl:px-2.5" aria-hidden>·</span>}
-              {item.group ? (
+              {item.group || item.columns ? (
                 <NavDropdown item={item} />
               ) : (
                 <NavLink to={item.to} className={navCls} end={item.to === '/'}>
@@ -127,14 +164,13 @@ export function Nav() {
           ))}
         </nav>
 
-        {/* Always visible, no animation. The roadmap button shows from xl; Book a call always. */}
+        {/* One button, always visible, no animation. */}
         <div className="hidden items-center gap-2.5 lg:flex">
-          <Button to="/get-started" variant="ghost" size="sm" className="hidden whitespace-nowrap xl:inline-flex">Get your AI roadmap</Button>
-          <Button to="/contact" variant="dark" size="sm" className="whitespace-nowrap">Book a call</Button>
+          <Button to="/get-started" variant="dark" size="sm" className="whitespace-nowrap">Get your AI roadmap</Button>
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <Button to="/contact" variant="dark" size="sm" className="whitespace-nowrap">Book a call</Button>
+          <Button to="/get-started" variant="dark" size="sm" className="whitespace-nowrap">Get your AI roadmap</Button>
         <button
           className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
@@ -157,7 +193,9 @@ export function Nav() {
           />
           <div className="fixed inset-x-0 top-[68px] z-50 max-h-[calc(100vh-68px)] overflow-y-auto border-b border-line bg-paper p-7 pb-10 shadow-[0_30px_60px_-30px_rgba(11,11,13,0.45)] lg:hidden">
             <nav className="flex flex-col" aria-label="Mobile">
-              {mobile.map((l) => (
+              {mobile.map((l) => l.sub ? (
+                <p key={`s-${l.label}`} className="pb-1 pt-5 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">{l.label}</p>
+              ) : (
                 <NavLink
                   key={`${l.heading ? 'h' : 'l'}-${l.to}-${l.label}`}
                   to={l.to}
@@ -177,11 +215,8 @@ export function Nav() {
               ))}
             </nav>
             <div className="mt-7 flex flex-col gap-3">
-              <Button to="/get-started" variant="ghost" className="w-full" onClick={() => setOpen(false)}>
+              <Button to="/get-started" variant="ember" className="w-full" onClick={() => setOpen(false)}>
                 Get your AI roadmap
-              </Button>
-              <Button to="/contact" variant="ember" className="w-full" onClick={() => setOpen(false)}>
-                Book a call
               </Button>
             </div>
           </div>

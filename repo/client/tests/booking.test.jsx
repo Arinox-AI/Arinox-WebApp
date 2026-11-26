@@ -1,12 +1,11 @@
 // @vitest-environment jsdom
-// Booking widget + Contact toggle — hermetic (axios mocked, no network).
+// Booking widget (standalone + embedded as Step 3 of /get-started) — hermetic (axios mocked, no network).
 import { describe, it, expect, afterEach, vi, beforeEach } from 'vitest';
 import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import axios from 'axios';
 import BookingWidget from '../src/components/booking/BookingWidget.jsx';
-import Contact from '../src/pages/Contact.jsx';
 
 vi.mock('axios', () => ({ default: { get: vi.fn(), post: vi.fn() } }));
 vi.mock('react-hot-toast', () => ({ default: { success: vi.fn(), error: vi.fn() } }));
@@ -86,11 +85,28 @@ describe('BookingWidget', () => {
   });
 });
 
-describe('Contact page toggle', () => {
-  it('defaults to booking and switches to the message form', async () => {
-    wrap(<Contact />);
-    expect(await screen.findByText(/30-minute discovery session/i)).toBeTruthy();
-    fireEvent.click(screen.getByRole('tab', { name: /send a message/i }));
-    expect(screen.getByRole('button', { name: /send message/i })).toBeTruthy();
+describe('BookingWidget embedded (Step 3)', () => {
+  const prefill = { name: 'Priya Shah', email: 'priya@meridian.example', company: 'Meridian' };
+
+  it('does not ask for name/email/company or a note again, adds the Step 2 note + roadmap to the notes and hands the booking on', async () => {
+    const onBooked = vi.fn();
+    wrap(<BookingWidget embedded prefill={prefill} notesExtra={'Month-end close.\n\nRoadmap answers\nIndustry: BFSI'} onBooked={onBooked} />);
+    fireEvent.click(await screen.findByRole('button', { name: label(SLOTS[0]) }));
+    fireEvent.click(screen.getByRole('button', { name: /continue/i }));
+
+    expect(await screen.findByText(/booking as/i)).toBeTruthy();
+    expect(screen.queryByLabelText(/full name/i)).toBeNull();
+    expect(screen.queryByLabelText(/work email/i)).toBeNull();
+    expect(screen.queryByLabelText(/what should we look at first/i)).toBeNull();
+    fireEvent.click(screen.getByRole('button', { name: /confirm booking/i }));
+
+    await waitFor(() => expect(onBooked).toHaveBeenCalledTimes(1));
+    const payload = axios.post.mock.calls[0][1];
+    expect(payload).toMatchObject({ name: 'Priya Shah', email: 'priya@meridian.example', company: 'Meridian', startAt: SLOTS[0] });
+    expect(payload.notes).toBe('Month-end close.\n\nRoadmap answers\nIndustry: BFSI');
+    expect(payload.notes.length).toBeLessThanOrEqual(2000);
+    expect(onBooked.mock.calls[0][0]).toMatchObject({ startAt: SLOTS[0] });
+    // The flow owns the confirmation: the widget shows none of its own.
+    expect(screen.queryByText(/you.re booked/i)).toBeNull();
   });
 });

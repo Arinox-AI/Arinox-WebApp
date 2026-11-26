@@ -25,10 +25,10 @@ const ICONS = [
 ]
 
 const DOT = {
-  light: 'border-line bg-white text-ink-faint',
+  light: 'border-line bg-paper-0 text-ink-faint',
   ember: 'border-ember bg-ember text-white',
   dark: 'border-void bg-void text-phos',
-  tint: 'border-ember/40 bg-white text-ember-deep',
+  tint: 'border-ember/40 bg-paper-0 text-ember-deep',
 }
 
 /** A rail with hanging card entries: the four stages of the data path. */
@@ -50,7 +50,7 @@ export function DataFlow({ className = '' }) {
                 {String(i + 1).padStart(2, '0')}
               </span>
 
-              <div className="mt-6 rounded-xl border border-line bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/20">
+              <div className="mt-6 rounded-xl border border-line bg-paper-0 p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-ink/20">
                 <div className="flex items-center gap-3">
                   <span className={`flex h-11 w-11 items-center justify-center rounded-xl ${TONES[node.tone] ?? TONES.light}`}>
                     {ICONS[i]}

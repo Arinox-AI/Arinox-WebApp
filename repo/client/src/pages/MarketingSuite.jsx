@@ -8,6 +8,7 @@ import { inquiries } from '../data/inquiries';
 import { Button } from '../components/site/Button';
 import { IndexStrip } from '../components/site/IndexStrip';
 import { marketingSuite } from '../data/marketingSuite';
+import Illustration from '../components/site/Illustration';
 
 /* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
    Composition: hero → on-page index → the leak ledger (dark) → the loop
@@ -85,7 +86,7 @@ const LoopBoard = () => {
   const { cockpit } = marketingSuite;
 
   return (
-    <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-white shadow-[0_32px_80px_-64px_rgba(11,11,13,0.6)]">
+    <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-paper-0 shadow-[0_32px_80px_-64px_rgba(11,11,13,0.6)]">
       <div className="grid lg:grid-cols-[1fr_56px_minmax(280px,330px)_56px_1fr]">
         {/* Signals in */}
         <div className="p-6 md:p-7">
@@ -108,7 +109,7 @@ const LoopBoard = () => {
           <ol className="mt-4 border-t border-ember/30">
             {cockpit.agents.map((a, i) => (
               <li key={a.t} className="grid grid-cols-[auto_1fr] items-start gap-x-3.5 border-b border-ember/20 py-4 last:border-b-0">
-                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[11px] text-ember-deep">
+                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-paper-0 font-mono text-[11px] text-ember-deep">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>
@@ -180,7 +181,7 @@ const MarketingSuite = () => (
           className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
         >
           <ArrowLeft size={13} strokeWidth={2.2} />
-          All products
+          All solutions
         </Link>
 
         <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
@@ -197,7 +198,7 @@ const MarketingSuite = () => (
                 {marketingSuite.request.ctaButton}
               </Button>
               <Link
-                to="/contact"
+                to="/get-started?start=book"
                 className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
               >
                 Book a call
@@ -207,11 +208,11 @@ const MarketingSuite = () => (
           </div>
 
           <div className="relative">
-            <img
+            <Illustration
+              variant="hero"
+              eager
               src="/images/industries/marketing-signals.svg"
               alt="Two people at a large analytics chart on a screen — one presenting, one reviewing the growth curve"
-              loading="eager"
-              className="mx-auto w-full max-w-[560px]"
             />
           </div>
         </div>
@@ -314,7 +315,7 @@ const MarketingSuite = () => (
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{marketingSuite.request.note}</p>
 
           <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
+            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
               <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Marketing OS</span>
                 <span className="block h-px w-6 bg-ember/80" />

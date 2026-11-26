@@ -13,6 +13,7 @@ import { PricingFaq } from '../components/pricing/PricingFaq';
 import { discoveryHref } from '../components/pricing/links';
 import { track } from '../components/pricing/track';
 import { deployOptions } from '../data/site';
+import Illustration from '../components/site/Illustration';
 import {
   pricingHero,
   plans,
@@ -77,7 +78,7 @@ export default function Pricing() {
                 {pricingHero.ctaPrimary} <ArrowRight size={14} strokeWidth={2.2} aria-hidden />
               </Button>
               <Link
-                to="/contact"
+                to="/get-started?start=book"
                 onClick={() => track('cta_click', { cta: 'hero-talk' })}
                 className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
               >
@@ -89,11 +90,11 @@ export default function Pricing() {
             </p>
           </Reveal>
           <Reveal delay={0.08} className="hidden self-center md:block">
-            <img
+            <Illustration
+              variant="hero"
+              eager
               src="/images/industries/pricing-budget.svg"
               alt="A person adjusting three price sliders"
-              loading="eager"
-              className="mx-auto w-full max-w-[300px] lg:max-w-[340px]"
             />
           </Reveal>
         </div>
@@ -150,9 +151,7 @@ export default function Pricing() {
         <div className="grid gap-x-12 gap-y-12 md:grid-cols-3">
           {deployOptions.map((d) => (
             <div key={d.t} className="border-t border-ink/80 pt-7">
-              <div className="flex h-[136px] items-center">
-                <img src={d.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
-              </div>
+              <Illustration src={d.image} />
               <div className="mt-6 flex items-center justify-between gap-4">
                 <h3 className="font-display text-[22px] tracking-[-0.01em]">{d.t}</h3>
                 {d.sovereign && (
@@ -234,7 +233,7 @@ export default function Pricing() {
         }
         offer={closingBand.offer}
         primary={{ label: closingBand.cta, to: discoveryHref('closing') }}
-        secondary={{ label: closingBand.talk, to: '/contact' }}
+        secondary={{ label: closingBand.talk, to: '/get-started?start=book' }}
         facts={[closingBand.microcopy]}
       />
     </>

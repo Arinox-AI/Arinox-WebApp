@@ -1,14 +1,14 @@
-/* The contact hub: what an enquiry is about.
+/* The enquiry side of /get-started: what an enquiry is about.
  *
  * The intent keys are the server's (server/src/utils/intents.js) and the
- * asset keys are the four documents a visitor can ask for. Keep the two in
+ * asset keys are the documents a visitor can ask for. Keep the two in
  * sync - the labels here are the visitor's, the server owns the email copy.
  */
 
 export const inquiries = {
-  /* The hub link for a document request. The product pages send the visitor
-     here with the document already picked. */
-  deckHref: (asset) => `/contact?intent=deck&asset=${asset}`,
+  /* The link for a document request. The product pages send the visitor to
+     /get-started with the document already picked (Step 2). */
+  deckHref: (asset) => `/get-started?intent=deck&asset=${asset}`,
 
   subjects: [
     { label: 'General inquiry', intent: 'question' },
@@ -26,58 +26,39 @@ export const inquiries = {
     { key: 'digital-twin', label: 'Digital Twin++ brief' },
   ],
 
-  form: {
-    label: 'Send a message',
-    note: 'One place for every question — a demo, a deck, a price, a partnership, a press note. A person from the team reads it and replies.',
-    success: 'Received — a person from the team will reply shortly.',
-    cta: 'Send message',
-    messageLabel: 'What should we look at first?',
-    messagePlaceholder: 'One workflow, one bottleneck, one hunch — that’s enough to start.',
-    /* The message asks a different question when the enquiry is about
-       something other than a workflow. */
-    messageByIntent: {
-      pricing: {
-        label: 'What are you trying to price?',
-        placeholder: 'The workflow, the team, the outcome — a sentence is enough to start.',
-      },
-      partnership: {
-        label: 'What would you like to build together?',
-        placeholder: 'The practice you bring, the platform you need, the market you serve.',
-      },
-      deck: {
-        label: 'Anything we should know?',
-        placeholder: 'What you run today, what you want it to do. Optional.',
-      },
+  /* The note asks a different question when the enquiry is about
+     something other than a workflow. */
+  noteByIntent: {
+    pricing: {
+      label: 'What are you trying to price?',
+      placeholder: 'The workflow, the team, the outcome — a sentence is enough to start.',
     },
-  },
-
-  /* Shown under the picker when the enquiry is about a price - the survey is
-     the precise path, and the hub is where people land first. */
-  pricingSurvey: { lead: 'Want a number built around you?', link: 'Get your AI roadmap', to: '/get-started' },
-
-  /* Where each enquiry type is sent from — used by the CTAs that deep-link
-     into the hub (/contact?intent=deck&asset=industrial-os). */
-  deepLinks: {
-    deck: '/contact?intent=deck',
-    partnership: '/contact?intent=partnership',
-    pricing: '/contact?intent=pricing',
+    partnership: {
+      label: 'What would you like to build together?',
+      placeholder: 'The practice you bring, the platform you need, the market you serve.',
+    },
+    deck: {
+      label: 'Anything we should know?',
+      placeholder: 'What you run today, what you want it to do. Optional.',
+    },
   },
 
   /* Copy for the card that replaces the inline deck form on a product page. */
   hubCard: {
     eyebrow: 'One form, one place',
-    body: 'The contact page, with this document already picked. Three fields, and a person from the team emails your copy shortly.',
+    body: 'The get-started page, with this document already picked. A few fields, and a person from the team emails your copy shortly.',
     foot: 'No newsletter, no drip sequence. One reply from a human who can read an architecture diagram.',
   },
 };
 
-/* Home-page client intake: the ten-question business profile (the questions
+/* /get-started: one journey in three steps - your business (ten questions),
+   who you are (the lead is saved here), your call (optional). The questions
    themselves live in data/pricing.js `wizard.questions`; the wording here is
-   the intake's own - no pricing language). */
+   the flow's own - no pricing language. */
 export const intake = {
-  eyebrow: 'Start here',
+  eyebrow: 'Get started',
   title: 'Tell us about your business.',
-  sub: 'Ten quick questions so our architects arrive at the first call already knowing your teams, systems, data and goals. About 4 minutes.',
+  sub: 'Ten quick questions, so our architects arrive already knowing your teams, systems, data and goals. Then a few details, and — if you like — 30 minutes on the calendar. About 4 minutes.',
   profileLabel: 'Your profile',
   restored: 'Picked up from earlier in this tab.',
   startOver: 'Start over',
@@ -98,17 +79,32 @@ export const intake = {
     'We reply soon',
     'Your data stays with us — zero egress',
   ],
+
+  /* The three steps. `stepOf` is the mono label above each one. */
+  steps: [
+    { key: 'business', name: 'Your business' },
+    { key: 'you', name: 'Who you are' },
+    { key: 'call', name: 'Your call' },
+  ],
+  stepOf: (n, total, name, optional) => `Step ${n} of ${total} · ${name}${optional ? ' (optional)' : ''}`,
   stepLabel: (n, total) => `Question ${n} of ${total}`,
   next: 'Continue',
   back: 'Back',
+  skip: 'Skip — just talk to us',
   capNote: (max) => `Choose up to ${max}. Unselect one first.`,
+
+  /* Step 2 */
   contact: {
-    label: 'Last step',
     heading: 'Who should we talk to?',
-    sub: 'An architect reads your profile first, so the conversation is about your business. They will reply soon.',
-    notesLabel: 'Anything else we should know? (optional)',
-    notesPlaceholder: 'Timelines, constraints, anything useful.',
-    cta: 'Send my profile',
+    sub: 'A person from the team reads this first, so the conversation is about your business. They will reply soon.',
+    subSent: 'Your answers go with it — an architect reads them before replying.',
+    notesLabel: 'Anything else? What should we look at first?',
+    notesPlaceholder: 'One workflow, one bottleneck, one hunch — that’s enough to start.',
+    subjectLabel: 'What is this about?',
+    assetLabel: 'Which one?',
+    assetAny: 'Not sure — send me the closest',
+    cta: 'Send my details',
+    sending: 'Sending…',
     errors: {
       name: 'Your name — we reply person to person.',
       email: 'That email doesn’t look complete.',
@@ -116,18 +112,45 @@ export const intake = {
       role: 'Your role — it tells us who we’re building with.',
     },
   },
-  footnote: 'Your answers stay with Arinox and are used only to prepare for your conversation.',
+  footnote: 'Your details stay with Arinox and are used only to reply to you.',
   failure: 'Something went wrong — your answers are safe. Please try again.',
-  success: {
+
+  /* Step 3 */
+  call: {
+    heading: 'Want 30 minutes with an architect?',
+    sub: 'Pick a time and it lands in your calendar. Your name, email and company are already filled in.',
+    skip: 'No call yet — email me first',
+  },
+
+  /* The one confirmation, reflecting what happened. */
+  done: {
+    stepLabel: 'Step 3 of 3 · Done',
+    /* Arrived from the booking email (?booked=1) and answered the questions. */
+    prepared: {
+      heading: 'Thank you. Your architect will read these before the call.',
+      sub: 'Your call is already booked, so there is nothing else to do. See you then.',
+    },
     eyebrow: 'Received',
-    heading: 'Thank you. An architect will be in touch.',
-    sub: 'We will read your profile and reply soon.',
+    received: {
+      heading: 'Thank you. The team has your details.',
+      sub: (email) => `A person from the team will reply to ${email} soon. It comes from a person, not a mailing robot.`,
+    },
+    booked: {
+      eyebrow: 'Received · Booked',
+      heading: (first) => `You’re booked, ${first}.`,
+      sub: (email) => `A calendar invite is on its way to ${email}, and the team has your details. Accept it and it lands in your calendar.`,
+      when: 'When',
+      topic: 'Topic',
+      join: 'Join',
+      joinLink: 'Video call',
+      move: 'Need to move it? Just reply to the confirmation email.',
+    },
     next: [
-      'An architect reviews your profile',
+      'The team reads what you sent',
       'We reply soon',
-      'If it helps, we book 30 minutes built around your answers',
+      'If it helps, we build the conversation around your answers',
     ],
-    cta: 'Book a time',
+    home: 'Back to home',
   },
 };
 
@@ -137,33 +160,12 @@ export const startHere = {
   titleAccent: 'Let’s get to work.',
   offer: 'Ten quick questions, so the architect on your first call already knows your teams, systems and goals.',
   primary: { label: 'Get your AI roadmap', to: '/get-started' },
-  secondary: { label: 'Or book a call', to: '/contact' },
   facts: ['10 questions', 'About 4 minutes', 'Read by an architect'],
 };
 
-/* The intake offered as a dialog at the moments someone has just reached us
-   (message sent, session booked) and on /contact. Same form as /get-started. */
-export const intakeOffer = {
-  afterMessage: {
-    eyebrow: 'Before we reply',
-    text: 'Ten quick questions about your business, so the team comes prepared. About 4 minutes.',
-    cta: 'Answer 10 questions',
-  },
-  afterBooking: {
-    eyebrow: 'Before we meet',
-    text: (when) => `Help us prepare for ${when}: ten quick questions about your business. About 4 minutes.`,
-    cta: 'Answer 10 questions',
-  },
-  contactPage: {
-    lead: 'Meeting us soon?',
-    link: 'Get your AI roadmap with 10 quick questions',
-  },
-  dialog: {
-    label: 'Get your AI roadmap',
-    title: 'Tell us about your business.',
-    close: 'Close',
-    later: 'Maybe later',
-    saved: 'Close any time: your answers are kept until you close this browser tab.',
-  },
-  doneClose: 'Done',
+/* The Offices + Direct block at the foot of /get-started (data: data/site.js). */
+export const reachUs = {
+  eyebrow: 'Prefer to write or call?',
+  offices: 'Offices',
+  linkedin: 'LinkedIn →',
 };

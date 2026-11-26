@@ -47,4 +47,24 @@ describe('the client intake link in customer emails', () => {
     const html = mailer.bookingConfirmation({ name: 'Asha', when: 'Thu 20 Nov, 11:00 IST', topic: 'General' });
     expect(html).toContain('https://www.arinox.ai/get-started');
   });
+
+  it('booked without answering: a Before-we-meet block with a button to the questions (calendar skipped)', () => {
+    const html = mailer.bookingConfirmation({ name: 'Asha', when: 'Thu 20 Nov, 11:00 IST', topic: 'General', profileDone: false });
+    expect(html).toContain('Before we meet');
+    expect(html).toContain('Answer the 10 questions');
+    expect(html).toContain('https://www.arinox.ai/get-started?start=roadmap&booked=1');
+  });
+
+  it('booked after answering: a thank-you, no questions link', () => {
+    const html = mailer.bookingConfirmation({ name: 'Asha', when: 'Thu 20 Nov, 11:00 IST', topic: 'General', profileDone: true });
+    expect(html).toContain('Thank you for answering our questions');
+    expect(html).not.toContain('Answer the 10 questions');
+    expect(html).not.toContain('booked=1');
+  });
+
+  it('the team notification says whether the questions were answered', () => {
+    const base = { name: 'Asha', email: 'a@b.co', when: 'Thu 20 Nov, 11:00 IST', topic: 'General' };
+    expect(mailer.bookingNotification({ ...base, profileDone: false })).toContain('Not answered yet');
+    expect(mailer.bookingNotification({ ...base, profileDone: true })).toContain('Answered (see notes below)');
+  });
 });

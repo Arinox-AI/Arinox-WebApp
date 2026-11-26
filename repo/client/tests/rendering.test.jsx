@@ -58,7 +58,7 @@ const routes = [
   { path: '/blog', heading: /from inside/i },
   { path: '/blog/aks-workshop-global-sovereign-ai', heading: /aks workshop global/i },
   { path: '/careers', heading: /build systems that/i },
-  { path: '/contact', heading: /discovery session/i },
+  { path: '/contact', heading: /tell us about your business/i }, // redirects to /get-started
   { path: '/privacy', heading: /privacy policy/i },
   { path: '/terms', heading: /terms of service/i },
 ];
@@ -101,9 +101,35 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     expect(await heading(/assembled around/i)).toBeTruthy();
   }, 30000);
 
+  it('Solutions dropdown shows three labelled columns, six links and All solutions', async () => {
+    renderAt('/');
+    const trigger = mainNav().getByRole('link', { name: /^solutions$/i });
+    fireEvent.mouseOver(trigger);
+    fireEvent.focus(trigger);
+    const panel = within(await mainNav().findByRole('group', { name: 'Solutions' }));
+    for (const label of ['Hardware', 'By industry', 'By function']) {
+      expect(panel.getByText(label)).toBeTruthy();
+    }
+    for (const name of ['CommandCore', 'Fashion & Lifestyle OS', 'Manufacturing OS', 'Marketing OS', 'Secure OS', 'Digital Twin++']) {
+      expect(panel.getByRole('link', { name: new RegExp(name.replace(/[+&]/g, '\\$&')) })).toBeTruthy();
+    }
+    expect(panel.getByRole('link', { name: /all solutions/i }).getAttribute('href')).toBe('/industries');
+  }, 30000);
+
+  it('mobile menu shows Solutions with its three groups and All solutions', async () => {
+    renderAt('/');
+    fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
+    const mobile = within(screen.getByRole('navigation', { name: 'Mobile' }));
+    for (const label of ['Solutions', 'Hardware', 'By industry', 'By function']) {
+      expect(mobile.getByText(label)).toBeTruthy();
+    }
+    expect(mobile.getByRole('link', { name: 'Secure OS' })).toBeTruthy();
+    expect(mobile.getByRole('link', { name: 'All solutions' }).getAttribute('href')).toBe('/industries');
+  }, 30000);
+
   it('dropdown group opens on hover and its links route', async () => {
     renderAt('/');
-    const products = mainNav().getByRole('link', { name: /^products$/i });
+    const products = mainNav().getByRole('link', { name: /^solutions$/i });
     fireEvent.mouseOver(products);
     fireEvent.focus(products);
     const manufacturing = await mainNav().findByRole(
@@ -126,20 +152,20 @@ describe('footer', () => {
     const pricing = resources.getByRole('link', { name: 'Pricing' });
     expect(pricing.getAttribute('href')).toBe('/pricing');
 
-    // Pricing belongs to Resources, not to the Product column.
-    const product = within(screen.getByRole('heading', { name: 'Product' }).parentElement);
+    // Pricing belongs to Resources, not to the Solutions column.
+    const product = within(screen.getByRole('heading', { name: 'Solutions' }).parentElement);
     expect(product.queryByRole('link', { name: 'Pricing' })).toBeNull();
     expect(footer.getByRole('link', { name: 'Pricing' })).toBeTruthy();
   }, 30000);
 });
 
-describe('contact page offices', () => {
+describe('get-started page offices', () => {
   it('lists India and international offices, with no dropped cities', async () => {
-    renderAt('/contact');
-    await heading(/discovery session/i);
+    renderAt('/get-started');
+    await heading(/tell us about your business/i);
 
-    expect(screen.getByText('India')).toBeTruthy();
-    expect(screen.getByText('International')).toBeTruthy();
+    // One quiet "Offices" line under the flow (2026-11-26); every city still listed.
+    expect(screen.getByText('Offices')).toBeTruthy();
 
     for (const city of ['Bengaluru', 'Hyderabad', 'New Delhi', 'New York', 'Bangkok', 'Dubai']) {
       expect(screen.getByText(city)).toBeTruthy();

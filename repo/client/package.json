@@ -8,6 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@microsoft/clarity": "^1.0.2",
     "@vercel/analytics": "^2.0.1",
     "axios": "^1.7.2",
     "framer-motion": "^11.2.11",

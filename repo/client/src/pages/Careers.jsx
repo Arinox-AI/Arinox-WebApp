@@ -14,6 +14,7 @@ import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
 import HumanCheck from '../components/site/HumanCheck';
 import { perks as perksData, roles as rolesData } from '../data/careers';
+import Illustration from '../components/site/Illustration';
 
 // Prefer a match that actually carries a JD, so API roles (which may not store
 // one) still fall back to the structured JD held in data/careers.js.
@@ -228,14 +229,10 @@ const Careers = () => {
           <div className="mt-12 grid gap-x-10 gap-y-12 sm:grid-cols-2">
             {perks.map(({ image, title, desc }) => (
               <div key={title} className="group border-t border-ink/80 pt-6">
-                <div className="flex h-[150px] items-center">
-                  <img
-                    src={image}
-                    alt=""
-                    loading="lazy"
-                    className="max-h-full w-full object-contain object-left transition-transform duration-500 group-hover:scale-[1.02]"
-                  />
-                </div>
+                <Illustration
+                  src={image}
+                  imgClassName="transition-transform duration-500 group-hover:scale-[1.02]"
+                />
                 <h3 className="mt-6 font-display text-[20px] tracking-[-0.01em]">{title}</h3>
                 <p className="mt-2 max-w-[46ch] text-[14.5px] leading-relaxed text-ink-soft">{desc}</p>
               </div>
@@ -294,7 +291,7 @@ const Careers = () => {
                 <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
                   We don&apos;t have active positions at the moment, but we&apos;re always looking for exceptional people.
                 </p>
-                <Link to="/contact" className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
+                <Link to="/get-started?start=message" className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
                   Get in touch <ArrowUpRight size={14} strokeWidth={2.2} />
                 </Link>
               </div>
@@ -322,7 +319,7 @@ const Careers = () => {
                             onClick={() => setExpandedJD(open ? null : key)}
                             aria-expanded={open}
                             aria-controls={`jd-${key}`}
-                            className="inline-flex items-center gap-1.5 rounded-btn border border-ink/20 bg-white px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink/50"
+                            className="inline-flex items-center gap-1.5 rounded-btn border border-ink/20 bg-paper-0 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink/50"
                           >
                             {open ? <Minus size={13} strokeWidth={2.2} /> : <Plus size={13} strokeWidth={2.2} />}
                             {open ? 'Hide role' : 'View role'}

@@ -40,7 +40,7 @@ const ShareRow = ({ title, url, label = 'Share' }) => {
   };
 
   const btnCls =
-    'chip inline-flex items-center gap-2 rounded-full border border-line bg-white px-3.5 py-2 text-[11.5px] text-ink-soft transition-colors duration-200 hover:border-ink hover:text-ink';
+    'chip inline-flex items-center gap-2 rounded-full border border-line bg-paper-0 px-3.5 py-2 text-[11.5px] text-ink-soft transition-colors duration-200 hover:border-ink hover:text-ink';
 
   return (
     <div>

@@ -145,7 +145,7 @@ const CaseStudies = () => {
             leaving your premises. Pick a sector to see what we&apos;ve built, shipped, and operated.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Button to="/contact" variant="ember">Book a call</Button>
+            <Button to="/get-started?start=book" variant="ember">Book a call</Button>
             <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
               Zero egress · audit-ready from day one
             </span>
@@ -174,7 +174,7 @@ const CaseStudies = () => {
                 className={`group flex items-center justify-between gap-2 rounded-card border px-3.5 py-2.5 text-left transition-all duration-200 ${
                   on
                     ? 'border-ember bg-ember text-white'
-                    : 'border-line bg-white text-ink hover:border-ink/25 hover:bg-paper-2'
+                    : 'border-line bg-paper-0 text-ink hover:border-ink/25 hover:bg-paper-2'
                 }`}
               >
                 <span className={`num shrink-0 font-mono text-[11px] ${on ? 'text-white/70' : 'text-ink-faint'}`}>
@@ -210,7 +210,7 @@ const CaseStudies = () => {
                 constraint and we&apos;ll map it to a concrete on-premises deployment.
               </p>
               <div className="mt-4">
-                <Button to="/contact" variant="dark" size="sm">Talk to us</Button>
+                <Button to="/get-started?start=message" variant="dark" size="sm">Talk to us</Button>
               </div>
             </div>
           )}

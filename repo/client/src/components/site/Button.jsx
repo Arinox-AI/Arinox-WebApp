@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const styles = {
   dark: 'bg-ink text-white hover:bg-black shadow-[0_14px_30px_-14px_rgba(23,23,26,0.55)]',
   ember: 'bg-ember text-white hover:bg-ember-deep hover:text-white btn-ember-glow',
-  ghost: 'bg-white text-ink border border-ink/20 hover:border-ink/60 hover:bg-paper-2',
+  ghost: 'bg-paper-0 text-ink border border-ink/20 hover:border-ink/60 hover:bg-paper-2',
   ghostDark: 'bg-transparent text-white border border-white/25 hover:border-white/70 hover:bg-white/5',
 }
 
@@ -55,4 +55,23 @@ export function TextLink({ children, to, dark = false }) {
     dark ? 'text-white border-white/30 hover:border-white' : 'text-ink border-line hover:border-ink'
   }`
   return <Link to={to} className={cls}>{children}</Link>
+}
+
+/** Quiet secondary action: mono label + arrow, no fill, no border box.
+ *  Use for every action that is not the one filled primary in a view.
+ *  Renders a router Link (`to`), an anchor (`href`) or a button (`onClick`). */
+export function ArrowLink({ children, to, href, onClick, download, dark = false, arrow = 'after', className = '' }) {
+  const cls = `inline-flex min-h-[44px] items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em] transition-colors ${
+    dark ? 'text-phos hover:text-ember' : 'text-ink hover:text-ember-deep'
+  } ${className}`
+  const inner = (
+    <>
+      {arrow === 'before' ? <span aria-hidden>{'←'}</span> : null}
+      {children}
+      {arrow === 'after' ? <span aria-hidden>{'→'}</span> : null}
+    </>
+  )
+  if (to) return <Link to={to} className={cls} onClick={onClick}>{inner}</Link>
+  if (href) return <a href={href} className={cls} download={download || undefined} onClick={onClick}>{inner}</a>
+  return <button type="button" onClick={onClick} className={cls}>{inner}</button>
 }

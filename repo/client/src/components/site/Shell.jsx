@@ -3,8 +3,9 @@ import { Button } from './Button'
 import { HalftoneBackground } from './HalftoneBackground'
 import { LinkedinIcon } from './Icons'
 import { company } from '../../data/site'
+import { openSettings } from '../../lib/consent'
 
-export function CtaBand({ title, offer, primary = { label: 'Book a call', to: '/contact' }, secondary, facts }) {
+export function CtaBand({ title, offer, primary = { label: 'Get your AI roadmap', to: '/get-started' }, secondary, facts }) {
   return (
     <section className="relative overflow-hidden bg-void py-28 text-white md:py-36">
       <div className="pointer-events-none absolute inset-0 opacity-60">
@@ -53,9 +54,9 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Product</h5>
+            <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Solutions</h5>
             <FooterLink to="/commandcore">CommandCore™</FooterLink>
-            <FooterLink to="/industries">All products</FooterLink>
+            <FooterLink to="/industries">All solutions</FooterLink>
             <FooterLink to="/industries/marketing">Marketing OS</FooterLink>
             <FooterLink to="/industries/fashion-lifestyle">Fashion &amp; Lifestyle OS</FooterLink>
             <FooterLink to="/industries/industrial">Manufacturing OS</FooterLink>
@@ -73,7 +74,6 @@ export function Footer() {
           </div>
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Contact</h5>
-            <FooterLink to="/contact">Book a call</FooterLink>
             <FooterLink to="/get-started">Get your AI roadmap</FooterLink>
             <a
               href={company.linkedin}
@@ -86,6 +86,10 @@ export function Footer() {
             </a>
             <FooterLink to="/privacy">Privacy</FooterLink>
             <FooterLink to="/terms">Terms</FooterLink>
+            <FooterLink to="/cookies">Cookies</FooterLink>
+            <button type="button" onClick={openSettings} className="block py-1 text-left text-sm text-ink-soft transition-colors hover:text-ink">
+              Cookie settings
+            </button>
           </div>
         </div>
         <div className="mt-16 flex flex-wrap justify-between gap-2.5 border-t border-line pt-6 font-mono text-[11.5px] text-ink-faint">

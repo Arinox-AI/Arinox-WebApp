@@ -23,9 +23,9 @@ const pageModules = {
   IndustrialSuite: () => import('../src/pages/IndustrialSuite.jsx'),
   SecureOsSuite: () => import('../src/pages/SecureOsSuite.jsx'),
   DigitalTwinSuite: () => import('../src/pages/DigitalTwinSuite.jsx'),
-  Contact: () => import('../src/pages/Contact.jsx'),
   Privacy: () => import('../src/pages/Privacy.jsx'),
   Terms: () => import('../src/pages/Terms.jsx'),
+  Cookies: () => import('../src/pages/Cookies.jsx'),
   NotFound: () => import('../src/pages/NotFound.jsx'),
 };
 

@@ -16,7 +16,7 @@ const withTimeout = async (q, ms = 2500) => {
 };
 
 const absImage = (u, base) =>
-  (u && /^https?:\/\//i.test(u) ? u : `${base}${u || '/og-image.jpg'}`);
+  (u && /^https?:\/\//i.test(u) ? u : `${base}${u || '/og-image.png'}`);
 
 const fullTitle = (title) => (title && title.includes('Arinox') ? title : `${title} | Arinox AI`);
 
@@ -51,7 +51,7 @@ const blogIndexMeta = async (base) => ({
   title: 'Blog & Research | Arinox AI',
   description: BLOG_DESC,
   canonical: `${base}/blog`,
-  image: `${base}/og-image.jpg`,
+  image: `${base}/og-image.png`,
   type: 'website',
 });
 
@@ -152,7 +152,7 @@ const caseStudySlug = async (req, res, next) => {
       title: 'Case Study | Private AI in Production | Arinox AI',
       description: 'Deployed inside the perimeter. Private AI case studies across BFSI, Healthcare, Manufacturing, Defence, Government, FMCG, and Retail, verified where published.',
       canonical: `${base}/case-studies/${encodeURIComponent(slug)}`,
-      image: `${base}/og-image.jpg`,
+      image: `${base}/og-image.png`,
       type: 'article',
     }, res, next);
   } catch (err) { next(err); }

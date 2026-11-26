@@ -36,7 +36,7 @@ const DigitalTwinSuite = () => (
           className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
         >
           <ArrowLeft size={13} strokeWidth={2.2} />
-          All products
+          All solutions
         </Link>
 
         <div className="mt-8 grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
@@ -54,7 +54,7 @@ const DigitalTwinSuite = () => (
                 {digitalTwinSuite.request.ctaButton}
               </Button>
               <Link
-                to="/contact"
+                to="/get-started?start=book"
                 className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
               >
                 Book a call
@@ -104,7 +104,7 @@ const DigitalTwinSuite = () => (
         {digitalTwinSuite.levels.items.map((l) => (
           <li
             key={l.t}
-            className={`border-b border-r border-line p-6 md:p-7 ${l.hot ? 'bg-ember/10' : 'bg-white'}`}
+            className={`border-b border-r border-line p-6 md:p-7 ${l.hot ? 'bg-ember/10' : 'bg-paper-0'}`}
           >
             <span className="num font-display text-[44px] leading-none text-ember">{l.n}</span>
             <h3 className="mt-4 font-display text-[22px] tracking-[-0.01em]">{l.t}</h3>
@@ -244,7 +244,7 @@ const DigitalTwinSuite = () => (
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{digitalTwinSuite.request.note}</p>
 
           <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
+            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
               <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Digital Twin++</span>
                 <span className="block h-px w-6 bg-ember/80" />

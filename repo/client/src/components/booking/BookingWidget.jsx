@@ -5,8 +5,7 @@ import toast from 'react-hot-toast';
 import { Button } from '../site/Button';
 import HumanCheck from '../site/HumanCheck';
 import { booking } from '../../data/booking';
-import { IntakeOffer } from '../site/IntakeDialog';
-import { intakeOffer } from '../../data/inquiries';
+import { bookingNotes } from '../pricing/wizardLogic';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const DOW = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
@@ -21,8 +20,16 @@ const labelCls = 'mb-1.5 block font-mono text-[11.5px] font-medium uppercase tra
 
 /* 30-minute discovery-session picker: day → time → details → confirmed.
    All slot logic (hours, buffers, clashes) lives on the server; this only
-   renders what /api/v1/booking/availability offers. */
-export default function BookingWidget() {
+   renders what /api/v1/booking/availability offers.
+
+   Embedded (Step 3 of /get-started): no card chrome; name, email and company
+   come from `prefill` (Step 2) and are not asked again; `notesExtra` (the
+   roadmap answers) is appended to the booking notes; and a confirmed booking
+   is handed to `onBooked` - the flow owns the confirmation screen. */
+export default function BookingWidget({ embedded = false, prefill = null, notesExtra = '', onBooked = null, profileDone = false }) {
+  const shell = embedded ? '' : 'card-light p-8 md:p-10';
+  const known = Boolean(embedded && prefill?.name && prefill?.email);
+
   const [state, setState] = useState('loading'); // loading | ready | error
   const [slots, setSlots] = useState([]);
   const [step, setStep] = useState('pick'); // pick | details | done
@@ -30,7 +37,15 @@ export default function BookingWidget() {
   const [month, setMonth] = useState(null);
   const [day, setDay] = useState(null);
   const [slot, setSlot] = useState(null);
-  const [form, setForm] = useState({ name: '', email: '', company: '', phone: '', notes: '', guests: '', website: '' });
+  const [form, setForm] = useState({
+    name: prefill?.name || '',
+    email: prefill?.email || '',
+    company: prefill?.company || '',
+    phone: '',
+    notes: '',
+    guests: '',
+    website: '',
+  });
   const [errors, setErrors] = useState({});
   const [token, setToken] = useState(null);
   const [busy, setBusy] = useState(false);
@@ -95,12 +110,15 @@ export default function BookingWidget() {
     try {
       const { data } = await axios.post('/api/v1/booking', {
         name: form.name, email: form.email, company: form.company, phone: form.phone,
-        notes: form.notes, topic, guests, startAt: slot, timezone: tz,
+        notes: bookingNotes(form.notes, notesExtra), topic, guests, startAt: slot, timezone: tz,
+        profileDone, // when false the confirmation email asks for the ten questions
         website: form.website, // honeypot: '' for humans
         turnstileToken: token || undefined,
       });
-      setResult(data?.data || {});
-      setStep('done');
+      const booked = data?.data || {};
+      setResult(booked);
+      if (onBooked) onBooked({ ...booked, startAt: booked.startAt || slot, topic });
+      else setStep('done');
     } catch (err) {
       if (err.response?.status === 409) {
         toast.error(err.response.data?.message || booking.errors.taken);
@@ -121,11 +139,11 @@ export default function BookingWidget() {
   if (state === 'loading') {
     /* The calendar is a second of work away (a free/busy read of the team's
        Google Calendar), so we show the shape of what is coming rather than a
-       bare line of text: the card does not jump when the real grid lands. */
+       bare line of text: the page does not jump when the real grid lands. */
     return (
-      <div className="card-light p-8 md:p-10" role="status" aria-busy="true" aria-live="polite">
-        <p className="eyebrow text-ember-deep">{booking.eyebrow}</p>
-        <p className="mt-6 flex items-center gap-3 text-[15px] text-ink-soft">
+      <div className={shell} role="status" aria-busy="true" aria-live="polite">
+        {embedded ? null : <p className="eyebrow text-ember-deep">{booking.eyebrow}</p>}
+        <p className={`${embedded ? '' : 'mt-6 '}flex items-center gap-3 text-[15px] text-ink-soft`}>
           <span className="loader-dot" aria-hidden />
           {booking.loading}
         </p>
@@ -155,38 +173,27 @@ export default function BookingWidget() {
   }
   if (state === 'error') {
     return (
-      <div className="card-light p-8">
+      <div className={embedded ? '' : 'card-light p-8'}>
         <p className="text-ink-soft">{booking.loadError}</p>
         <button onClick={() => { setState('loading'); load(); }} className="mt-4 font-mono text-[12px] uppercase tracking-[0.1em] text-ember-deep hover:opacity-75">Try again</button>
       </div>
     );
   }
-  if (!slots.length) return <div className="card-light p-8 text-ink-soft">{booking.empty}</div>;
+  if (!slots.length) return <div className={embedded ? 'text-ink-soft' : 'card-light p-8 text-ink-soft'}>{booking.empty}</div>;
 
   if (step === 'done') {
     const start = new Date(result?.startAt || slot);
     return (
-      <div className="card-light p-8 md:p-10" role="status">
+      <div className={shell} role="status">
         <p className="eyebrow text-success">{booking.done.eyebrow}</p>
         <h2 className="mt-3 font-display text-3xl tracking-[-0.01em]">{booking.done.heading(form.name.trim().split(' ')[0])}</h2>
         <p className="mt-3 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{booking.done.body(form.email.trim())}</p>
-        <dl className="mt-6 grid gap-3 rounded-card border border-line bg-white p-5 text-[15px]">
+        <dl className="mt-6 grid gap-3 rounded-card border border-line bg-paper-0 p-5 text-[15px]">
           <div className="grid grid-cols-[90px_1fr] gap-2"><dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-faint">When</dt><dd>{dayLabel(start)} · {timeLabel(start.toISOString())}–{timeLabel(new Date(start.getTime() + 30 * 60e3).toISOString())}{tz ? ` (${tz})` : ''}</dd></div>
           <div className="grid grid-cols-[90px_1fr] gap-2"><dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-faint">Topic</dt><dd>{topic}</dd></div>
           {result?.meetLink && <div className="grid grid-cols-[90px_1fr] gap-2"><dt className="font-mono text-[11px] uppercase tracking-[0.06em] text-ink-faint">Join</dt><dd><a href={result.meetLink} className="text-ember-deep underline underline-offset-2">Video call</a></dd></div>}
         </dl>
         <p className="mt-5 text-[13.5px] text-ink-faint">{booking.done.move}</p>
-        {/* Booked: ask for the intake now, prefilled, so the call starts informed.
-            The finish screen does not offer a second booking. */}
-        <IntakeOffer
-          source="after-booking"
-          showBooking={false}
-          prefill={{ name: form.name.trim(), email: form.email.trim(), company: form.company.trim() }}
-          eyebrow={intakeOffer.afterBooking.eyebrow}
-          text={intakeOffer.afterBooking.text(dayLabel(start))}
-          cta={intakeOffer.afterBooking.cta}
-          className="mt-7"
-        />
         <button onClick={reset} className="mt-6 font-mono text-[12px] uppercase tracking-[0.1em] text-ember-deep hover:opacity-75">{booking.done.again}</button>
       </div>
     );
@@ -216,7 +223,7 @@ export default function BookingWidget() {
         key={d} type="button" disabled={!has} aria-pressed={!!sel}
         onClick={() => { setDay(dt); setSlot(null); }}
         className={`relative aspect-square rounded-lg border text-sm transition-colors ${
-          sel ? 'border-ink bg-ink text-white' : has ? 'border-line bg-white hover:border-ink' : 'border-transparent text-ink-faint/50'
+          sel ? 'border-ink bg-ink text-white' : has ? 'border-line bg-paper-0 hover:border-ink' : 'border-transparent text-ink-faint/50'
         }`}
       >
         {d}
@@ -227,23 +234,36 @@ export default function BookingWidget() {
 
   if (step === 'details') {
     return (
-      <form onSubmit={confirm} className="card-light relative p-8 md:p-10" noValidate>
-        <p className="eyebrow text-ember-deep">{booking.eyebrow}</p>
-        <p className="mt-3 rounded-card border border-ember/25 bg-tint px-4 py-3 text-[15px]">
+      <form onSubmit={confirm} className={`${shell} relative`} noValidate>
+        {embedded ? null : <p className="eyebrow text-ember-deep">{booking.eyebrow}</p>}
+        <p className={embedded
+          ? 'border-t border-ink/80 pt-3 text-[15px]'
+          : 'mt-3 rounded-card border border-ember/25 bg-tint px-4 py-3 text-[15px]'}
+        >
           <span className="font-medium">{dayLabel(day)} · {timeLabel(slot)}–{timeLabel(new Date(Date.parse(slot) + 30 * 60e3).toISOString())}</span>
           {tz && <span className="text-ink-soft"> ({tz})</span>}
         </p>
-        {[['name', 'text', 'name'], ['email', 'email', 'email'], ['company', 'text', 'organization'], ['phone', 'tel', 'tel']].map(([k, type, ac]) => (
-          <label key={k} className="mt-7 block">
-            <span className={labelCls}>{booking.fields[k]}</span>
-            <input type={type} name={k} value={form[k]} onChange={handleChange} autoComplete={ac} maxLength={k === 'email' ? 255 : 160} aria-invalid={!!errors[k]} className={inputCls} />
-            {errors[k] && <span role="alert" className="mt-2 block font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep">{errors[k]}</span>}
+        {known ? (
+          <p className="mt-5 text-[14.5px] text-ink-soft">
+            {booking.bookingAs} <span className="font-medium text-ink">{form.name}</span> · {form.email}{form.company ? ` · ${form.company}` : ''}
+          </p>
+        ) : null}
+        {[['name', 'text', 'name'], ['email', 'email', 'email'], ['company', 'text', 'organization'], ['phone', 'tel', 'tel']]
+          .filter(([k]) => !(known && ['name', 'email', 'company'].includes(k)))
+          .map(([k, type, ac]) => (
+            <label key={k} className="mt-7 block">
+              <span className={labelCls}>{booking.fields[k]}</span>
+              <input type={type} name={k} value={form[k]} onChange={handleChange} autoComplete={ac} maxLength={k === 'email' ? 255 : 160} aria-invalid={!!errors[k]} className={inputCls} />
+              {errors[k] && <span role="alert" className="mt-2 block font-mono text-[11px] uppercase tracking-[0.08em] text-ember-deep">{errors[k]}</span>}
+            </label>
+          ))}
+        {/* In the /get-started flow Step 2 already asked for a note (it rides in notesExtra). */}
+        {known ? null : (
+          <label className="mt-7 block">
+            <span className={labelCls}>{booking.fields.notes}</span>
+            <textarea name="notes" value={form.notes} onChange={handleChange} rows={3} maxLength={2000} placeholder={booking.placeholders.notes} className={`${inputCls} resize-y`} />
           </label>
-        ))}
-        <label className="mt-7 block">
-          <span className={labelCls}>{booking.fields.notes}</span>
-          <textarea name="notes" value={form.notes} onChange={handleChange} rows={3} maxLength={2000} placeholder={booking.placeholders.notes} className={`${inputCls} resize-y`} />
-        </label>
+        )}
         <label className="mt-7 block">
           <span className={labelCls}>{booking.fields.guests}</span>
           <input type="text" name="guests" value={form.guests} onChange={handleChange} placeholder={booking.placeholders.guests} aria-invalid={!!errors.guests} className={inputCls} />
@@ -266,9 +286,9 @@ export default function BookingWidget() {
   }
 
   return (
-    <div className="card-light p-8 md:p-10">
-      <p className="eyebrow text-ember-deep">{booking.eyebrow}</p>
-      <label className="mt-6 block">
+    <div className={shell}>
+      {embedded ? null : <p className="eyebrow text-ember-deep">{booking.eyebrow}</p>}
+      <label className={`${embedded ? '' : 'mt-6 '}block`}>
         <span className={labelCls}>{booking.topicLabel}</span>
         <select value={topic} onChange={(e) => setTopic(e.target.value)} className={inputCls}>
           {booking.topics.map((t) => <option key={t}>{t}</option>)}
@@ -280,8 +300,8 @@ export default function BookingWidget() {
           <div className="flex items-center justify-between">
             <b className="font-display text-[22px] font-normal">{MONTHS[m]} {y}</b>
             <span className="flex gap-1.5">
-              <button type="button" aria-label="Previous month" disabled={idx <= monthBounds.first} onClick={() => shiftMonth(-1)} className="h-8 w-8 rounded-full border border-line bg-white text-sm hover:border-ink disabled:opacity-30">←</button>
-              <button type="button" aria-label="Next month" disabled={idx >= monthBounds.last} onClick={() => shiftMonth(1)} className="h-8 w-8 rounded-full border border-line bg-white text-sm hover:border-ink disabled:opacity-30">→</button>
+              <button type="button" aria-label="Previous month" disabled={idx <= monthBounds.first} onClick={() => shiftMonth(-1)} className="h-8 w-8 rounded-full border border-line bg-paper-0 text-sm hover:border-ink disabled:opacity-30">←</button>
+              <button type="button" aria-label="Next month" disabled={idx >= monthBounds.last} onClick={() => shiftMonth(1)} className="h-8 w-8 rounded-full border border-line bg-paper-0 text-sm hover:border-ink disabled:opacity-30">→</button>
             </span>
           </div>
           <div className="mt-4 grid grid-cols-7 gap-1">
@@ -298,7 +318,7 @@ export default function BookingWidget() {
                 {daySlots.map((iso) => (
                   <button
                     key={iso} type="button" onClick={() => setSlot(iso)} aria-pressed={slot === iso}
-                    className={`rounded-lg border px-2 py-2.5 font-mono text-[12.5px] transition-colors ${slot === iso ? 'border-ember bg-ember text-white' : 'border-line bg-white hover:border-ink'}`}
+                    className={`rounded-lg border px-2 py-2.5 font-mono text-[12.5px] transition-colors ${slot === iso ? 'border-ember bg-ember text-white' : 'border-line bg-paper-0 hover:border-ink'}`}
                   >
                     {timeLabel(iso)}
                   </button>

@@ -89,7 +89,7 @@ const Blog = () => {
                 <Link
                   key={post._id}
                   to={`/blog/${post.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-white transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_30px_70px_-40px_rgba(11,11,13,0.5)]"
+                  className="group flex flex-col overflow-hidden rounded-2xl border border-line bg-paper-0 transition-all duration-300 hover:-translate-y-1 hover:border-ink/20 hover:shadow-[0_30px_70px_-40px_rgba(11,11,13,0.5)]"
                 >
                   <div className="aspect-[16/10] overflow-hidden border-b border-line bg-paper-2">
                     {(post.image ?? post.coverImage) && (

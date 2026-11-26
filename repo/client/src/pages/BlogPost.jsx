@@ -77,7 +77,7 @@ const BlogPost = () => {
         description={post.excerpt}
         canonical={`https://www.arinox.ai/blog/${post.slug}`}
         type="article"
-        image={typeof post.image === 'string' && post.image.startsWith('http') ? post.image : 'https://www.arinox.ai/og-image.jpg'}
+        image={typeof post.image === 'string' && post.image.startsWith('http') ? post.image : 'https://www.arinox.ai/og-image.png'}
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'Article',

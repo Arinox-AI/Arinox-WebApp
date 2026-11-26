@@ -175,6 +175,17 @@ const contactNotification = ({ name, email, company, phone, subject, message }) 
    on-site offer can still fill it in before we speak. A text link, not a
    second button: the email keeps one orange action. */
 const INTAKE_URL = 'https://www.arinox.ai/get-started';
+/* For someone who already booked: the flow opens on the questions and, after
+   their details, finishes without offering the calendar again. */
+const QUESTIONS_AFTER_BOOKING_URL = `${INTAKE_URL}?start=roadmap&booked=1`;
+
+/* The one orange action an email may carry. */
+const button = (href, label) => `
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:26px 0 4px;">
+        <tr><td style="background:#ff6301;border-radius:999px;">
+          <a href="${href}" style="display:inline-block;padding:13px 26px;font-family:${FONT_BODY};font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;">${label}</a>
+        </td></tr>
+      </table>`;
 const intakeLine = (lead) => `
       <p style="font-size:14.5px;color:#3a3a3f;line-height:1.65;margin:22px 0 0;">
         ${esc(lead)} <a href="${INTAKE_URL}" style="${linkStyle}">Tell us about your business</a>: ten quick questions, about 4 minutes.
@@ -199,13 +210,6 @@ const contactAutoReply = ({ name, subject, body, steps, asset, surveyLink = fals
         </tr>`).join('')}
       </table>`;
 
-  const button = (href, label) => `
-      <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:26px 0 4px;">
-        <tr><td style="background:#ff6301;border-radius:999px;">
-          <a href="${href}" style="display:inline-block;padding:13px 26px;font-family:${FONT_BODY};font-size:14px;font-weight:bold;color:#ffffff;text-decoration:none;">${label}</a>
-        </td></tr>
-      </table>`;
-
   return emailWrapper(`
     ${header('Thank you, we have it', subject || 'Arinox AI')}
     <div style="${bodyStyle}">
@@ -220,7 +224,7 @@ const contactAutoReply = ({ name, subject, body, steps, asset, surveyLink = fals
         <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.4px;font-size:11px;color:#b84300;">What happens next</span>
         ${stepsTable}
       </div>
-      ${button('https://www.arinox.ai/contact', 'Book a 30-minute call')}`}
+      ${button(`${INTAKE_URL}?start=book`, 'Book a 30-minute call')}`}
       ${surveyLink ? intakeLine('Before we speak:') : ''}
       <p style="font-size:15px;color:#17171a;line-height:1.6;margin:26px 0 0;">Warm regards,<br><span style="font-family:${FONT_DISPLAY};font-size:17px;">The Arinox team</span></p>
       <p style="font-size:12.5px;color:#8a8a93;line-height:1.6;margin:18px 0 0;">Just reply to this email, it reaches a person on our team.</p>
@@ -297,20 +301,29 @@ const bookingRows = ({ when, visitorWhen, topic, meetLink }) => `
       <div style="${rowStyle}"><span style="${labelStyle}">Topic</span> ${esc(topic || 'General')}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Where</span> ${safeHref(meetLink) ? `<a href="${safeHref(meetLink)}" style="${linkStyle}">Join the video call</a>` : 'Video call — our team will share the joining link'}</div>`;
 
-const bookingConfirmation = ({ name, when, visitorWhen, topic, meetLink }) =>
+/* profileDone: did they answer the ten questions before booking? If not, the
+   confirmation asks them to - the team wants the profile before the call. */
+const bookingConfirmation = ({ name, when, visitorWhen, topic, meetLink, profileDone = false }) =>
   emailWrapper(`
     ${header('Your discovery session is booked', 'Arinox AI')}
     <div style="${bodyStyle}">
       <p style="font-family:${FONT_DISPLAY};font-size:18px;color:#17171a;margin:0 0 12px;">Hi ${esc(name)},</p>
       <p style="font-size:15px;color:#5b5b60;line-height:1.7;margin:0 0 18px;">You're booked. You'll get a calendar invite as well — accept it and it lands in your calendar.</p>
       ${bookingRows({ when, visitorWhen, topic, meetLink })}
-      ${intakeLine('Help us prepare:')}
+      ${profileDone ? `
+      <p style="font-size:14.5px;color:#3a3a3f;line-height:1.65;margin:22px 0 0;">Thank you for answering our questions — your architect reads them before the call.</p>` : `
+      <div style="margin-top:26px;padding:22px;background:#f8f7f5;border:1px solid #e2e1dd;border-radius:10px;">
+        <span style="font-family:${FONT_MONO};text-transform:uppercase;letter-spacing:1.4px;font-size:11px;color:#b84300;">Before we meet</span>
+        <p style="font-size:15px;color:#17171a;line-height:1.65;margin:10px 0 0;">Please answer ten quick questions about your business — your teams, systems, data and goals. It takes about 4 minutes.</p>
+        <p style="font-size:14px;color:#5b5b60;line-height:1.65;margin:8px 0 0;">Your architect reads them before the call, so the 30 minutes go on your business instead of background.</p>
+        ${button(QUESTIONS_AFTER_BOOKING_URL, 'Answer the 10 questions')}
+      </div>`}
       <div style="${noteBoxStyle};margin-top:22px;">
         Need to move it? Just reply to this email — a person will sort it out with you. If our schedule ever has to change, we'll tell you straight away.
       </div>
     </div>`);
 
-const bookingNotification = ({ name, email, company, phone, topic, notes, guests, when, meetLink }) =>
+const bookingNotification = ({ name, email, company, phone, topic, notes, guests, when, meetLink, profileDone = false }) =>
   emailWrapper(`
     ${header('New discovery session booked', 'Via the Arinox website')}
     <div style="${bodyStyle}">
@@ -319,6 +332,7 @@ const bookingNotification = ({ name, email, company, phone, topic, notes, guests
       <div style="${rowStyle}"><span style="${labelStyle}">Email</span> <a href="mailto:${esc(email)}" style="${linkStyle}">${esc(email)}</a></div>
       <div style="${rowStyle}"><span style="${labelStyle}">Company</span> ${company ? esc(company) : 'N/A'}</div>
       <div style="${rowStyle}"><span style="${labelStyle}">Phone</span> ${phone ? esc(phone) : 'N/A'}</div>
+      <div style="${rowStyle}"><span style="${labelStyle}">Questions</span> ${profileDone ? 'Answered (see notes below)' : '<b>Not answered yet</b> (the confirmation asked them to)'}</div>
       ${guests?.length ? `<div style="${rowStyle}"><span style="${labelStyle}">Guests</span> ${esc(guests.join(', '))}</div>` : ''}
       ${notes ? `<div style="padding-top:16px;"><span style="${labelStyle}">Look at first</span><p style="${quoteBoxStyle}">${para(notes)}</p></div>` : ''}
       <p style="font-size:12.5px;color:#8a8a93;margin-top:18px;">Add required colleagues to the calendar event. To free the slot, cancel the event and set the booking's status to "cancelled".</p>

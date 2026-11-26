@@ -412,7 +412,10 @@ describe('leads flow (deck requests)', () => {
     expect(visitorMail().subject).toBe('Your business profile is in review');
     expect(visitorMail().html).not.toMatch(/price|pricing/i);
     // They just sent the intake - their reply does not ask for it again.
-    expect(visitorMail().html).not.toContain('arinox.ai/get-started');
+    // (The "Book a 30-minute call" button may link /get-started?start=book; the
+    // questions link itself - "Tell us about your business" - must be absent.)
+    expect(visitorMail().html).not.toContain('Tell us about your business');
+    expect(visitorMail().html).not.toContain('Answer the 10 questions');
   });
 
   it('tags an intake sent from the post-booking dialog', async () => {

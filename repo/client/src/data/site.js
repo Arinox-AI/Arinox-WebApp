@@ -6,16 +6,31 @@
    link, so nothing is ever hidden behind a hover. */
 export const nav = [
   {
-    label: 'Products',
+    label: 'Solutions',
     to: '/industries',
-    allLabel: 'All products',
-    group: [
-      { to: '/commandcore', label: 'CommandCore', note: 'Sovereign AI appliance' },
-      { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
-      { to: '/industries/fashion-lifestyle', label: 'Fashion & Lifestyle OS', note: 'From concept to delivery' },
-      { to: '/industries/industrial', label: 'Manufacturing OS', note: 'Machines, lines and orders' },
-      { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
-      { to: '/industries/digital-twin', label: 'Digital Twin++', note: 'See, predict, act' },
+    allLabel: 'All solutions',
+    columns: [
+      {
+        label: 'Hardware',
+        items: [
+          { to: '/commandcore', label: 'CommandCore', note: 'Sovereign AI appliance' },
+        ],
+      },
+      {
+        label: 'By industry',
+        items: [
+          { to: '/industries/fashion-lifestyle', label: 'Fashion & Lifestyle OS', note: 'From concept to delivery' },
+          { to: '/industries/industrial', label: 'Manufacturing OS', note: 'Machines, lines and orders' },
+        ],
+      },
+      {
+        label: 'By function',
+        items: [
+          { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
+          { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
+          { to: '/industries/digital-twin', label: 'Digital Twin++', note: 'See, predict, act' },
+        ],
+      },
     ],
   },
   { label: 'Pricing', to: '/pricing' },

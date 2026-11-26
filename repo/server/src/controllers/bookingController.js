@@ -66,6 +66,8 @@ const createBooking = async (req, res, next) => {
       topic: str(b.topic, 80),
       notes: str(b.notes, 2000),
     };
+    // Email-only flag (not a Bookings column): did they answer the ten questions first?
+    const profileDone = b.profileDone === true;
     if (clean.email) clean.email = clean.email.toLowerCase();
     if (!clean.name || !clean.email) return res.status(400).json({ success: false, message: 'Name and email are required.' });
     if (!validator.isEmail(clean.email)) return res.status(400).json({ success: false, message: 'Invalid email address.' });
@@ -144,13 +146,13 @@ const createBooking = async (req, res, next) => {
       sendMail({
         to: clean.email, cc: [...new Set([...guests, ...customerCc(clean.email)])],
         subject: `Your discovery session — ${fmt(startAt, cfg.timezone, true)}`,
-        html: bookingConfirmation({ name: clean.name, when, visitorWhen, topic: clean.topic, meetLink }),
+        html: bookingConfirmation({ name: clean.name, when, visitorWhen, topic: clean.topic, meetLink, profileDone }),
         ...ical,
       }),
       sendMail({
         to: host, cc: [...new Set([...cfg.ccEmails(), ...teamCc()])].filter((c) => c.toLowerCase() !== host.toLowerCase()), replyTo: clean.email,
         subject: `[Arinox] Discovery session booked — ${clean.name} · ${fmt(startAt, cfg.timezone, true)}`.replace(/[\r\n]/g, ' '),
-        html: bookingNotification({ ...clean, guests, when, meetLink }),
+        html: bookingNotification({ ...clean, guests, when, meetLink, profileDone }),
         ...hostIcal,
       }),
     ]);

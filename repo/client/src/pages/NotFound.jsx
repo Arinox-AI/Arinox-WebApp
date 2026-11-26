@@ -28,7 +28,7 @@ const NotFound = () => (
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-4">
           <Button to="/" variant="dark">Back to home</Button>
-          <Button to="/contact" variant="ghost">Talk to us</Button>
+          <Button to="/get-started?start=message" variant="ghost">Talk to us</Button>
         </div>
       </div>
     </section>

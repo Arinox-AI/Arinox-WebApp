@@ -11,7 +11,7 @@
    ──────────────────────────────────────────────────────────── */
 
 export const industriesMeta = {
-  overline: 'All products',
+  overline: 'All solutions',
   titleLead: 'One AI appliance.',
   titleAccent: 'Five operating systems.',
   lead: 'CommandCore, our sovereign AI appliance, and packaged AI operating systems built sector by sector — your data inside, every decision yours.',
@@ -19,7 +19,7 @@ export const industriesMeta = {
 };
 
 export const products = [
-  /* The appliance comes first: "Products" in the nav lands here, so the
+  /* The appliance comes first: "Solutions" in the nav lands here, so the
      flagship must be on this page, not only in the dropdown. */
   {
     id: 'commandcore',

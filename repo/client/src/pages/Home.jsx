@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/ui/SEO'
-import { Button } from '../components/site/Button'
+import { Button, ArrowLink } from '../components/site/Button'
 import { Section } from '../components/site/Section'
 import { Label } from '../components/site/Layout'
 import { CtaBand } from '../components/site/Shell'
@@ -15,6 +15,7 @@ import { startHere } from '../data/inquiries'
 import { deployOptions, home } from '../data/site'
 import { caseIndex } from '../data/caseStudies'
 import { powerUseCases, businessApps, kogoHome } from '../data/commandcore'
+import Illustration from '../components/site/Illustration';
 /* Trusted-by strip. Same sizing rule as the Partners page: explicit w/h
    per logo (equal ~4,200px² footprint, max 150×44) so wide wordmarks don't
    dwarf square marks and vice versa. The flex row center-aligns everything,
@@ -99,9 +100,9 @@ const Home = () => {
               decision intelligence, Arinox delivers enterprise AI across every industry and domain, entirely within your environment.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
-              <Button to="/contact" variant="ember">Book a call</Button>
+              <Button to="/get-started?start=book" variant="ember">Book a call</Button>
               <Magnet>
-                <Button to="/case-studies" variant="ghost">Explore case studies</Button>
+                <ArrowLink to="/case-studies">Explore case studies</ArrowLink>
               </Magnet>
             </div>
             <p className="num mt-6 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">
@@ -142,29 +143,35 @@ const Home = () => {
       </section>
 
       {/* The problem, dark statement: the objections buyers voice */}
-      <Section dark border={false}>
-        <Label dark>{home.problem.label}</Label>
-        <h2 className="mt-5 max-w-3xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[52px]">
+      <Section dark border={false} margin eyebrow={home.problem.label}>
+        <h2 className="mt-5 font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[52px]">
           {home.problem.title}
         </h2>
         <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">{home.problem.lead}</p>
         <p className="mt-12 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ghost">{home.problem.heard}</p>
-        <div className="mt-5 grid gap-x-16 gap-y-10 md:grid-cols-3">
+        <div className="mt-5" data-problem-rows>
           {home.problem.rows.map((r) => (
-            <div key={r.who} className="border-t border-white/20 pt-6">
+            <div
+              key={r.who}
+              className="relative grid gap-y-3 py-8 lg:grid-cols-[8.5rem_minmax(0,1.4fr)_minmax(0,1fr)] lg:items-baseline lg:gap-x-10 lg:py-10"
+              data-problem-row
+            >
+              <DrawRule className="!bg-white/20" />
               <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-phos">{r.who}</p>
-              <p className="mt-4 font-display text-[24px] leading-[1.2] tracking-[-0.01em] text-phos">
+              <p className="font-display text-[28px] leading-[1.15] tracking-[-0.01em] text-paper/70 md:text-[34px] lg:text-[36px]">
                 {'“'}{r.objection}{'”'}
               </p>
-              <p className="mt-4 text-[15px] leading-relaxed text-ghost">{r.answer}</p>
+              <p className="text-[16px] leading-relaxed text-phos">
+                <span className="mr-2 text-ember" aria-hidden="true">→</span>
+                {r.answer}
+              </p>
             </div>
           ))}
         </div>
       </Section>
 
       {/* Customers: deployed, not demoed */}
-      <Section border={false}>
-        <Label>{home.proof.label}</Label>
+      <Section border={false} margin eyebrow={home.proof.label}>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
             {home.proof.title}
@@ -175,9 +182,7 @@ const Home = () => {
           {proofCases.map((c) => (
             <div key={c.slug} className="relative flex flex-col pt-6">
               <DrawRule />
-              <div className="mb-6 flex h-[120px] items-center">
-                <img src={c.image} alt="" loading="lazy" className="max-h-full w-auto max-w-full object-contain object-left" />
-              </div>
+              <Illustration src={c.image} className="mb-6" />
               <CountUp value={c.value} className="num block font-display text-[48px] leading-none tracking-[-0.03em] text-ink" />
               <p className="mt-3 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{c.metric}</p>
               <h3 className="mt-6 font-display text-[22px] leading-tight tracking-[-0.01em]">{c.title}</h3>
@@ -192,13 +197,12 @@ const Home = () => {
           ))}
         </div>
         <div className="mt-10">
-          <Button to="/case-studies" variant="ghost" size="sm">{home.proof.button}</Button>
+          <ArrowLink to="/case-studies">{home.proof.button}</ArrowLink>
         </div>
       </Section>
 
       {/* The method, big numerals, no tiles */}
-      <Section border>
-        <Label>{home.method.label}</Label>
+      <Section border margin eyebrow={home.method.label}>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
             {home.method.title}
@@ -209,9 +213,7 @@ const Home = () => {
           {home.method.steps.map((m) => (
             <div key={m.n} className="border-t border-ink/80 pt-7">
               <p className="num font-display text-[48px] leading-none tracking-[-0.03em] text-ink">{m.n}</p>
-              <div className="mt-7 flex h-[136px] items-center">
-                <img src={m.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
-              </div>
+              <Illustration src={m.image} className="mt-7" />
               <h3 className="mt-6 font-display text-[24px] tracking-[-0.01em]">{m.t}</h3>
               <p className="mt-3 text-[15.5px] leading-relaxed text-ink-soft">{m.d}</p>
               <p className="mt-6 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{m.tag}</p>
@@ -237,8 +239,7 @@ const Home = () => {
       </Section>
 
       {/* The agentic layer: the precise KOGO summary; full detail on /commandcore#kogo */}
-      <Section border>
-        <Label>{kogoHome.label}</Label>
+      <Section border margin eyebrow={kogoHome.label}>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
             {kogoHome.title}
@@ -255,23 +256,26 @@ const Home = () => {
         </div>
         <div className="mt-12 border-t border-line pt-6">
           <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{kogoHome.appsLabel}</p>
-          <p className="mt-3 flex flex-wrap font-display text-[22px] leading-snug tracking-[-0.01em] md:text-[26px]">
-            {businessApps.map((a, i) => (
-              <span key={a.name} className="whitespace-nowrap">
-                {i > 0 && <span className="px-2.5 text-ember" aria-hidden>·</span>}
+          {/* A ruled grid, not an inline run: an inline list with "·" separators
+              wraps unevenly in the margin layout's narrower column. */}
+          <ul className="mt-4 grid grid-cols-2 gap-x-8 sm:grid-cols-3">
+            {businessApps.map((a) => (
+              <li
+                key={a.name}
+                className="border-t border-line py-3 font-display text-[20px] leading-snug tracking-[-0.01em] md:text-[24px]"
+              >
                 {a.name}
-              </span>
+              </li>
             ))}
-          </p>
+          </ul>
         </div>
         <div className="mt-10">
-          <Button to={kogoHome.link.to} variant="dark">{kogoHome.link.label}</Button>
+          <ArrowLink to={kogoHome.link.to}>{kogoHome.link.label}</ArrowLink>
         </div>
       </Section>
 
       {/* Deployment: where it runs (light, so the illustrations read) */}
-      <Section border>
-        <Label>Deployment</Label>
+      <Section border margin eyebrow="Deployment">
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
           <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
             Where it runs is your call.
@@ -283,9 +287,7 @@ const Home = () => {
         <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3">
           {deployOptions.map((d) => (
             <div key={d.t} className="border-t border-ink/80 pt-7">
-              <div className="flex h-[136px] items-center">
-                <img src={d.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
-              </div>
+              <Illustration src={d.image} />
               <div className="mt-6 flex items-center justify-between gap-4">
                 <h3 className="font-display text-[22px] tracking-[-0.01em]">{d.t}</h3>
                 {d.sovereign && (
@@ -304,11 +306,10 @@ const Home = () => {
       </Section>
 
       {/* Sectors */}
-      <Section border>
-        <div className="flex flex-wrap items-end justify-between gap-6">
+      <Section border margin eyebrow="Sectors">
+        <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
           <div>
-            <Label>Sectors</Label>
-            <h2 className="mt-5 max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
+            <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
               Deployed where the constraints are hardest.
             </h2>
           </div>
@@ -321,9 +322,7 @@ const Home = () => {
         <div className="mt-10 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
           {powerUseCases.map((s) => (
             <div key={s.sector} className="border-t border-ink/80 pt-7">
-              <div className="flex h-[136px] items-center">
-                <img src={s.image} alt="" loading="lazy" className="max-h-full w-full object-contain object-left" />
-              </div>
+              <Illustration src={s.image} />
               <p className="eyebrow mt-5 text-ember-deep">{s.sector}</p>
               <ul className="mt-3 space-y-2">
                 {s.items.map((it) => (
@@ -338,7 +337,7 @@ const Home = () => {
         </div>
 
         <div className="mt-10">
-          <Button to="/case-studies" variant="ghost" size="sm">See the deployments</Button>
+          <ArrowLink to="/case-studies">See the deployments</ArrowLink>
         </div>
       </Section>
 

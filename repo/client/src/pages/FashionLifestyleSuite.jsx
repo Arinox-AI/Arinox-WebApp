@@ -60,7 +60,7 @@ const FashionLifestyleSuite = () => (
           className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
         >
           <ArrowLeft size={13} strokeWidth={2.2} />
-          All products
+          All solutions
         </Link>
 
         <div className="mt-8 grid items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
@@ -78,7 +78,7 @@ const FashionLifestyleSuite = () => (
                 {fashionLifestyleSuite.request.ctaButton}
               </Button>
               <Link
-                to="/contact"
+                to="/get-started?start=book"
                 className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
               >
                 Book a call
@@ -216,7 +216,7 @@ const FashionLifestyleSuite = () => (
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{fashionLifestyleSuite.request.note}</p>
 
           <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
+            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
               <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Fashion &amp; Lifestyle OS</span>
                 <span className="block h-px w-6 bg-ember/80" />

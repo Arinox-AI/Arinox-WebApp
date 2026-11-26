@@ -138,9 +138,10 @@ describe('home client intake live flow', () => {
     fireEvent.change(screen.getByLabelText(/work email/i), { target: { name: 'email', value: 'visitor@example.com' } });
     fireEvent.change(screen.getByLabelText(/^company/i), { target: { name: 'company', value: 'Example Co' } });
     fireEvent.change(screen.getByLabelText(/your role/i), { target: { name: 'role', value: 'COO' } });
-    fireEvent.click(screen.getByRole('button', { name: /send my profile/i }));
+    fireEvent.click(screen.getByRole('button', { name: /send my details/i }));
 
-    expect(await screen.findByText(/An architect will be in touch/i, {}, wait)).toBeTruthy();
+    // The lead is saved on Step 2; the flow then offers the optional call (Step 3).
+    expect(await screen.findByText(/30 minutes with an architect/i, {}, wait)).toBeTruthy();
     const call = axios.post.mock.calls.at(-1);
     expect(call[0]).toBe('/api/v1/inquiries');
     expect(call[1].intent).toBe('profile');
@@ -202,7 +203,8 @@ describe('contact validation + lead payload', () => {
 
   it('rejects invalid emails and empty required fields', () => {
     const errs = validateContact({ name: '', email: 'nope', company: '', role: '' }, errorsText);
-    expect(Object.keys(errs)).toEqual(['name', 'email', 'company', 'role']);
+    // Role is optional (user, 2026-11-25).
+    expect(Object.keys(errs)).toEqual(['name', 'email', 'company']);
 
     const clean = validateContact(
       { name: 'A', email: 'a@company.com', company: 'C', role: 'R' },
@@ -287,7 +289,7 @@ describe('pricing page', () => {
     expect(hero.getAttribute('href')).toBe('/get-started');
     const talk = screen.getAllByRole('link', { name: 'Or book a call' });
     expect(talk.length).toBeGreaterThan(0);
-    talk.forEach((a) => expect(a.getAttribute('href')).toBe('/contact'));
+    talk.forEach((a) => expect(a.getAttribute('href')).toBe('/get-started?start=book'));
   });
 
   it('renders the three plans with the locked names', () => {

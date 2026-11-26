@@ -1,7 +1,6 @@
-import { FileDown } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Section } from '../components/site/Section';
-import { Button } from '../components/site/Button';
+import { Button, ArrowLink } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { LayerStack } from '../components/site/LayerStack';
 import { Label } from '../components/site/Layout';
@@ -49,16 +48,13 @@ const CommandCore = () => (
             Same agents, same governance, zero egress.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 font-mono text-[11.5px] text-ink-faint lg:justify-start">
-            <span className="rounded-full border border-line bg-white px-3 py-1">100% AI · 0% internet</span>
-            <span className="rounded-full border border-line bg-white px-3 py-1">runs on your hardware</span>
-            <span className="rounded-full border border-line bg-white px-3 py-1">zero egress</span>
+            <span className="rounded-full border border-line bg-paper-0 px-3 py-1">100% AI · 0% internet</span>
+            <span className="rounded-full border border-line bg-paper-0 px-3 py-1">runs on your hardware</span>
+            <span className="rounded-full border border-line bg-paper-0 px-3 py-1">zero egress</span>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
-            <Button to="/contact" variant="ember">Book a call</Button>
-            <Button href={SPECS_PDF} download variant="dark">
-              <FileDown size={17} strokeWidth={2.2} />
-              Download specs
-            </Button>
+            <Button to="/get-started?start=book" variant="ember">Book a call</Button>
+            <ArrowLink href={SPECS_PDF} download>Download specs</ArrowLink>
           </div>
         </div>
 
@@ -82,8 +78,7 @@ const CommandCore = () => (
     </Section>
 
     {/* Lineup, spec sheet */}
-    <Section border>
-      <Label>The lineup</Label>
+    <Section border margin eyebrow="The lineup">
       <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
         <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
           Three machines. One operating system.
@@ -166,11 +161,10 @@ const CommandCore = () => (
     </Section>
 
     {/* Why a box */}
-    <Section border>
-      <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+    <Section border margin eyebrow="Why a box, not a cloud">
+      <div className="mt-5 grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
         <div>
-          <Label>Why a box, not a cloud</Label>
-          <h2 className="mt-5 font-display text-[30px] leading-tight tracking-[-0.01em] md:text-[40px]">
+          <h2 className="font-display text-[30px] leading-tight tracking-[-0.01em] md:text-[40px]">
             Compliance is where the compute sits.
           </h2>
           <p className="mt-4 max-w-lg text-[16px] leading-relaxed text-ink-soft">
@@ -190,8 +184,7 @@ const CommandCore = () => (
     </Section>
 
     {/* KOGO OS, the agentic layer (#kogo is linked from Home) */}
-    <Section border id="kogo" className="scroll-mt-[72px]">
-      <Label>The agentic layer &middot; {kogo.name}</Label>
+    <Section border id="kogo" className="scroll-mt-[72px]" margin eyebrow={<>The agentic layer &middot; {kogo.name}</>}>
       <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
         <h2 className="max-w-2xl font-display text-[32px] leading-[1.08] tracking-[-0.02em] md:text-[42px]">
           Infrastructure becomes work.
@@ -210,31 +203,30 @@ const CommandCore = () => (
     </Section>
 
     {/* Included applications */}
-    <Section dark border={false}>
-      <div className="flex flex-wrap items-end justify-between gap-6">
+    <Section border margin eyebrow={appsIntro.overline}>
+      <div className="mt-5 flex flex-wrap items-end justify-between gap-6">
         <div>
-          <Label dark>{appsIntro.overline}</Label>
-          <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
             {appsIntro.title}
           </h2>
         </div>
-        <p className="max-w-sm text-[15px] leading-relaxed text-ghost">{appsIntro.side}</p>
+        <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">{appsIntro.side}</p>
       </div>
-      <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ghost">{appsIntro.lead}</p>
-      <div className="mt-10 grid gap-x-16 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+      <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-soft">{appsIntro.lead}</p>
+      <div className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {businessApps.map((a) => (
-          <div key={a.name} className="border-t border-white/20 pt-6">
-            <p className="eyebrow text-ember">{a.name}</p>
+          <div key={a.name} className="border-t border-ink/80 pt-6">
+            <p className="eyebrow text-ember-deep">{a.name}</p>
             {a.full && (
-              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ghost">{a.full}</p>
+              <p className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{a.full}</p>
             )}
-            <p className="mt-3 text-[14.5px] leading-relaxed text-ghost">{a.desc}</p>
+            <p className="mt-3 text-[14.5px] leading-relaxed text-ink-soft">{a.desc}</p>
           </div>
         ))}
       </div>
       <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
-        <Button to="/contact" variant="ghostDark" size="sm">{appsIntro.cta}</Button>
-        <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ghost">{appsIntro.foot}</span>
+        <ArrowLink to="/get-started?start=message">{appsIntro.cta}</ArrowLink>
+        <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">{appsIntro.foot}</span>
       </div>
     </Section>
 

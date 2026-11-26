@@ -5,12 +5,13 @@ export default {
     extend: {
       colors: {
         /* Handoff v3 — paper + void + ember */
-        paper: '#f2f2f0',
-        'paper-2': '#e8e7e4',
+        paper: '#e7e4de', /* toned down 2026-11-26 (LCD glare); was #f2f2f0 */
+        'paper-0': '#efede8', /* raised surfaces - replaces pure white */
+        'paper-2': '#dcd9d2',
         ink: '#17171a',
         'ink-soft': '#5b5b60',
-        'ink-faint': '#67676f',
-        line: '#e2e1dd',
+        'ink-faint': '#5f5f67',
+        line: '#d3d0c9',
         void: '#0b0b0d',
         'void-2': '#17171a',
         carbon: '#212125',

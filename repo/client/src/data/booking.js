@@ -1,8 +1,8 @@
-/* Copy for the discovery-session booking widget (Contact page). Edit here,
+/* Copy for the discovery-session booking widget (Step 3 of /get-started). Edit here,
    not in the component. Times are shown in the visitor's own timezone. */
 export const booking = {
-  tabs: { book: 'Book a time', message: 'Send a message' },
   eyebrow: '30-minute discovery session',
+  bookingAs: 'Booking as',
   topicLabel: 'What would you like to talk about?',
   topics: [
     'General / not sure yet',

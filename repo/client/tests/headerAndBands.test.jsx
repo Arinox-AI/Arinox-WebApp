@@ -31,37 +31,41 @@ afterEach(cleanup);
 
 describe('nav data', () => {
   it('has exactly five items, without Home, Contact or the roadmap button', () => {
-    expect(nav.map((i) => i.label)).toEqual(['Products', 'Pricing', 'Case studies', 'Company', 'Blog']);
+    expect(nav.map((i) => i.label)).toEqual(['Solutions', 'Pricing', 'Case studies', 'Company', 'Blog']);
     expect(nav.find((i) => i.label === 'Case studies').to).toBe('/case-studies');
     const company = nav.find((i) => i.label === 'Company');
     expect(company.to).toBe('/people');
     expect(company.group.map((c) => c.to)).toEqual(['/people', '/partners', '/careers']);
+    const sol = nav.find((i) => i.label === 'Solutions');
+    expect(sol.allLabel).toBe('All solutions');
+    expect(sol.columns.map((c) => c.label)).toEqual(['Hardware', 'By industry', 'By function']);
+    expect(sol.columns.flatMap((c) => c.items).length).toBe(6);
   });
 });
 
 describe('header buttons', () => {
   for (const path of ['/', '/pricing']) {
-    it(`shows Get your AI roadmap and Book a call on ${path} without scrolling`, async () => {
+    it(`shows one Get your AI roadmap button, and no Book a call, on ${path}`, async () => {
       renderAt(path);
       await h1(/./);
       const get = header().getAllByRole('link', { name: 'Get your AI roadmap' });
-      const book = header().getAllByRole('link', { name: 'Book a call' });
-      expect(get.some((a) => a.getAttribute('href') === '/get-started')).toBe(true);
-      expect(book.some((a) => a.getAttribute('href') === '/contact')).toBe(true);
-      expect(book.every((a) => !a.closest('[aria-hidden="true"]'))).toBe(true);
+      expect(get.every((a) => a.getAttribute('href') === '/get-started')).toBe(true);
+      expect(get.every((a) => !a.closest('[aria-hidden="true"]'))).toBe(true);
+      expect(header().queryByRole('link', { name: 'Book a call' })).toBeNull();
+      expect(header().queryAllByRole('link').some((a) => a.getAttribute('href') === '/contact')).toBe(false);
     }, 20000);
   }
 });
 
 describe('closing bands', () => {
-  it('Home ends with one band: Get your AI roadmap -> /get-started, Or book a call -> /contact', async () => {
+  it('Home ends with one band: Get your AI roadmap -> /get-started, no second link', async () => {
     renderAt('/');
     await h1(/ai native/i);
     expect(screen.queryByText(/start with one workflow/i)).toBeNull();
     const band = screen.getByRole('heading', { level: 2, name: /tell us about your business/i }).closest('section');
     const b = within(band);
     expect(b.getByRole('link', { name: 'Get your AI roadmap' }).getAttribute('href')).toBe('/get-started');
-    expect(b.getByRole('link', { name: 'Or book a call' }).getAttribute('href')).toBe('/contact');
+    expect(b.queryByRole('link', { name: 'Or book a call' })).toBeNull();
     expect(b.getByText(/10 questions/i)).toBeTruthy();
   }, 20000);
 

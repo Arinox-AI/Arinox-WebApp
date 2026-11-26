@@ -10,13 +10,13 @@ import { Label } from './Layout';
        stages: [{ id, name, blurb, systems: [..],
                   console: { rows: [{ k, v, tone }], approve?: { label, items } } }] }
    ──────────────────────────────────────────────────────────── */
-export function ProductTour({ tour }) {
+export function ProductTour({ tour, hideLabel = false }) {
   const [activeId, setActiveId] = useState(tour.stages[0].id);
   const active = tour.stages.find((s) => s.id === activeId) ?? tour.stages[0];
 
   return (
     <>
-      <Label>{tour.label}</Label>
+      {!hideLabel && <Label>{tour.label}</Label>}
       <h2 className="mt-5 max-w-3xl font-display text-[30px] leading-[1.08] tracking-[-0.02em] md:text-[40px]">
         {tour.titleLead} <span className="italic text-ember">{tour.titleAccent}</span>
       </h2>

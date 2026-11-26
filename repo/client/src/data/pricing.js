@@ -66,7 +66,7 @@ export const plans = {
       ],
       priced: 'Custom pricing \u00B7 90-day sprint to production',
       cta: 'Book a call',
-      to: '/contact',
+      to: '/get-started?start=book',
     },
   ],
 };
@@ -292,7 +292,7 @@ export const wizard = {
       { name: 'name', label: 'Full name', type: 'text', autoComplete: 'name', required: true },
       { name: 'email', label: 'Work email', type: 'email', autoComplete: 'email', required: true },
       { name: 'company', label: 'Company', type: 'text', autoComplete: 'organization', required: true },
-      { name: 'role', label: 'Your role', type: 'text', autoComplete: 'organization-title', required: true },
+      { name: 'role', label: 'Your role (optional)', type: 'text', autoComplete: 'organization-title', required: false },
     ],
     notesLabel: 'Anything else we should know? (optional)',
     notesPlaceholder: 'Timelines, constraints, anything useful.',

@@ -1,4 +1,4 @@
-﻿import { useEffect, Suspense, lazy } from 'react';
+import { useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Analytics } from '@vercel/analytics/react';
@@ -6,6 +6,8 @@ import { Nav } from './components/site/Nav';
 import { HalftoneBackground } from './components/site/HalftoneBackground';
 import { ScrollProgress } from './components/site/ScrollProgress';
 import { Footer } from './components/site/Shell';
+import { CookieBanner } from './components/site/CookieBanner';
+import { contactRedirectTarget } from './lib/contactRedirect';
 
 const Home = lazy(() => import('./pages/Home'));
 const CommandCore = lazy(() => import('./pages/CommandCore'));
@@ -25,9 +27,9 @@ const IndustrialSuite = lazy(() => import('./pages/IndustrialSuite'));
 const SecureOsSuite = lazy(() => import('./pages/SecureOsSuite'));
 const DigitalTwinSuite = lazy(() => import('./pages/DigitalTwinSuite'));
 const NotFound = lazy(() => import('./pages/NotFound'));
-const Contact = lazy(() => import('./pages/Contact'));
 const Privacy = lazy(() => import('./pages/Privacy'));
 const Terms = lazy(() => import('./pages/Terms'));
+const Cookies = lazy(() => import('./pages/Cookies'));
 
 const PageTransition = ({ children }) => (
   <motion.div
@@ -39,6 +41,12 @@ const PageTransition = ({ children }) => (
     {children}
   </motion.div>
 );
+
+/* /contact is gone: send it to /get-started, keeping ?intent=…&asset=… etc. */
+const ContactRedirect = () => {
+  const { search } = useLocation();
+  return <Navigate to={contactRedirectTarget(search)} replace />;
+};
 
 const Loader = () => (
   <div className="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
@@ -110,9 +118,11 @@ const AppInner = () => {
               <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
               <Route path="/careers" element={<PageTransition><Careers /></PageTransition>} />
-              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+              {/* /contact merged into /get-started; the query string is kept */}
+              <Route path="/contact" element={<ContactRedirect />} />
               <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
+              <Route path="/cookies" element={<PageTransition><Cookies /></PageTransition>} />
               {/* Legacy URL redirects */}
               <Route path="/solutions" element={<Navigate to="/commandcore" replace />} />
               <Route path="/about" element={<Navigate to="/" replace />} />
@@ -123,6 +133,7 @@ const AppInner = () => {
         </Suspense>
       </main>
       <Footer />
+      <CookieBanner />
       <Analytics route={location.pathname} path={location.pathname} />
     </>
   );

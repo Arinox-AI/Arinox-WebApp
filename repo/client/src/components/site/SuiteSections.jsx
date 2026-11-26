@@ -28,7 +28,7 @@ const FlowArrow = () => (
 export function SystemsPanel({ suite }) {
   const { systems } = suite;
   return (
-    <div className="overflow-hidden border border-line bg-white">
+    <div className="overflow-hidden border border-line bg-paper-0">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-line px-5 py-3.5">
         <span className="eyebrow text-ember-deep">{systems.label}</span>
         <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">{systems.note}</span>
@@ -94,7 +94,7 @@ export function LoopBoard({ suite }) {
   const { cockpit } = suite;
 
   return (
-    <div className="mt-12 overflow-hidden border border-line bg-white">
+    <div className="mt-12 overflow-hidden border border-line bg-paper-0">
       <div className="grid lg:grid-cols-[1fr_56px_minmax(280px,330px)_56px_1fr]">
         {/* Signals in */}
         <div className="p-6 md:p-7">
@@ -117,7 +117,7 @@ export function LoopBoard({ suite }) {
           <ol className="mt-4 border-t border-ember/30">
             {cockpit.agents.map((a, i) => (
               <li key={a.t} className="grid grid-cols-[auto_1fr] items-start gap-x-3.5 border-b border-ember/20 py-4 last:border-b-0">
-                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-white font-mono text-[11px] text-ember-deep">
+                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-paper-0 font-mono text-[11px] text-ember-deep">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div>

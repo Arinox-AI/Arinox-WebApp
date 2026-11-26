@@ -17,7 +17,7 @@ export function ComplianceStrip({ groups = complianceGroups, className = '' }) {
           }`}
         >
           <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-white text-ink-faint">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-line bg-paper-0 text-ink-faint">
               <BadgeCheck size={17} strokeWidth={1.75} />
             </span>
             <span className="eyebrow text-ink-faint">{g.label}</span>
@@ -28,7 +28,7 @@ export function ComplianceStrip({ groups = complianceGroups, className = '' }) {
               {g.items.map((it) => (
                 <li
                   key={it.k}
-                  className="inline-flex items-baseline gap-2 rounded-full border border-line bg-white px-3.5 py-1.5 transition-colors hover:border-ink/25"
+                  className="inline-flex items-baseline gap-2 rounded-full border border-line bg-paper-0 px-3.5 py-1.5 transition-colors hover:border-ink/25"
                 >
                   <span className="font-mono text-[11.5px] tracking-[0.02em] text-ink-soft">{it.k}</span>
                   <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{it.v}</span>

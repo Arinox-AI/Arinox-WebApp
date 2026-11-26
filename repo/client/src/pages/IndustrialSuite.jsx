@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, FileDown } from 'lucide-react';
+import { ArrowLeft, FileDown } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { inquiries } from '../data/inquiries';
-import { Button } from '../components/site/Button';
+import { Button, ArrowLink } from '../components/site/Button';
 import { IndexStrip } from '../components/site/IndexStrip';
 import { ProductTour } from '../components/site/ProductTour';
 import { SystemsPanel, WatchListCard, LoopBoard } from '../components/site/SuiteSections';
 import { industrialSuite } from '../data/industrialSuite';
+import Illustration from '../components/site/Illustration';
 
 /* Manufacturing OS — brief page. Composition: hero → on-page index → the
    capabilities ledger → the lifecycle tour → what changed (dark) → the
@@ -35,7 +36,7 @@ const IndustrialSuite = () => (
           className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint transition-colors hover:text-ink"
         >
           <ArrowLeft size={13} strokeWidth={2.2} />
-          All products
+          All solutions
         </Link>
 
         <div className="mt-8 grid items-center gap-8 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
@@ -52,22 +53,16 @@ const IndustrialSuite = () => (
                 <FileDown size={16} strokeWidth={2.2} />
                 {industrialSuite.request.ctaButton}
               </Button>
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 border-b border-line pb-1 font-mono text-[12px] uppercase tracking-[0.08em] text-ink transition-colors hover:border-ink"
-              >
-                Book a call
-                <ArrowRight size={14} strokeWidth={2.2} />
-              </Link>
+              <ArrowLink to="/get-started?start=book">Book a call</ArrowLink>
             </div>
           </div>
 
           <div className="relative">
-            <img
+            <Illustration
+              variant="hero"
+              eager
               src="/images/industries/industrial-line.svg"
               alt="A factory building with smokestacks and a delivery truck outside"
-              loading="eager"
-              className="mx-auto w-full max-w-[480px]"
             />
           </div>
         </div>
@@ -89,8 +84,8 @@ const IndustrialSuite = () => (
     </Section>
 
     {/* The lifecycle tour — stage by stage, with the OS's own console */}
-    <Section id="tour" border dense>
-      <ProductTour tour={industrialSuite.tour} />
+    <Section id="tour" border dense margin eyebrow={industrialSuite.tour.label}>
+      <ProductTour tour={industrialSuite.tour} hideLabel />
     </Section>
 
     {/* What changed — the statement, and the watch list it produces */}
@@ -170,17 +165,16 @@ const IndustrialSuite = () => (
     </Section>
 
     {/* The deck */}
-    <Section border dense>
-      <div className="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+    <Section border dense margin eyebrow={industrialSuite.request.label}>
+      <div className="mt-5 grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-12">
         <div>
-          <Label>{industrialSuite.request.label}</Label>
-          <h2 className="mt-5 max-w-md font-display text-[30px] leading-tight tracking-[-0.01em] md:text-[40px]">
+          <h2 className="max-w-md font-display text-[30px] leading-tight tracking-[-0.01em] md:text-[40px]">
             {industrialSuite.request.title}
           </h2>
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{industrialSuite.request.note}</p>
 
           <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-white p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
+            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
               <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Manufacturing OS</span>
                 <span className="block h-px w-6 bg-ember/80" />

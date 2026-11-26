@@ -54,6 +54,21 @@ describe('Home story', () => {
   }, 20000);
 });
 
+describe('Home problem ledger', () => {
+  it('renders three rows with the exact role, quote and answer text', async () => {
+    const { container } = renderAt('/');
+    await screen.findByRole('heading', { level: 1, name: /ai native/i }, { timeout: 15000 });
+    const rows = container.querySelectorAll('[data-problem-row]');
+    expect(rows).toHaveLength(3);
+    home.problem.rows.forEach((r, i) => {
+      const ps = rows[i].querySelectorAll('p');
+      expect(ps[0].textContent).toBe(r.who);
+      expect(ps[1].textContent).toBe(`“${r.objection}”`);
+      expect(ps[2].textContent.replace('→', '')).toBe(r.answer);
+    });
+  }, 20000);
+});
+
 describe('People gallery', () => {
   it('renders every event label', async () => {
     renderAt('/people');

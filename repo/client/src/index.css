@@ -184,12 +184,13 @@ h1.font-bold, h2.font-bold, h1.font-extrabold, h2.font-extrabold, h3.font-bold, 
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  --color-paper: #f2f2f0;
-  --color-paper-2: #e8e7e4;
+  --color-paper: #e7e4de;
+  --color-paper-0: #efede8;
+  --color-paper-2: #dcd9d2;
   --color-ink: #17171a;
   --color-ink-soft: #5b5b60;
-  --color-ink-faint: #67676f;
-  --color-line: #e2e1dd;
+  --color-ink-faint: #5f5f67;
+  --color-line: #d3d0c9;
   --color-void: #0b0b0d;
   --color-void-2: #17171a;
   --color-carbon: #212125;
@@ -251,7 +252,7 @@ h1, h2, h3, h4, h5, h6 {
   position: relative;
   border-radius: var(--radius-card, 8px);
   border: 1px solid var(--color-line);
-  background: linear-gradient(180deg, #ffffff 0%, #fbfbf9 100%);
+  background: linear-gradient(180deg, #efede8 0%, #ebe9e4 100%);
   transition:
     border-color 0.18s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),

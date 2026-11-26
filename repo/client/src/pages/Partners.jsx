@@ -6,6 +6,7 @@ import { Button } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
 import { company } from '../data/site';
+import Illustration from '../components/site/Illustration';
 
 /* Partner logos - one flat set, no categories.
    Each item carries explicit w/h (equal ~4,200px² footprint, max 150×44)
@@ -84,7 +85,7 @@ const Partners = () => (
           parts, and orchestrated by us, so what you run is one governed system.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
-          <Button to="/contact?intent=partnership" variant="dark">
+          <Button to="/get-started?intent=partnership" variant="dark">
             Partner with us <ArrowUpRight size={14} strokeWidth={2.2} />
           </Button>
           <a href={company.linkedin} target="_blank" rel="noopener noreferrer" className="-my-3 inline-flex items-center gap-2 py-3 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-ink">
@@ -92,11 +93,11 @@ const Partners = () => (
           </a>
         </div>
         </div>
-        <img
+        <Illustration
+          variant="hero"
+          eager
           src="/images/industries/partners-hero.svg"
           alt="A person fitting orange building blocks into place on a large board"
-          loading="eager"
-          className="mx-auto w-full max-w-[460px]"
         />
       </div>
     </section>

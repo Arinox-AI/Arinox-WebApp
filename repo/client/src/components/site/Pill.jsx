@@ -1,7 +1,7 @@
 /* Pill — the one chip pattern for the whole site (mono, pill, hairline).
    Replace ad-hoc chip class strings with this so look stays constant. */
 const TONES = {
-  neutral: 'border-line bg-white text-ink-soft',
+  neutral: 'border-line bg-paper-0 text-ink-soft',
   paper: 'border-line bg-paper-2 text-ink-soft',
   ember: 'border-ember/40 bg-ember/10 text-ember-deep',
   muted: 'border-line bg-transparent text-ink-faint',

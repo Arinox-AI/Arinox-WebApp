@@ -4,7 +4,7 @@ const SEO = ({
   title = 'Arinox AI | Private AI, Implemented End-to-End',
   description = 'Arinox is an AI transformation company. We help enterprises implement private AI on their own infrastructure through CommandCore and the KOGO agentic layer. Built in India.',
   canonical = 'https://www.arinox.ai',
-  image = 'https://www.arinox.ai/og-image.jpg',
+  image = 'https://www.arinox.ai/og-image.png',
   type = 'website',
   keywords = 'AI transformation, private AI, enterprise AI, on-premises AI, CommandCore, KOGO, agentic AI, AI consulting, sovereign AI, India AI company',
   jsonLd,
