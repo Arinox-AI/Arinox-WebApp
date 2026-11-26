@@ -1,16 +1,19 @@
 // One box size per placement kind, so every illustration reads the same.
 //   column — figure above copy in a hairline column / row of 2–4 items
 //   row    — Industries ledger row figure
+//   compact — small figure beside a name in a two-column list (Solutions products)
 //   hero   — bare page-hero figure beside the headline
 // Decorative only (alt=""). Palette rules: agent-docs/design.md §6b.
 const BOX = {
   column: 'h-[136px]',
   row: 'h-[180px] lg:h-[200px]',
+  compact: 'h-[88px] w-[104px] shrink-0',
   hero: 'mx-auto h-[260px] w-full md:h-[320px]',
 };
 const IMG = {
   column: 'object-left',
   row: 'object-left',
+  compact: 'object-left',
   hero: 'object-center',
 };
 

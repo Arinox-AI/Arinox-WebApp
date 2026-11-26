@@ -10,13 +10,95 @@
    until they ask for them.
    ──────────────────────────────────────────────────────────── */
 
+import { sectors, caseIndex } from './caseStudies';
+
 export const industriesMeta = {
   overline: 'All solutions',
-  titleLead: 'One AI appliance.',
-  titleAccent: 'Five operating systems.',
-  lead: 'CommandCore, our sovereign AI appliance, and packaged AI operating systems built sector by sector — your data inside, every decision yours.',
+  titleLead: 'AI for the work',
+  titleAccent: 'your business actually does.',
+  lead: 'We build the AI your business needs, run it inside your walls, and you approve every decision.',
+  primary: 'Get your AI roadmap',
+  secondary: 'See the case studies',
   spine: 'Signals in, decisions out, you approve — the same loop under every product.',
+  seoTitle: 'All solutions | AI built on your data | Arinox AI',
+  seoDescription:
+    'Arinox builds AI for the work your business already does: voice agents, document automation, forecasting, vision, maintenance and more, proven in production across BFSI, healthcare, manufacturing, defence, government, FMCG and retail.',
 };
+
+/* Page sections. `capabilities` is the single source for the "What we build"
+   ledger: each case in caseStudies.js carries a `capability` key matching one
+   of these, and the page groups the case studies under it. */
+export const industriesSections = {
+  build: {
+    label: 'What we build',
+    title: 'Eight kinds of work, already in production.',
+    note: 'Open any of them to see where it runs in production: the problem, what we deployed, the result.',
+  },
+  starts: {
+    label: 'Ready-made',
+    title: 'Start faster when your problem matches one of these.',
+  },
+  engage: {
+    label: 'How we engage',
+    title: 'Two ways to start.',
+    ready: {
+      title: 'Deploy a ready-made OS',
+      line: 'Start from a packaged product built for your kind of operation, set up on your data and run inside your walls.',
+      cta: 'See the ready-made products',
+    },
+    custom: {
+      title: 'Commission a custom build',
+      line: 'We map the workflow, build the agents, and run them on your infrastructure, with your people approving every decision.',
+      cta: 'Tell us the workflow',
+    },
+  },
+  cta: {
+    title: "Bring us the workflow. We'll map it.",
+  },
+};
+
+export const capabilities = [
+  {
+    key: 'voice',
+    name: 'Voice & conversational agents',
+    line: 'Agents that answer, triage and score conversations over voice and chat, with a human taking over when it matters.',
+  },
+  {
+    key: 'documents',
+    name: 'Document & back-office automation',
+    line: 'Agents that read documents and forms, check them against your rules, and push clean records into your systems, so people review only the exceptions.',
+  },
+  {
+    key: 'knowledge',
+    name: 'Knowledge assistants',
+    line: 'Protocols, circulars and know-how turned into a governed knowledge base your staff query in plain language, every answer cited to its source.',
+  },
+  {
+    key: 'forecasting',
+    name: 'Forecasting & planning',
+    line: 'Forecasts, schedules and replenishment plans built from your ERP and live signals. Planners approve, systems execute.',
+  },
+  {
+    key: 'vision',
+    name: 'Vision AI',
+    line: 'Vision models on the cameras, field photographs, satellite imagery and drone feeds you already have, running on your own hardware.',
+  },
+  {
+    key: 'maintenance',
+    name: 'Maintenance & asset intelligence',
+    line: 'Machine and asset signals read continuously, so drift is flagged before failure and every change of custody is on the record.',
+  },
+  {
+    key: 'data',
+    name: 'Data unification & analytics',
+    line: 'Scattered systems consolidated into one governed layer, so every team works from the same record.',
+  },
+  {
+    key: 'security',
+    name: 'Security & situational awareness',
+    line: 'Multi-source intelligence fused into one operational picture, alerts triaged with an explainable rationale, fully air-gapped.',
+  },
+];
 
 export const products = [
   /* The appliance comes first: "Solutions" in the nav lands here, so the
@@ -130,3 +212,58 @@ export const products = [
 
 /* The shared spine under every product — carried as one line on the hub;
    each suite page explains its own loop in full. */
+
+/* ─── Derived views (computed from caseStudies.js; nothing hand-typed) ───
+   headlineMetric: the first figure, across the given cases in order, whose
+   basis is 'published' and whose value starts like a number ("-82%",
+   "~$1M", "24/7"; not "Days early" or "Ranked"). Returns null if none, and
+   callers then omit the figure. */
+const NUMERIC = /^[~+\-−–$]*\s*\d/;
+
+export const headlineMetric = (cases) => {
+  for (const c of cases) {
+    for (const m of c.useCase.metrics || []) {
+      if (m.basis === 'published' && NUMERIC.test(String(m.value))) {
+        return { value: m.value, label: m.label, basis: m.basis, title: c.useCase.title, slug: c.slug };
+      }
+    }
+  }
+  return null;
+};
+
+export const capabilityRows = capabilities.map((cap) => {
+  const cases = caseIndex.filter((c) => c.useCase.capability === cap.key);
+  return {
+    ...cap,
+    image: `/images/capabilities/${cap.key}.svg`,
+    cases,
+    sectors: [...new Set(cases.map((c) => c.sectorLabel))],
+    metric: headlineMetric(cases),
+  };
+});
+
+export const sectorRows = sectors
+  .filter((s) => s.useCases.length > 0)
+  .map((s) => {
+    const cases = caseIndex.filter((c) => c.sectorId === s.id);
+    return { id: s.id, label: s.label, count: cases.length, first: cases[0], metric: headlineMetric(cases) };
+  });
+
+export const capabilityByKey = (key) => capabilityRows.find((c) => c.key === key) || null;
+
+/* Copy for the /capabilities/:key pages. */
+export const capabilityPage = {
+  back: 'All solutions',
+  eyebrow: 'Capability',
+  primary: 'Get your AI roadmap',
+  secondary: 'See all case studies',
+  production: { label: 'In production', title: 'Where it is already running.' },
+  problem: 'The problem',
+  deployed: 'What we deployed',
+  result: 'The result',
+  noFigures: 'Figures on request',
+  readCase: 'Read the full case',
+  does: { label: 'What it does', title: 'What the agents handle.' },
+  runs: { label: 'Infrastructure', title: 'Runs on your infrastructure.' },
+  cta: { title: "Bring us the workflow. We'll map it." },
+};

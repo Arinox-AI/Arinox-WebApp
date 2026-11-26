@@ -1,14 +1,59 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
 import { Button } from './Button'
 import { nav } from '../../data/site'
+
+const MEGA_W = 880
+
+/* Three-column Solutions panel: Products | Capabilities | Industries, with an
+   "All ..." link on each side of the bottom row. Columns come from data/site.js. */
+function MegaPanel({ item, onNavigate }) {
+  return (
+    <div role="group" aria-label={item.label} className="border border-line bg-paper font-sans normal-case tracking-normal">
+      <div className="grid grid-cols-[1.2fr_1fr_0.8fr]">
+        {item.columns.map((col, i) => (
+          <div key={col.label} className={`px-6 pb-4 pt-5 ${i > 0 ? 'border-l border-line' : ''}`} data-menu-column={col.label}>
+            <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-faint">{col.label}</p>
+            <ul>
+              {col.items.map((c) => (
+                <li key={c.to}>
+                  <Link to={c.to} onClick={onNavigate} className="group flex items-baseline justify-between gap-3 py-[7px]">
+                    <span>
+                      <span className="block font-display text-[16px] leading-tight tracking-[-0.01em] text-ink transition-colors group-hover:text-ember-deep">{c.label}</span>
+                      {c.note && <span className="mt-0.5 block text-[12.5px] leading-snug text-ink-soft">{c.note}</span>}
+                    </span>
+                    {c.count != null && (
+                      <span className="num shrink-0 font-mono text-[11px] text-ink-faint" aria-label={`${c.count} case studies`}>{c.count}</span>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div className="flex items-center justify-between border-t border-line px-6 py-3 font-mono text-[11px] uppercase tracking-[0.1em]">
+        <Link to={item.to} onClick={onNavigate} className="text-ember-deep transition-colors hover:text-ink">
+          {item.allLabel} <span aria-hidden>&rarr;</span>
+        </Link>
+        {item.secondaryAll && (
+          <Link to={item.secondaryAll.to} onClick={onNavigate} className="text-ink transition-colors hover:text-ember-deep">
+            {item.secondaryAll.label} <span aria-hidden>&rarr;</span>
+          </Link>
+        )}
+      </div>
+    </div>
+  )
+}
 
 /* Minimal dropdown: opens on hover and on keyboard focus, closes on leave,
    blur or Escape. The panel sits inside the header so there is no hover gap. */
 function NavDropdown({ item }) {
   const [open, setOpen] = useState(false)
   const timeout = useRef(null)
+  const wrap = useRef(null)
+  const [shift, setShift] = useState(-16)
   const { pathname } = useLocation()
   const active = pathname === item.to || item.group.some((c) => c.to === pathname)
 
@@ -25,6 +70,15 @@ function NavDropdown({ item }) {
     setOpen(false)
   }, [pathname])
 
+  /* The wide panel starts just left of its trigger, then is clamped so it
+     never leaves the viewport (16px gutters). */
+  useLayoutEffect(() => {
+    if (!open || !item.columns || !wrap.current) return
+    const left = wrap.current.getBoundingClientRect().left
+    const w = Math.min(MEGA_W, window.innerWidth - 32)
+    setShift(Math.max(16 - left, Math.min(-24, window.innerWidth - 16 - w - left)))
+  }, [open, item.columns])
+
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === 'Escape') setOpen(false)
@@ -37,7 +91,7 @@ function NavDropdown({ item }) {
   }, [])
 
   return (
-    <div className="relative flex items-center" onMouseEnter={openNow} onMouseLeave={closeSoon}>
+    <div ref={wrap} className="relative flex items-center" onMouseEnter={openNow} onMouseLeave={closeSoon}>
       <NavLink
         to={item.to}
         end={item.to === '/'}
@@ -51,8 +105,14 @@ function NavDropdown({ item }) {
         <ChevronDown size={12} strokeWidth={2.2} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </NavLink>
 
-      {open && (
-        /* Single-column panel (Solutions and Company): square paper panel, hairline
+      {open && item.columns && (
+        <div className="absolute top-full z-50 pt-3" style={{ left: shift, width: MEGA_W, maxWidth: 'calc(100vw - 32px)' }}>
+          <MegaPanel item={item} onNavigate={() => setOpen(false)} />
+        </div>
+      )}
+
+      {open && !item.columns && (
+        /* Single-column panel (Company): square paper panel, hairline
            border, no shadow; names in serif, notes in quiet sans. */
         <div className="absolute -left-4 top-full z-50 w-[300px] pt-3">
           <div role="group" aria-label={item.label} className="border border-line bg-paper font-sans normal-case tracking-normal">
@@ -100,6 +160,17 @@ export function Nav() {
   }, [open])
 
   const mobile = nav.flatMap((item) => {
+    if (item.columns) {
+      return [
+        { label: item.label, to: item.to, heading: true },
+        ...item.columns.flatMap((col) => [
+          { label: col.label, sub: true },
+          ...col.items.map(({ count, ...c }) => ({ ...c, compact: true, tail: count })),
+        ]),
+        { label: item.allLabel, to: item.to, all: true },
+        ...(item.secondaryAll ? [{ ...item.secondaryAll, all: true }] : []),
+      ]
+    }
     if (item.group) {
       return [
         { label: item.label, to: item.to, heading: true },
@@ -173,12 +244,20 @@ export function Nav() {
                     if (l.heading) {
                       return `pt-7 pb-2 font-mono text-[11px] uppercase tracking-[0.16em] ${isActive ? 'text-ember-deep' : 'text-ink-faint'}`
                     }
+                    if (l.all) {
+                      return `flex items-center justify-between pt-4 font-mono text-[11.5px] uppercase tracking-[0.1em] ${isActive ? 'text-ember-deep' : 'text-ink'}`
+                    }
+                    if (l.compact) {
+                      return `flex items-baseline justify-between border-b border-line py-2.5 font-display text-[19px] tracking-[-0.01em] transition-colors ${isActive ? 'text-ember' : 'text-ink'}`
+                    }
                     return `border-b border-line py-3.5 font-display text-2xl tracking-[-0.01em] transition-colors ${
                       isActive ? 'text-ember' : 'text-ink'
                     }`
                   }}
                 >
                   {l.label}
+                  {l.tail != null && <span className="num font-mono text-[11px] text-ink-faint">{l.tail}</span>}
+                  {l.all && <span aria-hidden>&rarr;</span>}
                 </NavLink>
               ))}
             </nav>

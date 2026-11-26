@@ -20,6 +20,7 @@ const Blog = lazy(() => import('./pages/Blog'));
 const BlogPost = lazy(() => import('./pages/BlogPost'));
 const Careers = lazy(() => import('./pages/Careers'));
 const Industries = lazy(() => import('./pages/Industries'));
+const Capability = lazy(() => import('./pages/Capability'));
 const Pricing = lazy(() => import('./pages/Pricing'));
 const MarketingSuite = lazy(() => import('./pages/MarketingSuite'));
 const FashionLifestyleSuite = lazy(() => import('./pages/FashionLifestyleSuite'));
@@ -101,6 +102,7 @@ const AppInner = () => {
               <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
               <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
               <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
+              <Route path="/capabilities/:key" element={<PageTransition><Capability /></PageTransition>} />
               <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
               {/* The Price Discovery wizard became the client intake page (/get-started) */}
               <Route path="/pricing/discovery" element={<Navigate to="/get-started" replace />} />

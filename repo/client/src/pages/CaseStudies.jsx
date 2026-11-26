@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
@@ -118,8 +118,25 @@ const UseCase = ({ index, useCase: c }) => {
   );
 };
 
+/* ?sector=<id> (the header menu's Industries column) -> index, or -1. */
+const sectorIndex = (id) => (id ? sectorData.findIndex((s) => s.id === id) : -1);
+
 const CaseStudies = () => {
-  const [active, setActive] = useState(0);
+  const [params] = useSearchParams();
+  const { key } = useLocation();
+  const wanted = sectorIndex(params.get('sector'));
+  const [active, setActive] = useState(Math.max(0, wanted));
+
+  /* Deep link: preselect the sector and bring its section into view. Runs
+     again on every navigation (location key), so choosing another sector from
+     the menu while already on this page works. An unknown slug does nothing. */
+  useEffect(() => {
+    if (wanted < 0) return undefined;
+    setActive(wanted);
+    const t = setTimeout(() => document.getElementById('sectors')?.scrollIntoView({ block: 'start' }), 60);
+    return () => clearTimeout(t);
+  }, [wanted, key]);
+
   const sector = sectorData[active];
   const hasCases = sector.useCases.length > 0;
 
@@ -161,7 +178,7 @@ const CaseStudies = () => {
         ]}
       />
 
-      <Section border={false} id="sectors" className="pt-5 pb-7 md:pb-10">
+      <Section border={false} id="sectors" className="scroll-mt-[68px] pt-5 pb-7 md:pb-10">
         <div className="grid gap-2 sm:grid-cols-3 lg:grid-cols-4" role="tablist" aria-label="Sectors">
           {sectorData.map((s, i) => {
             const on = i === active;

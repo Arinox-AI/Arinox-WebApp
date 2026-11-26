@@ -45,7 +45,7 @@ const routes = [
   { path: '/case-studies', heading: /deployed inside the perimeter/i },
   { path: '/case-studies/situational-awareness', heading: /situational awareness/i },
   { path: '/case-studies/does-not-exist', heading: /case study not found/i },
-  { path: '/industries', heading: /one ai appliance/i },
+  { path: '/industries', heading: /built around\s+your business/i },
   { path: '/industries/marketing', heading: /marketing\s+os/i },
   { path: '/industries/fashion-lifestyle', heading: /fashion\s*&\s*lifestyle\s+os/i },
   { path: '/industries/industrial', heading: /manufacturing\s+os/i },
@@ -101,7 +101,7 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     expect(await heading(/assembled around/i)).toBeTruthy();
   }, 30000);
 
-  it('Solutions dropdown shows six links in one list and All solutions', async () => {
+  it('Solutions dropdown shows the six products, three columns and All solutions', async () => {
     renderAt('/');
     const trigger = mainNav().getByRole('link', { name: /^solutions$/i });
     fireEvent.mouseOver(trigger);
@@ -116,7 +116,7 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     expect(panel.getByRole('link', { name: /all solutions/i }).getAttribute('href')).toBe('/industries');
   }, 30000);
 
-  it('mobile menu lists the six Solutions items flat, plus All solutions', async () => {
+  it('mobile menu lists the Solutions products, capabilities and industries, plus the All links', async () => {
     renderAt('/');
     fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
     const mobile = within(screen.getByRole('navigation', { name: 'Mobile' }));
@@ -127,7 +127,9 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     for (const name of ['CommandCore', 'Marketing OS', 'Fashion & Lifestyle OS', 'Manufacturing OS', 'Secure OS', 'Digital Twin++']) {
       expect(mobile.getByRole('link', { name: new RegExp(name.replace(/[+&]/g, '\\$&')) })).toBeTruthy();
     }
-    expect(mobile.getByRole('link', { name: 'All solutions' }).getAttribute('href')).toBe('/industries');
+    expect(mobile.getByRole('link', { name: /^All solutions/ }).getAttribute('href')).toBe('/industries');
+    expect(mobile.getByRole('link', { name: /^All case studies/ }).getAttribute('href')).toBe('/case-studies');
+    for (const label of ['Products', 'Capabilities', 'Industries']) expect(mobile.getByText(label)).toBeTruthy();
   }, 30000);
 
   it('dropdown group opens on hover and its links route', async () => {

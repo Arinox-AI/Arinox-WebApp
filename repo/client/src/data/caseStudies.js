@@ -55,6 +55,7 @@ export const sectors = [
     useCases: [
       {
         title: 'One Cockpit for the Entire BPO Floor',
+        capability: 'voice',
         problem: 'Five to six disconnected consoles run telephony, ACD, workforce management and quality assurance. Voice and chat sit on separate systems, so agents lose context switching channels, only 2% of conversations are ever quality-checked, shrinkage is self-reported, and capacity is capped by headcount alone.',
         agent: 'BPO OS',
         agentNote: 'In production · live at a PSU bank',
@@ -76,6 +77,7 @@ export const sectors = [
       },
       {
         title: 'Autonomous Tax Data Retrieval',
+        capability: 'documents',
         problem: 'Tax data is pulled from hundreds of county agencies entirely by hand, with staff calling offices and visiting websites. Quality control covers only a small sample, so most data goes unvalidated, and missing payments and bad reporting trigger downstream claims.',
         agent: 'Agentic Graph',
         agentNote: 'In production · mortgage & BFSI · three-agent system',
@@ -96,6 +98,7 @@ export const sectors = [
       },
       {
         title: 'AI-Powered Expense Management Agent',
+        capability: 'documents',
         problem: 'Travel and expense claims are handled entirely by hand on top of the ERP and chat, with no real-time visibility, frequent rework, and no systematic audit trail.',
         agentNote: 'In production · finance & HR operations · conversational AI + HITL',
         outcome: 'Employees submit expenses in natural language, and the agent extracts receipt data with adaptive OCR, applies real-time currency conversion, validates against policy, and pushes approved claims straight into the ERP. Finance reviews only flagged exceptions, with an immutable audit trail of every action.',
@@ -126,6 +129,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Patient Triage & Coordination',
+        capability: 'voice',
         problem: 'Long front-desk wait times; routine appointment and follow-up queries overwhelming staff.',
         agent: 'CarePath Agent',
         agentNote: 'HIPAA/DPDP compliant',
@@ -140,6 +144,7 @@ export const sectors = [
       },
       {
         title: 'Claims Processing',
+        capability: 'documents',
         problem: 'Manual claims require dedicated staff per batch; re-submission errors compound cost and cycle time.',
         agent: 'ClaimsBridge Agent',
         agentNote: 'EMR & billing integration',
@@ -154,6 +159,7 @@ export const sectors = [
       },
       {
         title: 'Knowledge Continuity',
+        capability: 'knowledge',
         problem: 'Clinical protocols and specialist know-how lost on every staff turnover cycle.',
         agent: 'MedMemory Agent',
         agentNote: 'Cited answers linked to source',
@@ -175,6 +181,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Inventory & Demand Forecasting',
+        capability: 'forecasting',
         problem: 'Surplus inventory ties up working capital while stockouts disrupt production schedules and SLAs.',
         agent: 'DemandSense Agent',
         agentNote: 'ERP/SCADA/MES integration',
@@ -189,6 +196,7 @@ export const sectors = [
       },
       {
         title: 'Predictive Maintenance',
+        capability: 'maintenance',
         problem: 'Reactive repairs cause recurring unplanned downtime across the plant floor.',
         agent: 'PlantGuard Agent',
         agentNote: 'Drift detection · work-order generation',
@@ -206,6 +214,7 @@ export const sectors = [
       },
       {
         title: 'Production Scheduling',
+        capability: 'forecasting',
         problem: 'Disconnected ERP, MES, and SCADA systems create scheduling bottlenecks and idle capacity.',
         agent: 'FloorOps Agent',
         agentNote: 'Legacy SCADA compatible',
@@ -220,6 +229,7 @@ export const sectors = [
       },
       {
         title: 'Enterprise-Scale Data Intelligence',
+        capability: 'data',
         problem: 'Tens of thousands of aircraft part line items arrive across PDFs, spreadsheets and scans. Manual lookup, validation and cross-referencing on every part means cost grows linearly with volume and large datasets take weeks to process.',
         agentNote: 'In production · aerospace & defence supply chain · multi-agent pipeline',
         outcome: 'A multi-agent pipeline extracts, classifies and validates each part line, cross-references vendor databases and schemas, and routes only flagged anomalies to human review. Processing a page takes seconds, and the marginal cost per additional item is near zero, so the pipeline scales without adding headcount.',
@@ -250,6 +260,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Situational Awareness',
+        capability: 'security',
         problem: 'Intelligence silos across branches block real-time decision-making and coordinated response.',
         agentNote: 'Deployed with National Data Centre (NDC) · air-gapped · open-weight LLMs',
         outcome: 'Deployed within the classified network: multi-source intelligence fused into one operational picture, alert triage cut dramatically, zero cloud dependency at that layer.',
@@ -263,6 +274,7 @@ export const sectors = [
       },
       {
         title: 'Geospatial & Sentinel Analysis',
+        capability: 'vision',
         problem: 'Manual satellite data processing takes days; terrain analysis bottlenecks field operations.',
         agent: 'GeoSense Agent',
         agentNote: 'Edge-deployed · classified-network safe',
@@ -273,6 +285,7 @@ export const sectors = [
       },
       {
         title: 'Logistics & Asset Intelligence',
+        capability: 'maintenance',
         problem: 'Manual asset tracking for critical equipment creates accountability and audit gaps.',
         agent: 'SupplyOps Agent',
         agentNote: 'Sovereign · full audit trail · no cloud',
@@ -288,6 +301,7 @@ export const sectors = [
       {
         // Draft: deployment note and cleared figures still to come.
         title: 'Drone Threat Detection & Decision Support',
+        capability: 'vision',
         problem: 'A drone captures far more footage than an operator can watch in real time, and reviewing it afterwards is slow. Threats go unnoticed, and decisions lag behind the situation on the ground.',
         outcome: 'A decision-support system that works on real-time camera data from the drone. The agent identifies the threat as it appears, captures and analyses the image, and returns a ranked, explainable read to the operator, so decisions can be made in the moment.',
         how: 'Real-time camera feeds from the drone are processed on the deployed edge: the agent detects and classifies objects of interest, captures and analyses each frame, and correlates the finding with intelligence already held before surfacing it.',
@@ -303,6 +317,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Tender Intelligence (TIAR)',
+        capability: 'documents',
         problem: 'High-value tenders missed due to unmonitored portals and fragmented alert systems.',
         agent: 'TIAR Agent',
         agentNote: 'Round-the-clock portal monitoring',
@@ -317,6 +332,7 @@ export const sectors = [
       },
       {
         title: 'Policy & Knowledge Continuity',
+        capability: 'knowledge',
         problem: 'Institutional knowledge erodes with every officer transfer; policy continuity breaks down.',
         agent: 'PolicyMem Agent',
         agentNote: 'Full audit log',
@@ -331,6 +347,7 @@ export const sectors = [
       },
       {
         title: 'Public Service Analytics',
+        capability: 'data',
         problem: 'Disconnected citizen databases block data-driven policy design and cross-department anomaly detection.',
         agent: 'CivicIQ Agent',
         agentNote: 'Cross-department analytics',
@@ -352,6 +369,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Demand Forecasting & Replenishment',
+        capability: 'forecasting',
         problem: 'SKU-level forecasting is manual and fragmented, stockouts on fast-movers and dead stock on slow-movers simultaneously.',
         agent: 'DemandSense FMCG Agent',
         agentNote: 'ERP/WMS integration · retailer feeds',
@@ -366,6 +384,7 @@ export const sectors = [
       },
       {
         title: 'Route-to-Market Intelligence',
+        capability: 'forecasting',
         problem: 'Field sales teams lack real-time visibility into distributor stock and secondary sales.',
         agent: 'RouteIQ Agent',
         agentNote: 'Edge-deployed · offline-capable · distributor portal sync',
@@ -380,6 +399,7 @@ export const sectors = [
       },
       {
         title: 'Shelf & Out-of-Stock Detection',
+        capability: 'vision',
         problem: 'Identifying out-of-stocks and planogram violations across thousands of outlets requires slow, costly field audits.',
         agent: 'ShelfAI Agent',
         agentNote: 'Image models · outlet-level scoring',
@@ -394,6 +414,7 @@ export const sectors = [
       },
       {
         title: 'Golden Record & Enterprise Data Unification',
+        capability: 'data',
         problem: 'Seven-plus business units run on fifteen-plus data systems and ten-plus touchpoints, with no unified identity or household mapping. Fragmented insights delay cross-sell and slow decision-making.',
         agentNote: 'In production · enterprise data & customer intelligence',
         outcome: 'Disconnected systems are consolidated into one governed data layer. A full-funnel intelligence layer combines transactional, behavioural and engagement data, and AI-driven segmentation is activated in real time, giving every team a single source of truth.',
@@ -414,6 +435,7 @@ export const sectors = [
       },
       {
         title: 'Real-Time Context Orchestration',
+        capability: 'data',
         problem: 'Relationships are siloed, not connected: data is scattered across channels, so customers repeat themselves, handling time grows, and context is inconsistent at the point of conversation.',
         agentNote: 'In production · customer & front-line operations',
         outcome: 'Six core signals, identity, transactions, open issues, interaction history, behaviour and engagement, are resolved in real time and delivered to front-line dashboards the moment an interaction starts, cutting repeated questions and shortening handling time.',
@@ -439,6 +461,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Call & Interaction Intelligence',
+        capability: 'voice',
         problem: 'Call quality is judged on a handful of samples. Complaints, churn signals, and upsell moments across stores and contact centres go unnoticed.',
         agent: 'VoiceIQ Agent',
         agentNote: 'Every call scored, not a sample',
@@ -453,6 +476,7 @@ export const sectors = [
       },
       {
         title: 'Incentive & Payroll Intelligence',
+        capability: 'documents',
         problem: 'Manual incentive calculation across store staff and field teams takes weeks and generates payout disputes.',
         agent: 'IncentiveOps Agent',
         agentNote: 'Immutable audit trail',
@@ -467,6 +491,7 @@ export const sectors = [
       },
       {
         title: 'CCTV & Store Video Intelligence',
+        capability: 'vision',
         problem: 'Cameras record everything, but nothing becomes insight. Staffing, service quality, and sales signals stay locked in footage no one has time to review.',
         agentNote: 'Existing cameras reused',
         outcome: 'Existing CCTV becomes a decision layer: employee performance and service quality scored, customer satisfaction read from dwell and queue behaviour, and sales and next-visit (churn) predicted from footfall patterns, actions that boost sales and lift staff performance.',
@@ -487,6 +512,7 @@ export const sectors = [
     useCases: [
       {
         title: 'Full-Stack AI Marketing OS',
+        capability: 'documents',
         problem: 'Marketing runs across a patchwork of tools and agencies: strategy, creative, media and reporting sit in different places, and the brand thread is held together by people.',
         agent: 'Marketing Agent',
         agentNote: 'Full-stack AI marketing OS · performance & D2C brands',
@@ -500,6 +526,7 @@ export const sectors = [
       },
       {
         title: 'Supply Chain Agent',
+        capability: 'forecasting',
         problem: 'Sourcing, replenishment and supplier performance are chased by hand across spreadsheets and systems, so exceptions surface only after they have already cost time and money.',
         agent: 'SCM Agent',
         agentNote: 'Sourcing · replenishment · supplier monitoring',

@@ -1,4 +1,30 @@
 /* ─── Site-wide narrative data ────────────────────────────── */
+import { capabilities, sectorRows } from './industries';
+
+/* The Solutions mega-menu: three columns, Products | Capabilities | Industries.
+   Products are listed here (also kept as `group` for the mobile/flat list);
+   Capabilities and Industries are DERIVED from industries.js / caseStudies.js,
+   so there is no second list to keep in sync. */
+const solutionProducts = [
+  { to: '/commandcore', label: 'CommandCore', note: 'Sovereign AI appliance' },
+  { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
+  { to: '/industries/fashion-lifestyle', label: 'Fashion & Lifestyle OS', note: 'From concept to delivery' },
+  { to: '/industries/industrial', label: 'Manufacturing OS', note: 'Machines, lines and orders' },
+  { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
+  { to: '/industries/digital-twin', label: 'Digital Twin++', note: 'See, predict, act' },
+];
+
+export const solutionColumns = [
+  { label: 'Products', items: solutionProducts },
+  {
+    label: 'Capabilities',
+    items: capabilities.map((c) => ({ to: `/capabilities/${c.key}`, label: c.name })),
+  },
+  {
+    label: 'Industries',
+    items: sectorRows.map((s) => ({ to: `/case-studies?sector=${s.id}`, label: s.label })),
+  },
+];
 
 /* Primary navigation.
    Flat items render as links; items with `group` render as a minimal
@@ -9,14 +35,9 @@ export const nav = [
     label: 'Solutions',
     to: '/industries',
     allLabel: 'All solutions',
-    group: [
-      { to: '/commandcore', label: 'CommandCore', note: 'Sovereign AI appliance' },
-      { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
-      { to: '/industries/fashion-lifestyle', label: 'Fashion & Lifestyle OS', note: 'From concept to delivery' },
-      { to: '/industries/industrial', label: 'Manufacturing OS', note: 'Machines, lines and orders' },
-      { to: '/industries/secure', label: 'Secure OS', note: 'The perimeter, in one loop' },
-      { to: '/industries/digital-twin', label: 'Digital Twin++', note: 'See, predict, act' },
-    ],
+    secondaryAll: { to: '/case-studies', label: 'All case studies' },
+    group: solutionProducts,
+    columns: solutionColumns,
   },
   { label: 'Pricing', to: '/pricing' },
   { label: 'Case studies', to: '/case-studies' },
@@ -24,9 +45,9 @@ export const nav = [
     label: 'Company',
     to: '/people',
     group: [
-      { to: '/people', label: 'People', note: 'Leadership and advisors' },
-      { to: '/partners', label: 'Partners', note: 'Who we build with' },
-      { to: '/careers', label: 'Careers', note: 'Open roles' },
+  { to: '/people', label: 'People', note: 'Leadership and advisors' },
+  { to: '/partners', label: 'Partners', note: 'Who we build with' },
+  { to: '/careers', label: 'Careers', note: 'Open roles' },
     ],
   },
   { label: 'Blog', to: '/blog' },
@@ -198,3 +219,27 @@ export const deployOptions = [
   },
 ];
 
+/* Trusted-by strip. Same sizing rule as the Partners page: explicit w/h
+   per logo (equal ~4,200px² footprint, max 150×44) so wide wordmarks don't
+   dwarf square marks and vice versa. The flex row center-aligns everything,
+   so all logos share one vertical axis. */
+export const trustedLogos = [
+  { src: '/images/logos/ibm.svg', alt: 'IBM', w: 106, h: 40 },
+  { src: '/images/logos/hpe.svg', alt: 'HPE', w: 100, h: 42 },
+  { src: '/images/logos/hcltech.svg', alt: 'HCL Tech', w: 150, h: 27 },
+  { src: '/images/logos/hitachi.svg', alt: 'Hitachi Systems', w: 150, h: 23 },
+  { src: '/images/logos/Coforge.webp', alt: 'Coforge', w: 138, h: 30 },
+  { src: '/images/logos/minera.svg', alt: 'Minera Steel and Power', w: 119, h: 35 },
+  { src: '/images/logos/blackberrys.png', alt: 'Blackberrys', w: 150, h: 19 },
+  { src: '/images/logos/lsdigital.png', alt: 'LS Digital', w: 52, h: 44 },
+  { src: '/images/logos/hul.svg', alt: 'Hindustan Unilever', w: 112, h: 37 },
+  { src: '/images/logos/centuryply.svg', alt: 'Century Ply', w: 97, h: 43 },
+  { src: '/images/logos/innocean.png', alt: 'Innocean', w: 150, h: 22 },
+  { src: '/images/logos/celkon.webp', alt: 'Celkon Mobile', w: 148, h: 29 },
+  { src: '/images/logos/nikom.png', alt: 'Nikom', w: 124, h: 34 },
+  { src: '/images/logos/langoor.png', alt: 'Langoor', w: 150, h: 15 },
+  { src: '/images/logos/indian-army.png', alt: 'Indian Army', w: 58, h: 44 },
+  { src: '/images/logos/sunmobility.png', alt: 'Sun Mobility', w: 113, h: 37 },
+  { src: '/images/logos/kosmoderma.png', alt: 'Kosmoderma Clinics', w: 150, h: 27 },
+  { src: '/images/logos/informage.png', alt: 'Informage', w: 133, h: 31 },
+]
