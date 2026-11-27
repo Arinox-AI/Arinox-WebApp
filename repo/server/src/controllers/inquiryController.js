@@ -121,7 +121,9 @@ const submitInquiry = async (req, res, next) => {
       }),
       sendMail({
         to: inquiry.email,
-        cc: customerCc(inquiry.email),
+        // The "business profile is in review" reply goes to the visitor alone
+        // (user call, 2026-11-27): no solutions@ CC on that one.
+        cc: resolved.intent === 'profile' ? [] : customerCc(inquiry.email),
         subject: inquiry.autoReply?.subject || 'We received your message - Arinox AI',
         html: contactAutoReply({
           name: inquiry.name,
