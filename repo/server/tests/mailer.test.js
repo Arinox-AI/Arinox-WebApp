@@ -20,6 +20,15 @@ describe('mailer CC lists', () => {
     expect(mailer.teamCc()).toEqual(['solutions@arinox.ai']);
   });
 
+  it('team To is assist@ + vandana@ and never solutions@, even if EMAIL_TO lists it', () => {
+    const savedTo = process.env.EMAIL_TO;
+    process.env.EMAIL_TO = 'assist@arinox.ai, solutions@arinox.ai, vandana@arinox.ai';
+    expect(mailer.teamTo()).toEqual(['assist@arinox.ai', 'vandana@arinox.ai']);
+    delete process.env.EMAIL_TO;
+    expect(mailer.teamTo()).toEqual(['assist@arinox.ai', 'vandana@arinox.ai']);
+    if (savedTo === undefined) delete process.env.EMAIL_TO; else process.env.EMAIL_TO = savedTo;
+  });
+
   it('customer emails CC only the shared inbox, never the recipient twice', () => {
     expect(mailer.customerCc('visitor@example.com')).toEqual(['solutions@arinox.ai']);
     expect(mailer.customerCc('Solutions@arinox.ai')).toEqual([]);

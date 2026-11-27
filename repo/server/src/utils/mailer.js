@@ -53,8 +53,24 @@ const teamCc = (exclude = []) =>
   ccList((process.env.TEAM_CC === undefined ? 'ajay@arinox.ai' : process.env.TEAM_CC).split(','), exclude);
 
 /* CC for emails that go to a visitor/applicant: the shared inbox only, so
-   replies reach the team. */
+   replies reach the team. Not used on the business-profile, deck and
+   discovery-session replies — those go to the visitor alone (user call,
+   2026-11-27). */
 const customerCc = (exclude = []) => ccList([], exclude);
+
+/* To list for every team notification (inquiries, decks, bookings, careers):
+   assist@ + vandana@. EMAIL_TO may add inboxes, but solutions@ is never a
+   To recipient — it rides on CC (teamCc) only (user call, 2026-11-27). */
+const TEAM_TO_FALLBACK = process.env.LEADS_FALLBACK_EMAIL || 'vandana@arinox.ai';
+const teamTo = () => {
+  const out = [];
+  const raw = [...(process.env.EMAIL_TO || 'assist@arinox.ai').split(','), TEAM_TO_FALLBACK];
+  for (const s of raw.map((x) => x.trim()).filter(Boolean)) {
+    const k = s.toLowerCase();
+    if (k !== ALWAYS_CC && !out.some((o) => o.toLowerCase() === k)) out.push(s);
+  }
+  return out;
+};
 
 const verifyMailer = () => {
   if (!isConfigured()) return;
@@ -410,6 +426,7 @@ module.exports = {
   sendMail,
   teamCc,
   customerCc,
+  teamTo,
   verifyMailer,
   contactNotification,
   contactAutoReply,

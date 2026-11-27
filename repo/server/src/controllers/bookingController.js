@@ -5,7 +5,7 @@ const { generateSlots } = require('../booking/availability');
 const google = require('../booking/googleCalendar');
 const { buildInvite } = require('../booking/ics');
 const store = require('../booking/store');
-const { sendMail, teamCc, customerCc, bookingConfirmation, bookingNotification } = require('../utils/mailer');
+const { sendMail, teamCc, teamTo, bookingConfirmation, bookingNotification } = require('../utils/mailer');
 
 const str = (v, max = 500) => (v == null ? null : String(v).trim().slice(0, max)) || null;
 // Visitor text that lands in a Google event / invite: no angle brackets (so it can never render as markup or a link
@@ -142,15 +142,19 @@ const createBooking = async (req, res, next) => {
     const hostIcal = google.isConfigured() ? {} : ical;
 
     // Awaited so serverless doesn't freeze before SMTP finishes; failures never fail the booking.
+    const teamNotifyTo = [...new Set([...teamTo(), ...cfg.ccEmails()].map((a) => a.trim()).filter((a) => a && a.toLowerCase() !== 'solutions@arinox.ai'))];
     const results = await Promise.allSettled([
       sendMail({
-        to: clean.email, cc: [...new Set([...guests, ...customerCc(clean.email)])],
+        // Visitor confirmation goes to the visitor (+ their guests) only — no
+        // solutions@ CC (user call, 2026-11-27).
+        to: clean.email, cc: guests,
         subject: `Your discovery session — ${fmt(startAt, cfg.timezone, true)}`,
         html: bookingConfirmation({ name: clean.name, when, visitorWhen, topic: clean.topic, meetLink, profileDone }),
         ...ical,
       }),
       sendMail({
-        to: host, cc: [...new Set([...cfg.ccEmails(), ...teamCc()])].filter((c) => c.toLowerCase() !== host.toLowerCase()), replyTo: clean.email,
+        // Team notice: To assist@ + vandana@ (+ BOOKING_CC), CC solutions@.
+        to: teamNotifyTo, cc: teamCc(teamNotifyTo), replyTo: clean.email,
         subject: `[Arinox] Discovery session booked — ${clean.name} · ${fmt(startAt, cfg.timezone, true)}`.replace(/[\r\n]/g, ' '),
         html: bookingNotification({ ...clean, guests, when, meetLink, profileDone }),
         ...hostIcal,

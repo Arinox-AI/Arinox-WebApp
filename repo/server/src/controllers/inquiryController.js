@@ -1,6 +1,6 @@
 const validator = require('validator');
 const supabase = require('../config/supabase');
-const { sendMail, teamCc, customerCc, inquiryNotification, contactAutoReply } = require('../utils/mailer');
+const { sendMail, teamCc, teamTo, customerCc, inquiryNotification, contactAutoReply } = require('../utils/mailer');
 const { getAutoReply } = require('../utils/autoReplies');
 const { resolveInquiry, sourceTag } = require('../utils/intents');
 
@@ -121,9 +121,9 @@ const submitInquiry = async (req, res, next) => {
       }),
       sendMail({
         to: inquiry.email,
-        // The "business profile is in review" reply goes to the visitor alone
-        // (user call, 2026-11-27): no solutions@ CC on that one.
-        cc: resolved.intent === 'profile' ? [] : customerCc(inquiry.email),
+        // The business-profile and deck replies go to the visitor alone
+        // (user call, 2026-11-27): no solutions@ CC on those.
+        cc: resolved.intent === 'profile' || resolved.intent === 'deck' ? [] : customerCc(inquiry.email),
         subject: inquiry.autoReply?.subject || 'We received your message - Arinox AI',
         html: contactAutoReply({
           name: inquiry.name,
@@ -157,17 +157,8 @@ const isMissingColumn = (err) => {
     || /could not find the .* column/i.test(message);
 };
 
-/* Team notification recipients. EMAIL_TO may hold one address or a
-   comma-separated list; the fallback recipient is always included.
-   LEADS_FALLBACK_EMAIL steers it via env; the default keeps prior behavior. */
-const FALLBACK_EMAIL = process.env.LEADS_FALLBACK_EMAIL || 'vandana@arinox.ai';
-const notifyTo = () => {
-  const list = (process.env.EMAIL_TO || 'assist@arinox.ai')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean);
-  if (!list.includes(FALLBACK_EMAIL)) list.push(FALLBACK_EMAIL);
-  return list.join(', ');
-};
+/* Team notification recipients: assist@ + vandana@ (see mailer teamTo);
+   solutions@ is CC only, never To. */
+const notifyTo = () => teamTo().join(', ');
 
 module.exports = { submitInquiry, notifyTo };
