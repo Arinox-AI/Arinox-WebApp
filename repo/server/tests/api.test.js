@@ -155,3 +155,12 @@ describe('CORS', () => {
     expect(res.body.message).toBe('Cross-origin request blocked.');
   });
 });
+
+describe('consent audit endpoint', () => {
+  it('POST /api/v1/consent accepts a valid record (204) and rejects junk (400)', async () => {
+    const ok = await request(app).post('/api/v1/consent').send({ version: '2026-11-27', timestamp: new Date().toISOString(), source: 'banner', preferences: { functional: false, analytics: true } });
+    expect(ok.status).toBe(204);
+    const bad = await request(app).post('/api/v1/consent').send({ version: '', source: 'evil', preferences: {} });
+    expect(bad.status).toBe(400);
+  });
+});

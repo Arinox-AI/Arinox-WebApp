@@ -28,9 +28,9 @@ const sendMail = async (options) => {
   });
 };
 
-/* solutions@arinox.ai is copied on EVERY mail chain — team notifications and
-   the emails sent to visitors/applicants — so the whole thread lands in the
-   shared inbox. Hard-wired on purpose: TEAM_CC can't drop it. */
+/* solutions@arinox.ai is copied on every TEAM notification so the thread
+   lands in the shared inbox. Hard-wired on purpose: TEAM_CC can't drop it.
+   Emails to visitors/applicants carry no CC at all (user call, 2026-11-27). */
 const ALWAYS_CC = 'solutions@arinox.ai';
 
 const ccList = (extra, exclude = []) => {
@@ -47,16 +47,10 @@ const ccList = (extra, exclude = []) => {
 };
 
 /* CC list for every email that goes to the team (inquiries, careers,
-   bookings). TEAM_CC env overrides the default extra names (comma list; set
-   empty to drop them) — ALWAYS_CC stays either way. */
+   bookings): solutions@ only. TEAM_CC env may add names (comma list) —
+   ALWAYS_CC stays either way. */
 const teamCc = (exclude = []) =>
-  ccList((process.env.TEAM_CC === undefined ? 'ajay@arinox.ai' : process.env.TEAM_CC).split(','), exclude);
-
-/* CC for emails that go to a visitor/applicant: the shared inbox only, so
-   replies reach the team. Not used on the business-profile, deck and
-   discovery-session replies — those go to the visitor alone (user call,
-   2026-11-27). */
-const customerCc = (exclude = []) => ccList([], exclude);
+  ccList((process.env.TEAM_CC || '').split(','), exclude);
 
 /* To list for every team notification (inquiries, decks, bookings, careers):
    assist@ + vandana@. EMAIL_TO may add inboxes, but solutions@ is never a
@@ -425,7 +419,6 @@ module.exports = {
   bookingNotification,
   sendMail,
   teamCc,
-  customerCc,
   teamTo,
   verifyMailer,
   contactNotification,

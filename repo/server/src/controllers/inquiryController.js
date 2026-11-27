@@ -1,6 +1,6 @@
 const validator = require('validator');
 const supabase = require('../config/supabase');
-const { sendMail, teamCc, teamTo, customerCc, inquiryNotification, contactAutoReply } = require('../utils/mailer');
+const { sendMail, teamCc, teamTo, inquiryNotification, contactAutoReply } = require('../utils/mailer');
 const { getAutoReply } = require('../utils/autoReplies');
 const { resolveInquiry, sourceTag } = require('../utils/intents');
 
@@ -121,9 +121,7 @@ const submitInquiry = async (req, res, next) => {
       }),
       sendMail({
         to: inquiry.email,
-        // The business-profile and deck replies go to the visitor alone
-        // (user call, 2026-11-27): no solutions@ CC on those.
-        cc: resolved.intent === 'profile' || resolved.intent === 'deck' ? [] : customerCc(inquiry.email),
+        // Visitor replies go to the visitor alone - no CC (user call, 2026-11-27).
         subject: inquiry.autoReply?.subject || 'We received your message - Arinox AI',
         html: contactAutoReply({
           name: inquiry.name,

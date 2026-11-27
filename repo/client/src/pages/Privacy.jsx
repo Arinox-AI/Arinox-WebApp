@@ -56,7 +56,7 @@ const Privacy = () => (
             <p><strong className="text-ink">Analytics (optional, with your consent):</strong> we use Microsoft Clarity to record anonymised sessions and heatmaps so we can see where the site is confusing. Clarity is loaded only after you accept analytics. Microsoft acts as our processor, and the data may be processed outside India. Clarity masks form input by default.</p>
             <p><strong className="text-ink">Functional (optional, with your consent):</strong> if you allow it, your in-progress roadmap answers are kept in this browser for 30 days. Otherwise they last only for the current tab session.</p>
             <p>We also use Vercel Web Analytics for aggregate traffic. It is cookieless and needs no consent.</p>
-            <p>You can change or withdraw your choices at any time with "Cookie settings" in the site footer. Withdrawing analytics stops Clarity and removes its cookies from this site. If your browser sends a Global Privacy Control signal, analytics stays off until you turn it on yourself. The full list of cookies and storage is in our <Link to="/cookies" className="text-ember-deep underline underline-offset-2 hover:text-ink">Cookie Policy</Link>.</p>
+            <p>You can change or withdraw your choices at any time with "Cookie settings" in the site footer. Withdrawing analytics stops Clarity and removes its cookies from this site. If your browser sends a Global Privacy Control signal and you have not chosen, we treat it as "Reject all"; you can still opt in through Cookie settings. As proof of consent we keep a record of each choice (policy version, choices, time, user agent and a one-way hash of your IP address, never the address itself) and delete it after 13 months. The full list of cookies and storage is in our <Link to="/cookies" className="text-ember-deep underline underline-offset-2 hover:text-ink">Cookie Policy</Link>.</p>
 
             <p className="pt-1"><strong className="text-ink">D. What we do NOT collect</strong></p>
             <p>We do not collect, process, or store any data processed by CommandCore™ or other on-premises AI deployments. Our sovereign AI platform operates entirely within your own infrastructure   your operational data, AI prompts, model outputs, and business data never reach our systems or servers.</p>
@@ -102,6 +102,7 @@ const Privacy = () => (
               <li>Enquiries: kept while we are in contact with you</li>
               <li>Job applications and résumés: kept while your application is being considered</li>
               <li>Server and function logs: retained briefly by our hosting provider for operational purposes</li>
+              <li>Cookie-consent records: 13 months, then deleted automatically</li>
               <li>Analytics data: aggregate and non-identifying (cookieless) from Vercel; Clarity recordings (only with consent) are retained by Microsoft under its own retention settings</li>
             </ul>
             <p>You can ask us to delete your data at any time, and we will, unless we are required by law to keep it.</p>

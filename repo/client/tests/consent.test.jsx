@@ -8,11 +8,11 @@ import { MemoryRouter } from 'react-router-dom';
 const clarityMock = vi.hoisted(() => ({ init: vi.fn(), consentV2: vi.fn() }));
 vi.mock('@microsoft/clarity', () => ({ default: clarityMock }));
 
-import { getConsent, setConsent, hasDecided, subscribe, openSettings } from '../src/lib/consent.js';
+import { getConsent, setConsent, hasDecided, subscribe, openSettings, applyGpc } from '../src/lib/consent.js';
 import { startConsentEffects } from '../src/lib/consentEffects.js';
 import { CookieBanner } from '../src/components/site/CookieBanner.jsx';
 import { Footer } from '../src/components/site/Shell.jsx';
-import { CLARITY_PROJECT_ID, FUNCTIONAL_STORAGE_KEYS } from '../src/data/cookies.js';
+import { CLARITY_PROJECT_ID, FUNCTIONAL_STORAGE_KEYS, CONSENT_VERSION } from '../src/data/cookies.js';
 import { ANSWERS_KEY, blankAnswers, saveAnswers, loadAnswers, clearAnswers } from '../src/components/pricing/wizardLogic.js';
 
 const clearCookies = () => {
@@ -61,6 +61,19 @@ describe('consent store', () => {
     expect(value.functional).toBe(true);
     expect(value.analytics).toBe(false);
     expect(typeof value.ts).toBe('number');
+    expect(value.ver).toBe(CONSENT_VERSION);
+    expect(value.src).toBe('banner');
+    expect(new Date(value.at).toISOString()).toBe(value.at);
+  });
+
+  it('a record from an older policy version counts as no choice (banner asks again)', () => {
+    const old = encodeURIComponent(JSON.stringify({ v: 1, ver: '2000-01-01', functional: true, analytics: true, ts: 1 }));
+    document.cookie = `arinox_consent=${old}; Path=/`;
+    expect(hasDecided()).toBe(false);
+    expect(getConsent().analytics).toBe(false);
+    const legacy = encodeURIComponent(JSON.stringify({ v: 1, functional: true, analytics: true, ts: 1 }));
+    document.cookie = `arinox_consent=${legacy}; Path=/`;
+    expect(hasDecided()).toBe(false);
   });
 
   it('notifies subscribers and ignores a corrupt cookie', () => {
@@ -73,10 +86,15 @@ describe('consent store', () => {
     expect(hasDecided()).toBe(false);
   });
 
-  it('Global Privacy Control keeps analytics off until the user chooses', () => {
+  it('Global Privacy Control is recorded as Reject all (source gpc); an explicit opt-in still wins', () => {
     navigator.globalPrivacyControl = true;
     expect(getConsent().analytics).toBe(false);
-    setConsent({ analytics: true });
+    expect(applyGpc()).toBe(true);
+    expect(hasDecided()).toBe(true);
+    const raw = document.cookie.split('; ').find((c) => c.startsWith('arinox_consent='));
+    expect(JSON.parse(decodeURIComponent(raw.split('=')[1])).src).toBe('gpc');
+    expect(applyGpc()).toBe(false); // already decided
+    setConsent({ analytics: true }, 'settings');
     expect(getConsent().analytics).toBe(true);
   });
 
@@ -123,6 +141,27 @@ describe('cookie banner', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save choices' }));
     expect(getConsent()).toMatchObject({ functional: false, analytics: true });
     expect(screen.queryByRole('region', { name: /cookie preferences/i })).toBeNull();
+  });
+
+  it('stays closed under GPC on a first visit', () => {
+    navigator.globalPrivacyControl = true;
+    renderBanner();
+    expect(screen.queryByRole('region', { name: /cookie preferences/i })).toBeNull();
+    expect(getConsent()).toMatchObject({ functional: false, analytics: false });
+  });
+
+  it('links both the cookie policy and the privacy policy', () => {
+    renderBanner();
+    expect(screen.getByRole('link', { name: /privacy policy/i }).getAttribute('href')).toBe('/privacy');
+  });
+
+  it('a change made from Cookie settings is recorded with source settings', () => {
+    setConsent({ functional: false, analytics: false });
+    renderBanner();
+    fireEvent.click(screen.getByRole('button', { name: 'Cookie settings' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Accept all' }));
+    const raw = document.cookie.split('; ').find((c) => c.startsWith('arinox_consent='));
+    expect(JSON.parse(decodeURIComponent(raw.split('=')[1])).src).toBe('settings');
   });
 
   it('stays hidden for a returning visitor; the footer link reopens it in Choose mode', () => {

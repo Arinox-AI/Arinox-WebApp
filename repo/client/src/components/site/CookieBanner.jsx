@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { banner, categories } from '../../data/cookies';
-import { getConsent, gpcOn, hasDecided, setConsent, SETTINGS_EVENT_NAME } from '../../lib/consent';
+import { applyGpc, getConsent, gpcOn, hasDecided, setConsent, SETTINGS_EVENT_NAME } from '../../lib/consent';
 import { startConsentEffects } from '../../lib/consentEffects';
 
 /* A slim dark strip along the bottom edge: one sentence, three equal buttons.
@@ -37,7 +37,9 @@ function Toggle({ id, label, description, checked, locked, onChange }) {
 }
 
 export function CookieBanner() {
-  const [open, setOpen] = useState(() => !hasDecided());
+  // GPC with no stored choice is recorded as "Reject all" and the panel stays closed.
+  const [open, setOpen] = useState(() => !applyGpc() && !hasDecided());
+  const fromSettings = useRef(false);
   const [choosing, setChoosing] = useState(false);
   const [draft, setDraft] = useState(() => getConsent());
   const panelRef = useRef(null);
@@ -46,6 +48,7 @@ export function CookieBanner() {
 
   useEffect(() => {
     const reopen = () => {
+      fromSettings.current = true;
       setDraft(getConsent());
       setChoosing(true);
       setOpen(true);
@@ -59,7 +62,8 @@ export function CookieBanner() {
   }, [open, choosing]);
 
   const decide = (choice) => {
-    setConsent(choice);
+    setConsent(choice, fromSettings.current ? 'settings' : 'banner');
+    fromSettings.current = false;
     setOpen(false);
     setChoosing(false);
   };
@@ -82,6 +86,10 @@ export function CookieBanner() {
             {banner.body}{' '}
             <Link to={banner.learnMore.to} className="whitespace-nowrap text-paper underline decoration-paper/40 underline-offset-2 hover:decoration-paper">
               {banner.learnMore.label}
+            </Link>
+            <span className="text-paper/40"> · </span>
+            <Link to={banner.privacy.to} className="whitespace-nowrap text-paper underline decoration-paper/40 underline-offset-2 hover:decoration-paper">
+              {banner.privacy.label}
             </Link>
             {gpcOn() ? <span className="mt-1 block text-[12px] text-paper/60">{banner.gpc}</span> : null}
           </p>

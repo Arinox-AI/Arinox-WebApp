@@ -13,9 +13,9 @@ describe('mailer CC lists', () => {
     else process.env.TEAM_CC = saved;
   });
 
-  it('team CC always carries solutions@arinox.ai, even when TEAM_CC is emptied', () => {
+  it('team CC is solutions@arinox.ai only by default, and TEAM_CC cannot drop it', () => {
     delete process.env.TEAM_CC;
-    expect(mailer.teamCc()).toEqual(['ajay@arinox.ai', 'solutions@arinox.ai']);
+    expect(mailer.teamCc()).toEqual(['solutions@arinox.ai']);
     process.env.TEAM_CC = '';
     expect(mailer.teamCc()).toEqual(['solutions@arinox.ai']);
   });
@@ -29,9 +29,8 @@ describe('mailer CC lists', () => {
     if (savedTo === undefined) delete process.env.EMAIL_TO; else process.env.EMAIL_TO = savedTo;
   });
 
-  it('customer emails CC only the shared inbox, never the recipient twice', () => {
-    expect(mailer.customerCc('visitor@example.com')).toEqual(['solutions@arinox.ai']);
-    expect(mailer.customerCc('Solutions@arinox.ai')).toEqual([]);
+  it('has no customer CC helper - visitor emails carry no CC', () => {
+    expect(mailer.customerCc).toBeUndefined();
   });
 });
 

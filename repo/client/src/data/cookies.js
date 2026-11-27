@@ -7,6 +7,10 @@ export const CLARITY_PROJECT_ID = 'zj62if5kjn';
 
 export const CONSENT_COOKIE = 'arinox_consent';
 export const CONSENT_DAYS = 180;
+/* Policy version. Bump it (any new string) whenever the cookie list or
+ * purposes change: stored choices from an older version are ignored and the
+ * banner asks again. */
+export const CONSENT_VERSION = '2026-11-27';
 
 /* localStorage/sessionStorage keys that only exist with Functional consent.
  * Cleared when Functional is turned off. Keep in step with wizardLogic's
@@ -20,8 +24,9 @@ export const banner = {
   title: 'Cookies and your choices',
   body: 'We use analytics and a small functional store only if you say yes. Nothing optional runs until you choose.',
   alwaysOn: 'Always on',
-  gpc: "Your browser's Global Privacy Control signal is on, so analytics stays off unless you turn it on yourself.",
+  gpc: "Your browser's Global Privacy Control signal is on, so we saved \"Reject all\" for you. You can still turn categories on here.",
   learnMore: { label: 'Cookie policy', to: '/cookies' },
+  privacy: { label: 'Privacy policy', to: '/privacy' },
   acceptAll: 'Accept all',
   rejectAll: 'Reject all',
   choose: 'Choose',
@@ -63,7 +68,8 @@ export const cookiesPage = {
       title: '1. How consent works',
       paras: [
         'When you first visit, a panel asks you to accept all, reject all, or choose by category. The three options carry equal weight. Until you choose, only the necessary item below is used and nothing is sent to Microsoft.',
-        'Your choice is stored in a first-party cookie named arinox_consent for 180 days, after which we ask again. If your browser sends a Global Privacy Control signal and you have not chosen yet, analytics stays off by default.',
+        'Your choice is stored in a first-party cookie named arinox_consent for 180 days, after which we ask again. We also ask again whenever this policy changes. If your browser sends a Global Privacy Control signal and you have not chosen yet, we treat it as "Reject all" and do not show the panel; you can still opt in through Cookie settings.',
+        'As proof of consent we keep a record of each choice on our server: the policy version, the choices, where you made them (panel, settings or the privacy signal), the time, your browser’s user agent and a one-way hash of your IP address (never the address itself). Records are deleted after 13 months.',
         'You can change your mind at any time using "Cookie settings" in the site footer or the button below. Withdrawing analytics consent stops Clarity immediately and we delete its cookies from this site (see section 4 for the ones Microsoft sets on its own domain).',
       ],
     },
@@ -93,7 +99,7 @@ export const cookiesPage = {
 export const cookieTable = {
   head: ['Name', 'Provider', 'Purpose', 'Category', 'Duration'],
   rows: [
-    ['arinox_consent', 'Arinox (first party)', 'Stores your cookie choice', 'Necessary', '180 days'],
+    ['arinox_consent', 'Arinox (first party)', 'Stores your cookie choice, the policy version and when you chose', 'Necessary', '180 days'],
     ['arinox.attribution (sessionStorage)', 'Arinox (first party)', 'Remembers the campaign source (UTM) that first brought you here, so an enquiry carries it. Never sent until you submit a form', 'Necessary', 'Until you close the tab'],
     ['arinox-discovery-answers (sessionStorage)', 'Arinox (first party)', 'Keeps roadmap answers while you move around the site in the same tab', 'Necessary', 'Until you close the tab'],
     ['arinox-discovery-answers (localStorage)', 'Arinox (first party)', 'Keeps roadmap answers between visits', 'Functional', '30 days'],

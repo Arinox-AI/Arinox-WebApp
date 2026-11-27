@@ -2,7 +2,7 @@ const path = require('path');
 const validator = require('validator');
 const multer = require('multer');
 const supabase = require('../config/supabase');
-const { sendMail, teamCc, teamTo, customerCc, applicationNotification, applicationAutoReply } = require('../utils/mailer');
+const { sendMail, teamCc, teamTo, applicationNotification, applicationAutoReply } = require('../utils/mailer');
 const { resumeToPdf } = require('../utils/resumeToPdf');
 
 const RESUME_BUCKET = 'resumes';
@@ -118,8 +118,7 @@ const submitApplication = async (req, res, next) => {
         replyTo: email, // match the contact/lead flows: reply reaches the sender
       }),
       sendMail({
-        to: email,
-        cc: customerCc(email),
+        to: email, // applicant only - no CC (user call, 2026-11-27)
         subject: `Application received - ${role} at Arinox AI`,
         html: applicationAutoReply({ fullName, role }),
       }),
