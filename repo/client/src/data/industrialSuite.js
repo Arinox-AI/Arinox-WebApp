@@ -24,7 +24,7 @@ export const industrialSuite = {
   name: 'Manufacturing OS',
   overline: 'Industry suite · Manufacturing',
   tagline: 'The AI way to run manufacturing operations.',
-  lead: 'One AI-native control plane for manufacturing operations across industries — planning, production, machines, materials, quality and maintenance read together, run by you and your agents. Signals in. Decisions out. In a loop.',
+  lead: 'One AI-native control plane for manufacturing operations across industries: planning, production, machines, materials, quality and maintenance read together, run by you and your agents. Signals in. Decisions out. In a loop.',
   hero: {
     h1Lead: 'Manufacturing',
     h1Accent: 'OS.',
@@ -68,7 +68,7 @@ export const industrialSuite = {
     slips: [
       { t: 'Downtime arrives as surprises', d: 'A stop on the bottleneck only surfaces when the delivery date is already at risk.' },
       { t: 'Defects repeat', d: 'The same fault keeps returning, and no one can see why.' },
-      { t: 'Stock sits in the wrong place', d: 'One material runs short while another piles up — and the plan notices too late.' },
+      { t: 'Stock sits in the wrong place', d: 'One material runs short while another piles up, and the plan notices too late.' },
       { t: 'People chase updates', d: 'Every progress question means walking the shop floor or rebuilding a report.' },
     ],
   },
@@ -100,9 +100,9 @@ export const industrialSuite = {
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
-    note: 'The eight capabilities, the industry use cases, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
+    note: 'The eight capabilities, the industry use cases, the connectors and how a deployment runs. Tell us where to send it. A person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
-    success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
+    success: 'Request received. We\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
     asset: 'industrial-os', // asset key the server maps to the deck template
     ctaButton: 'Request the deck',
     autoReply: {
@@ -165,7 +165,7 @@ export const industrialSuite = {
       {
         id: 'make',
         name: 'Make',
-        blurb: 'Cells, takt and changeovers in real time — flags carry the cause, not just the number.',
+        blurb: 'Cells, takt and changeovers in real time. Flags carry the cause, not just the number.',
         systems: ['MES', 'Shop floor', 'TNA'],
         console: {
           title: 'Manufacturing OS — floor console',
@@ -184,7 +184,7 @@ export const industrialSuite = {
       {
         id: 'quality',
         name: 'Quality',
-        blurb: 'Defects that repeat get found, named and fixed — the corrective action drafted, you approve.',
+        blurb: 'Defects that repeat get found, named and fixed: the corrective action drafted, you approve.',
         systems: ['Quality', 'Inspection', 'CAPA'],
         console: {
           title: 'Manufacturing OS — quality desk',
@@ -222,7 +222,7 @@ export const industrialSuite = {
       {
         id: 'deliver',
         name: 'Deliver',
-        blurb: 'Dispatch, documents and customer slots close the loop — the order leaves with its history.',
+        blurb: 'Dispatch, documents and customer slots close the loop. The order leaves with its history.',
         systems: ['Dispatch', 'Documents', 'CRM'],
         console: {
           title: 'Manufacturing OS — dispatch desk',

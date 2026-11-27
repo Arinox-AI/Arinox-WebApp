@@ -9,7 +9,7 @@ const BOX = {
   hero: 'mx-auto h-[260px] w-full md:h-[320px]',
 };
 const IMG = {
-  column: 'object-left',
+  column: 'object-left-top',
   row: 'object-left',
   hero: 'object-center',
 };

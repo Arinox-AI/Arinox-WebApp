@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { company } from '../../data/site'
 import { reachUs } from '../../data/inquiries'
 
@@ -27,11 +28,14 @@ export function ContactDetails() {
           <p className="shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint md:w-[220px]">{reachUs.offices}</p>
           <p className="text-[13.5px] leading-relaxed text-ink-soft">
             {cities.map(({ city, note }, i) => (
-              <span key={city} className="whitespace-nowrap">
-                {i > 0 ? <span className="px-2 text-ink-faint" aria-hidden>·</span> : null}
-                <span>{city}</span>
-                {note === 'Headquarters' ? <span className="text-ink-faint"> (HQ)</span> : null}
-              </span>
+              <Fragment key={city}>
+                {i > 0 ? ' ' : null}
+                <span className="whitespace-nowrap">
+                  {i > 0 ? <span className="mr-3 text-ink-faint" aria-hidden>·</span> : null}
+                  <span>{city}</span>
+                  {note === 'Headquarters' ? <span className="text-ink-faint"> (HQ)</span> : null}
+                </span>
+              </Fragment>
             ))}
           </p>
         </div>

@@ -66,7 +66,7 @@ export const sectors = [
           { value: '4.34/5', label: 'Average CSAT', basis: 'published' },
         ],
         architecture: [
-          { title: 'Tier-1 AI Agent', points: ['Resolves 40%+ of queries autonomously, in 15 languages, 24x7', 'Seamless handoff to a live agent with full context carried over', 'No repeat questions for the customer'] },
+          { title: 'Tier-1 AI Agent', points: ['Resolves 40%+ of queries autonomously, in 15 languages, 24x7', 'Handoff to a live agent with full context carried over', 'No repeat questions for the customer'] },
           { title: 'AI Assist, Live Coaching', points: ['Listens on every live interaction in real time', 'Next-best-reply suggestions with the policy citation behind each one', 'Right process, first attempt, every time'] },
           { title: 'Tri-Modal Sentiment Engine', points: ['Text, audio tone and facial cues read together, an industry first', 'Accurate, real-time satisfaction read for supervisors', 'Replaces reliance on post-call surveys'] },
         ],
@@ -416,7 +416,7 @@ export const sectors = [
         title: 'Real-Time Context Orchestration',
         problem: 'Relationships are siloed, not connected: data is scattered across channels, so customers repeat themselves, handling time grows, and context is inconsistent at the point of conversation.',
         agentNote: 'In production · customer & front-line operations',
-        outcome: 'Six core signals, identity, transactions, open issues, interaction history, behaviour and engagement, are resolved in real time and delivered to front-line dashboards the moment an interaction starts, cutting repeated questions and shortening handling time.',
+        outcome: 'Six core signals (identity, transactions, open issues, interaction history, behaviour and engagement) are resolved in real time and delivered to front-line dashboards the moment an interaction starts, cutting repeated questions and shortening handling time.',
         metrics: [
           { value: '0.4s', label: 'Average context latency', basis: 'published' },
           { value: '6', label: 'Core signals unified', basis: 'published' },

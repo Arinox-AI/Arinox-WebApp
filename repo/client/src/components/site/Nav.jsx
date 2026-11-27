@@ -138,9 +138,9 @@ export function Nav() {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
-          <Button to="/get-started" variant="dark" size="sm" className="whitespace-nowrap">Get your AI roadmap</Button>
+          <Button to="/get-started" variant="dark" size="sm" className="hidden whitespace-nowrap md:inline-flex">Get your AI roadmap</Button>
         <button
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 lg:hidden"
+          className="-mr-2 flex h-11 w-11 flex-col items-center justify-center gap-1.5 lg:hidden"
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}

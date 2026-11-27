@@ -26,7 +26,7 @@ const ICONS = [
 
 const DOT = {
   light: 'border-line bg-paper-0 text-ink-faint',
-  ember: 'border-ember bg-ember text-white',
+  ember: 'border-ember bg-ember text-ink',
   dark: 'border-void bg-void text-phos',
   tint: 'border-ember/40 bg-paper-0 text-ember-deep',
 }

@@ -4,13 +4,19 @@
  * add one loader in lib/consentEffects.js. */
 
 export const CLARITY_PROJECT_ID = 'zj62if5kjn';
+/* Google Tag Manager container (it carries the GA4 tag). Loaded only after
+ * analytics consent, by lib/consentEffects.js. */
+export const GTM_CONTAINER_ID = 'GTM-P5N7KXHT';
 
 export const CONSENT_COOKIE = 'arinox_consent';
 export const CONSENT_DAYS = 180;
-/* Policy version. Bump it (any new string) whenever the cookie list or
- * purposes change: stored choices from an older version are ignored and the
- * banner asks again. */
-export const CONSENT_VERSION = '2026-11-27';
+/* Policy version. Bump it (any new string, max 20 chars: the audit endpoint
+ * truncates) whenever the cookie list or purposes change: stored choices from
+ * an older version are ignored and the banner asks again. Compared by
+ * equality only, never parsed; the date shown on /cookies is
+ * cookiesPage.updated. '2026-11-27b' = Google Analytics added the same day as
+ * the first policy, so everyone who chose under '2026-11-27' is asked again. */
+export const CONSENT_VERSION = '2026-11-27b';
 
 /* localStorage/sessionStorage keys that only exist with Functional consent.
  * Cleared when Functional is turned off. Keep in step with wizardLogic's
@@ -19,6 +25,11 @@ export const FUNCTIONAL_STORAGE_KEYS = ['arinox-discovery-answers'];
 
 /* Cookies Clarity may set on our domain; removed on withdrawal. */
 export const CLARITY_COOKIES = ['_clck', '_clsk', 'CLID', 'MUID', 'ANONCHK', 'MR', 'SM', 'SRM_B'];
+
+/* Google Analytics cookies on our domain, removed on withdrawal: `_ga` plus
+ * every cookie whose name starts with `_ga_` (GA4 sets _ga_<measurement id>). */
+export const GA_COOKIE = '_ga';
+export const GA_COOKIE_PREFIX = '_ga_';
 
 export const banner = {
   title: 'Cookies and your choices',
@@ -51,8 +62,8 @@ export const categories = [
   {
     key: 'analytics',
     label: 'Analytics',
-    description: 'Microsoft Clarity records anonymised sessions and heatmaps so we can improve the site. Microsoft acts as our processor and may process data outside India.',
-    short: 'Microsoft Clarity heatmaps and session recordings.',
+    description: 'Microsoft Clarity records anonymised sessions and heatmaps, and Google Analytics (loaded through Google Tag Manager) counts visits and page views, so we can improve the site. Microsoft and Google act as our processors and may process data outside India. No advertising cookies.',
+    short: 'Microsoft Clarity and Google Analytics.',
   },
 ];
 
@@ -67,10 +78,10 @@ export const cookiesPage = {
     {
       title: '1. How consent works',
       paras: [
-        'When you first visit, a panel asks you to accept all, reject all, or choose by category. The three options carry equal weight. Until you choose, only the necessary item below is used and nothing is sent to Microsoft.',
+        'When you first visit, a panel asks you to accept all, reject all, or choose by category. The three options carry equal weight. Until you choose, only the necessary item below is used and nothing is sent to Microsoft or Google.',
         'Your choice is stored in a first-party cookie named arinox_consent for 180 days, after which we ask again. We also ask again whenever this policy changes. If your browser sends a Global Privacy Control signal and you have not chosen yet, we treat it as "Reject all" and do not show the panel; you can still opt in through Cookie settings.',
         'As proof of consent we keep a record of each choice on our server: the policy version, the choices, where you made them (panel, settings or the privacy signal), the time, your browser’s user agent and a one-way hash of your IP address (never the address itself). Records are deleted after 13 months.',
-        'You can change your mind at any time using "Cookie settings" in the site footer or the button below. Withdrawing analytics consent stops Clarity immediately and we delete its cookies from this site (see section 4 for the ones Microsoft sets on its own domain).',
+        'You can change your mind at any time using "Cookie settings" in the site footer or the button below. Withdrawing analytics consent stops Clarity and Google Analytics immediately and we delete their cookies from this site (see section 4 for the ones Microsoft sets on its own domain).',
       ],
     },
     {
@@ -78,7 +89,7 @@ export const cookiesPage = {
       list: [
         ['Necessary', 'Always on. Remembers your consent choice and keeps your first-visit campaign source for the length of a browser session.'],
         ['Functional', 'Optional. Stores your in-progress roadmap answers in this browser for 30 days. When off, answers are kept only for the current tab session, as before.'],
-        ['Analytics', 'Optional. Microsoft Clarity session recordings and heatmaps. Clarity masks form input by default. It is loaded only after you consent.'],
+        ['Analytics', 'Optional. Microsoft Clarity session recordings and heatmaps (Clarity masks form input by default), and Google Analytics visit and page-view statistics, loaded through Google Tag Manager. Both are loaded only after you consent. Advertising storage stays off.'],
       ],
     },
     {
@@ -91,6 +102,14 @@ export const cookiesPage = {
         'Clarity is provided by Microsoft Corporation, which processes the data on our behalf. Recordings and heatmaps may be stored on servers outside India. Microsoft describes its handling of data at privacy.microsoft.com. Durations marked "per Microsoft" are set by Clarity and can change; we list the values published at the time of writing.',
         'Some Clarity cookies (CLID, MUID, ANONCHK, MR, SM) are set by Microsoft on its own domain, clarity.ms, not on arinox.ai. Browsers do not let one website delete another website\'s cookies, so when you withdraw consent we stop loading Clarity and delete the cookies on arinox.ai, and the clarity.ms cookies are no longer used by this site. To remove them as well, clear cookies for clarity.ms in your browser settings.',
         'To withdraw consent, turn Analytics off in Cookie settings. For deletion requests about data already collected, write to assist@arinox.ai.',
+      ],
+    },
+    {
+      title: '5. Google Analytics',
+      paras: [
+        'Google Analytics is provided by Google LLC, which processes the data on our behalf. We load it through Google Tag Manager, and only after you accept analytics. It tells us how many people visit, which pages they view and where they came from. Advertising storage, ad personalisation and ad user data are always set to denied. Google handles IP addresses under its own policies (Google Analytics 4 does not log or store IP addresses) and may process data on servers outside India. Google describes its handling of data at policies.google.com/privacy, and you can opt out on every site with the browser add-on at tools.google.com/dlpage/gaoptout.',
+        'The Google Analytics cookies (_ga and _ga_<container-id>) are first-party cookies on arinox.ai, set by Google’s script. When you withdraw consent we tell Google Analytics to stop collecting and delete these cookies. Durations marked "per Google" are set by Google and can change.',
+        'To withdraw consent, turn Analytics off in Cookie settings.',
       ],
     },
   ],
@@ -110,6 +129,8 @@ export const cookieTable = {
     ['ANONCHK', 'Microsoft (third party, clarity.ms)', 'Indicates whether MUID is passed to an advertising cookie. Clarity does not use advertising cookies, so this is always 0', 'Analytics', 'Set by Microsoft'],
     ['MR', 'Microsoft (third party, clarity.ms)', 'Indicates whether to refresh MUID', 'Analytics', 'Set by Microsoft'],
     ['SM', 'Microsoft (third party, clarity.ms)', 'Synchronises MUID across Microsoft domains', 'Analytics', 'Set by Microsoft'],
+    ['_ga', 'Google Analytics (Google LLC, via Google Tag Manager). First-party cookie on arinox.ai, set by Google’s script', 'Distinguishes users so visits can be counted', 'Analytics', '2 years (per Google)'],
+    ['_ga_<container-id>', 'Google Analytics (Google LLC, via Google Tag Manager). First-party cookie on arinox.ai, set by Google’s script', 'Persists session state', 'Analytics', '2 years (per Google)'],
     ['Vercel Web Analytics', 'Vercel', 'Aggregate page views. Cookieless: no cookie or browser storage is written', 'None', 'Not applicable'],
   ],
 };

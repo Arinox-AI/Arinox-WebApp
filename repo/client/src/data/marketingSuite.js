@@ -51,9 +51,9 @@ export const marketingSuite = {
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
-    note: 'The loop, the agents behind it, the numbers and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
+    note: 'The loop, the agents behind it, the numbers and how a deployment runs. Tell us where to send it. A person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
-    success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
+    success: 'Request received. We\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
     asset: 'marketing-os', // asset key the server maps to the deck template
     ctaButton: 'Request the deck',
     autoReply: {
@@ -73,7 +73,7 @@ export const marketingSuite = {
     label: 'A day in the cockpit',
     titleLead: 'Watch it',
     titleAccent: 'work a full day.',
-    note: 'Signals land, drafts appear, you approve, actions run — and every action becomes the next signal.',
+    note: 'Signals land, drafts appear, you approve, actions run, and every action becomes the next signal.',
     stages: [
       {
         id: 'signals',
@@ -94,7 +94,7 @@ export const marketingSuite = {
       {
         id: 'drafts',
         name: 'Drafts',
-        blurb: 'The agents draft the next move for every flag — with the reason and the trade-off attached.',
+        blurb: 'The agents draft the next move for every flag, with the reason and the trade-off attached.',
         systems: ['Monitor', 'Analyse', 'Decide'],
         console: {
           title: 'Marketing OS — drafts',
@@ -113,7 +113,7 @@ export const marketingSuite = {
       {
         id: 'approvals',
         name: 'Approvals',
-        blurb: 'You approve with one look: the reason, the numbers, the risk. Edit or decline — the loop learns.',
+        blurb: 'You approve with one look: the reason, the numbers, the risk. Edit or decline; the loop learns.',
         systems: ['Your rules', 'Audit trail'],
         console: {
           title: 'Marketing OS — approvals',
@@ -128,7 +128,7 @@ export const marketingSuite = {
       {
         id: 'actions',
         name: 'Actions',
-        blurb: 'Approved actions execute — campaigns, budgets, sends. Nothing moves without the say-so.',
+        blurb: 'Approved actions execute: campaigns, budgets, sends. Nothing moves without the say-so.',
         systems: ['Campaigns', 'Budgets', 'Messaging'],
         console: {
           title: 'Marketing OS — actions',
@@ -175,11 +175,11 @@ export const marketingSuite = {
     },
     {
       q: 'Which platforms does it read?',
-      a: 'The ones you already run — ad platforms, your website funnel, store systems and CRM. The OS reads their signals as they land; nothing is invented.',
+      a: 'The ones you already run: ad platforms, your website funnel, store systems and CRM. The OS reads their signals as they land; nothing is invented.',
     },
     {
       q: 'Can it send things on its own?',
-      a: 'No. Agents draft; you approve. Emails, budget moves and campaign changes go out only with your say — and every action is logged.',
+      a: 'No. Agents draft; you approve. Emails, budget moves and campaign changes go out only with your say, and every action is logged.',
     },
     {
       q: 'Where does it run?',

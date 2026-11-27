@@ -21,7 +21,7 @@ export const digitalTwinSuite = {
   name: 'Digital Twin++',
   overline: 'Government & defence suite · Digital twin',
   tagline: 'See. Predict. Act.',
-  lead: 'One live picture of a critical site that forecasts what happens next and acts on it — with a human approving every step. Sovereign by design, all on hardware you own. Signals in. Decisions out. In a loop.',
+  lead: 'One live picture of a critical site that forecasts what happens next and acts on it, with a human approving every step. Sovereign by design, all on hardware you own. Signals in. Decisions out. In a loop.',
   hero: {
     h1Lead: 'Digital Twin',
     h1Accent: '++',
@@ -54,9 +54,9 @@ export const digitalTwinSuite = {
     note: 'every module works at level two or above',
     items: [
       { n: '1', t: 'See', d: 'One live picture of the site, from the systems you already run.' },
-      { n: '2', t: 'Understand', d: 'Events correlated across systems — and why something happened.' },
+      { n: '2', t: 'Understand', d: 'Events correlated across systems, and why something happened.' },
       { n: '3', t: 'Predict', d: 'Failures, crowding, delays and threats forecast, with what-ifs.' },
-      { n: '4', t: 'Act', d: 'Work orders, alerts and playbooks drafted — a human approves each step.', hot: true },
+      { n: '4', t: 'Act', d: 'Work orders, alerts and playbooks drafted; a human approves each step.', hot: true },
     ],
   },
   /* Where it lands. Categories only, never buyers. */
@@ -106,7 +106,7 @@ export const digitalTwinSuite = {
     slips: [
       { t: 'Problems are found by the next shift', d: 'A delay or breach is pieced together from three screens, after the window to act has closed.' },
       { t: 'Maintenance is reactive', d: 'The asset that was already telling you it was failing gets fixed once it stops.' },
-      { t: 'Decisions are rehearsed on paper', d: 'Closures, surges and incidents are planned in a meeting — never run through first.' },
+      { t: 'Decisions are rehearsed on paper', d: 'Closures, surges and incidents are planned in a meeting, never run through first.' },
       { t: 'Agencies see different pictures', d: 'In a crisis, every desk works from its own version of the same site.' },
     ],
   },
@@ -138,9 +138,9 @@ export const digitalTwinSuite = {
   request: {
     label: 'The brief',
     title: 'The rest is in the brief.',
-    note: 'The eight modules are the public names. Everything behind them — the architecture, the data it needs, how a first deployment runs — is in the brief. Tell us where to send it, and a person from the team emails your copy shortly.',
+    note: 'The eight modules are the public names. Everything behind them (the architecture, the data it needs, how a first deployment runs) is in the brief. Tell us where to send it, and a person from the team emails your copy shortly.',
     formLabel: 'Request the brief',
-    success: 'Request received — we’ll send your copy of the brief shortly. It comes from a person, not a mailing robot.',
+    success: 'Request received. We’ll send your copy of the brief shortly. It comes from a person, not a mailing robot.',
     asset: 'digital-twin', // asset key the server maps to the brief template
     ctaButton: 'Request the brief',
     autoReply: {
@@ -160,7 +160,7 @@ export const digitalTwinSuite = {
     label: 'A day on the site, stage by stage',
     titleLead: 'Follow one event',
     titleAccent: 'from sensor to decision.',
-    note: 'See, understand, predict, act — four moves, as they read on the control-room screen. What sits behind each line is the conversation we have in the room.',
+    note: 'See, understand, predict, act: four moves, as they read on the control-room screen. What sits behind each line is the conversation we have in the room.',
     stages: [
       {
         id: 'see',
@@ -199,7 +199,7 @@ export const digitalTwinSuite = {
       {
         id: 'predict',
         name: 'Predict',
-        blurb: 'The next few hours, forecast — and any change rehearsed on the twin before it touches the site.',
+        blurb: 'The next few hours forecast, and any change rehearsed on the twin before it touches the site.',
         systems: ['Forecasts', 'What-ifs'],
         console: {
           title: 'Digital Twin++ — planning desk',

@@ -104,8 +104,9 @@ const Partners = () => (
 
     <Section border={false}>
       {/* The partner wall: borderless, centred rows so a short last row reads
-          as intentional (19 logos never form a full grid). Logos stay in full
-          brand colour; hover/focus scales the logo and shows a mono name tag. */}
+          as intentional (19 logos never form a full grid). Logos sit in one ink
+          tone (user-approved 2026-11-27); hover/focus restores brand colour and
+          shows a mono name tag. */}
       <div className="flex flex-col gap-2 border-b border-ink/80 pb-4 md:flex-row md:items-center md:justify-between md:gap-4">
         <Label>The stack</Label>
         <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">
@@ -124,7 +125,7 @@ const Partners = () => (
               alt={p.name}
               loading="lazy"
               style={{ width: p.w, height: p.h }}
-              className="max-w-full shrink-0 object-contain transition duration-300 group-hover:scale-105"
+              className="max-w-full shrink-0 object-contain opacity-75 mix-blend-multiply contrast-125 grayscale transition duration-300 group-hover:scale-105 group-hover:opacity-100 group-hover:filter-none group-focus-visible:opacity-100 group-focus-visible:filter-none motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             />
             <span
               aria-hidden

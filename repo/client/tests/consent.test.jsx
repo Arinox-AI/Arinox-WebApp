@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
-// Cookie consent: store, banner, Clarity gating/withdrawal, functional storage.
-// Hermetic - @microsoft/clarity is mocked; nothing leaves the browser.
+// Cookie consent: store, banner, Clarity + GTM gating/withdrawal, functional storage.
+// Hermetic - @microsoft/clarity is mocked; jsdom never fetches the injected
+// gtm.js script, so nothing leaves the browser.
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { render, screen, fireEvent, waitFor, cleanup, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
@@ -12,7 +13,7 @@ import { getConsent, setConsent, hasDecided, subscribe, openSettings, applyGpc }
 import { startConsentEffects } from '../src/lib/consentEffects.js';
 import { CookieBanner } from '../src/components/site/CookieBanner.jsx';
 import { Footer } from '../src/components/site/Shell.jsx';
-import { CLARITY_PROJECT_ID, FUNCTIONAL_STORAGE_KEYS, CONSENT_VERSION } from '../src/data/cookies.js';
+import { CLARITY_PROJECT_ID, FUNCTIONAL_STORAGE_KEYS, CONSENT_VERSION, GTM_CONTAINER_ID } from '../src/data/cookies.js';
 import { ANSWERS_KEY, blankAnswers, saveAnswers, loadAnswers, clearAnswers } from '../src/components/pricing/wizardLogic.js';
 
 const clearCookies = () => {
@@ -30,6 +31,8 @@ beforeEach(() => {
   clarityMock.init.mockClear();
   clarityMock.consentV2.mockClear();
   delete navigator.globalPrivacyControl;
+  document.querySelectorAll('script[src*="googletagmanager.com"]').forEach((el) => el.remove());
+  delete window.dataLayer;
 });
 afterEach(() => {
   stopEffects();
@@ -232,6 +235,102 @@ describe('Clarity gating', () => {
     f.setConsent({ analytics: true });
     stopEffects = f.start();
     await waitFor(() => expect(clarityMock.init).toHaveBeenCalledTimes(1));
+  });
+});
+
+describe('Google Tag Manager gating', () => {
+  const fresh = async () => {
+    vi.resetModules();
+    const [c, e, b] = await Promise.all([
+      import('../src/lib/consent.js'),
+      import('../src/lib/consentEffects.js'),
+      import('../src/components/site/CookieBanner.jsx'),
+    ]);
+    return { setConsent: c.setConsent, start: e.startConsentEffects, Banner: b.CookieBanner };
+  };
+  const gtmScripts = () => Array.from(document.querySelectorAll('script')).filter((el) => el.src.includes('googletagmanager.com'));
+  const layer = () => (window.dataLayer || []).map((x) => (x && typeof x.length === 'number' && typeof x !== 'string' ? Array.from(x) : x));
+  const gtmStartIndex = () => layer().findIndex((x) => x && x.event === 'gtm.js');
+  const consentCalls = (kind) => layer().filter((x) => Array.isArray(x) && x[0] === 'consent' && x[1] === kind).map((x) => x[2]);
+  const renderFresh = (Banner) => render(<MemoryRouter><Banner /></MemoryRouter>);
+
+  it('the container id is the one we were given', () => {
+    expect(GTM_CONTAINER_ID).toBe('GTM-P5N7KXHT');
+  });
+
+  it('nothing is injected or queued before consent, nor after Reject all', async () => {
+    const { Banner } = await fresh();
+    renderFresh(Banner);
+    expect(gtmScripts()).toHaveLength(0);
+    expect(gtmStartIndex()).toBe(-1);
+    fireEvent.click(screen.getByRole('button', { name: 'Reject all' }));
+    expect(gtmScripts()).toHaveLength(0);
+    expect(gtmStartIndex()).toBe(-1);
+  });
+
+  it('Accept all injects gtm.js once, with Consent Mode defaults queued first (analytics granted, ads denied)', async () => {
+    const { Banner } = await fresh();
+    renderFresh(Banner);
+    fireEvent.click(screen.getByRole('button', { name: 'Accept all' }));
+    const scripts = gtmScripts();
+    expect(scripts).toHaveLength(1);
+    expect(scripts[0].src).toBe('https://www.googletagmanager.com/gtm.js?id=GTM-P5N7KXHT');
+    expect(scripts[0].async).toBe(true);
+    expect(consentCalls('default')).toEqual([
+      { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' },
+    ]);
+    const defaultIdx = layer().findIndex((x) => Array.isArray(x) && x[0] === 'consent' && x[1] === 'default');
+    expect(defaultIdx).toBeGreaterThanOrEqual(0);
+    expect(gtmStartIndex()).toBeGreaterThan(defaultIdx);
+    expect(typeof layer()[gtmStartIndex()]['gtm.start']).toBe('number');
+    // no custom page_view pushes: GA4 enhanced measurement handles SPA history changes
+    expect(layer().some((x) => Array.isArray(x) && x[0] === 'event' && x[1] === 'page_view')).toBe(false);
+  });
+
+  it('withdrawal sends consent update denied and deletes _ga / _ga_*; re-consent updates without a second script', async () => {
+    const f = await fresh();
+    stopEffects = f.start();
+    f.setConsent({ analytics: true });
+    expect(gtmScripts()).toHaveLength(1);
+    document.cookie = '_ga=GA1.1.123.456; Path=/';
+    document.cookie = '_ga_ABC123XYZ=GS1.1.789; Path=/';
+    document.cookie = 'keep_me=1; Path=/';
+    f.setConsent({ analytics: false });
+    expect(consentCalls('update').at(-1)).toEqual({ analytics_storage: 'denied' });
+    expect(document.cookie).not.toMatch(/(^|; )_ga=/);
+    expect(document.cookie).not.toContain('_ga_ABC123XYZ');
+    expect(document.cookie).toContain('keep_me=1');
+    f.setConsent({ analytics: true });
+    expect(gtmScripts()).toHaveLength(1);
+    expect(consentCalls('update').at(-1)).toEqual({ analytics_storage: 'granted' });
+    expect(consentCalls('default')).toHaveLength(1);
+  });
+
+  it('Global Privacy Control: nothing is injected', async () => {
+    navigator.globalPrivacyControl = true;
+    const f = await fresh();
+    renderFresh(f.Banner);
+    expect(screen.queryByRole('region', { name: /cookie preferences/i })).toBeNull();
+    expect(gtmScripts()).toHaveLength(0);
+    expect(window.dataLayer).toBeUndefined();
+  });
+
+  it('a consent record from before Google Analytics was added re-asks and loads nothing', async () => {
+    const old = encodeURIComponent(JSON.stringify({ v: 1, ver: '2026-11-27', src: 'banner', functional: true, analytics: true, ts: 1 }));
+    document.cookie = `arinox_consent=${old}; Path=/`;
+    expect(CONSENT_VERSION).not.toBe('2026-11-27');
+    const f = await fresh();
+    renderFresh(f.Banner);
+    expect(screen.getByRole('region', { name: /cookie preferences/i })).toBeTruthy();
+    expect(gtmScripts()).toHaveLength(0);
+    expect(clarityMock.init).not.toHaveBeenCalled();
+  });
+
+  it('starts GTM for a returning visitor who already accepted', async () => {
+    const f = await fresh();
+    f.setConsent({ analytics: true });
+    stopEffects = f.start();
+    expect(gtmScripts()).toHaveLength(1);
   });
 });
 

@@ -27,7 +27,7 @@ const Privacy = () => (
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3 text-ember-deep">Legal</p>
           <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[62px]">Privacy Policy</h1>
-          <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 26 November 2026</p>
+          <p className="mb-4 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">Effective 1 January 2025 &nbsp;·&nbsp; Last updated 27 November 2026</p>
           <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             This Privacy Policy describes how Adisen Tech Private Limited ("Arinox AI", "we", "our", or "us"),
             registered in Bengaluru, India, collects, uses, and protects information when you visit
@@ -54,9 +54,10 @@ const Privacy = () => (
             <p className="pt-1"><strong className="text-ink">C. Cookies and tracking technologies</strong></p>
             <p>Before you make a choice, we set only one necessary first-party cookie (<code>arinox_consent</code>, which records your choice) and keep one session-storage item that remembers which page first brought you here, so that an enquiry carries its campaign source. Nothing non-essential is loaded or stored until you consent.</p>
             <p><strong className="text-ink">Analytics (optional, with your consent):</strong> we use Microsoft Clarity to record anonymised sessions and heatmaps so we can see where the site is confusing. Clarity is loaded only after you accept analytics. Microsoft acts as our processor, and the data may be processed outside India. Clarity masks form input by default.</p>
+            <p><strong className="text-ink">Google Analytics (optional, with your consent):</strong> we use Google Analytics, provided by Google LLC and loaded through Google Tag Manager, to count visits and page views and see where visitors come from. It is loaded only after you accept analytics, and advertising storage, ad personalisation and ad user data are always set to denied. Google acts as our processor and handles IP addresses under its own policies (Google Analytics 4 does not log or store IP addresses); the data may be processed outside India. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-ember-deep underline underline-offset-2 hover:text-ink">Google’s privacy policy</a>; you can also opt out on every site with the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-ember-deep underline underline-offset-2 hover:text-ink">Google Analytics opt-out add-on</a>.</p>
             <p><strong className="text-ink">Functional (optional, with your consent):</strong> if you allow it, your in-progress roadmap answers are kept in this browser for 30 days. Otherwise they last only for the current tab session.</p>
             <p>We also use Vercel Web Analytics for aggregate traffic. It is cookieless and needs no consent.</p>
-            <p>You can change or withdraw your choices at any time with "Cookie settings" in the site footer. Withdrawing analytics stops Clarity and removes its cookies from this site. If your browser sends a Global Privacy Control signal and you have not chosen, we treat it as "Reject all"; you can still opt in through Cookie settings. As proof of consent we keep a record of each choice (policy version, choices, time, user agent and a one-way hash of your IP address, never the address itself) and delete it after 13 months. The full list of cookies and storage is in our <Link to="/cookies" className="text-ember-deep underline underline-offset-2 hover:text-ink">Cookie Policy</Link>.</p>
+            <p>You can change or withdraw your choices at any time with "Cookie settings" in the site footer. Withdrawing analytics stops Clarity and Google Analytics and removes their cookies from this site. If your browser sends a Global Privacy Control signal and you have not chosen, we treat it as "Reject all"; you can still opt in through Cookie settings. As proof of consent we keep a record of each choice (policy version, choices, time, user agent and a one-way hash of your IP address, never the address itself) and delete it after 13 months. The full list of cookies and storage is in our <Link to="/cookies" className="text-ember-deep underline underline-offset-2 hover:text-ink">Cookie Policy</Link>.</p>
 
             <p className="pt-1"><strong className="text-ink">D. What we do NOT collect</strong></p>
             <p>We do not collect, process, or store any data processed by CommandCore™ or other on-premises AI deployments. Our sovereign AI platform operates entirely within your own infrastructure   your operational data, AI prompts, model outputs, and business data never reach our systems or servers.</p>
@@ -90,7 +91,7 @@ const Privacy = () => (
             <ul className="list-disc list-outside space-y-1 pl-5">
               <li><strong className="text-ink">Hosting and storage:</strong> Vercel Inc. hosts the website and its serverless functions. Supabase stores our database records and files, including enquiries, leads, job applications and uploaded résumés</li>
               <li><strong className="text-ink">Email delivery:</strong> Our email provider transmits the messages you send us, our replies, and job applications with their attachments</li>
-              <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. With your consent, Microsoft Clarity (Microsoft Corporation) records anonymised sessions and heatmaps. Typefaces are served from our own domain, so no font provider receives your IP address</li>
+              <li><strong className="text-ink">Analytics and fonts:</strong> Vercel Web Analytics provides cookieless, aggregate traffic statistics. With your consent, Microsoft Clarity (Microsoft Corporation) records anonymised sessions and heatmaps, and Google Analytics (Google LLC, via Google Tag Manager) measures visits and page views. Typefaces are served from our own domain, so no font provider receives your IP address</li>
               <li><strong className="text-ink">Legal requirements:</strong> Where required by Indian law, court order, or government authority</li>
             </ul>
             <p>Some of these providers process data outside India.</p>
@@ -103,7 +104,7 @@ const Privacy = () => (
               <li>Job applications and résumés: kept while your application is being considered</li>
               <li>Server and function logs: retained briefly by our hosting provider for operational purposes</li>
               <li>Cookie-consent records: 13 months, then deleted automatically</li>
-              <li>Analytics data: aggregate and non-identifying (cookieless) from Vercel; Clarity recordings (only with consent) are retained by Microsoft under its own retention settings</li>
+              <li>Analytics data: aggregate and non-identifying (cookieless) from Vercel; Clarity recordings and Google Analytics data (only with consent) are retained by Microsoft and Google under their own retention settings</li>
             </ul>
             <p>You can ask us to delete your data at any time, and we will, unless we are required by law to keep it.</p>
           </Section>

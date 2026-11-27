@@ -40,6 +40,20 @@ function PersonGroup({ label, list }) {
 
 const [lead, ...rest] = gallery
 
+/* The essay grid after the lead: an odd count (7) would leave one orphan
+   photo, so the first and last plates widen to two columns on lg (3 + 3 + 3
+   cells), and the last also on sm (2-col). Wide plates use a matching
+   panoramic aspect so row heights stay level. */
+const plate = (i, n) => {
+  const last = i === n - 1
+  const lgWide = n % 3 !== 0 && (i === 0 || (n % 3 === 1 && last))
+  const smWide = n % 2 === 1 && last
+  return {
+    fig: [smWide && 'sm:col-span-2', lgWide ? 'lg:col-span-2' : smWide && 'lg:col-span-1'].filter(Boolean).join(' '),
+    box: [smWide && 'sm:aspect-[11/4]', lgWide ? 'lg:aspect-[11/4]' : smWide && 'lg:aspect-[4/3]'].filter(Boolean).join(' '),
+  }
+}
+
 const People = () => (
   <>
     <SEO
@@ -81,17 +95,20 @@ const People = () => (
         </div>
       </div>
       <div className="mt-14 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-        {rest.map((g) => (
-          <figure key={g.photo}>
-            <div className="aspect-[4/3] overflow-hidden bg-paper-2">
-              <img src={img(g.photo)} alt={`${g.event}: ${g.caption}`} loading="lazy" className="h-full w-full object-cover" />
-            </div>
-            <figcaption className="mt-3 border-t border-line pt-3">
-              <span className="block font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{g.event}</span>
-              <span className="mt-1.5 block text-[14px] leading-relaxed text-ink-soft">{g.caption}</span>
-            </figcaption>
-          </figure>
-        ))}
+        {rest.map((g, i) => {
+          const p = plate(i, rest.length)
+          return (
+            <figure key={g.photo} className={p.fig || undefined}>
+              <div className={`aspect-[4/3] overflow-hidden bg-paper-2 ${p.box}`}>
+                <img src={img(g.photo)} alt={`${g.event}: ${g.caption}`} loading="lazy" className="h-full w-full object-cover" />
+              </div>
+              <figcaption className="mt-3 border-t border-line pt-3">
+                <span className="block font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{g.event}</span>
+                <span className="mt-1.5 block text-[14px] leading-relaxed text-ink-soft">{g.caption}</span>
+              </figcaption>
+            </figure>
+          )
+        })}
       </div>
     </Section>
 
@@ -99,6 +116,7 @@ const People = () => (
       title={people.ctaTitle}
       offer={people.ctaOffer}
       primary={{ label: 'Join us', to: '/careers' }}
+      quiet
     />
   </>
 )

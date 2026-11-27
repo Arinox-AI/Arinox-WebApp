@@ -2,10 +2,9 @@ import SEO from '../components/ui/SEO';
 import { Section } from '../components/site/Section';
 import { Button, ArrowLink } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
-import { LayerStack } from '../components/site/LayerStack';
 import { Label } from '../components/site/Layout';
 import { CtaBand } from '../components/site/Shell';
-import { tiers, headlineClaims, governance, kogo, businessApps, deployOptions, stackIntro, appsIntro } from '../data/commandcore';
+import { tiers, headlineClaims, governance, kogo, businessApps, deployOptions, appsIntro } from '../data/commandcore';
 
 const SPECS_PDF = '/downloads/arinox-commandcore-specs.pdf';
 
@@ -47,11 +46,6 @@ const CommandCore = () => (
             The machine itself, air-gapped, in your building, answering to nobody&apos;s cloud.
             Same agents, same governance, zero egress.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 font-mono text-[11.5px] text-ink-faint lg:justify-start">
-            <span className="rounded-full border border-line bg-paper-0 px-3 py-1">100% AI · 0% internet</span>
-            <span className="rounded-full border border-line bg-paper-0 px-3 py-1">runs on your hardware</span>
-            <span className="rounded-full border border-line bg-paper-0 px-3 py-1">zero egress</span>
-          </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 lg:justify-start">
             <Button to="/get-started?start=book" variant="ember">Book a call</Button>
             <ArrowLink href={SPECS_PDF} download>Download specs</ArrowLink>
@@ -120,19 +114,6 @@ const CommandCore = () => (
       </div>
     </Section>
 
-    {/* The stack */}
-    <Section border>
-      <Label>{stackIntro.overline}</Label>
-      <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
-        {stackIntro.title}
-      </h2>
-      <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-ink-soft">{stackIntro.lead}</p>
-      <div className="mt-10">
-        <LayerStack />
-      </div>
-      <p className="mt-8 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-faint">{stackIntro.foot}</p>
-    </Section>
-
     {/* The fork: where it runs */}
     <Section dark border={false}>
       <Label dark>{deployOptions.overline}</Label>
@@ -194,7 +175,7 @@ const CommandCore = () => (
           act and stay accountable.
         </p>
       </div>
-      <p className="mt-6 max-w-3xl text-[17px] leading-relaxed text-ink-soft">{kogo.desc}</p>
+      <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-soft">{kogo.desc}</p>
       <div className="mt-10 grid gap-x-16 gap-y-0 sm:grid-cols-2">
         {kogo.points.map((p) => (
           <div key={p} className="border-b border-line py-3.5 text-[14.5px] leading-relaxed text-ink-soft">{p}</div>
@@ -212,7 +193,7 @@ const CommandCore = () => (
         </div>
         <p className="max-w-sm text-[15px] leading-relaxed text-ink-soft">{appsIntro.side}</p>
       </div>
-      <p className="mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-soft">{appsIntro.lead}</p>
+      <p className="mt-6 max-w-xl text-[17px] leading-relaxed text-ink-soft">{appsIntro.lead}</p>
       <div className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
         {businessApps.map((a) => (
           <div key={a.name} className="border-t border-ink/80 pt-6">

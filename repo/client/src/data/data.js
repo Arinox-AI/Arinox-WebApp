@@ -7,7 +7,7 @@ export const dataReadiness = {
   eyebrow: 'Under the hood · data readiness',
   titleLead: 'Make your data',
   titleAccent: 'AI-ready.',
-  lead: 'Your AI engine is only as powerful as the data behind it. Arinox transforms fragmented, unstructured and siloed enterprise data into a trusted, governed and AI-ready data foundation.',
+  lead: 'AI is only as good as the data behind it. Arinox turns fragmented, unstructured and siloed enterprise data into a governed, AI-ready foundation.',
   chips: ['discover', 'cleanse', 'structure', 'connect', 'govern', 'AI-enable'],
   link: { label: 'Assess your data readiness', to: '/get-started' },
   pullQuote: 'Garbage in, garbage out — at enterprise scale.',

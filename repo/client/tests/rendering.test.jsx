@@ -84,7 +84,7 @@ describe('partners page', () => {
 describe('header navigation', () => {
   it('top-level nav links route between pages', async () => {
     renderAt('/');
-fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
+fireEvent.click(mainNav().getByRole('link', { name: /^solutions$/i }));
     expect(await heading(/deployed inside the perimeter/i)).toBeTruthy();
 
     fireEvent.click(mainNav().getByRole('link', { name: /^blog$/i }));
@@ -101,38 +101,38 @@ fireEvent.click(mainNav().getByRole('link', { name: /^case studies$/i }));
     expect(await heading(/assembled around/i)).toBeTruthy();
   }, 30000);
 
-  it('Solutions dropdown shows six links in one list and All solutions', async () => {
+  it('Products dropdown shows six links in one list and All products', async () => {
     renderAt('/');
-    const trigger = mainNav().getByRole('link', { name: /^solutions$/i });
+    const trigger = mainNav().getByRole('link', { name: /^products$/i });
     fireEvent.mouseOver(trigger);
     fireEvent.focus(trigger);
-    const panel = within(await mainNav().findByRole('group', { name: 'Solutions' }));
+    const panel = within(await mainNav().findByRole('group', { name: 'Products' }));
     for (const label of ['Hardware', 'By industry', 'By function']) {
       expect(panel.queryByText(label)).toBeNull();
     }
     for (const name of ['CommandCore', 'Fashion & Lifestyle OS', 'Manufacturing OS', 'Marketing OS', 'Secure OS', 'Digital Twin++']) {
       expect(panel.getByRole('link', { name: new RegExp(name.replace(/[+&]/g, '\\$&')) })).toBeTruthy();
     }
-    expect(panel.getByRole('link', { name: /all solutions/i }).getAttribute('href')).toBe('/industries');
+    expect(panel.getByRole('link', { name: /all products/i }).getAttribute('href')).toBe('/industries');
   }, 30000);
 
-  it('mobile menu lists the six Solutions items flat, plus All solutions', async () => {
+  it('mobile menu lists the six Products items flat, plus All products', async () => {
     renderAt('/');
     fireEvent.click(screen.getByRole('button', { name: 'Open menu' }));
     const mobile = within(screen.getByRole('navigation', { name: 'Mobile' }));
-    expect(mobile.getByRole('link', { name: 'Solutions' })).toBeTruthy();
+    expect(mobile.getByRole('link', { name: 'Products' })).toBeTruthy();
     for (const label of ['Hardware', 'By industry', 'By function']) {
       expect(mobile.queryByText(label)).toBeNull();
     }
     for (const name of ['CommandCore', 'Marketing OS', 'Fashion & Lifestyle OS', 'Manufacturing OS', 'Secure OS', 'Digital Twin++']) {
       expect(mobile.getByRole('link', { name: new RegExp(name.replace(/[+&]/g, '\\$&')) })).toBeTruthy();
     }
-    expect(mobile.getByRole('link', { name: 'All solutions' }).getAttribute('href')).toBe('/industries');
+    expect(mobile.getByRole('link', { name: 'All products' }).getAttribute('href')).toBe('/industries');
   }, 30000);
 
   it('dropdown group opens on hover and its links route', async () => {
     renderAt('/');
-    const products = mainNav().getByRole('link', { name: /^solutions$/i });
+    const products = mainNav().getByRole('link', { name: /^products$/i });
     fireEvent.mouseOver(products);
     fireEvent.focus(products);
     const manufacturing = await mainNav().findByRole(
@@ -155,8 +155,8 @@ describe('footer', () => {
     const pricing = resources.getByRole('link', { name: 'Pricing' });
     expect(pricing.getAttribute('href')).toBe('/pricing');
 
-    // Pricing belongs to Resources, not to the Solutions column.
-    const product = within(screen.getByRole('heading', { name: 'Solutions' }).parentElement);
+    // Pricing belongs to Resources, not to the Products column.
+    const product = within(screen.getByRole('heading', { name: 'Products' }).parentElement);
     expect(product.queryByRole('link', { name: 'Pricing' })).toBeNull();
     expect(footer.getByRole('link', { name: 'Pricing' })).toBeTruthy();
   }, 30000);

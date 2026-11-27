@@ -28,7 +28,7 @@ const LedgerRow = ({ p }) => (
   >
     <div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-        <h3 className="font-display text-[28px] leading-tight tracking-[-0.02em] md:text-[34px]">{p.name}</h3>
+        <h2 className="font-display text-[28px] leading-tight tracking-[-0.02em] md:text-[34px]">{p.name}</h2>
         {p.status ? <Pill tone="ember" dot>{p.status}</Pill> : null}
       </div>
       <p className="mt-2 max-w-[56ch] text-[15px] leading-relaxed text-ink-soft">{p.line}</p>
@@ -66,8 +66,8 @@ const rows = buildRows();
 const Industries = () => (
   <>
     <SEO
-      title="All solutions | Industry operating systems | Arinox AI"
-      description="CommandCore, the sovereign AI appliance, plus Marketing OS, Fashion & Lifestyle OS, Manufacturing OS, Secure OS and Digital Twin++ — packaged AI operating systems built sector by sector: your data inside, every decision yours."
+      title="All products | Industry operating systems | Arinox AI"
+      description="CommandCore, the sovereign AI appliance, plus Marketing OS, Fashion & Lifestyle OS, Manufacturing OS, Secure OS and Digital Twin++, packaged AI operating systems built sector by sector: your data inside, every decision yours."
       canonical="https://www.arinox.ai/industries"
     />
 

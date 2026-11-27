@@ -28,28 +28,44 @@ const Cookies = () => (
       <div className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-70" aria-hidden>
         <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
       </div>
-      <div className="relative mx-auto max-w-3xl">
+      <div className="relative mx-auto min-w-0 max-w-3xl">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3 text-ember-deep">Legal</p>
           <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[62px]">{copy.title}</h1>
-          <p className="mb-2 text-[13.5px] text-ink-faint">Last updated: {copy.updated}</p>
-          <p className="mb-6 text-[15.5px] leading-relaxed text-ink-soft">{copy.intro}</p>
+          <p className="mb-4 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">Last updated {copy.updated}</p>
+          <p className="mb-6 max-w-[68ch] text-[15.5px] leading-relaxed text-ink-soft">{copy.intro}</p>
           <div className="mb-10"><ChangeButton /></div>
         </motion.div>
 
         {copy.sections.map((s) => (
           <Section key={s.title} title={s.title}>
-            {s.paras?.map((p) => <p key={p}>{p}</p>)}
+            {s.paras?.map((p) => <p key={p} className="max-w-[68ch]">{p}</p>)}
             {s.list && (
-              <ul className="list-disc list-outside space-y-1 pl-5">
+              <ul className="max-w-[68ch] list-disc list-outside space-y-1 pl-5">
                 {s.list.map(([k, v]) => (
                   <li key={k}><strong className="text-ink">{k}:</strong> {v}</li>
                 ))}
               </ul>
             )}
             {s.table && (
-              <div className="overflow-x-auto">
-                <table className="w-full min-w-[640px] border-collapse text-left text-[13px]">
+              <>
+              {/* Below md the table restacks: one hairline block per row,
+                  head labels as mono keys, so nothing scrolls sideways. */}
+              <dl className="border-t border-ink/30 text-[13.5px] md:hidden">
+                {cookieTable.rows.map((r) => (
+                  <div key={r[0]} className="border-b border-line py-3.5">
+                    <dt className="break-words font-mono text-[12.5px] text-ink">{r[0]}</dt>
+                    {r.slice(1).map((cell, i) => (
+                      <dd key={i} className="mt-1.5 grid grid-cols-[6.5rem_minmax(0,1fr)] gap-x-3">
+                        <span className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{cookieTable.head[i + 1]}</span>
+                        <span>{cell}</span>
+                      </dd>
+                    ))}
+                  </div>
+                ))}
+              </dl>
+              <div className="hidden md:block">
+                <table className="w-full border-collapse text-left text-[13px]">
                   <thead>
                     <tr>
                       {cookieTable.head.map((h) => (
@@ -68,6 +84,7 @@ const Cookies = () => (
                   </tbody>
                 </table>
               </div>
+              </>
             )}
           </Section>
         ))}

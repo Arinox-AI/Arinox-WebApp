@@ -31,11 +31,11 @@ export const whatItIs = [
   },
   {
     title: 'Work, not chat',
-    desc: 'Built-in KOGO OS runs purpose-built agents that execute real workflows, reviewing, reconciling, scheduling, deciding, with every action logged.',
+    desc: 'Built-in KOGO OS runs purpose-built agents that execute real workflows (reviewing, reconciling, scheduling, deciding) with every action logged.',
   },
   {
     title: 'Deploy in weeks, not years',
-    desc: 'A plug-and-play, self-contained AI micro-datacenter. Scale seamlessly from the edge to the datacenter without re-architecting your estate.',
+    desc: 'A plug-and-play, self-contained AI micro-datacenter. Scale from the edge to the datacenter without re-architecting your estate.',
   },
 ];
 
@@ -98,7 +98,7 @@ export const tiers = [
     tagline: 'Datacenter-grade meets private agentic AI',
     img: 'commandcore-xl',
     accelerator: '2× NVIDIA RTX PRO 6000 Blackwell',
-    desc: 'Built for large-scale, mission-critical AI workloads requiring maximum performance, reliability, and compliance, capable of running large models, multi-agent workflows, analytics pipelines, and AI governance systems, fully air-gapped.',
+    desc: 'Built for large, mission-critical AI workloads: large models, multi-agent workflows, analytics pipelines and AI governance systems, fully air-gapped.',
     highlight: true,
     bestFor: [
       'Secure AI operations hub',
@@ -135,17 +135,17 @@ export const governance = [
 ];
 
 export const deploymentSteps = [
-  { step: '01', title: 'Assess',      desc: 'We map where AI creates real advantage in your operations, constraints, data readiness, compliance needs.' },
-  { step: '02', title: 'Architect',   desc: 'We design the private AI stack for your environment, hardware footprint, agents, integrations, governance.' },
+  { step: '01', title: 'Assess',      desc: 'We map where AI creates real advantage in your operations: constraints, data readiness, compliance needs.' },
+  { step: '02', title: 'Architect',   desc: 'We design the private AI stack for your environment: hardware footprint, agents, integrations, governance.' },
   { step: '03', title: 'Deploy',      desc: 'CommandCore is installed inside your perimeter; KOGO OS agents are configured, tested, and handed over.' },
-  { step: '04', title: 'Run & scale', desc: 'We operate, measure, and expand, new agents, new workflows, new sites, as your AI practice matures.' },
+  { step: '04', title: 'Run & scale', desc: 'We operate, measure and expand (new agents, new workflows, new sites) as your AI practice matures.' },
 ];
 
 /* KOGO OS, the agentic layer (built into CommandCore) */
 export const kogo = {
   name: 'KOGO OS',
   role: 'The agentic layer',
-  desc: 'KOGO OS is an agentic operating system: the layer between your infrastructure and your work. It builds agents, orchestrates them as a mesh, manages their memory and tools, and keeps every action accountable, so the work runs itself and every step stays auditable.',
+  desc: 'KOGO OS is an agentic operating system: the layer between your infrastructure and your work. It builds agents, orchestrates them as a mesh, manages their memory and tools, and logs every action, so the work runs itself and every step stays auditable.',
   badges: ['Built-in', '250+ models · 500+ connectors', 'No cloud lock-in', '100+ ready agents'],
   points: [
     'Agent Builder, low/no-code drag-and-drop workflows',
@@ -225,7 +225,7 @@ export const appsIntro = {
 /* Home summary of the agentic layer: the precise version of the KOGO
    section on /commandcore (#kogo), which keeps the full feature list. */
 export const kogoHome = {
-  label: 'The agentic layer · KOGO OS',
+  label: 'The agentic layer',
   title: 'Infrastructure becomes work.',
   lead: 'KOGO OS builds, runs and governs AI agents on your own infrastructure. Every step they take is logged and auditable.',
   stats: [

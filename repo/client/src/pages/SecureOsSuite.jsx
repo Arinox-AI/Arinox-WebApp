@@ -21,7 +21,7 @@ const SecureOsSuite = () => (
   <>
     <SEO
       title="Secure OS | The AI way to run security operations | Arinox AI"
-      description="Secure OS is one AI-native control plane for security operations — autonomous attack and defense agents on the standard pentest toolkit, honeypot intelligence, real-time data-loss prevention on local models and compliance monitoring in seconds. Request the deck by email."
+      description="Secure OS is one AI-native control plane for security operations: autonomous attack and defense agents on the standard pentest toolkit, honeypot intelligence, real-time data-loss prevention on local models and compliance monitoring in seconds. Request the deck by email."
       canonical="https://www.arinox.ai/industries/secure"
     />
 
@@ -96,17 +96,9 @@ const SecureOsSuite = () => (
 
     {/* What changed — the statement, and the watch list it produces */}
     <Section id="changed" dark border={false} dense className="relative overflow-hidden">
-      {/* backdrop: ember glow + faint grid, the depth layer under the text */}
+      {/* backdrop: the soft ember radial only */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_15%_0%,rgba(255,99,1,0.14),transparent_70%)]" />
-        <div
-          className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_85%_65%_at_50%_0%,black_25%,transparent_80%)]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
-          }}
-        />
       </div>
 
       <div className="relative">
@@ -148,9 +140,8 @@ const SecureOsSuite = () => (
           </ol>
         </div>
 
-        <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
+        <p className="mt-10 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
           Without a control plane, this is where the margin goes.
-          <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
         </p>
       </div>
     </Section>
@@ -180,9 +171,9 @@ const SecureOsSuite = () => (
           </h2>
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{secureOsSuite.request.note}</p>
 
-          <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
-              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
+          <div className="mt-10 max-w-md">
+            <div className="flex items-center gap-5 border-y border-line py-5">
+              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Secure OS</span>
                 <span className="block h-px w-6 bg-ember/80" />
                 <span className="font-mono text-[6px] uppercase tracking-[0.16em] text-white/40">The playbook</span>
@@ -210,7 +201,7 @@ const SecureOsSuite = () => (
           </div>
         </div>
 
-        <div className="card-light p-8 md:p-10">
+        <div className="border-t border-ink/80 pt-7">
           <p className="eyebrow text-ink-faint">{inquiries.hubCard.eyebrow}</p>
           <p className="mt-4 text-[15.5px] leading-relaxed text-ink-soft">{inquiries.hubCard.body}</p>
           <Button to={inquiries.deckHref(secureOsSuite.request.asset)} variant="ember" className="mt-7 w-full sm:w-auto">

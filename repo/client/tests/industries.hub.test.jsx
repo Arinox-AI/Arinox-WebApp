@@ -19,7 +19,7 @@ describe('/industries hub list', () => {
       </MemoryRouter>
     );
     expect(container.textContent).not.toMatch(/Hardware|By industry|By function/);
-    const names = [...container.querySelectorAll('h3')].map((h) => h.textContent);
+    const names = [...container.querySelectorAll('h2')].map((h) => h.textContent).filter((t) => t !== 'Start with your industry.')
     expect(names).toEqual([
       'CommandCore™',
       'Marketing OS',

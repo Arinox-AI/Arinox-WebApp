@@ -23,7 +23,7 @@ const NotFound = () => (
           This page left the <span className="italic text-ember">perimeter.</span>
         </h1>
         <p className="mt-6 max-w-[560px] text-lg leading-relaxed text-ink-soft">
-          The page you&apos;re looking for isn&apos;t there — a moved link, a typo, or it never
+          The page you&apos;re looking for isn&apos;t there: a moved link, a typo, or it never
           existed. Everything else is right where it should be.
         </p>
         <div className="mt-8 flex flex-wrap items-center gap-4">

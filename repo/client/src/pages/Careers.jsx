@@ -3,13 +3,10 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import {
-  ArrowUpRight, Mail, Inbox, Plus, Minus,
-  MapPin, Clock,
-} from 'lucide-react';
+import { ArrowUpRight, Mail } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
-import { Button } from '../components/site/Button';
+import { Button, ArrowLink } from '../components/site/Button';
 import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { CtaBand } from '../components/site/Shell';
 import HumanCheck from '../components/site/HumanCheck';
@@ -24,12 +21,6 @@ const getJdBySlug = (roles, role) => {
 };
 
 const emptyApp = { fullName: '', email: '', phone: '', linkedIn: '', coverNote: '' };
-
-const Chip = ({ children }) => (
-  <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-paper-2 px-3 py-1 font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">
-    {children}
-  </span>
-);
 
 const JDBlock = ({ label, items }) => (
   <div>
@@ -201,7 +192,7 @@ const Careers = () => {
     <>
       <SEO
         title="Careers at Arinox AI | Build What Matters"
-        description="Join Arinox AI and build AI systems that transform enterprises and governments worldwide. Explore open roles in engineering, sales, research, and more."
+        description="Join Arinox AI and build AI systems that run in enterprises and governments worldwide. Explore open roles in engineering, sales, research, and more."
         canonical="https://www.arinox.ai/careers"
       />
 
@@ -256,7 +247,8 @@ const Careers = () => {
             )}
           </div>
 
-          {depts.length > 1 && (
+          {/* Department filters only earn their place once the list is long. */}
+          {list.length >= 5 && depts.length > 1 && (
             <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter roles by department">
               {depts.map((d) => {
                 const on = filter === d;
@@ -268,27 +260,24 @@ const Careers = () => {
                     aria-selected={on}
                     onClick={() => setFilter(d)}
                     className={`chip inline-flex items-center gap-2 rounded-full border px-3.5 py-2 transition-colors ${
-                      on ? 'border-ember bg-ember text-white' : 'border-line text-ink-soft hover:border-ink/40 hover:text-ink'
+                      on ? 'border-ember bg-ember text-ink' : 'border-line text-ink-soft hover:border-ink/40 hover:text-ink'
                     }`}
                   >
                     {d}
-                    <span className={`num text-[11px] ${on ? 'text-white/60' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
+                    <span className={`num text-[11px] ${on ? 'text-ink' : 'text-ink-faint'}`}>{String(count).padStart(2, '0')}</span>
                   </button>
                 );
               })}
             </div>
           )}
 
-          <div className="mt-8 space-y-3">
+          <div className="mt-10 border-t border-ink/80">
             {loading ? (
-              Array.from({ length: 2 }).map((_, i) => <div key={i} className="skeleton h-24 rounded-lg" />)
+              Array.from({ length: 2 }).map((_, i) => <div key={i} className="skeleton my-4 h-16 rounded-lg" />)
             ) : filtered.length === 0 ? (
-              <div className="card-light px-6 py-16 text-center">
-                <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-ember/10 text-ember-deep">
-                  <Inbox size={20} strokeWidth={1.75} />
-                </div>
+              <div className="py-14">
                 <h3 className="font-display text-xl">No open roles right now</h3>
-                <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-soft">
                   We don&apos;t have active positions at the moment, but we&apos;re always looking for exceptional people.
                 </p>
                 <Link to="/get-started?start=message" className="mt-5 inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">
@@ -301,38 +290,35 @@ const Careers = () => {
                 const jd = getJdBySlug(jdSources, job);
                 const open = expandedJD === key;
                 const applied = appliedJobs.has(job.title);
+                const meta = [job.department, job.location, job.type].filter(Boolean).join(' · ');
                 return (
-                  <article key={key} className="card-light overflow-hidden">
-                    <div className="flex flex-col gap-5 p-6 md:flex-row md:items-center md:justify-between md:p-7">
+                  <article key={key} className="border-b border-line">
+                    <div className="flex flex-col gap-4 py-7 md:flex-row md:items-end md:justify-between md:gap-10">
                       <div className="min-w-0">
-                        <h3 className="font-display text-[21px] leading-tight tracking-[-0.01em] md:text-[23px]">{job.title}</h3>
-                        <div className="mt-3 flex flex-wrap items-center gap-2">
-                          {job.department && <Chip>{job.department}</Chip>}
-                          {job.location && <Chip><MapPin size={12} strokeWidth={2.2} className="text-ember-deep" />{job.location}</Chip>}
-                          {job.type && <Chip><Clock size={12} strokeWidth={2.2} className="text-ember-deep" />{job.type}</Chip>}
-                        </div>
+                        <h3 className="font-display text-[24px] leading-tight tracking-[-0.01em] md:text-[30px]">{job.title}</h3>
+                        {meta && (
+                          <p className="mt-2.5 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{meta}</p>
+                        )}
                       </div>
 
-                      <div className="flex shrink-0 flex-wrap items-center gap-3">
+                      <div className="flex shrink-0 flex-wrap items-center gap-x-8">
                         {jd && (
                           <button
+                            type="button"
                             onClick={() => setExpandedJD(open ? null : key)}
                             aria-expanded={open}
                             aria-controls={`jd-${key}`}
-                            className="inline-flex items-center gap-1.5 rounded-btn border border-ink/20 bg-paper-0 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink transition-colors hover:border-ink/50"
+                            className="inline-flex min-h-[44px] items-center font-mono text-[12px] uppercase tracking-[0.08em] text-ink-soft transition-colors hover:text-ink"
                           >
-                            {open ? <Minus size={13} strokeWidth={2.2} /> : <Plus size={13} strokeWidth={2.2} />}
-                            {open ? 'Hide role' : 'View role'}
+                            {open ? 'Hide role −' : 'View role +'}
                           </button>
                         )}
                         {applied ? (
-                          <span className="inline-flex items-center gap-2 rounded-btn border border-ember/40 bg-ember/10 px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep">
+                          <span className="inline-flex min-h-[44px] items-center font-mono text-[12px] uppercase tracking-[0.08em] text-ink-faint">
                             Applied
                           </span>
                         ) : (
-                          <Button onClick={() => handleApplyClick(job)} variant="dark" size="sm">
-                            Apply <ArrowUpRight size={14} strokeWidth={2.2} />
-                          </Button>
+                          <ArrowLink onClick={() => handleApplyClick(job)}>Apply</ArrowLink>
                         )}
                       </div>
                     </div>
@@ -347,7 +333,7 @@ const Careers = () => {
                           transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
                           className="overflow-hidden"
                         >
-                          <div className="border-t border-line bg-paper px-6 py-7 md:px-7">
+                          <div className="pb-9 pt-1">
                             {jd.tagline && (
                               <p className="max-w-3xl text-[15.5px] leading-relaxed text-ink">{jd.tagline}</p>
                             )}
@@ -368,7 +354,7 @@ const Careers = () => {
                               </p>
                             )}
 
-                            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-6">
+                            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3">
                               {!applied && (
                                 <Button onClick={() => handleApplyClick(job)} variant="ember" size="sm">
                                   Apply for this role <ArrowUpRight size={14} strokeWidth={2.2} />
@@ -388,7 +374,7 @@ const Careers = () => {
             )}
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4 border-t border-line pt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <Button href="mailto:vandana@arinox.ai" variant="ghost">
               <Mail size={17} strokeWidth={2.2} />
               vandana@arinox.ai
@@ -399,11 +385,12 @@ const Careers = () => {
       </section>
 
       <CtaBand
+        quiet
         title="Not looking for a job, but need the work done?"
         offer={
           <>
             We deploy sovereign AI for enterprises and governments.{' '}
-            <b className="font-medium text-white">Start with a discovery session.</b>
+            <b className="font-medium text-ink">Start with a discovery session.</b>
           </>
         }
       />

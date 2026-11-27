@@ -37,7 +37,7 @@ export function ProductTour({ tour, hideLabel = false }) {
                   selected ? 'text-ink shadow-[inset_0_-2px_0_var(--color-ember)]' : 'text-ink-faint hover:text-ink'
                 }`}
               >
-                <span className="font-mono text-[11px] text-ink-faint/70">{String(i + 1).padStart(2, '0')}</span>
+                <span className="font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
                 <span className="text-[13.5px] font-medium">{s.name}</span>
               </button>
             );

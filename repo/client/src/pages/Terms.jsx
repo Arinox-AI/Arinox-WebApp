@@ -26,7 +26,7 @@ const Terms = () => (
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
           <p className="eyebrow mb-3 text-ember-deep">Legal</p>
           <h1 className="mb-3 font-display text-[40px] leading-[1.06] tracking-[-0.025em] text-ink md:text-[62px]">Terms of Service</h1>
-          <p className="mb-2 text-[13.5px] text-ink-faint">Effective date: 1 January 2025 &nbsp;·&nbsp; Last updated: 18 September 2026</p>
+          <p className="mb-4 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">Effective 1 January 2025 &nbsp;·&nbsp; Last updated 18 September 2026</p>
           <p className="mb-10 text-[15.5px] leading-relaxed text-ink-soft">
             These Terms of Service ("Terms") govern your use of the website at
             <strong className="text-ink"> www.arinox.ai</strong> and any services provided by

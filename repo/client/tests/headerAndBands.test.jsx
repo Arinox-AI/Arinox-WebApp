@@ -31,13 +31,13 @@ afterEach(cleanup);
 
 describe('nav data', () => {
   it('has exactly five items, without Home, Contact or the roadmap button', () => {
-    expect(nav.map((i) => i.label)).toEqual(['Solutions', 'Pricing', 'Case studies', 'Company', 'Blog']);
-    expect(nav.find((i) => i.label === 'Case studies').to).toBe('/case-studies');
+    expect(nav.map((i) => i.label)).toEqual(['Products', 'Pricing', 'Solutions', 'Company', 'Blog']);
+    expect(nav.find((i) => i.label === 'Solutions').to).toBe('/case-studies');
     const company = nav.find((i) => i.label === 'Company');
     expect(company.to).toBe('/people');
     expect(company.group.map((c) => c.to)).toEqual(['/people', '/partners', '/careers']);
-    const sol = nav.find((i) => i.label === 'Solutions');
-    expect(sol.allLabel).toBe('All solutions');
+    const sol = nav.find((i) => i.label === 'Products');
+    expect(sol.allLabel).toBe('All products');
     expect(sol.group.map((c) => c.label)).toEqual([
       'CommandCore',
       'Marketing OS',

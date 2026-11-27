@@ -197,7 +197,7 @@ h1.font-bold, h2.font-bold, h1.font-extrabold, h2.font-extrabold, h3.font-bold, 
   --color-hair-d: rgba(255, 255, 255, 0.12);
   --color-phos: #f4ede8;
   --color-ember: #ff6301;
-  --color-ember-deep: #b84300;
+  --color-ember-deep: #a83c00;
   --color-tint: #ffe8d9;
   --color-ghost: #a39d99;
 
@@ -324,17 +324,6 @@ h1, h2, h3, h4, h5, h6 {
   animation-play-state: paused;
 }
 
-/* Diagram connectors, dashes drift along the flow */
-@keyframes dashFlow {
-  to { stroke-dashoffset: -14; }
-}
-.flow-dash { animation: dashFlow 1.4s linear infinite; }
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
-}
-
 @keyframes tileIn {
   from { opacity: 0; transform: translateZ(-16px) scale(0.92); }
   to   { opacity: 1; }
@@ -342,13 +331,6 @@ h1, h2, h3, h4, h5, h6 {
 .tile-in { animation: tileIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
 
 /* Global landing refresh: grid, glow, app window */
-.hero-grid {
-  background-image:
-    linear-gradient(to right, rgba(23, 23, 26, 0.055) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(23, 23, 26, 0.055) 1px, transparent 1px);
-  background-size: 44px 44px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 35%, transparent 78%);
-}
 .hero-fade {
   background: radial-gradient(ellipse 70% 55% at 50% 0%, rgba(255, 99, 1, 0.14), transparent 65%);
 }
@@ -393,7 +375,6 @@ h1, h2, h3, h4, h5, h6 {
 @media (prefers-reduced-motion: reduce) {
   .tile-in,
   .pulse-ring,
-  .flow-dash,
   .marquee-track,
   .skeleton {
     animation: none;
@@ -407,15 +388,21 @@ h1, h2, h3, h4, h5, h6 {
 /* ═══════════════════════════════════════════════════════════
    ACCESSIBILITY, text contrast (WCAG AA)
    ember #ff6301 is a fill/decor colour; as text on paper it only
-   reaches 2.66:1. Deep ember #b84300 clears AA (4.88:1 on paper,
-   5.47:1 on white). On void/carbon panels the bright accent is
+   reaches 2.66:1. Deep ember #a83c00 clears AA (~5.0:1 on paper,
+   4.5:1+ on paper-2). On void/carbon panels the bright accent is
    used instead (#ff8a4a = 8.4:1).
-   Ember fills carry white text by brand direction.
+   Ember fills carry ink text (6:1; white was 3.0:1).
    ═══════════════════════════════════════════════════════════ */
-.text-ember { color: #b84300; }
+.text-ember { color: #a83c00; }
 .bg-void .text-ember,
 .product-stage .text-ember { color: #ff8a4a; }
 
-.bg-ember { color: #ffffff; }
-.bg-ember:hover { color: #ffffff; }
-.bg-ember .text-white { color: #ffffff; }
+.bg-ember { color: #17171a; }
+.bg-ember:hover { color: #17171a; }
+.bg-ember .text-white { color: #17171a; }
+
+/* ─── Typographic craft ─────────────────────────────────────
+   Hanging punctuation (Safari) on quotes; display quotes also pull
+   their opening mark into the margin so the text edge stays flush. */
+blockquote, q { hanging-punctuation: first last; }
+.hang-quote { hanging-punctuation: first last; text-indent: -0.4em; }

@@ -12,12 +12,13 @@ import { Reveal } from '../components/pricing/Reveal';
 import { PricingFaq } from '../components/pricing/PricingFaq';
 import { discoveryHref } from '../components/pricing/links';
 import { track } from '../components/pricing/track';
-import { deployOptions } from '../data/site';
 import Illustration from '../components/site/Illustration';
+import { deployOptions } from '../data/site';
 import {
   pricingHero,
   plans,
   deployIntro,
+  deployTable,
   discoverySteps,
   factors,
   inEvery,
@@ -113,7 +114,7 @@ export default function Pricing() {
         <div className="grid gap-6 md:grid-cols-3">
           {plans.items.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.05}>
-              <div className="flex h-full flex-col rounded-card border border-line border-t-2 border-t-ink bg-paper p-7">
+              <div className="flex h-full flex-col rounded-card border border-line border-t-ink/80 bg-paper p-7">
                 <span className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">
                   Plan {String(i + 1).padStart(2, '0')}
                 </span>
@@ -148,22 +149,51 @@ export default function Pricing() {
 
       {/* ── Where it runs ────────────────────────────────────────── */}
       <Section id="deploy" className="scroll-mt-[72px]" eyebrow={deployIntro.eyebrow} title={deployIntro.title} sub={deployIntro.note}>
-        <div className="grid gap-x-12 gap-y-12 md:grid-cols-3">
-          {deployOptions.map((d) => (
-            <div key={d.t} className="border-t border-ink/80 pt-7">
-              <Illustration src={d.image} />
-              <div className="mt-6 flex items-center justify-between gap-4">
-                <h3 className="font-display text-[22px] tracking-[-0.01em]">{d.t}</h3>
-                {d.sovereign && (
-                  <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">Max sovereignty</span>
-                )}
-              </div>
-              <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{d.d}</p>
-              <ul className="mt-6">
-                {d.li.map((l) => (
-                  <li key={l} className="border-b border-line py-2.5 text-sm text-ink-soft last:border-b-0">{l}</li>
+        {/* Desktop: one hairline table, no cell fills */}
+        <table className="hidden w-full table-fixed border-collapse text-left md:table">
+          <thead>
+            <tr className="border-b border-t border-line border-t-ink/80">
+              <th scope="col" className="w-[18%] py-4 pr-6"><span className="sr-only">Option</span></th>
+              {deployTable.columns.map((c, i) => (
+                <th key={c.t} scope="col" className="py-4 pr-6 align-top font-normal">
+                  <Illustration src={deployOptions[i].image} className="mb-5" />
+                  <span className="block font-display text-[21px] tracking-[-0.01em] text-ink">{c.t}</span>
+                  {c.sovereign && (
+                    <span className="mt-1 block font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{deployTable.sovereignLabel}</span>
+                  )}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {deployTable.rows.map((r) => (
+              <tr key={r.label} className="border-b border-line">
+                <th scope="row" className="py-3.5 pr-6 align-baseline font-mono text-[11.5px] font-normal uppercase tracking-[0.1em] text-ink-faint">{r.label}</th>
+                {r.cells.map((v, i) => (
+                  <td key={deployTable.columns[i].t} className="py-3.5 pr-6 align-baseline text-[15px] leading-relaxed text-ink-soft">{v}</td>
                 ))}
-              </ul>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Mobile: each option stacked as label / value rows, no horizontal scroll */}
+        <div className="space-y-10 md:hidden">
+          {deployTable.columns.map((c, i) => (
+            <div key={c.t} className="border-t border-ink/80 pt-5">
+              <Illustration src={deployOptions[i].image} className="mb-5" />
+              <h3 className="font-display text-[21px] tracking-[-0.01em]">{c.t}</h3>
+              {c.sovereign && (
+                <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{deployTable.sovereignLabel}</p>
+              )}
+              <dl className="mt-4">
+                {deployTable.rows.map((r) => (
+                  <div key={r.label} className="grid grid-cols-[6.5rem_minmax(0,1fr)] gap-x-4 border-b border-line py-3">
+                    <dt className="pt-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{r.label}</dt>
+                    <dd className="text-[14.5px] leading-relaxed text-ink-soft">{r.cells[i]}</dd>
+                  </div>
+                ))}
+              </dl>
             </div>
           ))}
         </div>

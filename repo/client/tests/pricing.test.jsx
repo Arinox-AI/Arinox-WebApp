@@ -24,8 +24,7 @@ import {
 } from '../src/components/pricing/wizardLogic';
 import { HelmetProvider } from 'react-helmet-async';
 import Pricing from '../src/pages/Pricing';
-import { plans, pricingFaq } from '../src/data/pricing';
-import { deployOptions } from '../src/data/site';
+import { plans, pricingFaq, deployTable } from '../src/data/pricing';
 import { ClientIntake } from '../src/components/site/ClientIntake';
 import axios from 'axios';
 
@@ -307,14 +306,21 @@ describe('pricing page', () => {
     expect(document.querySelector('[aria-pressed]')).toBeNull();
   });
 
-  it('shows the three shared deployOptions under #deploy', () => {
+  it('compares the three deployment options in a hairline table under #deploy', () => {
     renderPricing();
     const deploy = document.getElementById('deploy');
     expect(deploy).toBeTruthy();
-    deployOptions.forEach((d) => {
-      expect(within(deploy).getByRole('heading', { level: 3, name: d.t })).toBeTruthy();
+    expect(deployTable.columns).toHaveLength(3);
+    const table = within(deploy).getByRole('table');
+    deployTable.columns.forEach((c) => {
+      expect(within(table).getByRole('columnheader', { name: new RegExp(c.t.replace(/[()]/g, '.')) })).toBeTruthy();
     });
-    expect(deployOptions).toHaveLength(3);
+    deployTable.rows.forEach((r) => {
+      expect(r.cells).toHaveLength(3);
+      expect(within(table).getByRole('rowheader', { name: r.label })).toBeTruthy();
+    });
+    // each option carries its deployment illustration (desktop header + mobile stack)
+    expect(deploy.querySelectorAll('img').length).toBeGreaterThanOrEqual(3);
   });
 
   it('FAQ JSON-LD carries seven questions', () => {

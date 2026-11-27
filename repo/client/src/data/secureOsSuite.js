@@ -70,7 +70,7 @@ export const secureOsSuite = {
     },
     multipliedNote: 'Every endpoint, developer and department adds its own doors, files and rules.',
     slips: [
-      { t: 'Attacks are learned one breach late', d: 'The investigation happens after the damage — the attacker has already moved to the next door.' },
+      { t: 'Attacks are learned one breach late', d: 'The investigation happens after the damage. The attacker has already moved to the next door.' },
       { t: 'Defense has no memory', d: 'The trick that worked once keeps working; nobody replays it to sharpen the wall.' },
       { t: 'Data leaves quietly', d: 'Files move without anyone asking, and no one asks until an audit wants the trail.' },
       { t: 'Compliance is paperwork', d: 'Checks run by hand, months apart, instead of continuously as the work happens.' },
@@ -104,9 +104,9 @@ export const secureOsSuite = {
   request: {
     label: 'The playbook',
     title: 'Everything else is in the playbook.',
-    note: 'The seven capabilities are the public names. Everything behind them — the wiring, the guardrails, how a deployment runs — is in the playbook. Tell us where to send it, and a person from the team emails your copy shortly.',
+    note: 'The seven capabilities are the public names. Everything behind them (the wiring, the guardrails, how a deployment runs) is in the playbook. Tell us where to send it, and a person from the team emails your copy shortly.',
     formLabel: 'Request the playbook',
-    success: 'Request received — we’ll send your copy of the playbook shortly. It comes from a person, not a mailing robot.',
+    success: 'Request received. We’ll send your copy of the playbook shortly. It comes from a person, not a mailing robot.',
     asset: 'secure-os', // asset key the server maps to the playbook template
     ctaButton: 'Request the playbook',
     autoReply: {
@@ -126,7 +126,7 @@ export const secureOsSuite = {
     label: 'The perimeter, stage by stage',
     titleLead: 'Follow a watch',
     titleAccent: 'across the perimeter.',
-    note: 'From first knock to report sent — six moves, exactly as they read on the desk. What sits behind each line is the conversation we have in the room.',
+    note: 'From first knock to report sent: six moves, exactly as they read on the desk. What sits behind each line is the conversation we have in the room.',
     stages: [
       {
         id: 'sense',
@@ -150,7 +150,7 @@ export const secureOsSuite = {
       {
         id: 'capture',
         name: 'Capture',
-        blurb: 'The honeypot takes the hit on purpose — in an environment that owed you nothing.',
+        blurb: 'The honeypot takes the hit on purpose, in an environment that owed you nothing.',
         systems: ['The trap', 'The keeps'],
         console: {
           title: 'Secure OS — honeypot desk',
@@ -169,7 +169,7 @@ export const secureOsSuite = {
       {
         id: 'contain',
         name: 'Contain',
-        blurb: 'A source crosses the line, and the door it used shuts behind it — every action shipping with its reason.',
+        blurb: 'A source crosses the line, and the door it used shuts behind it; every action ships with its reason.',
         systems: ['Bans', 'Holds'],
         console: {
           title: 'Secure OS — containment desk',
@@ -226,7 +226,7 @@ export const secureOsSuite = {
       {
         id: 'prove',
         name: 'Prove',
-        blurb: 'Nothing unaccounted for. Every rule re-checked while the work happens, and the report already leaving — including to where the attacker came from.',
+        blurb: 'Nothing unaccounted for. Every rule re-checked while the work happens, and the report already leaving, including to where the attacker came from.',
         systems: ['The index', 'The desk'],
         console: {
           title: 'Secure OS — compliance desk',

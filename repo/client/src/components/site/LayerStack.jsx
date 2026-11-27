@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 
 const layers = [
   {
@@ -19,7 +19,7 @@ const layers = [
     n: '03',
     name: 'KOGO OS',
     role: 'The agentic AI layer',
-    desc: 'LLMOps, agent orchestration, agent registry, and memory — running on your hardware, grounded in the data layer beneath it.',
+    desc: 'LLMOps, agent orchestration, agent registry and memory, running on your hardware, grounded in the data layer beneath it.',
     parts: ['LLMOps', 'Orchestration', 'Registry', 'Memory'],
   },
   {
@@ -429,14 +429,17 @@ export function LayerStack({ className = '' }) {
                   <p className="mt-2 max-w-xl text-[14.5px] leading-relaxed text-ink-soft">{l.desc}</p>
                   <p className="mt-3 font-mono text-[11.5px] uppercase tracking-[0.08em] text-ink-soft">
                     {l.parts.map((c, j) => (
-                      <span key={c}>
-                        {j > 0 && (
-                          <span className="mx-2 text-ember" aria-hidden>
-                            ·
-                          </span>
-                        )}
-                        {c}
-                      </span>
+                      <Fragment key={c}>
+                        {j > 0 ? ' ' : null}
+                        <span className="whitespace-nowrap">
+                          {j > 0 && (
+                            <span className="mr-2 text-ember" aria-hidden>
+                              ·
+                            </span>
+                          )}
+                          {c}
+                        </span>
+                      </Fragment>
                     ))}
                   </p>
                 </div>

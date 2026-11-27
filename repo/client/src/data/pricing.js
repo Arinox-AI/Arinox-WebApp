@@ -2,8 +2,8 @@
  *
  * Copy is final per the design brief. Prices stay hidden by design: the page
  * never shows a price figure; the number is shared in a conversation.
- * (The "where it runs" copy lives in data/site.js `deployOptions`, shared
- * with Home.)
+ * The "where it runs" comparison (`deployTable`) restates the deployment copy
+ * that lives in full on /commandcore: facts only, no new claims.
  */
 
 /* How many questions the intake asks. Copy below quotes it;
@@ -75,6 +75,25 @@ export const deployIntro = {
   eyebrow: 'Where it runs',
   title: 'Where it runs is your call.',
   note: 'Whichever you choose, the platform and agents are the same.',
+};
+
+/* Compact comparison of the three deployment options. Every cell restates
+   a fact already in the deployment copy (data/commandcore.js deployOptions,
+   the CommandCore hero, pricingFaq, plans.note); rows we could not source
+   (e.g. egress for the cloud options) are left out on purpose. */
+export const deployTable = {
+  columns: [
+    { t: 'Public cloud' },
+    { t: 'Private cloud (VPC)' },
+    { t: 'CommandCore™ (on-prem)', sovereign: true },
+  ],
+  sovereignLabel: 'Max sovereignty',
+  rows: [
+    { label: 'Where it runs', cells: ['Deploys into your cloud', 'Hosted by us in a private VPC', 'In your building'] },
+    { label: 'Hardware', cells: ['The estate you already run', 'No hardware to own or manage', 'Runs on your own hardware'] },
+    { label: 'Isolation', cells: ['Isolated tenancy', 'Dedicated, not shared', 'Air-gapped, zero data egress'] },
+    { label: 'Plans', cells: ['Every plan', 'Every plan', 'Every plan'] },
+  ],
 };
 
 export const factors = {

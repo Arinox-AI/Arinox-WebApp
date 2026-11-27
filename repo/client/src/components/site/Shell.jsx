@@ -1,11 +1,35 @@
 import { Link } from 'react-router-dom'
-import { Button } from './Button'
+import { Button, ArrowLink } from './Button'
 import { HalftoneBackground } from './HalftoneBackground'
 import { LinkedinIcon } from './Icons'
 import { company } from '../../data/site'
 import { openSettings } from '../../lib/consent'
 
-export function CtaBand({ title, offer, primary = { label: 'Get your AI roadmap', to: '/get-started' }, secondary, facts }) {
+/* quiet: the light closing used on People and Careers only (user-approved
+   2026-11-27). Paper, a strong top rule, headline left, the action as an
+   arrow text link: no halftone, no radial, no ember button. */
+export function CtaBand({ title, offer, primary = { label: 'Get your AI roadmap', to: '/get-started' }, secondary, facts, quiet = false }) {
+  if (quiet) {
+    return (
+      <section className="bg-paper pb-20 md:pb-28">
+        <div className="mx-auto max-w-6xl px-7">
+          <div className="grid gap-8 border-t border-ink/80 pt-10 md:grid-cols-12 md:items-end md:gap-10 md:pt-14">
+            <h2 className="font-display text-[34px] leading-[1.08] tracking-[-0.01em] text-ink md:col-span-7 md:text-[54px]">{title}</h2>
+            <div className="md:col-span-5">
+              {offer && <p className="max-w-sm text-[15.5px] leading-relaxed text-ink-soft">{offer}</p>}
+              <div className="mt-4 flex flex-wrap items-center gap-x-8">
+                <ArrowLink to={primary.to}>{primary.label}</ArrowLink>
+                {secondary && <ArrowLink to={secondary.to} className="text-ink-soft">{secondary.label}</ArrowLink>}
+              </div>
+              {facts && facts.length > 0 && (
+                <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">{facts.join(' · ')}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
   return (
     <section className="relative overflow-hidden bg-void py-28 text-white md:py-36">
       <div className="pointer-events-none absolute inset-0 opacity-60">
@@ -54,9 +78,9 @@ export function Footer() {
             </p>
           </div>
           <div>
-            <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Solutions</h5>
+            <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Products</h5>
             <FooterLink to="/commandcore">CommandCore™</FooterLink>
-            <FooterLink to="/industries">All solutions</FooterLink>
+            <FooterLink to="/industries">All products</FooterLink>
             <FooterLink to="/industries/marketing">Marketing OS</FooterLink>
             <FooterLink to="/industries/fashion-lifestyle">Fashion &amp; Lifestyle OS</FooterLink>
             <FooterLink to="/industries/industrial">Manufacturing OS</FooterLink>
@@ -66,7 +90,7 @@ export function Footer() {
           <div>
             <h5 className="mb-3.5 text-sm font-medium text-ink-faint">Resources</h5>
             <FooterLink to="/pricing">Pricing</FooterLink>
-            <FooterLink to="/case-studies">Case studies</FooterLink>
+            <FooterLink to="/case-studies">Solutions</FooterLink>
             <FooterLink to="/blog">Blog</FooterLink>
             <FooterLink to="/careers">Careers</FooterLink>
             <FooterLink to="/partners">Partners</FooterLink>
@@ -86,7 +110,6 @@ export function Footer() {
             </a>
             <FooterLink to="/privacy">Privacy</FooterLink>
             <FooterLink to="/terms">Terms</FooterLink>
-            <FooterLink to="/cookies">Cookies</FooterLink>
             <button type="button" onClick={openSettings} className="block py-1 text-left text-sm text-ink-soft transition-colors hover:text-ink">
               Cookie settings
             </button>

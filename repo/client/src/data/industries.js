@@ -11,11 +11,11 @@
    ──────────────────────────────────────────────────────────── */
 
 export const industriesMeta = {
-  overline: 'All solutions',
+  overline: 'All products',
   titleLead: 'One AI appliance.',
   titleAccent: 'Five operating systems.',
-  lead: 'CommandCore, our sovereign AI appliance, and packaged AI operating systems built sector by sector — your data inside, every decision yours.',
-  spine: 'Signals in, decisions out, you approve — the same loop under every product.',
+  lead: 'CommandCore, our sovereign AI appliance, and packaged AI operating systems built sector by sector: your data inside, every decision yours.',
+  spine: 'Signals in, decisions out, you approve: the same loop under every product.',
 };
 
 export const products = [
@@ -44,7 +44,7 @@ export const products = [
     status: '',
     available: true,
     tagline: 'Every signal read as it lands. Every fix drafted with its reason.',
-    line: 'An AI-native control plane for marketing: ads, funnel, footfall and CRM in one operating picture — you approve every move.',
+    line: 'An AI-native control plane for marketing: ads, funnel, footfall and CRM in one operating picture. You approve every move.',
     info: [
       { t: 'Signals in', d: 'ads, funnel, store and CRM' },
       { t: 'Agents', d: 'monitor, analyse, decide' },
@@ -61,7 +61,7 @@ export const products = [
     status: '',
     available: true,
     tagline: 'From product concept to delivery, in one picture.',
-    line: 'One control plane across product development, sourcing, production, inventory and sales — for apparel, footwear, accessories, home goods, lifestyle products and workwear.',
+    line: 'One control plane across product development, sourcing, production, inventory and sales, for apparel, footwear, accessories, home goods, lifestyle products and workwear.',
     info: [
       { t: 'Signals in', d: 'orders, production, materials, quality' },
       { t: 'Agents', d: 'monitor, analyse, decide' },
@@ -79,7 +79,7 @@ export const products = [
     status: '',
     available: true,
     tagline: 'From order to production to delivery, in one picture.',
-    line: 'One control plane for factories, manufacturers, exporters and production-led businesses — production planning, materials, capacity, shop-floor visibility, quality and delivery commitments read together, so problems surface before they cost the shift.',
+    line: 'One control plane for factories, manufacturers, exporters and production-led businesses: production planning, materials, capacity, shop-floor visibility, quality and delivery commitments read together, so problems surface before they cost the shift.',
     info: [
       { t: 'Signals in', d: 'orders, materials, machines, quality' },
       { t: 'Agents', d: 'monitor, analyse, decide' },
@@ -114,7 +114,7 @@ export const products = [
     status: '',
     available: true,
     tagline: 'A twin that sees, predicts and acts.',
-    line: 'The sovereign, AI-native digital twin for government and defence sites: operations, security, assets, simulation, cyber and crisis response in one live picture — air-gapped, with a human approving every action.',
+    line: 'The sovereign, AI-native digital twin for government and defence sites: operations, security, assets, simulation, cyber and crisis response in one live picture. Air-gapped, with a human approving every action.',
     info: [
       { t: 'Signals in', d: 'cameras, sensors, systems, drawings' },
       { t: 'Agents', d: 'see, understand, predict' },

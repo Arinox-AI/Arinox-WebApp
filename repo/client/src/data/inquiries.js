@@ -58,7 +58,7 @@ export const inquiries = {
 export const intake = {
   eyebrow: 'Get started',
   title: 'Tell us about your business.',
-  sub: 'Ten quick questions, so our architects arrive already knowing your teams, systems, data and goals. Then a few details, and — if you like — 30 minutes on the calendar. About 4 minutes.',
+  sub: 'Ten quick questions, so our architects arrive already knowing your teams, systems, data and goals. Then a few details and, if you like, 30 minutes on the calendar. About 4 minutes.',
   profileLabel: 'Your profile',
   restored: 'Picked up from earlier in this tab.',
   startOver: 'Start over',
@@ -77,7 +77,7 @@ export const intake = {
   trust: [
     'Reviewed by a solution architect',
     'We reply soon',
-    'Your data stays with us — zero egress',
+    'Your data stays with us: zero egress',
   ],
 
   /* The three steps. `stepOf` is the mono label above each one. */
@@ -97,7 +97,7 @@ export const intake = {
   contact: {
     heading: 'Who should we talk to?',
     sub: 'A person from the team reads this first, so the conversation is about your business. They will reply soon.',
-    subSent: 'Your answers go with it — an architect reads them before replying.',
+    subSent: 'Your answers go with it; an architect reads them before replying.',
     notesLabel: 'Anything else? What should we look at first?',
     notesPlaceholder: 'One workflow, one bottleneck, one hunch — that’s enough to start.',
     subjectLabel: 'What is this about?',

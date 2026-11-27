@@ -6,9 +6,9 @@
    link, so nothing is ever hidden behind a hover. */
 export const nav = [
   {
-    label: 'Solutions',
+    label: 'Products',
     to: '/industries',
-    allLabel: 'All solutions',
+    allLabel: 'All products',
     group: [
       { to: '/commandcore', label: 'CommandCore', note: 'Sovereign AI appliance' },
       { to: '/industries/marketing', label: 'Marketing OS', note: 'Signals in, decisions out' },
@@ -19,7 +19,7 @@ export const nav = [
     ],
   },
   { label: 'Pricing', to: '/pricing' },
-  { label: 'Case studies', to: '/case-studies' },
+  { label: 'Solutions', to: '/case-studies' },
   {
     label: 'Company',
     to: '/people',
@@ -69,7 +69,7 @@ export const story = {
   paragraphs: [
     'Most AI initiatives stall between the demo and the deployment. Models that impressed in a slide deck never survive contact with real operations, real compliance regimes, and real data. Arinox exists to close that gap.',
     'We are an AI transformation company. We help enterprises implement private AI, AI that runs on your own infrastructure, on your data, under your governance. Our product is CommandCore: sovereign AI infrastructure built in India. On top of it we deploy the KOGO agentic layer, which turns that infrastructure into working agents that do real work.',
-    'What we bring is the journey itself: the assessment of where AI genuinely pays, the architecture that fits your constraints, the deployment inside your perimeter, and the operating partnership that keeps it delivering, from the first agent to an enterprise-wide AI practice.',
+    'What we bring is the whole programme: the assessment of where AI pays, the architecture that fits your constraints, the deployment inside your perimeter, and the operating partnership that keeps it delivering, from the first agent to an enterprise-wide AI practice.',
   ],
   facts: [
     { label: 'Headquarters', value: 'Bengaluru' },
@@ -96,7 +96,7 @@ export const team = [
   {
     name: 'Ajay Kharbanda',
     role: 'CEO & Founder',
-    bio: '25+ years driving digital transformation at Fortune 500s. Connects enterprise strategy directly to AI execution at scale.',
+    bio: '25+ years driving digital transformation at Fortune 500s. Connects enterprise strategy directly to AI execution.',
     photo: '/images/team/ajay.webp',
   },
   {
@@ -120,9 +120,9 @@ export const team = [
 ];
 
 export const advisors = [
-  { name: 'Venu Ganganna',        role: 'Creative, Data & Tech Specialist', bio: 'Strategic advisor driving creative innovation, data intelligence, and technology transformation.', photo: '/images/team/venu.webp' },
-  { name: 'Lt General BK Repswal', role: 'Defence & Strategic Advisor',      bio: 'Trusted counsel and deep defence domain expertise for sovereign deployments.', photo: '/images/team/repswal.webp' },
-  { name: 'Aniruddha Deswandikar', role: 'Chief Data Strategist',            bio: 'Guides how enterprise data fuels intelligent, scalable AI outcomes.', photo: '/images/team/aniruddha.webp' },
+  { name: 'Venu Ganganna',        role: 'Creative, Data & Tech Specialist', bio: 'Advises on creative, data and technology strategy.', photo: '/images/team/venu.webp' },
+  { name: 'Lt General BK Repswal', role: 'Defence & Strategic Advisor',      bio: 'Defence domain counsel for sovereign deployments.', photo: '/images/team/repswal.webp' },
+  { name: 'Aniruddha Deswandikar', role: 'Chief Data Strategist',            bio: 'Guides how enterprise data is put to work in AI.', photo: '/images/team/aniruddha.webp' },
 ];
 
 /* On-the-ground gallery, real events, real rooms, real people */
@@ -169,7 +169,7 @@ export const home = {
     note: 'You focus on your business. We carry the technical weight, from your first working session to workflows running in production.',
     steps: [
       { n: '01', t: 'Map', d: 'One free working session. We find the workflows worth transforming first, by cost, risk, and payback speed. You keep the map either way.', tag: 'One session', image: '/images/method/map.svg' },
-      { n: '02', t: 'Build', d: 'We assemble agents on a proven agentic operating system, documents, voice, vision, decisions, wired into the tools your teams already use.', tag: 'Built on KOGO OS', image: '/images/method/build.svg' },
+      { n: '02', t: 'Build', d: 'We assemble agents on a proven agentic OS (documents, voice, vision, decisions), wired into the tools your teams already use.', tag: 'Built on KOGO OS', image: '/images/method/build.svg' },
       { n: '03', t: 'Run', d: 'You choose where it lives: your cloud, your infrastructure, or a CommandCore appliance in your building. Governed end to end.', tag: 'Inside your perimeter', image: '/images/method/run.svg' },
     ],
   },

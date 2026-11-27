@@ -100,11 +100,11 @@ const DigitalTwinSuite = () => (
         <Label>{digitalTwinSuite.levels.label}</Label>
         <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ink-faint">{digitalTwinSuite.levels.note}</span>
       </div>
-      <ol className="mt-8 grid border-l border-t border-ink/80 sm:grid-cols-2 lg:grid-cols-4">
+      <ol className="mt-8 grid gap-x-10 sm:grid-cols-2 lg:grid-cols-4">
         {digitalTwinSuite.levels.items.map((l) => (
           <li
             key={l.t}
-            className={`border-b border-r border-line p-6 md:p-7 ${l.hot ? 'bg-ember/10' : 'bg-paper-0'}`}
+            className={`border-t pb-6 pt-6 md:pt-7 ${l.hot ? 'border-ember' : 'border-ink/80'}`}
           >
             <span className="num font-display text-[44px] leading-none text-ember">{l.n}</span>
             <h3 className="mt-4 font-display text-[22px] tracking-[-0.01em]">{l.t}</h3>
@@ -159,17 +159,9 @@ const DigitalTwinSuite = () => (
 
     {/* What changed — the statement, and the watch list it produces */}
     <Section id="changed" dark border={false} dense className="relative overflow-hidden">
-      {/* backdrop: ember glow + faint grid, the depth layer under the text */}
+      {/* backdrop: the soft ember radial only */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_15%_0%,rgba(255,99,1,0.14),transparent_70%)]" />
-        <div
-          className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_85%_65%_at_50%_0%,black_25%,transparent_80%)]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
-          }}
-        />
       </div>
 
       <div className="relative">
@@ -211,9 +203,8 @@ const DigitalTwinSuite = () => (
           </ol>
         </div>
 
-        <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
+        <p className="mt-10 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
           Without one picture, this is where the time goes.
-          <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
         </p>
       </div>
     </Section>
@@ -243,9 +234,9 @@ const DigitalTwinSuite = () => (
           </h2>
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{digitalTwinSuite.request.note}</p>
 
-          <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
-              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
+          <div className="mt-10 max-w-md">
+            <div className="flex items-center gap-5 border-y border-line py-5">
+              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Digital Twin++</span>
                 <span className="block h-px w-6 bg-ember/80" />
                 <span className="font-mono text-[6px] uppercase tracking-[0.16em] text-white/40">The brief</span>
@@ -273,7 +264,7 @@ const DigitalTwinSuite = () => (
           </div>
         </div>
 
-        <div className="card-light p-8 md:p-10">
+        <div className="border-t border-ink/80 pt-7">
           <p className="eyebrow text-ink-faint">{inquiries.hubCard.eyebrow}</p>
           <p className="mt-4 text-[15.5px] leading-relaxed text-ink-soft">{inquiries.hubCard.body}</p>
           <Button to={inquiries.deckHref(digitalTwinSuite.request.asset)} variant="ember" className="mt-7 w-full sm:w-auto">

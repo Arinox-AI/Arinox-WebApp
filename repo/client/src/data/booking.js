@@ -17,9 +17,9 @@ export const booking = {
   pickDay: 'Select a day to see times.',
   none: 'No time selected',
   loading: 'Checking the calendar…',
-  loadingNote: 'Reading the team’s free times — this takes a second.',
+  loadingNote: 'Reading the team’s free times. This takes a second.',
   loadError: 'We could not load open times right now.',
-  empty: 'No open times in the next 30 days — please send us a message instead.',
+  empty: 'No open times in the next 30 days. Please send us a message instead.',
   cta: { continue: 'Continue →', back: '← Change time', confirm: 'Confirm booking', confirming: 'Booking…' },
   fields: {
     name: 'Full name',

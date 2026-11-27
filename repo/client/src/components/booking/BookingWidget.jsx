@@ -318,7 +318,7 @@ export default function BookingWidget({ embedded = false, prefill = null, notesE
                 {daySlots.map((iso) => (
                   <button
                     key={iso} type="button" onClick={() => setSlot(iso)} aria-pressed={slot === iso}
-                    className={`rounded-lg border px-2 py-2.5 font-mono text-[12.5px] transition-colors ${slot === iso ? 'border-ember bg-ember text-white' : 'border-line bg-paper-0 hover:border-ink'}`}
+                    className={`rounded-lg border px-2 py-2.5 font-mono text-[12.5px] transition-colors ${slot === iso ? 'border-ember bg-ember text-ink' : 'border-line bg-paper-0 hover:border-ink'}`}
                   >
                     {timeLabel(iso)}
                   </button>

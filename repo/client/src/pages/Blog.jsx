@@ -39,7 +39,7 @@ const Blog = () => {
     <>
       <SEO
         title="Blog & Research | Arinox AI"
-        description="Field notes from the AI transformation frontier. Strategy, case studies, technology insights, and research from the Arinox AI team."
+        description="Field notes on enterprise AI transformation. Strategy, case studies, technology and research from the Arinox AI team."
         canonical="https://www.arinox.ai/blog"
       />
 
@@ -107,9 +107,9 @@ const Blog = () => {
                       <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-ember-deep">{post.category}</span>
                       <span className="font-mono text-[11px] text-ink-faint">{formatDate(post.publishedAt)}</span>
                     </div>
-                    <h3 className="mt-4 font-display text-[21px] leading-snug tracking-[-0.01em] transition-colors group-hover:text-ember-deep line-clamp-2">
+                    <h2 className="mt-4 font-display text-[21px] leading-snug tracking-[-0.01em] transition-colors group-hover:text-ember-deep line-clamp-2">
                       {post.title}
-                    </h3>
+                    </h2>
                     <p className="mt-3 flex-1 text-[14.5px] leading-relaxed text-ink-soft line-clamp-3">{post.excerpt}</p>
                     <div className="mt-6 flex items-center justify-between border-t border-line pt-4">
                       <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ink-faint">{post.readTime} min read</span>

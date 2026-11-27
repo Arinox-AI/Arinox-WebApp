@@ -158,7 +158,7 @@ const Home = () => {
             >
               <DrawRule className="!bg-white/20" />
               <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-phos">{r.who}</p>
-              <p className="font-display text-[28px] leading-[1.15] tracking-[-0.01em] text-paper/70 md:text-[34px] lg:text-[36px]">
+              <p className="hang-quote font-display text-[28px] leading-[1.15] tracking-[-0.01em] text-paper/70 md:text-[34px] lg:text-[36px]">
                 {'“'}{r.objection}{'”'}
               </p>
               <p className="text-[16px] leading-relaxed text-phos">
@@ -223,8 +223,7 @@ const Home = () => {
       </Section>
 
       {/* The stack */}
-      <Section border>
-        <Label>The stack</Label>
+      <Section border margin eyebrow="The stack">
         <h2 className="mt-5 max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
           The transformation stack, mapped.
         </h2>
@@ -239,30 +238,30 @@ const Home = () => {
       </Section>
 
       {/* The agentic layer: the precise KOGO summary; full detail on /commandcore#kogo */}
-      <Section border margin eyebrow={kogoHome.label}>
+      <Section dark border={false} margin eyebrow={kogoHome.label}>
         <div className="mt-5 flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] md:text-[46px]">
+          <h2 className="max-w-2xl font-display text-[34px] leading-[1.08] tracking-[-0.02em] text-phos md:text-[46px]">
             {kogoHome.title}
           </h2>
-          <p className="max-w-sm text-[15.5px] leading-relaxed text-ink-soft">{kogoHome.lead}</p>
+          <p className="max-w-sm text-[15.5px] leading-relaxed text-ghost">{kogoHome.lead}</p>
         </div>
         <div className="mt-12 grid grid-cols-2 gap-x-12 gap-y-10 md:grid-cols-4">
           {kogoHome.stats.map((s) => (
-            <div key={s.small} className="border-t border-ink/80 pt-6">
-              <p className="num font-display text-[44px] leading-none tracking-[-0.03em] text-ink">{s.big}</p>
-              <p className="mt-3 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{s.small}</p>
+            <div key={s.small} className="border-t border-white/25 pt-6">
+              <p className="num font-display text-[44px] leading-none tracking-[-0.03em] text-phos">{s.big}</p>
+              <p className="mt-3 font-mono text-[11.5px] uppercase tracking-[0.1em] text-ghost">{s.small}</p>
             </div>
           ))}
         </div>
-        <div className="mt-12 border-t border-line pt-6">
-          <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-ink-faint">{kogoHome.appsLabel}</p>
+        <div className="mt-12 border-t border-white/10 pt-6">
+          <p className="font-mono text-[11.5px] uppercase tracking-[0.1em] text-ghost">{kogoHome.appsLabel}</p>
           {/* A ruled grid, not an inline run: an inline list with "·" separators
               wraps unevenly in the margin layout's narrower column. */}
           <ul className="mt-4 grid grid-cols-2 gap-x-8 sm:grid-cols-3">
             {businessApps.map((a) => (
               <li
                 key={a.name}
-                className="border-t border-line py-3 font-display text-[20px] leading-snug tracking-[-0.01em] md:text-[24px]"
+                className="border-t border-white/10 py-3 font-display text-[20px] leading-snug tracking-[-0.01em] text-phos md:text-[24px]"
               >
                 {a.name}
               </li>
@@ -270,7 +269,7 @@ const Home = () => {
           </ul>
         </div>
         <div className="mt-10">
-          <ArrowLink to={kogoHome.link.to}>{kogoHome.link.label}</ArrowLink>
+          <ArrowLink dark to={kogoHome.link.to}>{kogoHome.link.label}</ArrowLink>
         </div>
       </Section>
 
@@ -304,7 +303,6 @@ const Home = () => {
           ))}
         </div>
       </Section>
-
       {/* Sectors */}
       <Section border margin eyebrow="Sectors">
         <div className="mt-5 flex flex-wrap items-end justify-between gap-6">

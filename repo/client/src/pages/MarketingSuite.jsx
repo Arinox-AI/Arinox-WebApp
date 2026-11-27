@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileDown, RefreshCw } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ChevronRight, FileDown } from 'lucide-react';
 import SEO from '../components/ui/SEO';
 import { Label } from '../components/site/Layout';
 import { Section } from '../components/site/Section';
@@ -7,30 +7,13 @@ import { HalftoneBackground } from '../components/site/HalftoneBackground';
 import { inquiries } from '../data/inquiries';
 import { Button } from '../components/site/Button';
 import { IndexStrip } from '../components/site/IndexStrip';
+import { LoopBoard } from '../components/site/SuiteSections';
 import { marketingSuite } from '../data/marketingSuite';
 import Illustration from '../components/site/Illustration';
 
 /* Marketing OS — brief page. Copy is the deck's own lines, kept minimal.
    Composition: hero → on-page index → the leak ledger (dark) → the loop
    board (signals in, the agents, decisions out, back to signal) → the deck. */
-
-/** Flow connector: dashed drift on desktop, vertical rail on mobile. */
-const FlowArrow = () => (
-  <div aria-hidden className="flex items-center justify-center">
-    <div className="hidden w-full items-center lg:flex">
-      <svg className="flow-dash h-2 min-w-0 flex-1" viewBox="0 0 40 8" preserveAspectRatio="none">
-        <line x1="0" y1="4" x2="40" y2="4" stroke="var(--color-line)" strokeWidth="1.4" strokeDasharray="4 10" />
-      </svg>
-      <ChevronRight size={14} strokeWidth={2.4} className="shrink-0 text-ember" />
-    </div>
-    <div className="flex flex-col items-center py-3 lg:hidden">
-      <svg className="flow-dash h-7 w-2" viewBox="0 0 8 40" preserveAspectRatio="none">
-        <line x1="4" y1="0" x2="4" y2="40" stroke="var(--color-line)" strokeWidth="2" strokeDasharray="4 10" />
-      </svg>
-      <ChevronDown size={14} strokeWidth={2.4} className="shrink-0 text-ember" />
-    </div>
-  </div>
-);
 
 /** One → many. The simplest reading of "output infinite, watch-list
     multiplied": one ember output, then the field of signals it throws off. */
@@ -76,88 +59,6 @@ const MultiplyMotif = () => {
       </div>
 
       <p className="mt-8 max-w-md text-[15px] leading-relaxed text-ghost">{gap.multipliedNote}</p>
-    </div>
-  );
-};
-
-/** The cockpit as a live loop, not three lists: signals → agents → decisions,
-    and a return rail so the last line of the loop gets drawn too. */
-const LoopBoard = () => {
-  const { cockpit } = marketingSuite;
-
-  return (
-    <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-paper-0 shadow-[0_32px_80px_-64px_rgba(11,11,13,0.6)]">
-      <div className="grid lg:grid-cols-[1fr_56px_minmax(280px,330px)_56px_1fr]">
-        {/* Signals in */}
-        <div className="p-6 md:p-7">
-          <p className="eyebrow text-ink-faint">Signals in</p>
-          <ul className="mt-4 border-t border-ink/80">
-            {cockpit.signalsIn.map((s) => (
-              <li key={s.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
-                <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{s.t}</span>
-                <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{s.d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <FlowArrow />
-
-        {/* The agents, the engine panel of the loop */}
-        <div className="relative border-y border-line bg-paper-2/45 p-6 md:p-7 lg:border-x lg:border-y-0">
-          <p className="eyebrow text-ember-deep">The agents</p>
-          <ol className="mt-4 border-t border-ember/30">
-            {cockpit.agents.map((a, i) => (
-              <li key={a.t} className="grid grid-cols-[auto_1fr] items-start gap-x-3.5 border-b border-ember/20 py-4 last:border-b-0">
-                <span className="num mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border border-ember/40 bg-paper-0 font-mono text-[11px] text-ember-deep">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <div>
-                  <p className="font-display text-[18px] tracking-[-0.01em]">{a.t}</p>
-                  <p className="mt-1 text-[13px] leading-relaxed text-ink-soft">{a.d}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <div className="mt-5 flex items-center gap-3 rounded-xl border border-ember/30 bg-white/80 px-4 py-3">
-            <span className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden>
-              <span className="pulse-ring absolute inline-flex h-full w-full rounded-full bg-ember/60" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-ember" />
-            </span>
-            <span className="font-mono text-[11px] uppercase tracking-[0.1em] text-ember-deep">{cockpit.approve}</span>
-          </div>
-        </div>
-
-        <FlowArrow />
-
-        {/* Decisions out */}
-        <div className="p-6 md:p-7">
-          <p className="eyebrow text-ink-faint">Decisions out</p>
-          <ul className="mt-4 border-t border-ink/80">
-            {cockpit.decisionsOut.map((d) => (
-              <li key={d.t} className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 border-b border-line py-3.5">
-                <span className="font-display text-[18px] tracking-[-0.01em] transition-colors group-hover:text-ember-deep">{d.t}</span>
-                <span className="text-right font-mono text-[11px] uppercase tracking-[0.08em] text-ink-faint">{d.d}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      {/* Return rail: the decision feeds the next signal */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line bg-paper-2/60 px-5 py-3.5 md:px-6">
-        <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ember-deep">
-          <RefreshCw size={12} strokeWidth={2.4} className="animate-spin [animation-duration:8s]" aria-hidden />
-          the loop
-        </span>
-        <span
-          aria-hidden
-          className="hidden h-px min-w-[48px] flex-1 bg-[repeating-linear-gradient(90deg,var(--color-line)_0_5px,transparent_5px_10px)] sm:block"
-        />
-        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
-          every action becomes the next signal
-        </span>
-      </div>
     </div>
   );
 };
@@ -230,17 +131,9 @@ const MarketingSuite = () => (
 
     {/* What changed — the statement, and the curve that proves it */}
     <Section id="changed" dark border={false} className="relative overflow-hidden">
-      {/* backdrop: ember glow + faint grid, the depth layer under the text */}
+      {/* backdrop: the soft ember radial only */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(55%_45%_at_15%_0%,rgba(255,99,1,0.14),transparent_70%)]" />
-        <div
-          className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_85%_65%_at_50%_0%,black_25%,transparent_80%)]"
-          style={{
-            backgroundImage:
-              'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)',
-            backgroundSize: '44px 44px',
-          }}
-        />
       </div>
 
       <div className="relative">
@@ -282,9 +175,8 @@ const MarketingSuite = () => (
           </ol>
         </div>
 
-        <p className="mt-10 inline-flex items-center gap-3 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
+        <p className="mt-10 font-mono text-[11.5px] uppercase tracking-[0.12em] text-ghost/70">
           Without a cockpit, this is where the money goes.
-          <span className="inline-block h-3 w-[6px] animate-pulse bg-ember" aria-hidden />
         </p>
       </div>
     </Section>
@@ -296,7 +188,7 @@ const MarketingSuite = () => (
         {marketingSuite.cockpit.title}
       </h2>
 
-      <LoopBoard />
+      <LoopBoard suite={marketingSuite} />
 
       <div className="mt-8 flex items-start gap-3 border-t border-line pt-5">
         <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full bg-ember" aria-hidden />
@@ -314,9 +206,9 @@ const MarketingSuite = () => (
           </h2>
           <p className="mt-4 max-w-md text-[15.5px] leading-relaxed text-ink-soft">{marketingSuite.request.note}</p>
 
-          <div className="relative mt-10 max-w-md">
-            <div className="relative flex items-center gap-5 rounded-xl border border-line bg-paper-0 p-5 shadow-[0_20px_50px_-38px_rgba(11,11,13,0.6)]">
-              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between rounded-md bg-ink p-2.5">
+          <div className="mt-10 max-w-md">
+            <div className="flex items-center gap-5 border-y border-line py-5">
+              <div aria-hidden className="flex h-16 w-[5.75rem] shrink-0 flex-col justify-between bg-ink p-2.5">
                 <span className="font-mono text-[6.5px] uppercase tracking-[0.16em] text-ember">Marketing OS</span>
                 <span className="block h-px w-6 bg-ember/80" />
                 <span className="font-mono text-[6px] uppercase tracking-[0.16em] text-white/40">The deck</span>
@@ -344,7 +236,7 @@ const MarketingSuite = () => (
           </div>
         </div>
 
-        <div className="card-light p-8 md:p-10">
+        <div className="border-t border-ink/80 pt-7">
           <p className="eyebrow text-ink-faint">{inquiries.hubCard.eyebrow}</p>
           <p className="mt-4 text-[15.5px] leading-relaxed text-ink-soft">{inquiries.hubCard.body}</p>
           <Button to={inquiries.deckHref(marketingSuite.request.asset)} variant="ember" className="mt-7 w-full sm:w-auto">

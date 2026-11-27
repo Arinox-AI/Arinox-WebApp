@@ -18,7 +18,7 @@ export const fashionLifestyleSuite = {
   name: 'Fashion & Lifestyle OS',
   overline: 'Industry suite · Fashion & Lifestyle',
   tagline: 'The AI way to run product businesses.',
-  lead: 'One AI-native control plane for your fashion and lifestyle business, from product concept to delivery — run by you and your agents. Signals in. Decisions out. In a loop.',
+  lead: 'One AI-native control plane for your fashion and lifestyle business, from product concept to delivery, run by you and your agents. Signals in. Decisions out. In a loop.',
   hero: {
     h1Lead: 'Fashion & Lifestyle',
     h1Accent: 'OS.',
@@ -32,7 +32,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'all',
         name: 'All sectors',
-        intro: 'One control plane across product development, sourcing, production, inventory and sales — so any fashion or lifestyle business reads as a single picture.',
+        intro: 'One control plane across product development, sourcing, production, inventory and sales, so any fashion or lifestyle business reads as a single picture.',
         watch: [
           { t: 'Orders', d: 'retail, wholesale and online moving at once' },
           { t: 'Production', d: 'lines, cells and shifts against the plan' },
@@ -43,7 +43,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'apparel',
         name: 'Apparel',
-        intro: 'Run styles, orders, lines and materials as one picture — so delays surface before they cost the shift.',
+        intro: 'Run styles, orders, lines and materials as one picture, so delays surface before they cost the shift.',
         watch: [
           { t: 'Line 3', d: 'output sliding for the second shift' },
           { t: 'Fabric', d: 'one lot short against the plan' },
@@ -54,7 +54,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'footwear',
         name: 'Footwear',
-        intro: 'Track components, size-and-colour variants and production together — so a missing part never becomes a late order.',
+        intro: 'Track components, size-and-colour variants and production together, so a missing part never becomes a late order.',
         watch: [
           { t: 'Components', d: 'an outsole delivery slipping against the plan' },
           { t: 'Sizes', d: 'one size short while another sits heavy' },
@@ -65,7 +65,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'accessories',
         name: 'Accessories',
-        intro: 'Coordinate materials, small batches and wholesale orders in one picture — so small runs stay profitable.',
+        intro: 'Coordinate materials, small batches and wholesale orders in one picture, so small runs stay profitable.',
         watch: [
           { t: 'Materials', d: 'hardware short against the batch plan' },
           { t: 'Batch', d: 'a small run running over its window' },
@@ -76,7 +76,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'home-goods',
         name: 'Home goods',
-        intro: 'Connect collections, suppliers, production and stock — so the range keeps selling without the warehouse filling up.',
+        intro: 'Connect collections, suppliers, production and stock, so the range keeps selling without the warehouse filling up.',
         watch: [
           { t: 'Collection', d: 'a new line loading later than planned' },
           { t: 'Materials', d: 'a supplier lot short against production' },
@@ -87,7 +87,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'lifestyle',
         name: 'Lifestyle products',
-        intro: 'Bring product development, inventory and channels together — so every new SKU lands where it can sell.',
+        intro: 'Bring product development, inventory and channels together, so every new SKU lands where it can sell.',
         watch: [
           { t: 'Launch', d: 'a new SKU missing its channel window' },
           { t: 'Inventory', d: 'stock split wrong across channels' },
@@ -98,7 +98,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'workwear',
         name: 'Uniforms & workwear',
-        intro: 'Manage specifications, size curves and repeat B2B orders — so contract deliveries stay on schedule.',
+        intro: 'Manage specifications, size curves and repeat B2B orders, so contract deliveries stay on schedule.',
         watch: [
           { t: 'Specs', d: 'a custom specification drifting from the contract' },
           { t: 'Sizes', d: 'a size curve unbalanced against the order' },
@@ -148,7 +148,7 @@ export const fashionLifestyleSuite = {
     slips: [
       { t: 'Delays arrive as surprises', d: 'A slip on the line only surfaces when the delivery date is already at risk.' },
       { t: 'Defects repeat', d: 'The same fault keeps returning, and no one can see why.' },
-      { t: 'Stock sits in the wrong place', d: 'One SKU runs short while another piles up — and the plan notices too late.' },
+      { t: 'Stock sits in the wrong place', d: 'One SKU runs short while another piles up, and the plan notices too late.' },
       { t: 'People chase updates', d: 'Every progress question means walking the floor or rebuilding a report.' },
     ],
   },
@@ -184,9 +184,9 @@ export const fashionLifestyleSuite = {
   request: {
     label: 'The deck',
     title: 'Everything else is in the deck.',
-    note: 'The ten systems, the AI brain behind them, the connectors and how a deployment runs. Tell us where to send it — a person from the team emails your copy shortly.',
+    note: 'The ten systems, the AI brain behind them, the connectors and how a deployment runs. Tell us where to send it. A person from the team emails your copy shortly.',
     formLabel: 'Request the deck',
-    success: 'Request received — we\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
+    success: 'Request received. We\u2019ll email your copy of the deck shortly. It comes from a person, not a mailing robot.',
     asset: 'fashion-lifestyle-os', // asset key the server maps to the deck template
     ctaButton: 'Request the deck',
     autoReply: {
@@ -249,7 +249,7 @@ export const fashionLifestyleSuite = {
       {
         id: 'make',
         name: 'Make',
-        blurb: 'The floor, in real time. Output, quality and attendance read together — flags arrive with reasons.',
+        blurb: 'The floor, in real time. Output, quality and attendance read together. Flags arrive with reasons.',
         systems: ['MES', 'Shop floor', 'Quality'],
         console: {
           title: 'Fashion & Lifestyle OS — floor console',
@@ -319,11 +319,11 @@ export const fashionLifestyleSuite = {
     },
     {
       q: 'Do we have to replace our ERP?',
-      a: 'No. The OS reads the systems you already run — PLM, ERP, MES, warehouse, CRM — and sits above them as the control plane. Start with two or three systems and expand; replacing a system is your call, not a requirement.',
+      a: 'No. The OS reads the systems you already run (PLM, ERP, MES, warehouse, CRM) and sits above them as the control plane. Start with two or three systems and expand; replacing a system is your call, not a requirement.',
     },
     {
       q: 'How does the AI stay under our control?',
-      a: 'Every suggestion arrives with its reason. Agents monitor and analyse, but nothing moves without your approval — and every action is logged, becoming the next signal in the loop.',
+      a: 'Every suggestion arrives with its reason. Agents monitor and analyse, but nothing moves without your approval, and every action is logged, becoming the next signal in the loop.',
     },
     {
       q: 'Where does our data live?',

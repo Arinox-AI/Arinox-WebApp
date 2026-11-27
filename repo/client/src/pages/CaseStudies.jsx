@@ -126,7 +126,7 @@ const CaseStudies = () => {
   return (
     <>
       <SEO
-        title="Case Studies | Private AI in Production | Arinox AI"
+        title="Solutions | Private AI in Production | Arinox AI"
         description="Deployed inside the perimeter. Private AI case studies across BFSI, Healthcare, Manufacturing, Defence, Government, FMCG, and Retail, verified where published."
         canonical="https://www.arinox.ai/case-studies"
       />
@@ -136,7 +136,7 @@ const CaseStudies = () => {
           <HalftoneBackground dotSize={4} spacing={20} dotColor="#ff6301" opacity={0.35} gradient={{ type: 'linear', angle: 90 }} />
         </div>
         <div className="relative mx-auto max-w-[68.5rem]">
-          <Label>Case studies</Label>
+          <Label>Solutions</Label>
           <h1 className="mt-5 max-w-3xl font-display text-[40px] leading-[1.06] tracking-[-0.025em] md:text-[62px]">
             Deployed inside the <span className="italic text-ember">perimeter.</span>
           </h1>

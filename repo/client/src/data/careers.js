@@ -1,5 +1,5 @@
 export const perks = [
-  { image: '/images/careers/impact.svg',   title: 'Impact at Scale',       desc: 'Your work powers transformation across industries and continents.' },
+  { image: '/images/careers/impact.svg',   title: 'Impact at Scale',       desc: 'Your work lands in production across industries and continents.' },
   { image: '/images/careers/growth.svg',   title: 'Fast Growth',           desc: "Develop tomorrow's skills today. We invest in your career." },
   { image: '/images/careers/creative.svg', title: 'Creative Freedom',      desc: 'Bring your best ideas. We implement them.' },
   { image: '/images/careers/office.svg',   title: 'On-Site Collaboration', desc: 'Work side-by-side with the whole team at our office.' },
@@ -13,7 +13,7 @@ export const roles = [
     location: 'Bengaluru',
     type: 'Full-time · On-site',
     jd: {
-      tagline: "Arinox AI is looking for a client-facing Enterprise Solutions Architect to help organizations unlock the power of AI. You'll work directly with clients across industries, understand their business challenges, identify AI transformation opportunities, build solution narratives, and bridge the gap between business and technology.",
+      tagline: "Arinox AI is looking for a client-facing Enterprise Solutions Architect to help organisations put AI to work. You'll work directly with clients across industries, understand their business challenges, identify AI transformation opportunities, build solution narratives, and bridge the gap between business and technology.",
       fitLabel: "What we're looking for",
       fit: [
         "Total experience of 5 years, with 2+ years of direct experience in solutioning, consulting, technology, SaaS, PaaS and AI",

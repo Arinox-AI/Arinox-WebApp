@@ -55,7 +55,7 @@ export function VideoEmbed({ id, title, duration, poster }) {
           />
           <span className="absolute inset-0 bg-void/0 transition-colors duration-300 group-hover:bg-void/10" />
           {/* Bottom-right, not centre: our posters keep their headline on the left, so it stays readable */}
-          <span className="absolute bottom-3 right-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-ember text-white shadow-[0_8px_20px_-8px_rgba(11,11,13,0.5)] transition-transform duration-300 ease-out group-hover:scale-105 md:bottom-4 md:right-4 md:h-12 md:w-12">
+          <span className="absolute bottom-3 right-3 inline-flex h-11 w-11 items-center justify-center rounded-full bg-ember text-ink shadow-[0_8px_20px_-8px_rgba(11,11,13,0.5)] transition-transform duration-300 ease-out group-hover:scale-105 md:bottom-4 md:right-4 md:h-12 md:w-12">
             <Play size={22} strokeWidth={2} className="translate-x-[2px]" fill="currentColor" aria-hidden />
           </span>
         </span>
