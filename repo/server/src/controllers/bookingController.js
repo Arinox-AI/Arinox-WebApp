@@ -106,7 +106,10 @@ const createBooking = async (req, res, next) => {
 
     const host = cfg.hostEmail();
     const attendees = [...new Set([host, clean.email.toLowerCase(), ...guests].map((a) => a.toLowerCase()))];
-    const summary = plain(`Arinox discovery session — ${clean.name}${clean.company ? ` (${clean.company})` : ''}`);
+    // Calendar title format (user call, 2026-11-27): "Arinox AI <> Company | Discovery Meeting";
+    // company is optional on the form, so fall back to the visitor's name.
+    // Only the visitor's text goes through plain(); the fixed "<>" is ours.
+    const summary = `Arinox AI <> ${plain(clean.company || clean.name)} | Discovery Meeting`;
     const description = plain(`30-minute discovery session with Arinox AI.\nVisitor: ${clean.name} (${clean.email})${clean.phone ? `, ${clean.phone}` : ''}${clean.company ? `, ${clean.company}` : ''}\nTopic: ${clean.topic || 'General'}${clean.notes ? `\nTo look at first: ${clean.notes}` : ''}${guests.length ? `\nGuests: ${guests.join(', ')}` : ''}`);
     const staticLink = process.env.BOOKING_MEET_LINK || null; // permanent video link, used when Google can't create one
 
