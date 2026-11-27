@@ -13,11 +13,11 @@ describe('mailer CC lists', () => {
     else process.env.TEAM_CC = saved;
   });
 
-  it('team CC is solutions@arinox.ai only by default, and TEAM_CC cannot drop it', () => {
+  it('team CC is always ajay@ + solutions@, and TEAM_CC cannot drop them', () => {
     delete process.env.TEAM_CC;
-    expect(mailer.teamCc()).toEqual(['solutions@arinox.ai']);
+    expect(mailer.teamCc()).toEqual(['ajay@arinox.ai', 'solutions@arinox.ai']);
     process.env.TEAM_CC = '';
-    expect(mailer.teamCc()).toEqual(['solutions@arinox.ai']);
+    expect(mailer.teamCc()).toEqual(['ajay@arinox.ai', 'solutions@arinox.ai']);
   });
 
   it('team To is assist@ + vandana@ and never solutions@, even if EMAIL_TO lists it', () => {

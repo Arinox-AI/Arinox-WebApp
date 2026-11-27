@@ -47,10 +47,11 @@ const ccList = (extra, exclude = []) => {
 };
 
 /* CC list for every email that goes to the team (inquiries, careers,
-   bookings): solutions@ only. TEAM_CC env may add names (comma list) —
-   ALWAYS_CC stays either way. */
+   bookings): ajay@ + solutions@ (user call, 2026-11-27). TEAM_CC env may
+   add names (comma list); ajay@ and solutions@ stay either way. */
+const TEAM_CC_ALWAYS = 'ajay@arinox.ai';
 const teamCc = (exclude = []) =>
-  ccList((process.env.TEAM_CC || '').split(','), exclude);
+  ccList([TEAM_CC_ALWAYS, ...(process.env.TEAM_CC || '').split(',')], exclude);
 
 /* To list for every team notification (inquiries, decks, bookings, careers):
    assist@ + vandana@. EMAIL_TO may add inboxes, but solutions@ is never a
